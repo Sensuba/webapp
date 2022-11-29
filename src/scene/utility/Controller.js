@@ -1,5 +1,5 @@
 
-class Controller {
+export default class Controller {
 
 	constructor (player) {
 
@@ -48,5 +48,3 @@ class Controller {
 		this.player.endTurn();
 	}
 }
-
-module.exports = Controller;

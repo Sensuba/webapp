@@ -7,7 +7,7 @@ let cardsversion = localStorage.getItem('library.cards.version');
 let terrainsversion = localStorage.getItem('library.terrains.version');
 let heroesversion = localStorage.getItem('library.heroes.version');
 
-class Library {
+export default class Library {
 
 	static get cards () {
 		
@@ -54,5 +54,3 @@ class Library {
 		return heroes[key];
 	}
 }
-
-module.exports = Library;

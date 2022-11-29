@@ -1,5 +1,5 @@
 
-class Broadcaster {
+export default class Broadcaster {
 
 	subscribe (type, notify) {
 
@@ -27,5 +27,3 @@ class Broadcaster {
 
 	}
 }
-
-module.exports = Broadcaster;
