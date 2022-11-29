@@ -231,7 +231,7 @@ export default class Card {
 			return false;
 		if (right && this.location.x >= 4)
 			return false;
-		//let former = this.location, newtile = this.player.tiles[this.location.x + (right ? 1 : -1)];
+		let /*former = this.location,*/ newtile = this.player.tiles[this.location.x + (right ? 1 : -1)];
 		if (newtile.isFull)
 			return false;
 		return true;
