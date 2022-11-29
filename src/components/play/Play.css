@@ -1,0 +1,107 @@
+.play-page .main {
+
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.play-buttons {
+
+	justify-content: space-around;
+	width: 80%;
+	height: 60%;
+}
+
+.play-button-wrapper {
+
+	height: 100%;
+	width: 23%;
+}
+
+.side-button-wrapper {
+
+	height: 7rem;
+	width: 10rem;
+	position: absolute;
+	bottom: 0rem;
+	filter: drop-shadow(0.3rem 0.3rem);
+	overflow: hidden;
+}
+
+.left-side.side-button-wrapper {
+
+	left: -2rem;
+}
+
+.right-side.side-button-wrapper {
+
+	right: 0rem;
+	transform: translateX(2rem);
+}
+
+.side-button-img-wrapper {
+
+	position: absolute;
+	left: 0;
+	top: 1rem;
+	height: 10rem;
+	width: 10rem;
+}
+
+.left-side .side-button-img-wrapper {
+
+	transform: rotateZ(10deg);
+}
+
+.right-side .side-button-img-wrapper {
+
+	transform: rotateZ(-0deg);
+}
+
+.side-button-wrapper img {
+
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.side-button-text-wrapper {
+
+	position: absolute;
+	left: 0;
+	top: 1rem;
+	justify-content: center;
+	color: #edeae4;
+	height: 2rem;
+	width: 10rem;
+	font-size: 1.4rem;
+	text-shadow: 0.15rem 0.15rem #000000A0;
+}
+
+.left-side .side-button-text-wrapper {
+
+	transform: translate(0.8rem, 1rem);
+}
+
+.right-side .side-button-text-wrapper {
+
+	transform: translate(-0.8rem, 1rem);
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+	.play-buttons {
+
+		flex-wrap: wrap;
+		height: 80%;
+	}
+  
+  	.play-button-wrapper {
+
+		width: 90%;
+		height: 45%;
+	}
+}

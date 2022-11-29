@@ -1,0 +1,206 @@
+.world-carousel {
+
+	height: 20rem;
+	align-items: self-end;
+}
+
+.world-carousel .portal {
+
+	background: black;
+	border-top-left-radius: 10%;
+	border-top-right-radius: 10%;
+	margin: 0 2rem;
+	position: relative;
+	overflow: hidden;
+	box-sizing: border-box;
+	transition: all 0.2s;
+	cursor: pointer;
+}
+
+.world-carousel .big-portal {
+	
+	height: 20rem;
+	width: 12rem;
+	border: #cfc6b7 solid 0.1rem;
+	outline: 0.1rem solid #68635e;
+}
+
+.world-carousel .medium-portal {
+	
+	height: 12rem;
+	width: 7.2rem;
+	border: #301f1c solid 0.06rem;
+	outline: 0.06rem solid #68635e;
+}
+
+.world-carousel .small-portal {
+	
+	height: 6rem;
+	width: 3.6rem;
+	border: #301f1c solid 0.03rem;
+	outline: 0.03rem solid #68635e;
+}
+
+.world-carousel .smallest-portal {
+	
+	height: 0;
+	width: 0rem;
+}
+
+.world-carousel .portal img {
+
+	position: absolute;
+    justify-content: center;
+    object-fit: cover;
+    left: -5%;
+    top: -5%;
+    width: 115%;
+    height: 115%;
+	transition: all 0.2s;
+	 filter: url(#wave);
+	transform: translate(-0.4rem, -0.4rem);
+}
+
+.world-carousel .portal.medium-portal img {
+
+    left: -6.75%;
+    top: -6.75%;
+}
+
+.world-carousel .portal.small-portal img {
+
+    left: -7.5%;
+    top: -7.5%;
+}
+
+.world-carousel .big-portal:hover img {
+	
+    left: -10%;
+    top: -10%;
+    width: 120%;
+    height: 120%;
+	transition: all 0.2s;
+}
+
+.portal-dark-filter {
+
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: black;
+	opacity: 0;
+	transition: all 0.2s;
+}
+
+.big-portal:hover .portal-dark-filter {
+
+	opacity: 0.5;
+	transition: all 0.2s;
+}
+
+.portal-fog {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	transform: translate(-1.3rem, -1.3rem);
+}
+
+.circle {
+
+	 position: absolute;
+	 height: 110%;
+	 width: 110%;
+	 filter: url(#wave);
+	 z-index: 2;
+}
+ .circle::before {
+	 content: "";
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 right: 0;
+	 bottom: 0;
+	 border: 1rem solid #fff;
+	border-top-left-radius: 10%;
+	border-top-right-radius: 10%;
+	 box-shadow: 0 0 1rem #fff, inset 0 0 1rem #fff;
+	 filter: url(#wave) blur(10px);
+	 animation: anim 4s linear infinite;
+	 z-index: 2;
+}
+
+ @keyframes anim {
+	 0% {
+		 box-shadow: 0 0 50px #fff, inset 0 0 50px #fff;
+	}
+	 20% {
+		 box-shadow: 0 0 50px #f00, inset 0 0 50px #f00;
+	}
+	 40% {
+		 box-shadow: 0 0 50px #ff0, inset 0 0 50px #ff0;
+	}
+	 60% {
+		 box-shadow: 0 0 50px #0ff, inset 0 0 50px #0ff;
+	}
+	 80% {
+		 box-shadow: 0 0 50px #f0f, inset 0 0 50px #f0f;
+	}
+}
+ @keyframes rotate {
+	 from {
+		 transform: rotate(0deg);
+	}
+	 to {
+		 transform: rotate(360deg);
+	}
+}
+ svg {
+	 display: none;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+	.world-carousel .portal {
+
+		margin: 0 0.5rem;
+	}
+}
+
+@media only screen and (max-height: 600px) {
+
+	.world-carousel {
+
+		height: 12rem;
+	}
+
+	.world-carousel .portal {
+
+		margin: 0 1rem;
+	}
+
+	.world-carousel .big-portal {
+		
+		height: 12rem;
+		width: 7.2rem;
+		border: #cfc6b7 solid 0.06rem;
+		outline: 0.06rem solid #68635e;
+	}
+
+	.world-carousel .medium-portal {
+		
+		height: 7rem;
+		width: 4.6rem;
+		border: #301f1c solid 0.04rem;
+		outline: 0.04rem solid #68635e;
+	}
+
+	.world-carousel .small-portal {
+		
+		height: 4rem;
+		width: 2.4rem;
+		border: #301f1c solid 0.02rem;
+		outline: 0.02rem solid #68635e;
+	}
+}

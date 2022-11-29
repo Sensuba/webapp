@@ -1,0 +1,160 @@
+.cardbox-focus-box.lightbox-container .lightbox-inner .lightbox {
+
+	height: 15rem;
+	width: 80vw;
+	overflow: visible;
+	background-color: #23221f;
+}
+
+.cardbox-focus {
+
+	color: #edeae4;
+	flex-direction: column;
+	font-size: 1rem;
+	position: relative;
+	min-height: 100%;
+}
+
+.cardbox-focus .cardbox-focus-card {
+
+	position: absolute;
+	top: -3rem;
+	left: calc(50% - 4.15rem);
+}
+
+.cardbox-focus h1 {
+
+	text-align: center;
+	align-self: center;
+	margin-top: 3.5rem;
+	font-size: 1.5rem;
+	line-height: 1.5rem;
+	white-space: nowrap;
+}
+
+.cardbox-focus h1.small-name {
+
+	font-size: 1.35rem;
+}
+
+.cardbox-focus .card-typing {
+	
+	text-align: center;
+	align-self: center;
+}
+
+.cardbox-focus .cardbox-back-to-parent {
+	
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	align-self: center;
+	text-decoration: underline #edeae480;
+}
+
+.game-effect {
+
+	text-align: center;
+	align-self: center;
+	display: block;
+}
+
+.game-effect * {
+
+	display: inline;
+}
+
+.game-effect .keyword {
+
+	white-space: nowrap;
+	font-weight: bold;
+	text-decoration: underline dotted #edeae480;
+}
+
+.game-effect .keyword-icon {
+
+	width: 1em;
+	height: 1em;
+	margin-right: 0.3em;
+	margin-bottom: -0.1em;
+}
+
+.game-effect .token {
+
+	text-decoration: underline #edeae480;
+}
+
+.game-effect br {
+
+	content: "";
+	display: block;
+	margin-top: 0.2rem;
+}
+
+.cardbox-focus .cardbox-side {
+
+	position: absolute;
+	width: 4rem;
+	height: 2.5rem;
+	top: 0rem;
+	color: #7f7a6a;
+	flex-direction: column;
+}
+
+.cardbox-focus .cardbox-left {
+
+	left: 0rem;
+}
+
+.cardbox-focus .cardbox-right {
+
+	right: 0rem;
+}
+
+.cardbox-focus .cardbox-color {
+
+	justify-content: center;
+}
+
+.tooltip {
+
+	z-index: 1200;
+	max-width: 15rem;
+	text-align: center;
+}
+
+.cardbox-focus .cardbox-abilities {
+
+	font-size: 0.5rem;
+	flex-direction: column;
+	width: 100%;
+	height: 10rem;
+}
+
+.cardbox-focus .cardbox-abilities .cardbox-lv {
+
+	width: 100%;
+	justify-content: center;
+	margin-top: 0.7rem;
+	margin-bottom: 0.5rem;
+	height: 3.2rem;
+}
+
+.cardbox-focus .cardbox-abilities .cardbox-lv-separator {
+
+	width: 100%;
+	height: 0.05rem;
+	background: linear-gradient(to right, transparent, #edeae4, transparent);
+}
+
+.cardbox-focus .cardbox-abilities .cardbox-lv .sensuba-ability {
+
+	margin: 0 0.55rem;
+}
+
+.cardbox-focus .cardbox-focus-card.cardbox-focus-ability {
+
+	position: absolute;
+	top: -3rem;
+	left: calc(50% - 3.2rem);
+}

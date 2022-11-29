@@ -1,0 +1,99 @@
+.sensuba-ability {
+
+	width: 6em;
+	height: 6em;
+	position: relative;
+  	filter: drop-shadow(#00000060 0.15rem 0.15rem);
+}
+
+.sensuba-ability .card-image-wrapper {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	justify-content: center;
+	overflow: hidden;
+	transform: translate(0.1em, -0em);
+	border-radius: 1.9em;
+	width: 6em;
+	height: 6em;
+}
+
+.sensuba-ability.no-mana .card-image-wrapper {
+
+	left: -0.5em;
+    width: 7.1em;
+    border-radius: 0.9em;
+}
+
+.sensuba-ability .card-image-wrapper img {
+
+	object-fit: cover;
+}
+
+.sensuba-ability .card-mana {
+
+	position: absolute;
+	top: -0.35em;
+	left: -0.4em;
+	width: 1.444em;
+	height: 1.444em;
+    -webkit-text-stroke-width: 0.04rem;
+    -webkit-text-stroke-color: #352e1d;
+	z-index: 1;
+	color: #352e1d;
+	text-shadow: 0.03em 0.03em #70530c80;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.8em;
+	line-height: 1.8em;
+	pointer-events: none;
+}
+
+.sensuba-ability .card-mana-img {
+
+	position: absolute;
+	top: -0.6em;
+	left: -0.6em;
+	width: 2.6em;
+	height: 2.6em;
+	object-fit: cover;
+}
+
+.sensuba-ability .card-manaball {
+
+	position: absolute;
+	top: -0.6em;
+	left: -0.65em;
+	width: 2.5em;
+	height: 2.5em;
+	object-fit: contain;
+	filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5);
+}
+
+.sensuba-ability .card-manaball.no-mana {
+
+	display: none;
+	top: -0.35em;
+    width: 9.5em;
+}
+
+.sensuba-ability .card-frame {
+
+	position: absolute;
+	top: -0.2em;
+	left: -0.1em;
+	width: 6.4em;
+	height: 6.4em;
+	border-radius: 2em;
+	background: linear-gradient(210deg, #40372d, #cdac8d);
+}
+
+.sensuba-ability.no-mana .card-frame {
+
+	display: none;
+	left: -0.6em;
+	width: 7.5em;
+	border-radius: 1em;
+	background: linear-gradient(210deg, goldenrod, darkred)
+}

@@ -1,0 +1,93 @@
+{
+	"1": {
+		"key": 1,
+		"name": "March",
+		"energy": 1,
+		"rank": 2,
+		"type": "spell",
+		"subtype": "breath",
+		"effect": "Deal 4 CP to a tile.",
+		"area": [[[0, 1]]],
+		"img": "images/wind.png"
+	},
+	"2": {
+		"key": 2,
+		"name": "Breath",
+		"energy": 1,
+		"rank": 2,
+		"type": "spell",
+		"subtype": "breath",
+		"effect": "Deal 2 CP to tiles.",
+		"area": [[[0, 1], [0, 2]]],
+		"img": "images/wind.png"
+	},
+	"3": {
+		"key": 3,
+		"name": "Wind",
+		"energy": 1,
+		"rank": 2,
+		"type": "spell",
+		"subtype": "breath",
+		"effect": "Deal 2 CP to tiles.",
+		"area": [[[-1, 0], [0, 1], [1, 1]]],
+		"img": "images/wind.png"
+	},
+	"4": {
+		"key": 4,
+		"name": "Might",
+		"energy": 2,
+		"rank": 2,
+		"type": "spell",
+		"subtype": "breath",
+		"effect": "Deal 2 CP to tiles.",
+		"area": [[[0, 1], [1, 1], [1, 0], [0, -1], [-1, -1], [-1, 0]]],
+		"img": "images/wind.png"
+	},
+	"5": {
+		"key": 5,
+		"name": "Expansion",
+		"energy": 6,
+		"rank": 3,
+		"type": "spell",
+		"effect": "Deal 2 CP to tiles adjacent to allied tiles.",
+		"img": "images/spores.png"
+	},
+	"6": {
+		"key": 6,
+		"name": "Thunder bolt",
+		"energy": 2,
+		"rank": 2,
+		"type": "spell",
+		"effect": "Deal 3 damage.",
+		"area": [[[0, 0]]],
+		"img": "images/thunderbolt.png"
+	},
+	"7": {
+		"key": 7,
+		"name": "Thunder storm",
+		"energy": 5,
+		"rank": 3,
+		"type": "spell",
+		"effect": "Deal 3 damage.",
+		"area": [[[0, 0], [0, 1], [1, 1], [1, 0], [0, -1], [-1, -1], [-1, 0]]],
+		"img": "images/thunderstorm.png"
+	},
+	"8": {
+		"key": 8,
+		"name": "Outpost",
+		"energy": 1,
+		"rank": 2,
+		"type": "building",
+		"effect": "Only 1 CP is needed for you to capture level 4 or lower adjacent tiles.",
+		"img": "images/outpost.png"
+	},
+	"9": {
+		"key": 9,
+		"name": "Great tree",
+		"energy": 4,
+		"rank": 3,
+		"type": "building",
+		"effect": "Channelling grant 1 extra energy.",
+		"img": "images/tree.png"
+	}
+}

@@ -1,0 +1,28 @@
+.loading-bar {
+
+  padding: 0.5rem;
+  width: 20rem;
+  height: 1.2rem;
+  justify-content: center;
+  border-radius: 0.2rem;
+  border-width: 0.1rem;
+  background: linear-gradient(to bottom, #cfc6b7, #e6e1d6);
+  position: absolute;
+  left: calc(50% - 10rem);
+  top: calc(50% + 2rem);
+  transition: all 0.2s linear;
+  overflow: hidden;
+}
+
+.loading-bar-value {
+
+  content: "";
+  position: absolute;
+  min-width: 12%;
+  top: -5%;
+  left: -10%;
+  height: 110%;
+  transform: skewX(-20deg);
+  background: linear-gradient(to bottom, #301f1c, #533f36);
+  transition: all 0.2s linear;
+}

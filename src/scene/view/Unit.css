@@ -1,0 +1,135 @@
+.game-unit {
+
+	width: 8em;
+	height: 6em;
+	position: relative;
+	filter: grayscale(0) brightness(1);
+	transition: filter 0.2s;
+}
+
+.game-unit .card-image-wrapper {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	overflow: hidden;
+	border-radius: 3.5vw;
+}
+
+.game-card-targetable .game-unit .card-image-wrapper {
+
+	animation: card-target-shadow 1s alternate infinite;
+	filter: contrast(1.2);
+}
+
+@keyframes card-target-shadow {
+	from { box-shadow: 0 0 0.6em 0.2rem #aa0000; }
+	to { box-shadow: 0 0 0.6em 0.3rem #aa0000; }
+}
+
+.game-card-untargetable .game-unit {
+
+	filter: grayscale(0.7) sepia(0.3);
+}
+
+.game-unit .card-image-wrapper img {
+
+	object-fit: cover;
+}
+
+.game-unit .card-stat {
+
+	position: absolute;
+	bottom: -0.6em;
+	right: -0.6em;
+	width: 3.5em;
+	height: 3.5em;
+	object-fit: contain;
+}
+
+.game-unit .card-stat-icon {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 3.5em;
+	height: 3.5em;
+	object-fit: contain;
+}
+
+.game-unit .card-atk {
+
+	left: -0.6em;
+	right: unset;
+}
+
+.game-unit .card-stat-value {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: white;
+	font-size: 2.683em;
+	width: 1.3em;
+	justify-content: center;
+	text-align: center;
+	-webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 0.08rem;
+    -webkit-text-stroke-color: #1c2530;
+    font-family: fantasy;
+}
+
+.game-unit .card-stat-value.card-stat-value-buff, .game-hero .card-stat-value.card-stat-value-buff {
+
+	-webkit-text-fill-color: #00e51c;
+    -webkit-text-stroke-color: #1b351b;
+}
+
+.game-unit .card-stat-value.card-stat-value-debuff, .game-hero .card-stat-value.card-stat-value-debuff {
+
+	-webkit-text-fill-color: #ff0000;
+    -webkit-text-stroke-color: #e9b3b3;
+}
+
+.game-unit.state-freeze .card-atk .card-stat-value {
+
+	-webkit-text-fill-color: #4ee4ff;
+    -webkit-text-stroke-color: #228c97;
+}
+
+.game-unit.game-unit-actioned {
+
+	filter: grayscale(0.5) brightness(0.6);
+}
+
+
+
+
+
+.game-unit .game-shield {
+
+	width: 10em;
+    height: 8em;
+    overflow: hidden;
+    position: absolute;
+    top: -1em;
+    left: -1em;
+    border-radius: 3.5vw;
+    z-index: -1;
+    background: rgba(255,255,255,0.34);
+    box-shadow: inset 0px 0px 5em 0px rgba(224, 228, 11, 0.5), 0px 0px 2em 0px rgba(255,235,180,0.8);
+	animation: shieldcolor 3s infinite alternate, shieldsize 2s infinite alternate;
+}
+
+@keyframes shieldcolor {
+  from {background: rgba(255,255,255,0.34); box-shadow: inset 0px 0px 10em 0px rgba(244, 208, 7, 0.5), 0px 0px 2em 0px rgba(255,235,180,0.8); }
+  to {background: rgba(240, 240, 200, 0.34); box-shadow: inset 0px 0px 10em 0px rgba(254, 188, 2, 0.5), 0px 0px 2em 0px rgba(255,235,180,0.8); }
+}
+
+@keyframes shieldsize {
+  from {top: -0.6em; left: -0.6em; width: 9em; height: 7em; }
+  to {top: -0.9em; left: -0.9em; width: 9.6em; height: 7.6em; }
+}

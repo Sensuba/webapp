@@ -1,0 +1,80 @@
+.game-field {
+
+	position: absolute;
+	width: 100vw;
+	height: 80vw;
+	top: calc(25vh - 10vw);
+	left: 0;
+	background: #ffecbf;
+	transition: background 0.2s, box-shadow 0.2s;
+}
+
+.game-field-filter {
+
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #e2ae9400;
+	transition: background 0.2s, box-shadow 0.2s;
+}
+
+.game-field.game-field-target .game-field-filter {
+
+	background: #e2ae9440;
+	animation: column-target-shadow 1s alternate infinite;
+}
+
+.game-field.game-field-targetable .game-field-filter {
+
+	animation: column-target-shadow 1s alternate infinite;
+}
+
+.game-field-column {
+
+	width: 100%;
+	height: 100%;
+	background: #ffecbf;
+	box-shadow: inset 0 0 1rem #533a1180;
+	flex-direction: column;
+	transition: background 0.2s, box-shadow 0.2s;
+}
+
+.game-field-column.game-field-column-target {
+
+	background: #e2ae94;
+	animation: column-target-shadow 1s alternate infinite;
+}
+
+.game-field-column.game-field-column-targetable {
+
+	animation: column-target-shadow 1s alternate infinite;
+}
+
+@keyframes column-target-shadow {
+	from { box-shadow: inset 0 0 1rem #AA0000A0; }
+	to { box-shadow: inset 0 0 1rem 0.1rem #AA0000D0; }
+}
+
+.game-field-tile {
+
+	width: 100%;
+	height: 50%;
+	flex-direction: column;
+	font-size: 2vw;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 4vw 0;
+}
+
+.game-field-tile:nth-child(1) {
+
+	flex-flow: column-reverse;
+}
+
+.game-field-tile .game-card-wrapper {
+
+	margin: 2vw 0;
+}

@@ -1,0 +1,33 @@
+.remove-from-hand-anim {
+
+	animation: remove-from-hand 0.15s ease-in forwards;
+}
+
+@keyframes remove-from-hand {
+  0%   { top: 4vw; }
+  100%   { top: 12vw; }
+}
+
+.opposite-area .remove-from-hand-anim {
+
+  animation: remove-from-hand-opposite 0.15s ease-in forwards;
+}
+
+@keyframes remove-from-hand-opposite {
+  0%   { top: 1.5vw; }
+  100%   { top: 9.5vw; }
+}
+
+@media only screen and (max-width: 600px) {
+
+
+  @keyframes remove-from-hand {
+    0%   { top: 12vw; }
+    100%   { top: 36vw; }
+  }
+
+  @keyframes remove-from-hand-opposite {
+    0%   { top: 4.5vw; }
+    100%   { top: 28.5vw; }
+  }
+}

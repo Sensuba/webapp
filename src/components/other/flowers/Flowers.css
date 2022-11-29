@@ -1,0 +1,42 @@
+.flower-wrapper {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.flowers {
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 100%;
+}
+
+.background-flower {
+
+	position: absolute;
+	background-image: url('./flower.png');
+	height: 2.5rem;
+	width: 2.5rem;
+	background-size: 100%;
+	animation: flower-rotation linear 10s infinite, flower-fall linear 60s infinite;
+	opacity: 0.3;
+}
+
+@keyframes flower-rotation {
+
+	from { transform: rotateZ(0); }
+	to { transform: rotateZ(360deg); }
+}
+
+@keyframes flower-fall {
+
+	from { top: -100%; }
+	to { top: 100%; }
+}

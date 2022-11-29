@@ -1,0 +1,128 @@
+.cards-page .main {
+
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.cards-page-nav {
+
+	height: 4rem;
+	width: 100%;
+	border-bottom: 0.2rem lightgray solid;
+	background: #2a2011;
+}
+
+.cards-page-list {
+
+	height: calc(100% - 4rem);
+	width: 100%;
+	position: relative;
+	overflow: auto;
+	flex-direction: column;
+}
+
+.cards-border {
+
+	height: 1.4rem;
+	width: 100%;
+	margin-top: 0.4rem;
+	background: linear-gradient(to right, #000000A0, #00000050, #000000A0);
+	line-height: 1.4rem;
+	justify-content: space-between;
+	padding: 0 0.2rem;
+	color: #edeae4;
+	box-sizing: border-box;
+}
+
+.color-list {
+	
+	width: 100%;
+	flex-direction: column;
+}
+
+.color-border {
+	
+	height: 1.4rem;
+	width: 100%;
+	margin-top: 0.4rem;
+	background: linear-gradient(to right, #00000050, #00000028);
+	line-height: 1.4rem;
+	padding: 0 0.2rem;
+	color: #edeae4;
+	box-sizing: border-box;
+}
+
+.card-list {
+
+	width: 100%;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 0.35rem;
+}
+
+.card-list .listed-card {
+
+	padding: 0.1rem;
+	font-size: 0.6rem;
+	height: calc(6em + 0.6rem);
+	width: calc(8em + 0.6rem);
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.card-list .listed-card .wanderaft-card {
+
+	transition: font-size 0.2s;
+}
+
+.card-list .listed-card:hover .wanderaft-card {
+
+	font-size: 1.06em;
+}
+
+.card-list .wanderaft-card {
+
+	filter: drop-shadow(0.3rem 0.3rem);
+}
+
+.card-list-info {
+
+	height: calc(100% - 16vh);
+	margin-top: 8vh;
+	justify-content: flex-start;
+	width: 29rem;
+	padding: 0.5rem;
+	flex-direction: column;
+}
+
+.card-list-filter {
+
+	width: 100%;
+	flex-direction: column;
+}
+
+.card-list-filter-el {
+
+	width: 100%;
+	margin: 0.5rem;
+}
+
+.card-filter-label {
+
+	width: 6rem;
+}
+
+.card-list-info .form-select {
+
+	padding: 0.25rem;
+	border: none;
+	background: #d1caae;
+}
+
+.cards-page .card-box {
+
+	font-size: 1rem;
+}

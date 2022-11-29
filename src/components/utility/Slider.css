@@ -1,0 +1,30 @@
+.sensuba-slider {
+
+  height: 1em;
+  width: 6em;
+  position: relative;
+  cursor: pointer;
+}
+
+.sensuba-slider .sensuba-slider-bar {
+  
+  position: absolute;
+  top: 0.4em;
+  left: 0.5em;
+  height: 0.2em;
+  width: 5em;
+  background-color: black;
+  border-radius: 0.25em;
+}
+
+.sensuba-slider .sensuba-slider-pin {
+  
+  position: absolute;
+  top: 0.225em;
+  left: 0.225em;
+  height: 0.55em;
+  width: 0.55em;
+  border: 0.2em solid black;
+  border-radius: 0.5em;
+  background-color: white;
+}

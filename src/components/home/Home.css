@@ -1,0 +1,33 @@
+.main-page.light {
+
+  background: linear-gradient(to bottom, #c8a164, #e0e0e0 200vh);
+}
+
+.home-page h1 {
+
+  font-family: MarcellusSC;
+  justify-content: center;
+  font-size: 5rem;
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+  -webkit-text-fill-color: #1c2530;
+  -webkit-text-stroke-width: 0.04rem;
+  -webkit-text-stroke-color: rgba(237,236,235,.8);
+}
+
+@media only screen and (max-width: 600px) {
+  
+  .home-page h1 {
+
+    font-size: 4rem;
+  }
+}
+
+@media only screen and (max-height: 600px) {
+  
+  .home-page h1 {
+
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+  }
+}

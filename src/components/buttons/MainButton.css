@@ -1,0 +1,60 @@
+.main-button-container {
+
+	justify-content: center;
+	margin: 1rem;
+}
+
+.main-button-wrapper {
+
+	overflow: hidden;
+}
+
+.main-button {
+
+	font-size: 1.8rem;
+	padding: 0.5rem;
+	min-width: 8rem;
+	justify-content: center;
+	border-width: 0.1rem;
+	background: linear-gradient(to bottom, #cfc6b7, #e6e1d6);
+	position: relative;
+	transition: all 0.2s linear;
+	cursor: pointer;
+}
+
+.main-button::after {
+
+	content: "";
+	position: absolute;
+	top: -5%;
+	left: 120%;
+	width: 120%;
+	height: 110%;
+	transform: skewX(-20deg);
+	background: linear-gradient(to bottom, #301f1c, #533f36);
+	transition: all 0.2s linear;
+}
+
+.main-button:hover {
+
+	color: #edeae4;
+	transition: all 0.2s linear;
+}
+
+.main-button:hover::after {
+
+	left: -10%;
+	transition: all 0.2s;
+}
+
+.main-button-text {
+
+	z-index: 1;
+}
+
+button {
+
+	margin: 0;
+	padding: 0;
+	border-width: 0;
+}

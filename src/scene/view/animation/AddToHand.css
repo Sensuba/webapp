@@ -1,0 +1,33 @@
+.add-to-hand-anim {
+
+	animation: add-to-hand ease-out 0.4s;
+}
+
+@keyframes add-to-hand {
+  0%   { top: 12vw; }
+  100%   { top: 4vw; }
+}
+
+.opposite-area .add-to-hand-anim {
+
+  animation: add-to-hand-opposite ease-out 0.4s;
+}
+
+@keyframes add-to-hand-opposite {
+  0%   { top: 9.5vw; }
+  100%   { top: 1.5vw; }
+}
+
+@media only screen and (max-width: 600px) {
+
+
+  @keyframes add-to-hand {
+    0%   { top: 36vw; }
+    100%   { top: 12vw; }
+  }
+
+  @keyframes add-to-hand-opposite {
+    0%   { top: 28.5vw; }
+    100%   { top: 4.5vw; }
+  }
+}

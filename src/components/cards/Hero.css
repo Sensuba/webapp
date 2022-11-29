@@ -1,0 +1,174 @@
+.sensuba-hero {
+
+	width: 8em;
+	height: 6em;
+	position: relative;
+  	filter: drop-shadow(#00000060 0.15rem 0.15rem);
+}
+
+.sensuba-hero .card-image-wrapper {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	justify-content: center;
+	overflow: hidden;
+	width: 8em;
+	height: 6em;
+	border-radius: 50%;
+	opacity: 1;
+	transition: opacity 0.5s;
+}
+
+.sensuba-hero .card-image-wrapper.fade {
+
+	opacity: 0;
+}
+
+.sensuba-hero .card-image-wrapper::after {
+
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border-radius: 50%;
+	top: 0;
+	left: 0;
+}
+
+.sensuba-hero .card-image-wrapper img {
+
+	object-fit: cover;
+}
+
+.sensuba-hero .card-mana {
+
+	position: absolute;
+	top: -0.35em;
+	left: -0.4em;
+	width: 1.444em;
+	height: 1.444em;
+    -webkit-text-stroke-width: 0.04rem;
+    -webkit-text-stroke-color: #352e1d;
+	z-index: 1;
+	color: #352e1d;
+	text-shadow: 0.03em 0.03em #70530c80;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.8em;
+	line-height: 1.8em;
+	pointer-events: none;
+}
+
+.sensuba-hero .card-mana-img {
+
+	position: absolute;
+	top: -0.6em;
+	left: -0.6em;
+	width: 2.6em;
+	height: 2.6em;
+	object-fit: cover;
+}
+
+.sensuba-hero .card-frame {
+
+	position: absolute;
+	top: 0.5em;
+	left: 0.5em;
+	width: 7em;
+	height: 5em;
+}
+
+.sensuba-hero .card-frame::before {
+
+	content: "";
+	position: absolute;
+	top: -0.7em;
+	left: -0.7em;
+	width: 8.4em;
+	height: 6.4em;
+	border-radius: 50%;
+}
+
+.sensuba-hero .card-stat {
+
+	position: absolute;
+	top: -0.6em;
+	right: -0.6em;
+	width: 2.6em;
+	height: 2.6em;
+	object-fit: contain;
+	filter: drop-shadow(0.1rem 0.1rem #000000A0);
+}
+
+.sensuba-hero .card-stat-icon {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 2.6em;
+	height: 2.6em;
+	object-fit: contain;
+	filter: drop-shadow(0.1rem 0.1rem #000000A0);
+}
+
+.sensuba-hero .card-atk {
+
+	right: 2em;
+}
+
+.sensuba-hero .card-stat-value {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: white;
+	font-size: 2em;
+	width: 1.3em;
+	justify-content: center;
+	text-align: center;
+	-webkit-text-fill-color: white#1c2530;
+    -webkit-text-stroke-width: 0.08rem;
+    -webkit-text-stroke-color: #1c2530;
+    font-family: fantasy;
+}
+
+.sensuba-hero.white.red .card-frame::before { background: linear-gradient(to bottom, goldenrod, darkred) }
+.sensuba-hero.white.red .card-frame { background: linear-gradient(to bottom, goldenrod, darkred) }
+.sensuba-hero.white.red .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em darkred, inset 0 1em 1em -1em goldenrod }
+
+.sensuba-hero.white.blue .card-frame::before { background: linear-gradient(to bottom, goldenrod, #5b9bd9) }
+.sensuba-hero.white.blue .card-frame { background: linear-gradient(to bottom, goldenrod, #5b9bd9) }
+.sensuba-hero.white.blue .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #5b9bd9, inset 0 1em 1em -1em goldenrod }
+
+.sensuba-hero.white.green .card-frame::before { background: linear-gradient(to bottom, goldenrod, #3f875f) }
+.sensuba-hero.white.green .card-frame { background: linear-gradient(to bottom, goldenrod, #3f875f) }
+.sensuba-hero.white.green .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #3f875f, inset 0 1em 1em -1em goldenrod }
+
+.sensuba-hero.white.black .card-frame::before { background: linear-gradient(to bottom, goldenrod, #381e46) }
+.sensuba-hero.white.black .card-frame { background: linear-gradient(to bottom, goldenrod, #381e46) }
+.sensuba-hero.white.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em goldenrod }
+
+.sensuba-hero.red.blue .card-frame::before { background: linear-gradient(to bottom, darkred, #5b9bd9) }
+.sensuba-hero.red.blue .card-frame { background: linear-gradient(to bottom, darkred, #5b9bd9) }
+.sensuba-hero.red.blue .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #5b9bd9, inset 0 1em 1em -1em darkred }
+
+.sensuba-hero.red.green .card-frame::before { background: linear-gradient(to bottom, darkred, #3f875f) }
+.sensuba-hero.red.green .card-frame { background: linear-gradient(to bottom, darkred, #3f875f) }
+.sensuba-hero.red.green .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #3f875f, inset 0 1em 1em -1em darkred }
+
+.sensuba-hero.red.black .card-frame::before { background: linear-gradient(to bottom, darkred, #381e46) }
+.sensuba-hero.red.black .card-frame { background: linear-gradient(to bottom, darkred, #381e46) }
+.sensuba-hero.red.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em darkred }
+
+.sensuba-hero.blue.green .card-frame::before { background: linear-gradient(to bottom, #5b9bd9, #3f875f) }
+.sensuba-hero.blue.green .card-frame { background: linear-gradient(to bottom, #5b9bd9, #3f875f) }
+.sensuba-hero.blue.green .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #3f875f, inset 0 1em 1em -1em #5b9bd9 }
+
+.sensuba-hero.blue.black .card-frame::before { background: linear-gradient(to bottom, #5b9bd9, #381e46) }
+.sensuba-hero.blue.black .card-frame { background: linear-gradient(to bottom, #5b9bd9, #381e46) }
+.sensuba-hero.blue.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em #5b9bd9 }
+
+.sensuba-hero.green.black .card-frame::before { background: linear-gradient(to bottom, #3f875f, #381e46) }
+.sensuba-hero.green.black .card-frame { background: linear-gradient(to bottom, #3f875f, #381e46) }
+.sensuba-hero.green.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em #3f875f }

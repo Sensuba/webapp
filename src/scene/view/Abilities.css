@@ -1,0 +1,136 @@
+.game-abilities {
+
+	width: 100%;
+	position: absolute;
+	left: 0;
+	justify-content: space-around;
+	height: 16vw;
+  	top: calc(25vh + 115vw);
+	box-sizing: border-box;
+	padding: 1vw;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: flex-start;
+}
+
+.opposite-area .game-abilities {
+
+	transform: none;
+  	top: calc(25vh - 25vw);
+	left: unset;
+	right: 0;
+	width: 40vw;
+}
+
+.game-ability {
+
+    z-index: 1;
+    font-size: 2vw;
+    height: 13.5vw;
+	pointer-events: all;
+	margin: 1vw 3vw;
+	align-items: center;
+	transition: filter 0.2s;
+}
+
+.game-ability-locked {
+
+	filter: grayscale(0.5) brightness(0.6);
+}
+
+.opposite-area .game-ability {
+
+    font-size: 1.5vw;
+	margin: 0.5vw 1.5vw;
+}
+
+.opposite-area .game-ability-locked {
+
+	filter: unset;
+}
+
+.game-ability-aura {
+
+    font-size: 2.3vw;
+}
+
+.game-lv-up {
+
+	position: relative;
+    z-index: 1;
+    font-size: 2vw;
+    height: 13.5vw;
+    width: 13.5vw;
+	pointer-events: all;
+	margin: 1vw 3vw;
+	align-items: center;
+
+	font-size: 1.4em;
+    padding: 0.5em;
+    justify-content: center;
+    color: #827c64;
+    border-radius: 0.2em;
+    background: linear-gradient(to bottom, #4F493C, #59554A);
+    box-sizing: border-box;
+    filter: drop-shadow(#00000060 0.15rem 0.15rem);
+}
+
+.game-lv-up .lv-up-frame {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 13.5vw;
+	width: 13.5vw;
+    border-radius: 0.2em;
+    border: 0.1em solid #827c64;
+    box-sizing: border-box;
+}
+
+.game-lv-up .card-manaball {
+
+	font-size: 2vw;
+	position: absolute;
+	top: -0.6em;
+	left: -0.65em;
+	width: 2.5em;
+	height: 2.5em;
+	object-fit: contain;
+	filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5);
+}
+
+.game-lv-up .card-mana {
+
+	position: absolute;
+	top: -0.35em;
+	left: -0.4em;
+	width: 1.444em;
+	height: 1.444em;
+    -webkit-text-stroke-width: 0.04rem;
+    -webkit-text-stroke-color: #352e1d;
+	z-index: 1;
+	color: #352e1d;
+	text-shadow: 0.03em 0.03em #70530c80;
+	justify-content: center;
+	align-items: center;
+	font-size: 3.6vw;
+	line-height: 1.8em;
+	pointer-events: none;
+}
+
+.game-lv-up .lv-up-img-wrapper {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 13.5vw;
+	width: 13.5vw;
+	overflow: hidden;
+    border-radius: 0.2em;
+	justify-content: center;
+}
+
+.game-lv-up .lv-up-img {
+
+	object-fit: cover;
+}

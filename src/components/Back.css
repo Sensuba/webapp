@@ -1,0 +1,66 @@
+.back-arrow-wrapper {
+
+	position: absolute;
+	bottom: 0rem;
+	left: 0rem;
+	cursor: pointer;
+	z-index: 20;
+	padding-top: 0.5rem;
+	padding-right: 0.5rem;
+	background: #000000D0;
+	border-top-right-radius: 0.6rem;
+}
+
+.back-arrow {
+
+	position: relative;
+	bottom: 0;
+	left: 0;
+	padding: 0.8rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	background: #000000;
+	border-top-right-radius: 0.6rem;
+}
+
+.back-arrow-icon {
+
+	position: absolute;
+	width: 70%;
+	height: 70%;
+	bottom: 16%;
+	left: 16%;
+	object-fit: cover;
+	transition: all 0.2s;
+	filter: drop-shadow(0.2rem 0.2rem #000000A0);
+}
+
+.back-arrow-wrapper:hover .back-arrow-icon {
+
+	left: calc(10% - 0.35rem);
+}
+
+@media only screen and (max-height: 600px) {
+
+
+	.back-arrow-wrapper {
+
+		width: 8rem;
+		height: 4rem;
+	}
+
+	.back-arrow {
+
+		position: absolute;
+		left: 3rem;
+		top: 0.5rem;
+		height: 2.5rem;
+		width: 3.5rem;
+	}
+
+	.back-arrow-wrapper:hover .back-arrow {
+
+		left: 2.5rem;
+		transition: all 0.2s;
+	}
+}
