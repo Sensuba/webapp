@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class RandomInt extends Bloc {
+export default class RandomInt extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -13,5 +13,3 @@ class RandomInt extends Bloc {
 		this.types = [Types.int, Types.int];
 	}
 }
-
-module.exports = RandomInt;

@@ -1,8 +1,8 @@
-var Location = require("./Location");
-var Card = require("./Card");
-var Library = require("../utility/Library");
+import Location from './Location.js';
+import Card from './Card.js';
+import Library from '../utility/Library.js';
 
-class Deck extends Location {
+export default class Deck extends Location {
 
 	layer = 1;
 
@@ -43,5 +43,3 @@ class Deck extends Location {
 		return card;
 	}
 }
-
-module.exports = Deck;

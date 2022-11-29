@@ -1,23 +1,23 @@
-var Player = require("./Player");
-var Field = require("./Field");
-var Tile = require("./Tile");
-var Hand = require("./Hand");
-var Deck = require("./Deck");
-var Court = require("./Court");
-var Stack = require("./Stack");
-var Graveyard = require("./Graveyard");
-var Discard = require("./Discard");
-var Nether = require("./Nether");
-var Card = require("./Card");
-var Hero = require("./Hero");
-var Throne = require("./Throne");
-var Broadcaster = require("../utility/Broadcaster");
-var System = require("../utility/System");
+import Player from './Player.js';
+import Field from './Field.js';
+import Tile from './Tile.js';
+import Hand from './Hand.js';
+import Deck from './Deck.js';
+import Court from './Court.js';
+import Stack from './Stack.js';
+import Graveyard from './Graveyard.js';
+import Discard from './Discard.js';
+import Nether from './Nether.js';
+import Card from './Card.js';
+import Hero from './Hero.js';
+import Throne from './Throne.js';
+import Broadcaster from '../utility/Broadcaster.js';
+//import System from '../utility/System.js';
 
 const P1_STARTING_HAND_SIZE = 5;
 const P2_STARTING_HAND_SIZE = 5;
 
-class Game {
+export default class Game {
 
 	data = {};
 	ids = {};
@@ -194,5 +194,3 @@ class Game {
 		return game;
 	}
 }
-
-module.exports = Game;

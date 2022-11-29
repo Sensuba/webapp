@@ -1,8 +1,8 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 //var Mutation = require("../Mutation");
 
-class Enrage extends Bloc {
+export default class Enrage extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -30,5 +30,3 @@ class Enrage extends Bloc {
 		this.types = [Types.card, Types.mutation];
 	}
 }
-
-module.exports = Enrage;

@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Fanfare extends Bloc {
+export default class Fanfare extends Bloc {
 
 	constructor (src, ctx, target) {
 
@@ -31,5 +31,3 @@ class Fanfare extends Bloc {
 		});
 	}
 }
-
-module.exports = Fanfare;

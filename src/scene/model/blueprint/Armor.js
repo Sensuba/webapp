@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Armor extends Bloc {
+export default class Armor extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -16,5 +16,3 @@ class Armor extends Bloc {
 		this.src.armor = (this.src.armor || 0) + cpt[0];
 	}
 }
-
-module.exports = Armor;

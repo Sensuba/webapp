@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class AddEffect extends Bloc {
+export default class AddEffect extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -20,5 +20,3 @@ class AddEffect extends Bloc {
 		this.types = [Types.card, Types.effect];
 	}
 }
-
-module.exports = AddEffect;

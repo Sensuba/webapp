@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class MergeCardFilters extends Bloc {
+export default class MergeCardFilters extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -10,5 +10,3 @@ class MergeCardFilters extends Bloc {
 		this.types = [Types.cardfilter, Types.cardfilter];
 	}
 }
-
-module.exports = MergeCardFilters;

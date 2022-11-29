@@ -1,6 +1,6 @@
-var Location = require("./Location");
+import Location from './Location.js';
 
-class Throne extends Location {
+export default class Throne extends Location {
 
 	layer = 3;
 
@@ -28,5 +28,3 @@ class Throne extends Location {
 		this.hero.location = this;
 	}
 }
-
-module.exports = Throne;

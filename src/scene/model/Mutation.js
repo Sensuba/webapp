@@ -1,4 +1,4 @@
-class Mutation {
+export default class Mutation {
 
 	constructor (src, effect, priority) {
 		
@@ -30,5 +30,3 @@ class Mutation {
 		return this.effect(target);
 	}
 }
-
-module.exports = Mutation;

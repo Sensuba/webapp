@@ -1,4 +1,4 @@
-class Bloc {
+export default class Bloc {
 
 	constructor (type, src, ctx, stc = false) {
 
@@ -69,5 +69,3 @@ class Bloc {
 		})
 	}
 }
-
-module.exports = Bloc;

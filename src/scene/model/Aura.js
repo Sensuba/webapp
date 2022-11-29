@@ -1,4 +1,4 @@
-class Aura {
+export default class Aura {
 
 	constructor (src, mutation, area, targets) {
 		
@@ -43,5 +43,3 @@ class Aura {
 		return new Aura(src, this.mutation, this.area, this.targets);
 	}
 }
-
-module.exports = Aura;

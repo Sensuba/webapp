@@ -1,116 +1,116 @@
-var Bloc = require('./Bloc');
-var Trigger = require('./Trigger');
-var Data = require('./Data');
+import Bloc from './Bloc.js';
+import Trigger from './Trigger.js';
+import Data from './Data.js';
 
-var Play = require('./Play');
-var Skill = require('./Skill');
-var Fanfare = require('./Fanfare');
-var LastWill = require('./LastWill');
-var Listener = require('./Listener');
-var Aura = require('./Aura');
-var PassiveMutation = require('./PassiveMutation');
+import Play from './Play.js';
+import Skill from './Skill.js';
+import Fanfare from './Fanfare.js';
+import LastWill from './LastWill.js';
+import Listener from './Listener.js';
+import Aura from './Aura.js';
+import PassiveMutation from './PassiveMutation.js';
 
-var State = require('./State');
-var Variation = require('./Variation');
-var Armor = require('./Armor');
-var Booster = require('./Booster');
+import State from './State.js';
+import Variation from './Variation.js';
+import Armor from './Armor.js';
+import Booster from './Booster.js';
 
-var Send = require('./Send');
-var Draw = require('./Draw');
-var Damage = require('./Damage');
-var Heal = require('./Heal');
-var Destroy = require('./Destroy');
-var Copy = require('./Copy');
-var AddStats = require('./AddStats');
-var SetStats = require('./SetStats');
-var SetState = require('./SetState');
-var AddEffect = require('./AddEffect');
-var Enrage = require('./Enrage');
-var Freeze = require('./Freeze');
-var AddMana = require('./AddMana');
-var AddReceptacle = require('./AddReceptacle');
-var AddGem = require('./AddGem');
-var Generate = require('./Generate');
-var GenerateSummon = require('./GenerateSummon');
-var Conjure = require('./Conjure');
-var ChangeCost = require('./ChangeCost');
-var Overload = require('./Overload');
+import Send from './Send.js';
+import Draw from './Draw.js';
+import Damage from './Damage.js';
+import Heal from './Heal.js';
+import Destroy from './Destroy.js';
+import Copy from './Copy.js';
+import AddStats from './AddStats.js';
+import SetStats from './SetStats.js';
+import SetState from './SetState.js';
+import AddEffect from './AddEffect.js';
+import Enrage from './Enrage.js';
+import Freeze from './Freeze.js';
+import AddMana from './AddMana.js';
+import AddReceptacle from './AddReceptacle.js';
+import AddGem from './AddGem.js';
+import Generate from './Generate.js';
+import GenerateSummon from './GenerateSummon.js';
+import Conjure from './Conjure.js';
+import ChangeCost from './ChangeCost.js';
+import Overload from './Overload.js';
 
-var StoreInteger = require('./StoreInteger');
-var StoreCard = require('./StoreCard');
-var StoreModel = require('./StoreModel');
-var StoreLocation = require('./StoreLocation');
-var ClearVariable = require('./ClearVariable');
+import StoreInteger from './StoreInteger.js';
+import StoreCard from './StoreCard.js';
+import StoreModel from './StoreModel.js';
+import StoreLocation from './StoreLocation.js';
+import ClearVariable from './ClearVariable.js';
 
-var Adjacents = require('./Adjacents');
+import Adjacents from './Adjacents.js';
 
-var CompareCards = require('./CompareCards');
-var ComparePlayers = require('./ComparePlayers');
-var CountTiles = require('./CountTiles');
-var EditTiles = require('./EditTiles');
-var FilterCard = require('./FilterCard');
-var FilterStats = require('./FilterStats');
-var FilterDamaged = require('./FilterDamaged');
-var FilterCover = require('./FilterCover');
-var MergeCardFilters = require('./MergeCardFilters');
-var MergeMutations = require('./MergeMutations');
-var CheckCard = require('./CheckCard');
-var CheckTile = require('./CheckTile');
-var CheckColumn = require('./CheckColumn');
-var ColumnSide = require('./ColumnSide');
-var ColumnTiles = require('./ColumnTiles');
-var AdjacentTiles = require('./AdjacentTiles');
-var ConditionalMutation = require('./ConditionalMutation');
+import CompareCards from './CompareCards.js';
+import ComparePlayers from './ComparePlayers.js';
+import CountTiles from './CountTiles.js';
+import EditTiles from './EditTiles.js';
+import FilterCard from './FilterCard.js';
+import FilterStats from './FilterStats.js';
+import FilterDamaged from './FilterDamaged.js';
+import FilterCover from './FilterCover.js';
+import MergeCardFilters from './MergeCardFilters.js';
+import MergeMutations from './MergeMutations.js';
+import CheckCard from './CheckCard.js';
+import CheckTile from './CheckTile.js';
+import CheckColumn from './CheckColumn.js';
+import ColumnSide from './ColumnSide.js';
+import ColumnTiles from './ColumnTiles.js';
+import AdjacentTiles from './AdjacentTiles.js';
+import ConditionalMutation from './ConditionalMutation.js';
 
-var Category = require('./Category');
-var Boost = require('./Boost');
-var CurrentPlayer = require('./CurrentPlayer');
+import Category from './Category.js';
+import Boost from './Boost.js';
+import CurrentPlayer from './CurrentPlayer.js';
 
-var IntVariable = require('./IntVariable');
-var CardVariable = require('./CardVariable');
-var ModelVariable = require('./ModelVariable');
-var LocationVariable = require('./LocationVariable');
+import IntVariable from './IntVariable.js';
+import CardVariable from './CardVariable.js';
+import ModelVariable from './ModelVariable.js';
+import LocationVariable from './LocationVariable.js';
 
-var Timestamp = require('./Timestamp');
-var RandomInt = require('./RandomInt');
-var RandomBool = require('./RandomBool');
-var FindCard = require('./FindCard');
-var Extremum = require('./Extremum');
-var InnerData = require('./InnerData');
+import Timestamp from './Timestamp.js';
+import RandomInt from './RandomInt.js';
+import RandomBool from './RandomBool.js';
+import FindCard from './FindCard.js';
+import Extremum from './Extremum.js';
+import InnerData from './InnerData.js';
 
-var FactorOverload = require('./FactorOverload');
+import FactorOverload from './FactorOverload.js';
 
-var Hand = require('./Hand');
-var Model = require('./Model');
+import Hand from './Hand.js';
+import Model from './Model.js';
 
-var BreakCard = require('./BreakCard');
-var BreakTile = require('./BreakTile');
+import BreakCard from './BreakCard.js';
+import BreakTile from './BreakTile.js';
 
-var If = require('./If');
-var Timer = require('./Timer');
-var ForEachCard = require('./ForEachCard');
-var ForEachTile = require('./ForEachTile');
+import If from './If.js';
+import Timer from './Timer.js';
+import ForEachCard from './ForEachCard.js';
+import ForEachTile from './ForEachTile.js';
 
-var Plus = require('./Plus');
-var Minus = require('./Minus');
-var Times = require('./Times');
-var Div = require('./Div');
-var Mod = require('./Mod');
-var Not = require('./Not');
-var And = require('./And');
-var Or = require('./Or');
-var Xor = require('./Xor');
-var Ternary = require('./Ternary');
-var Equal = require('./Equal');
-var NotEqual = require('./NotEqual');
-var Greater = require('./Greater');
-var GreaterEqual = require('./GreaterEqual');
-var Lesser = require('./Lesser');
-var LesserEqual = require('./LesserEqual');
-var Max = require('./Max');
-var Min = require('./Min');
+import Plus from './Plus.js';
+import Minus from './Minus.js';
+import Times from './Times.js';
+import Div from './Div.js';
+import Mod from './Mod.js';
+import Not from './Not.js';
+import And from './And.js';
+import Or from './Or.js';
+import Xor from './Xor.js';
+import Ternary from './Ternary.js';
+import Equal from './Equal.js';
+import NotEqual from './NotEqual.js';
+import Greater from './Greater.js';
+import GreaterEqual from './GreaterEqual.js';
+import Lesser from './Lesser.js';
+import LesserEqual from './LesserEqual.js';
+import Max from './Max.js';
+import Min from './Min.js';
 
-class Reader {
+export default class Reader {
 
 	static read (blueprint, card) {
 
@@ -253,5 +253,3 @@ class Reader {
 		})
 	}
 }
-
-module.exports = Reader;

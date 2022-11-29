@@ -1,6 +1,6 @@
-var Tile = require("./Tile");
+import Tile from './Tile.js';
 
-class Field {
+export default class Field {
 
 	tiles = [[], []];
 
@@ -36,5 +36,3 @@ class Field {
 			this.tiles[p] = data.tiles[p].map(no => this.game.find({type: "tile", no}));
 	}
 }
-
-module.exports = Field;

@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class ConditionalMutation extends Bloc {
+export default class ConditionalMutation extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -20,5 +20,3 @@ class ConditionalMutation extends Bloc {
 			this.to.execute(props);
 	}
 }
-
-module.exports = ConditionalMutation;

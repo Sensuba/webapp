@@ -1,7 +1,6 @@
-var Bloc = require('./Bloc');
-var Event = require('./Event');
+import Bloc from './Bloc.js';
 
-class Trigger extends Bloc {
+export default class Trigger extends Bloc {
 
 	constructor (name, src, ctx, event) {
 
@@ -10,5 +9,3 @@ class Trigger extends Bloc {
 		this.types = [];
 	}
 }
-
-module.exports = Trigger;

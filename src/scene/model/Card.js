@@ -1,7 +1,7 @@
-var Library = require("../utility/Library");
-var Reader = require("./blueprint/Reader");
+import Library from '../utility/Library.js';
+import Reader from './blueprint/Reader.js';
 
-class Card {
+export default class Card {
 
 	constructor (game, model) {
 
@@ -231,7 +231,7 @@ class Card {
 			return false;
 		if (right && this.location.x >= 4)
 			return false;
-		let former = this.location, newtile = this.player.tiles[this.location.x + (right ? 1 : -1)];
+		//let former = this.location, newtile = this.player.tiles[this.location.x + (right ? 1 : -1)];
 		if (newtile.isFull)
 			return false;
 		return true;
@@ -583,5 +583,3 @@ class Card {
 			this.activate();
 	}
 }
-
-module.exports = Card;

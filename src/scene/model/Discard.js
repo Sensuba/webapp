@@ -1,6 +1,6 @@
-var Location = require("./Location");
+import Location from './Location.js';
 
-class Discard extends Location {
+export default class Discard extends Location {
 
 	layer = 4;
 
@@ -12,5 +12,3 @@ class Discard extends Location {
 
 	get opposite () { return this.player.opponent.discard }
 }
-
-module.exports = Discard;

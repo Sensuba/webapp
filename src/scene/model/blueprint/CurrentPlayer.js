@@ -1,6 +1,6 @@
-var Bloc = require('./Bloc');
+import Bloc from './Bloc.js';
 
-class CurrentPlayer extends Bloc {
+export default class CurrentPlayer extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -9,5 +9,3 @@ class CurrentPlayer extends Bloc {
 		this.types = [];
 	}
 }
-
-module.exports = CurrentPlayer;

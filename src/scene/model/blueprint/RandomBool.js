@@ -1,6 +1,6 @@
-var Bloc = require('./Bloc');
+import Bloc from './Bloc.js';
 
-class RandomBool extends Bloc {
+export default class RandomBool extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -8,5 +8,3 @@ class RandomBool extends Bloc {
 		this.f = (src, ins) => [Math.random() < 0.5];
 	}
 }
-
-module.exports = RandomBool;

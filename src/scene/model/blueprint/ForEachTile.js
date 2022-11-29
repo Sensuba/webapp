@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class ForEachTile extends Bloc {
+export default class ForEachTile extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -23,5 +23,3 @@ class ForEachTile extends Bloc {
 		this.toPrepare.push("completed");
 	}
 }
-
-module.exports = ForEachTile;

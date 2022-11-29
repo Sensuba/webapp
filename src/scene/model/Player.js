@@ -1,15 +1,15 @@
-var Hand = require("./Hand");
-var Deck = require("./Deck");
-var Court = require("./Court");
-var Graveyard = require("./Graveyard");
-var Discard = require("./Discard");
-var Throne = require("./Throne");
-var Hero = require("./Hero");
+import Hand from './Hand.js';
+import Deck from './Deck.js';
+import Court from './Court.js';
+import Graveyard from './Graveyard.js';
+import Discard from './Discard.js';
+import Throne from './Throne.js';
+import Hero from './Hero.js';
 
 const MAX_GEMS = 3;
 const MAX_RECEPTACLES = 10;
 
-class Player {
+export default class Player {
 
 	mana = 0;
 	receptacles = 0;
@@ -407,5 +407,3 @@ class Player {
 			this.targeting = game.find({type: "card", no: data.targeting});
 	}
 }
-
-module.exports = Player;

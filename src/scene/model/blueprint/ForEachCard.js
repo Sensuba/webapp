@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class ForEachCard extends Bloc {
+export default class ForEachCard extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -63,5 +63,3 @@ class ForEachCard extends Bloc {
 		return 0;
 	}
 }
-
-module.exports = ForEachCard;

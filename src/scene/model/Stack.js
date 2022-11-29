@@ -1,6 +1,6 @@
-var Location = require("./Location");
+import Location from './Location.js';
 
-class Stack extends Location {
+export default class Stack extends Location {
 
 	layer = 3;
 
@@ -63,5 +63,3 @@ class Stack extends Location {
 		this.waitingList = data.waitingList.map(priority => priority.map(r => ({card: game.find({type: "card", no: r.card}), player: game.find({type: "player", no: r.player})})));
 	}
 }
-
-module.exports = Stack;

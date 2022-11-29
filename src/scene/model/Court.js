@@ -1,6 +1,6 @@
-var Location = require("./Location");
+import Location from './Location.js';
 
-class Court extends Location {
+export default class Court extends Location {
 
 	layer = 3;
 
@@ -12,5 +12,3 @@ class Court extends Location {
 
 	get opposite () { return this.player.opponent.court }
 }
-
-module.exports = Court;

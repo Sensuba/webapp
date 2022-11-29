@@ -1,6 +1,6 @@
-var Bloc = require('./Bloc');
+import Bloc from './Bloc.js';
 
-class InnerData extends Bloc {
+export default class InnerData extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -9,5 +9,3 @@ class InnerData extends Bloc {
 		this.types = [];
 	}
 }
-
-module.exports = InnerData;

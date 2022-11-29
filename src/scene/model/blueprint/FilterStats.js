@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class FilterStats extends Bloc {
+export default class FilterStats extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -20,5 +20,3 @@ class FilterStats extends Bloc {
 		this.types = [Types.int, Types.int, Types.int, Types.int, Types.int, Types.int];
 	}
 }
-
-module.exports = FilterStats;

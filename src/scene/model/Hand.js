@@ -1,8 +1,8 @@
-var Location = require("./Location");
+import Location from './Location.js';
 
 const MAX_HAND_SIZE = 10;
 
-class Hand extends Location {
+export default class Hand extends Location {
 
 	layer = 2;
 
@@ -21,5 +21,3 @@ class Hand extends Location {
 		card.discard();
 	}
 }
-
-module.exports = Hand;

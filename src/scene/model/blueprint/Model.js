@@ -1,8 +1,8 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
-var Library = require("../../utility/Library");
+import Bloc from './Bloc.js';
+import Types from './Types.js';
+import Library from '../../utility/Library.js';
 
-class Model extends Bloc {
+export default class Model extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -11,5 +11,3 @@ class Model extends Bloc {
 		this.types = [Types.int];
 	}
 }
-
-module.exports = Model;

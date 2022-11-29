@@ -1,8 +1,8 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
-var AuraEffect = require('../Aura');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
+import AuraEffect from '../Aura.js';
 
-class Aura extends Bloc {
+export default class Aura extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -17,5 +17,3 @@ class Aura extends Bloc {
 		owner.passives.push(new AuraEffect(owner, (s, x) => this.in[0]({src: s, data: x})(x), s => this.in[1]({src: s}), s => ((this.in[2]({src: s})) || (x => true))));
 	}
 }
-
-module.exports = Aura;

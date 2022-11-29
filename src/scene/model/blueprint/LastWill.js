@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Listener = require('../Listener');
+import Bloc from './Bloc.js';
+import Listener from '../Listener.js';
 
-class LastWill extends Bloc {
+export default class LastWill extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -24,5 +24,3 @@ class LastWill extends Bloc {
 		//owner.innereffects.push(this);
 	}
 }
-
-module.exports = LastWill;

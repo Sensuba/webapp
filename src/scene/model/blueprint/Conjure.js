@@ -1,12 +1,12 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
+import Card from '../Card.js';
 
-class Conjure extends Bloc {
+export default class Conjure extends Bloc {
 
 	constructor (src, ctx) {
 
 		super("conjure", src, ctx, true);
-		var Card = require('../Card');
 		this.f = (src, ins, props) => {
 			var gen;
 			var n = ins[1] === null ? 1 : ins[1];
@@ -27,5 +27,3 @@ class Conjure extends Bloc {
 		this.toPrepare.push("completed");
 	}
 }
-
-module.exports = Conjure;

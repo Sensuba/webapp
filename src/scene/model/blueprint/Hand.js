@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Hand extends Bloc {
+export default class Hand extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -10,5 +10,3 @@ class Hand extends Bloc {
 		this.types = [Types.player];
 	}
 }
-
-module.exports = Hand;

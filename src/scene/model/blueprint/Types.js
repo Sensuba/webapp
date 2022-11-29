@@ -1,5 +1,5 @@
 
-class Types {
+export default class Types {
 
 	static string (value, src) {
 
@@ -156,5 +156,3 @@ class Types {
 		return value;
 	}
 }
-
-module.exports = Types;

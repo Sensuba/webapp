@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class FindCard extends Bloc {
+export default class FindCard extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -14,5 +14,3 @@ class FindCard extends Bloc {
 		this.types = [Types.locations, Types.cardfilter];
 	}
 }
-
-module.exports = FindCard;

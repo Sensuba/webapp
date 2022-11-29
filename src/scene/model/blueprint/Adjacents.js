@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Adjacents extends Bloc {
+export default class Adjacents extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -10,5 +10,3 @@ class Adjacents extends Bloc {
 		this.types = [Types.tile];
 	}
 }
-
-module.exports = Adjacents;

@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Skill extends Bloc {
+export default class Skill extends Bloc {
 
 	constructor (src, ctx, target) {
 
@@ -32,5 +32,3 @@ class Skill extends Bloc {
 		owner.skills[this.in[0]() ? 1 : 0].push(skill);
 	}
 }
-
-module.exports = Skill;

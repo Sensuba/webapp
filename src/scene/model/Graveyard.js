@@ -1,6 +1,6 @@
-var Location = require("./Location");
+import Location from './Location.js';
 
-class Graveyard extends Location {
+export default class Graveyard extends Location {
 
 	layer = 4;
 
@@ -12,5 +12,3 @@ class Graveyard extends Location {
 
 	get opposite () { return this.player.opponent.graveyard }
 }
-
-module.exports = Graveyard;

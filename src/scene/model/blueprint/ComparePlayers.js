@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class ComparePlayers extends Bloc {
+export default class ComparePlayers extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -10,5 +10,3 @@ class ComparePlayers extends Bloc {
 		this.types = [Types.player, Types.player];
 	}
 }
-
-module.exports = ComparePlayers;

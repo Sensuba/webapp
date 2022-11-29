@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class AddReceptacle extends Bloc {
+export default class AddReceptacle extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -13,5 +13,3 @@ class AddReceptacle extends Bloc {
 		this.types = [Types.int, Types.bool, Types.player];
 	}
 }
-
-module.exports = AddReceptacle;

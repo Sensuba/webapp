@@ -1,8 +1,8 @@
-var Location = require("./Location");
+import Location from './Location.js';
 
 const MAX_TILE_CHARACTERS = 2;
 
-class Tile extends Location {
+export default class Tile extends Location {
 
 	layer = 3;
 
@@ -52,14 +52,14 @@ class Tile extends Location {
 	get left () {
 
 		if (this.x <= 0)
-			return;
+			return null;
 		return this.player.tiles[this.x-1];
 	}
 
 	get right () {
 
 		if (this.x >= 4)
-			return;
+			return null;
 		return this.player.tiles[this.x+1];
 	}
 
@@ -114,5 +114,3 @@ class Tile extends Location {
 		this.player = game.find({type: "player", no: data.player});
 	}
 }
-
-module.exports = Tile;

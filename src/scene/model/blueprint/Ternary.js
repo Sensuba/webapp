@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Ternary extends Bloc {
+export default class Ternary extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -12,5 +12,3 @@ class Ternary extends Bloc {
 		this.types = [Types.bool, Types.int, Types.int];
 	}
 }
-
-module.exports = Ternary;

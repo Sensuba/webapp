@@ -1,11 +1,11 @@
-var Library = require("../utility/Library");
-var Reader = require("./blueprint/Reader");
+import Library from '../utility/Library.js';
+import Reader from './blueprint/Reader.js';
 
 const HERO_STARTING_HP = 60;
 const HERO_LV2_MANA = 1;
 const HERO_LVMAX_MANA = 5;
 
-class Hero {
+export default class Hero {
 
 	constructor (player, id) {
 
@@ -33,7 +33,7 @@ class Hero {
 		switch (this.level) {
 		case 1: return HERO_LV2_MANA;
 		case 2: return HERO_LVMAX_MANA;
-		default: return;
+		default: return null;
 		}
 	}
 
@@ -188,5 +188,3 @@ class Hero {
 		});
 	}
 }
-
-module.exports = Hero;

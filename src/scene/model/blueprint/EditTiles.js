@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class EditTiles extends Bloc {
+export default class EditTiles extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -17,5 +17,3 @@ class EditTiles extends Bloc {
 		this.types = [Types.tiles, Types.tiles];
 	}
 }
-
-module.exports = EditTiles;

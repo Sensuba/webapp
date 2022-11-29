@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Xor extends Bloc {
+export default class Xor extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -10,5 +10,3 @@ class Xor extends Bloc {
 		this.types = [Types.bool, Types.bool];
 	}
 }
-
-module.exports = Xor;

@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Extremum extends Bloc {
+export default class Extremum extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -35,5 +35,3 @@ class Extremum extends Bloc {
 		this.types = [Types.locations, Types.cardfilter];
 	}
 }
-
-module.exports = Extremum;

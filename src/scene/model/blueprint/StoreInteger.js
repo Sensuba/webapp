@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class StoreInteger extends Bloc {
+export default class StoreInteger extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -13,5 +13,3 @@ class StoreInteger extends Bloc {
 		this.types = [Types.string, Types.int, Types.card];
 	}
 }
-
-module.exports = StoreInteger;

@@ -1,6 +1,6 @@
-var System = require("../utility/System");
+import System from '../utility/System.js';
 
-class Listener {
+export default class Listener {
 
 	constructor (src, subscribe) {
 		
@@ -37,5 +37,3 @@ class Listener {
 		return new Listener(src, this.subscribe);
 	}
 }
-
-module.exports = Listener;

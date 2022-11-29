@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Or extends Bloc {
+export default class Or extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -26,5 +26,3 @@ class Or extends Bloc {
 			this.to.execute(props);
 	}
 }
-
-module.exports = Or;

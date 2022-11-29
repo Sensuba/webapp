@@ -1,5 +1,5 @@
 
-class Location {
+export default class Location {
 
 	cards = [];
 
@@ -87,5 +87,3 @@ class Location {
 		this.cards.forEach(c => c.location = this);
 	}
 }
-
-module.exports = Location;

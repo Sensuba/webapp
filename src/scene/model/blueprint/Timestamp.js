@@ -1,8 +1,8 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
-var Event = require('./Event');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
+import Event from './Event.js';
 
-class Timestamp extends Bloc {
+export default class Timestamp extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -11,5 +11,3 @@ class Timestamp extends Bloc {
 		this.types = [Types.player, Types.timestamp];
 	}
 }
-
-module.exports = Timestamp;

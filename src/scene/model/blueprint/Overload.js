@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Overload extends Bloc {
+export default class Overload extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -13,5 +13,3 @@ class Overload extends Bloc {
 		this.types = [Types.card, Types.int];
 	}
 }
-
-module.exports = Overload;

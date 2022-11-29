@@ -1,12 +1,12 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
+import Card from '../Card.js';
 
-class GenerateSummon extends Bloc {
+export default class GenerateSummon extends Bloc {
 
 	constructor (src, ctx) {
 
 		super("generatesummon", src, ctx, true);
-		var Card = require('../Card');
 		this.f = (src, ins, props) => {
 			var gen = null;
 			if (!ins[1].isFull) {
@@ -18,5 +18,3 @@ class GenerateSummon extends Bloc {
 		this.types = [Types.model, Types.location];
 	}
 }
-
-module.exports = GenerateSummon;

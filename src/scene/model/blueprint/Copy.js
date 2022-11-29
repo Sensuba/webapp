@@ -1,12 +1,11 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class Copy extends Bloc {
+export default class Copy extends Bloc {
 
 	constructor (src, ctx) {
 
 		super("copy", src, ctx, true);
-		var Card = require('../Card');
 		this.f = (src, ins) => {
 			for (let i = 0; i < ins[1]; i++) {
 				let reset = ins[2].layer < ins[0].location.layer;
@@ -20,5 +19,3 @@ class Copy extends Bloc {
 		this.types = [Types.card, Types.int, Types.location];
 	}
 }
-
-module.exports = Copy;

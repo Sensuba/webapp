@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class State extends Bloc {
+export default class State extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -22,5 +22,3 @@ class State extends Bloc {
 		this.src.states[s] = cpt[1] !== undefined ? cpt[1] : true;
 	}
 }
-
-module.exports = State;

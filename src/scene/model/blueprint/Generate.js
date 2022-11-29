@@ -1,12 +1,12 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
+import Card from '../Card.js';
 
-class Generate extends Bloc {
+export default class Generate extends Bloc {
 
 	constructor (src, ctx) {
 
 		super("generate", src, ctx, true);
-		var Card = require('../Card');
 		this.f = (src, ins, props) => {
 			var n = ins[1] === null ? 1 : ins[1];
 			for (var i = 0; i < n; i++) {
@@ -26,5 +26,3 @@ class Generate extends Bloc {
 		this.toPrepare.push("completed");
 	}
 }
-
-module.exports = Generate;

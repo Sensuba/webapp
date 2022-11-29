@@ -1,4 +1,4 @@
-class Event {
+export default class Event {
 
 	constructor (src, type, condition) {
 
@@ -20,5 +20,3 @@ class Event {
 		});
 	}
 }
-
-module.exports = Event;

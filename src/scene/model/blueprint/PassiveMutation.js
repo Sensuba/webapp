@@ -1,8 +1,8 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
-var Mutation = require('../Mutation');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
+import Mutation from '../Mutation.js';
 
-class PassiveMutation extends Bloc {
+export default class PassiveMutation extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -20,5 +20,3 @@ class PassiveMutation extends Bloc {
 		owner.passives.push(new Mutation(owner, mut, 3));
 	}
 }
-
-module.exports = PassiveMutation;

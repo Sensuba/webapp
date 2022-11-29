@@ -1,6 +1,6 @@
-var Location = require("./Location");
+import Location from './Location.js';
 
-class Nether extends Location {
+export default class Nether extends Location {
 
 	constructor (player) {
 
@@ -8,5 +8,3 @@ class Nether extends Location {
 		if(!arguments.length) return;
 	}
 }
-
-module.exports = Nether;

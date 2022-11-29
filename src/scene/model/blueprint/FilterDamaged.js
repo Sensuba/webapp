@@ -1,7 +1,7 @@
-var Bloc = require('./Bloc');
-var Types = require('./Types');
+import Bloc from './Bloc.js';
+import Types from './Types.js';
 
-class FilterDamaged extends Bloc {
+export default class FilterDamaged extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -10,5 +10,3 @@ class FilterDamaged extends Bloc {
 		this.types = [Types.int, Types.int];
 	}
 }
-
-module.exports = FilterDamaged;

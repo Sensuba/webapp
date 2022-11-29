@@ -1,6 +1,6 @@
-var Bloc = require('./Bloc');
+import Bloc from './Bloc.js';
 
-class FilterCover extends Bloc {
+export default class FilterCover extends Bloc {
 
 	constructor (src, ctx) {
 
@@ -12,5 +12,3 @@ class FilterCover extends Bloc {
 		this.types = [];
 	}
 }
-
-module.exports = FilterCover;
