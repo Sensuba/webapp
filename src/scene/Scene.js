@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Scene.css';
 import Hand from './view/Hand';
+import Court from './view/Court';
 import Field from './view/Field';
 import Hero from './view/Hero';
 import Abilities from './view/Abilities';
@@ -100,18 +101,18 @@ export default class Scene extends Component {
   	return this.noPlayer > 0 && this.state.model.players.length === 2;
   }
 
-  focus (element) {
+  focus (element, data) {
 
   	/*if (this.moving)
   		this.controller = new PlayingState(this, this.state.model);
     this.setState({focus: element, rotation: this.reverse ? 3 : 0, motion: null});*/
-    this.setState({focus: element});
+    this.setState({focus: element, focusdata: data});
   }
 
   unfocus () {
 
     //this.setState({focus: null, subfocus: null, rotation: this.reverse ? 3 : 0, motion: null});
-  	this.setState({focus: null});
+  	this.setState({focus: null, focusdata: null});
   }
 /*
   deselect () {
@@ -127,12 +128,12 @@ export default class Scene extends Component {
   	e.stopPropagation();
   }*/
 
-  onSelect(e, element) {
+  onSelect(e, element, data) {
 
-    if (this.targeting && this.player.targeting && this.player.targeting.targetType === "card" && element.id && element.id.type === "card" && this.player.canPlayTarget({type: "card", data: element}))
+    if (this.targeting && this.player.targeting && this.player.targeting.targetType === "card" && element.id && (element.id.type === "card" || element.id.type === "hero") && this.player.canPlayTarget({type: "card", data: element}))
       this.controller.act("target", {type: "card", data: element.id});
     else
-  	 this.focus(element.model || element);
+  	 this.focus(element.model || element, data);
   	//this.controller.act("play", element);
   }
 
@@ -150,7 +151,7 @@ export default class Scene extends Component {
     if (this.grabbing.isUnit)
       type = "column";
     if (this.grabbing.type === "skill")
-      type = this.grabbing.model.targetType;
+      type = this.grabbing.no === "levelup" ? undefined : this.grabbing.model.targetType;
 
     if (type === "card") {
 
@@ -246,7 +247,9 @@ export default class Scene extends Component {
       return;
   	if (this.state.target !== undefined) {
       if (this.state.dragged.type === "skill") {
-        if (this.state.dragged.model.targetType) {
+        if (this.state.dragged.no === "levelup")
+          this.controller.act("levelup");
+        else if (this.state.dragged.model.targetType) {
           if (this.state.target.type === this.state.dragged.model.targetType && this.state.dragged.model.targetFunction(this.state.target.data))
             this.controller.act("skill", this.state.dragged.no, this.state.target && this.state.target.type === "card" ? {type: "card", data: this.state.target.data.id} : this.state.target)
         }
@@ -279,6 +282,8 @@ export default class Scene extends Component {
       if (!this.state.dragged)
         return false;
       if (this.state.dragged.type === "skill") {
+        if (this.state.dragged.no === "levelup")
+          return target === undefined;
         if (this.state.dragged.model.targetType)
           return target !== undefined && target.type === this.state.dragged.model.targetType && this.state.dragged.model.targetFunction(target.data);
         return target === undefined;
@@ -290,14 +295,15 @@ export default class Scene extends Component {
 
 		return (
 			<div className={"scene " + this.controller.name} onClick={() => this.deselect()} onTouchEnd={(e) => this.dragEnd(e)} onTouchCancel={(e) => this.dragEnd(e, true)} onTouchMove={e => this.drag(e)} onContextMenu={e => {this.deselect(); e.preventDefault();}}>
-      { this.state.focus ? <CardBox src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/> : "" }
+      { this.state.focus ? <CardBox src={this.state.focus} level={this.state.focusdata} open={true} onClose={() => this.setState({focus:null})}/> : "" }
 			<Field player={this.player} src={this.state.model.field} targeting={this.state.dragged || this.targeting} targetable={targetable} target={this.state.target} onSelect={this.onSelect.bind(this)} onGrab={e => this.grabbing = e}/>
         <div className="game-area self-area">
           <Hand src={this.player.hand} onGrab={e => this.grabbing = e} isDragged={c => c === this.state.dragged} onSelect={this.onSelect.bind(this)}/>
+          <Court src={this.player.court}/>
           <Hero src={this.player.hero} onSelect={this.onSelect.bind(this)}/>
           <Abilities levelup={() => this.controller.act("levelup")} hero={this.player.hero} onGrab={e => this.grabbing = e} onSelect={this.onSelect.bind(this)}/>
           <div className="game-area-data">
-            <div className="game-area-data-stat game-area-data-mana"><img className="game-area-data-stat-icon" src='/images/icons/mana.png'/><div className="game-area-data-stat-value">{ this.player.mana + " / " + this.player.receptacles }</div></div>
+            <div className="game-area-data-stat game-area-data-mana"><img className="game-area-data-stat-icon" src='/images/icons/mana.png'/><div className="game-area-data-stat-value">{ this.player.mana + (this.player.mana < 10 ? " " : "") + "/" + (this.player.receptacles < 10 ? " " : "") + this.player.receptacles }</div></div>
             <div className="game-area-data-stat game-area-data-gems"><img className="game-area-data-stat-icon" src='/images/icons/gem.png'/><div className="game-area-data-stat-value">{ this.player.gems }</div></div>
             <div className="game-area-data-stat game-area-data-hand"><img className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.hand.count }</div></div>
             <div className="game-area-data-stat game-area-data-deck"><img className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.deck.count }</div></div>
@@ -305,10 +311,11 @@ export default class Scene extends Component {
         </div>
         <div className="game-area opposite-area">
           <Hand src={this.player.opponent.hand} onGrab={e => {}} isDragged={c => false} hidden onSelect={this.onSelect.bind(this)}/>
+          <Court src={this.player.opponent.court}/>
           <Hero src={this.player.opponent.hero} onSelect={this.onSelect.bind(this)}/>
           <Abilities hero={this.player.opponent.hero} onGrab={e => {}} onSelect={this.onSelect.bind(this)}/>
           <div className="game-area-data">
-            <div className="game-area-data-stat game-area-data-mana"><img className="game-area-data-stat-icon" src='/images/icons/mana.png'/><div className="game-area-data-stat-value">{ this.player.opponent.mana + " / " + this.player.opponent.receptacles }</div></div>
+            <div className="game-area-data-stat game-area-data-mana"><img className="game-area-data-stat-icon" src='/images/icons/mana.png'/><div className="game-area-data-stat-value">{ this.player.opponent.mana + (this.player.opponent.mana < 10 ? " " : "") + "/" + (this.player.opponent.receptacles < 10 ? " " : "") + this.player.opponent.receptacles }</div></div>
             <div className="game-area-data-stat game-area-data-gems"><img className="game-area-data-stat-icon" src='/images/icons/gem.png'/><div className="game-area-data-stat-value">{ this.player.opponent.gems }</div></div>
             <div className="game-area-data-stat game-area-data-hand"><img className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.opponent.hand.count }</div></div>
             <div className="game-area-data-stat game-area-data-deck"><img className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.opponent.deck.count }</div></div>
@@ -321,7 +328,7 @@ export default class Scene extends Component {
         </div>
         <div className={"turn-indicator playing" + (this.player.playing ? "" : " fade")}>{ read('scene/yourturn') }</div>
         <div className={"turn-indicator" + (this.player.opponent.playing ? "" : " fade")}>{ read('scene/opponentsturn') }</div>
-      <div ref={this.dragged} className="dragged-card">{this.state.dragged ? (this.state.dragged.type === "skill"  ? <Ability src={this.state.dragged.element}/> : <Card src={this.state.dragged}/>) : ""}</div>
+      <div ref={this.dragged} className="dragged-card">{this.state.dragged ? (this.state.dragged.type === "skill"  ? <Ability src={this.state.dragged.element}/> : <Card src={this.state.dragged.eff}/>) : ""}</div>
 	        </div>
 		);
 	}

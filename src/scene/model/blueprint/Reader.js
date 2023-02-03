@@ -21,13 +21,20 @@ import Damage from './Damage.js';
 import Heal from './Heal.js';
 import Destroy from './Destroy.js';
 import Copy from './Copy.js';
+import Transform from './Transform.js';
 import AddStats from './AddStats.js';
 import SetStats from './SetStats.js';
 import SetState from './SetState.js';
 import AddEffect from './AddEffect.js';
+import AddMutation from './AddMutation.js';
 import Enrage from './Enrage.js';
+import AddShield from './AddShield.js';
 import Freeze from './Freeze.js';
+import Silence from './Silence.js';
+import Cast from './Cast.js';
+import Switch from './Switch.js';
 import AddMana from './AddMana.js';
+import UseMana from './UseMana.js';
 import AddReceptacle from './AddReceptacle.js';
 import AddGem from './AddGem.js';
 import Generate from './Generate.js';
@@ -35,6 +42,9 @@ import GenerateSummon from './GenerateSummon.js';
 import Conjure from './Conjure.js';
 import ChangeCost from './ChangeCost.js';
 import Overload from './Overload.js';
+import TriggerEffect from './TriggerEffect.js';
+import DelayedTrigger from './DelayedTrigger.js';
+import DelayedChangeCost from './DelayedChangeCost.js';
 
 import StoreInteger from './StoreInteger.js';
 import StoreCard from './StoreCard.js';
@@ -52,6 +62,8 @@ import FilterCard from './FilterCard.js';
 import FilterStats from './FilterStats.js';
 import FilterDamaged from './FilterDamaged.js';
 import FilterCover from './FilterCover.js';
+import FilterVariable from './FilterVariable.js';
+import FilterEffect from './FilterEffect.js';
 import MergeCardFilters from './MergeCardFilters.js';
 import MergeMutations from './MergeMutations.js';
 import CheckCard from './CheckCard.js';
@@ -75,6 +87,7 @@ import Timestamp from './Timestamp.js';
 import RandomInt from './RandomInt.js';
 import RandomBool from './RandomBool.js';
 import FindCard from './FindCard.js';
+import FindModel from './FindModel.js';
 import Extremum from './Extremum.js';
 import InnerData from './InnerData.js';
 
@@ -85,11 +98,14 @@ import Model from './Model.js';
 
 import BreakCard from './BreakCard.js';
 import BreakTile from './BreakTile.js';
+import BreakLocation from './BreakLocation.js';
 
 import If from './If.js';
+import Loop from './Loop.js';
 import Timer from './Timer.js';
 import ForEachCard from './ForEachCard.js';
 import ForEachTile from './ForEachTile.js';
+import ForEachEffect from './ForEachEffect.js';
 
 import Plus from './Plus.js';
 import Minus from './Minus.js';
@@ -109,6 +125,8 @@ import Lesser from './Lesser.js';
 import LesserEqual from './LesserEqual.js';
 import Max from './Max.js';
 import Min from './Min.js';
+
+import Animation from './Animation.js';
 
 export default class Reader {
 
@@ -138,13 +156,20 @@ export default class Reader {
 			case "heal": bloc = new Heal(card, ctx); break;
 			case "destroy": bloc = new Destroy(card, ctx); break;
 			case "copy": bloc = new Copy(card, ctx); break;
+			case "transform": bloc = new Transform(card, ctx); break;
 			case "addstats": bloc = new AddStats(card, ctx); break;
 			case "setstats": bloc = new SetStats(card, ctx); break;
 			case "setstate": bloc = new SetState(card, ctx); break;
 			case "addeffect": bloc = new AddEffect(card, ctx); break;
+			case "addmut": bloc = new AddMutation(card, ctx); break;
 			case "enrage": bloc = new Enrage(card, ctx); break;
+			case "addshield": bloc = new AddShield(card, ctx); break;
 			case "freeze": bloc = new Freeze(card, ctx); break;
+			case "silence": bloc = new Silence(card, ctx); break;
+			case "cast": bloc = new Cast(card, ctx); break;
+			case "switch": bloc = new Switch(card, ctx); break;
 			case "addmana": bloc = new AddMana(card, ctx); break;
+			case "usemana": bloc = new UseMana(card, ctx); break;
 			case "addrec": bloc = new AddReceptacle(card, ctx); break;
 			case "addgem": bloc = new AddGem(card, ctx); break;
 			case "generate": bloc = new Generate(card, ctx); break;
@@ -152,6 +177,9 @@ export default class Reader {
 			case "conjure": bloc = new Conjure(card, ctx); break;
 			case "changecost": bloc = new ChangeCost(card, ctx); break;
 			case "overload": bloc = new Overload(card, ctx); break;
+			case "trigger": bloc = new TriggerEffect(card, ctx); break;
+			case "delayedtrigger": bloc = new DelayedTrigger(card, ctx); break;
+			case "delayedchangecost": bloc = new DelayedChangeCost(card, ctx); break;
 
 			case "writeintvar": bloc = new StoreInteger(card, ctx); break;
 			case "writecardvar": bloc = new StoreCard(card, ctx); break;
@@ -169,6 +197,8 @@ export default class Reader {
 			case "filterstats": bloc = new FilterStats(card, ctx); break;
 			case "filterdamaged": bloc = new FilterDamaged(card, ctx); break;
 			case "filtercover": bloc = new FilterCover(card, ctx); break;
+			case "filtervar": bloc = new FilterVariable(card, ctx); break;
+			case "filtereffect": bloc = new FilterEffect(card, ctx); break;
 			case "mergecfilters": bloc = new MergeCardFilters(card, ctx); break;
 			case "mergemut": bloc = new MergeMutations(card, ctx); break;
 			case "checkcard": bloc = new CheckCard(card, ctx); break;
@@ -192,21 +222,23 @@ export default class Reader {
 			case "randint": bloc = new RandomInt(card, ctx); break;
 			case "randbool": bloc = new RandomBool(card, ctx); break;
 			case "findcard": bloc = new FindCard(card, ctx); break;
+			case "findmodel": bloc = new FindModel(card, ctx); break;
 			case "extremum": bloc = new Extremum(card, ctx); break;
 			case "innerdata": bloc = new InnerData(card, ctx); break;
-
-			case "factor": bloc = new FactorOverload(card, ctx); break;
 
 			case "hand": bloc = new Hand(card, ctx); break;
 			case "model": bloc = new Model(card, ctx); break;
 
 			case "brkcard": bloc = new BreakCard(card, ctx); break;
 			case "brktile": bloc = new BreakTile(card, ctx); break;
+			case "brklocation": bloc = new BreakLocation(card, ctx); break;
 
 			case "if": bloc = new If(card, ctx); break;
+			case "loop": bloc = new Loop(card, ctx); break;
 			case "timer": bloc = new Timer(card, ctx); break;
 			case "forcard": bloc = new ForEachCard(card, ctx); break;
 			case "fortile": bloc = new ForEachTile(card, ctx); break;
+			case "foreffect": bloc = new ForEachEffect(card, ctx); break;
 
 			case "opplus": bloc = new Plus(card, ctx); break;
 			case "opminus": bloc = new Minus(card, ctx); break;
@@ -227,12 +259,16 @@ export default class Reader {
 			case "opmax": bloc = new Max(card, ctx); break;
 			case "opmin": bloc = new Min(card, ctx); break;
 
+			case "animation": bloc = new Animation(card, ctx); break;
+
 			case "play-trigger": bloc = new Trigger(el.type, card, ctx, "playcard"); break;
 			case "play-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1], data[2]]); break;
 			case "damage-trigger": bloc = new Trigger(el.type, card, ctx, "damage"); break;
 			case "damage-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[2], data[1]]); break;
 			case "attack-trigger": bloc = new Trigger(el.type, card, ctx, "attack"); break;
 			case "attack-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
+			case "levelup-trigger": bloc = new Trigger(el.type, card, ctx, "levelup"); break;
+			case "levelup-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
 
 			default: bloc = new Bloc(el.type, card, ctx); break;
 			}

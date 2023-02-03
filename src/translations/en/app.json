@@ -6,6 +6,15 @@
 		"title": "Sensuba",
 		"play": "Play",
 		"login": "Login",
+		"signup": "Sign up",
+		"username": "Username",
+		"password": "Password",
+		"confirmpassword": "Confirm password",
+		"createaccount": "Create an account",
+		"alreadyaccount": "I already have an account",
+		"usernamelengthwarning": "At least 4 characters",
+		"passwordlengthwarning": "At least 8 characters",
+		"confirmpasswordwarning": "Matching passwords",
 		"loading": "Loading",
 		"story": "Story",
 		"multiplayer": "Multiplayer",
@@ -34,6 +43,7 @@
 		"spell": "spell",
 		"skill": "hero skill",
 		"aura": "hero's blessing",
+		"collection": "collection",
 		"categories": {
 			"mage": "mage",
 			"performer": "performer",
@@ -43,10 +53,12 @@
 			"undead": "undead",
 			"pirate": "pirate",
 			"staff": "staff",
-			"thief": "thief",
+			"scientist": "scientist",
+			"egg": "egg",
 			"knight": "knight",
 			"archer": "archer",
 			"angel": "angel",
+			"priest": "priest",
 			"golem": "golem",
 			"moonfolk": "moonfolk",
 			"cyborg": "cyborg",
@@ -61,7 +73,7 @@
 			"spiritual": "spiritual",
 			"ice": "ice",
 			"thunder": "thunder",
-			"hacking": "digital",
+			"hacking": "hacking",
 			"wind": "wind",
 			"water": "water",
 			"light": "light",
@@ -69,7 +81,8 @@
 			"spectacle": "spectacle",
 			"astral": "astral",
 			"blood": "blood",
-			"sound": "sound"
+			"sound": "sound",
+			"treasure": "treasure"
 		}
 	},
 	"keywords": {
@@ -86,10 +99,12 @@
 		"bounce": "Bounce",
 		"conjure": "Conjure",
 		"burst": "Burst",
+		"critical": "Critical",
 		"ephemeral": "Ephemeral",
 		"exalted": "Exalted",
 		"warden": "Warden",
 		"drain": "Drain",
+		"silence": "Silence",
 		"description": {
 			"fanfare": "Triggers whenever this unit is played from hand",
 			"last will": "Triggers whenever this unit dies",
@@ -104,10 +119,12 @@
 			"bounce": "Returns a unit to their owner's hand",
 			"conjure": "Create a card in your hand",
 			"burst": "Attacks immediately after being summoned",
+			"critical": "Activates if this spell would deal X more damage",
 			"ephemeral": "Dies at the beginning of your turn",
 			"exalted": "Cannot be targeted",
 			"warden": "Cannot attack or move",
-			"drain": "Damage dealt by this card heals your hero by the same amount"
+			"drain": "Damage dealt by this card heals your hero by the same amount",
+			"silence": "Removes all effects and enchantments from a unit"
 		}
 	},
 	"messages": {

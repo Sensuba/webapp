@@ -6,7 +6,7 @@ export default class AddEffect extends Bloc {
 	constructor (src, ctx) {
 
 		super("addeffect", src, ctx, true);
-		this.f = (src, ins, props) => {
+		this.f = (srcs, ins, props) => {
 			let blueprint = { basis: [], triggers: ctx.blueprint.triggers, actions: ctx.blueprint.actions, parameters: ctx.blueprint.parameters };
 			Object.keys(ctx).filter(key => key !== "blueprint").forEach(key => ctx[key].forEach((el, i) => {
 				var bloc = ctx[key][i];
@@ -14,9 +14,9 @@ export default class AddEffect extends Bloc {
 					blueprint.basis.push({type: key, index: i, out: 0});
 				}
 			}));
-			ins[0].addEffect(blueprint);
+			ins[0].addEffect(blueprint, {src, index: ins[2] || 0});
 			return [];
 		};
-		this.types = [Types.card, Types.effect];
+		this.types = [Types.card, Types.effect, Types.int];
 	}
 }

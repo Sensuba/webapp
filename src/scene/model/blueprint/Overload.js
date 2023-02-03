@@ -7,7 +7,7 @@ export default class Overload extends Bloc {
 
 		super("overload", src, ctx, true);
 		this.f = (src, ins) => {
-			ins[0].overload(ins[1]);
+			ins[0].overload(ins[1], 'damage');
 			return [];
 		};
 		this.types = [Types.card, Types.int];

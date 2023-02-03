@@ -18,6 +18,15 @@
 	z-index: 2;
 }
 
+.scene .game-court {
+
+	position: absolute;
+	bottom: 0;
+	left: 10vw;
+	width: 65vw;
+	z-index: 4;
+}
+
 .scene .opposite-area .game-hand {
 
 	bottom: unset;
@@ -311,6 +320,14 @@
   	bottom: unset;
   }
 
+  .scene .game-court {
+
+  	width: 50vw;
+  	height: 32vw;
+  	top: calc(25vh + 35vw);
+  	bottom: unset;
+  }
+
   .scene .opposite-area .game-hand {
 
   		transform: none;
@@ -322,6 +339,14 @@
   		align-content: center;
   		padding-top: 6.25vw;
   		padding-left: 2vw;
+  }
+
+  .scene .opposite-area .game-court {
+
+  	width: 50vw;
+  	height: 32vw;
+  	top: calc(25vh + 0vw);
+  	bottom: unset;
   }
 
   .scene .turn-indicator {

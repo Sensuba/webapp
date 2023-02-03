@@ -21,6 +21,7 @@ export default class LastWill extends Bloc {
 			}
 		}));
 		owner.passives.push(listener);
-		//owner.innereffects.push(this);
+		owner.innereffects = owner.innereffects || [];
+		owner.innereffects.push(this);
 	}
 }

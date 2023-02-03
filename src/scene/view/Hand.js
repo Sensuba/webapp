@@ -16,7 +16,8 @@ export default class Hand extends Component {
           onTouchStart={e => { if (!this.props.hidden && this.props.src.player.canPlay(c) && this.props.src.player.playing) this.props.onGrab(c); }}
           >
             <div id={"sensuba-card-" + c.id.no} className={"game-card-wrapper" + (this.props.isDragged(c) ? " invisible" : "")}>
-              <Card src={this.props.hidden ? null : c}/>
+              <Card src={this.props.hidden ? null : c.eff}/>
+              { !this.props.hidden && c.hasState("temporary") ? <div className="game-temporary"/> : "" }
             </div>
           </div>)
       }

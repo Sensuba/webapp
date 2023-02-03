@@ -9,11 +9,18 @@ import Library from '../../scene/utility/Library';
 
 import { read } from '../../TextManager';
 
-const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze"];
+const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility"];
 
 export default class CardBox extends Component {
 
 	state={ token: [] }
+
+	constructor (props) {
+
+		super (props);
+
+		this.state.level = props.level;
+	}
 
 	toggleTooltip(f) {
 
@@ -29,9 +36,9 @@ export default class CardBox extends Component {
 		let text = this.current.effect;
 		let splits = [];
 		// eslint-disable-next-line
-		let texts = text.split(/\[[^\[]+\]|\{[^\[]+\}|\n/);
+		let texts = text.split(/\[[^\[]+\]|\{[^\{]+\}|\n/);
 		// eslint-disable-next-line
-		let matches = text.match(/\[[^\[]+\]|\{[^\[]+\}|\n/g);
+		let matches = text.match(/\[[^\[]+\]|\{[^\{]+\}|\n/g);
 		if (matches)
 			matches.forEach((match,i) => {
 				let el = match.slice(1, -1);
@@ -40,9 +47,9 @@ export default class CardBox extends Component {
 					let slices = el.split('/');
 					let key = slices[0];
 					let ntoken = this.state.token.slice(); ntoken.push(Library.cards[key]);
-					splits.push(<span onClick={() => this.setState({level: undefined, tooltip: null, token: ntoken})} key={i} className="token" id={'effect-' + i}>{ slices.length > 1 ? slices[1] : Library.cards[key].name }</span>);
+					splits.push(<span onClick={() => this.setState({tooltip: null, token: ntoken})} key={i} className="token" id={'effect-' + i}>{ slices.length > 1 ? slices[1] : Library.cards[key].name }</span>);
 				} else if (match[0] === '[') {
-					splits.push(<span key={i} className="keyword" id={'effect-' + i}>{keywordIcons.includes(el) ? <img className="keyword-icon" src={"/images/icons/" + el + ".png"} alt=""/> : ""}{read('keywords/' + el)}</span>);
+					splits.push(<span key={i} className="keyword" id={'effect-' + i} onClick={() => this.toggleTooltip(i)}>{keywordIcons.includes(el) ? <img className="keyword-icon" src={"/images/icons/" + el + ".png"} alt=""/> : ""}{read('keywords/' + el)}</span>);
 					splits.push(<Tooltip key={i+"t"} className="tooltip" placement="top" isOpen={this.state.tooltip === i} target={"effect-" + i} toggle={() => this.toggleTooltip(i)}>{ read('keywords/description/' + el) }</Tooltip>);
 				} else if (match[0] === '\n') {
 					splits.push(<br key={i}/>);
@@ -72,14 +79,14 @@ export default class CardBox extends Component {
 	            	this.current.colors ?
 	            	<div className="cardbox-abilities">
 	            		<div className="cardbox-lv">
-	            			<div className="cardbox-ability" onClick={() => this.setState({level: undefined, tooltip: null, token: [this.props.src.abilities[0]]})}><Ability src={this.props.src.abilities[0]}/></div>
-	            			<div className="cardbox-ability" onClick={() => this.setState({level: undefined, tooltip: null, token: [this.props.src.abilities[1]]})}><Ability src={this.props.src.abilities[1]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[0]]})}><Ability src={this.props.src.abilities[0]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[1]]})}><Ability src={this.props.src.abilities[1]}/></div>
 	            		</div>
 	            		<div className="cardbox-lv-separator"/>
 	            		<div className="cardbox-lv">
-	            			<div className="cardbox-ability" onClick={() => this.setState({level: undefined, tooltip: null, token: [this.props.src.abilities[2]]})}><Ability src={this.props.src.abilities[2]}/></div>
-	            			<div className="cardbox-ability" onClick={() => this.setState({level: undefined, tooltip: null, token: [this.props.src.abilities[4]]})}><Ability src={this.props.src.abilities[4]}/></div>
-	            			<div className="cardbox-ability" onClick={() => this.setState({level: undefined, tooltip: null, token: [this.props.src.abilities[3]]})}><Ability src={this.props.src.abilities[3]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[2]]})}><Ability src={this.props.src.abilities[2]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[4]]})}><Ability src={this.props.src.abilities[4]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[3]]})}><Ability src={this.props.src.abilities[3]}/></div>
 	            		</div>
 	            	</div>
 	            	: <p className="game-effect">{ this.computeEffect() }</p>
@@ -89,7 +96,7 @@ export default class CardBox extends Component {
 	            <div className="cardbox-side cardbox-right">
 	             	{ colors.map(c => <div key={c} className="cardbox-color">{ read('cards/' + c).toLowerCase() }</div>) }
 	            </div>
-	            { this.state.token.length > 0 ? <div className="cardbox-back-to-parent" onClick={() => this.setState({level: undefined, tooltip: null, token: this.state.token.length > 1 ? this.state.token.slice(0, this.state.token.length-1) : [] })}>{ this.state.token.length > 1 ? this.state.token[this.state.token.length-2].name : this.props.src.name }</div> : "" }
+	            { this.state.token.length > 0 ? <div className="cardbox-back-to-parent" onClick={() => this.setState({tooltip: null, token: this.state.token.length > 1 ? this.state.token.slice(0, this.state.token.length-1) : [] })}>{ this.state.token.length > 1 ? this.state.token[this.state.token.length-2].name : this.props.src.name }</div> : "" }
 	          </div>
 	        </Lightbox>
 		);

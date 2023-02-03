@@ -2,19 +2,33 @@ import System from '../utility/System.js';
 
 export default class Listener {
 
-	constructor (src, subscribe) {
+	constructor (src, subscribe, system) {
 		
 		this.src = src;
+
+		if (!subscribe)
+			return;
 		this.subscribe = subscribe;
+		this.system = system;
 		this.unsubscribe = () => {};
 		this.activated = false;
 		if (src.activated)
 			this.activate();
 	}
 
+	init (subscribe, system) {
+		
+		this.subscribe = subscribe;
+		this.system = system;
+		this.unsubscribe = () => {};
+		this.activated = false;
+		if (this.src.activated)
+			this.activate();
+	}
+
 	activate () {
 
-		if (!System.isServer)
+		if (!System.isServer && !this.system)
 			return;
 		if (this.activated)
 			return;

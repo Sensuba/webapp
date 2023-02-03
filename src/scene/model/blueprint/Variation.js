@@ -7,7 +7,7 @@ export default class Variation extends Bloc {
 
 		super("variation", src, ctx);
 		this.f = (src, ins) => [ x => {
-			if (ins[0] && x.location && x.location.layer <= 2)
+			if (ins[0])
 				x.mana = Math.max(0, x.mana + ins[0]);
 			if (ins[1])
 				x.atk = Math.max(0, x.atk + ins[1]);

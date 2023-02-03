@@ -27,8 +27,9 @@ export default class App extends Component {
       io.start();
       io.onStatusChange = status => {
 
-        if (!this.state.connected && status === 'connected')
+        if (!this.state.connected && status === 'connected') {
           this.setState({connected: true});
+        }
       }
     }
 
@@ -82,8 +83,11 @@ class Dynamo extends Component {
 
     super(props);
     setTimeout(() => {
-      if (!this.loaded)
+      if (!this.state.loaded) {
         this.showLoadingScreenFade = true;
+        if (this.state.loaded)
+          this.setState({loaded:false});
+      }
     }, 500)
     if (!offlineMode && !this.libraryLoaded) {
       let io = SocketManager.master;
@@ -104,7 +108,8 @@ class Dynamo extends Component {
         io.getLibraryVersion(v => {
           if (v === localStorage.getItem("library.version")) {
             checkLibraryVersion = true;
-            this.setState({loaded:true});
+            if (!this.state.loaded)
+              this.setState({loaded:true});
           }
           else updatelibrary();
         })
@@ -113,7 +118,7 @@ class Dynamo extends Component {
 
     this.state = {
       loading: 0,
-      loaded: this.libraryLoaded
+      loaded: this.hasLibraryData
     }
   }
 
@@ -124,7 +129,7 @@ class Dynamo extends Component {
 
   get hasLibraryData () {
 
-    return localStorage.getItem('library.cards') && localStorage.getItem('library.terrains') && localStorage.getItem('library.structures');
+    return localStorage.getItem('library.cards') && localStorage.getItem('library.terrains') && localStorage.getItem('library.heroes');
   }
 
   render () {

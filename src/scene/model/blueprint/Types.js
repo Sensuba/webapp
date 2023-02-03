@@ -18,7 +18,7 @@ export default class Types {
 
 	static player (value, src) {
 
-		return typeof value === 'string' ? (value === "self" ? src.player : src.player.opposite) : value;
+		return typeof value === 'string' ? (value === "self" ? src.player : src.player.opponent) : value;
 	}
 
 	static event (value, src) {
@@ -55,6 +55,9 @@ export default class Types {
 		case 'enemy deck': return src.player.opponent.deck;
 		case 'your throne': return src.player.throne;
 		case 'enemy throne': return src.player.opponent.throne;
+		case 'your court': return src.player.court;
+		case 'enemy court': return src.player.opponent.court;
+		case 'capsule': return src.player.capsule;
 		default: return null;
 		}
 	}
@@ -143,6 +146,17 @@ export default class Types {
 		case 'your side not full': return (csrc, column) => !csrc.player.tiles[column].isFull;
 		case 'enemy side not full': return (csrc, column) => !csrc.player.opponent.tiles[column].isFull;
 		default: return (csrc, column) => true;
+		}
+	}
+
+	static effecttype (value, src) {
+
+		if (!(typeof value === 'string'))
+			return value;
+		switch (value) {
+		case 'fanfare': return target => target.type === "fanfare";
+		case 'last will': return target => target.type === "lastwill";
+		default: return target => true;
 		}
 	}
 

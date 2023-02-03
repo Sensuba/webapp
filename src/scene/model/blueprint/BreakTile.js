@@ -7,6 +7,6 @@ export default class BreakCard extends Bloc {
 
 		super("brkcard", src, ctx);
 		this.f = (src, ins) => [ins[0].x, ins[0].player, ins[0].count, ins[0].frontUnit, ins[0].backUnit];
-		this.types = [Types.card];
+		this.types = [Types.location];
 	}
 }

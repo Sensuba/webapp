@@ -89,7 +89,7 @@ export default class Card {
 
 	summon (tile) {
 
-		if (tile.isFull) {
+		if (tile.isFull && this.location !== tile) {
 			this.banish();
 			return;
 		}
@@ -124,7 +124,7 @@ export default class Card {
 		if (src && src.hasState("drain"))
 			src.player.hero.heal(dmg, src);
 
-		if (this.ghost && !this.game.broadcaster.locked)
+		if (this.ghost)
 			this.destroy();
 		
 		return { damage: dmg, kill, overkill };
@@ -144,10 +144,15 @@ export default class Card {
 
 	get ghost () {
 
-		return this.onField && this.dmg >= this.eff.hp;
+		return this.onField && (this.dmg >= this.eff.hp || this.sentenced);
 	}
 
 	destroy () {
+
+		if (this.game.broadcaster.locked) {
+			this.sentenced = true;
+			return;
+		}
 
 		this.game.notify("destroy.before", this);
 
@@ -190,7 +195,9 @@ export default class Card {
 			return false;
 		if (this.hasState("warden") || this.hasState('freeze'))
 			return false;
-		if (this.summoningSickness || this.actioned)
+		if (this.actioned)
+			return false;
+		if (this.summoningSickness && !(this.hasState('agility') && this.findAttackTarget().isUnit))
 			return false;
 		if (this.inBack && !this.hasState("reach"))
 			return false;
@@ -205,6 +212,10 @@ export default class Card {
 		let target = this.findAttackTarget();
 
 		this.game.notify("attack", this, target);
+
+		if (target === this || (target.isUnit && !target.onField))
+			return;
+
 		let atk = Math.max(0, this.eff.atk - (target.eff.armor || 0));
 		if (!this.hasState("initiative"))
 			target.ripost(this);
@@ -296,7 +307,7 @@ export default class Card {
 
 	banish () {
 
-		if (!this.location || this.location.id.type === "nether")
+		if (this.location && this.location.id.type === "nether")
 			return;
 		this.game.notify("banish.before", this);
 		this.goto(this.game.nether);
@@ -409,14 +420,30 @@ export default class Card {
 		this.game.notify("changecost", this, value);
 	}
 
-	overload (value) {
+	overload (value, type) {
 
 		if (!value || value < 0)
 			return;
 
-		this.game.notify("overload.before", this, value);
-		this.boost = (this.boost || 0) + value;
-		this.game.notify("overload", this, value);
+		this.game.notify("overload.before", this, value, type);
+		this.booster = this.booster || {};
+		this.booster[type] = (this.booster[type] || 0) + value;
+		this.game.notify("overload", this, value, type);
+	}
+
+	silence () {
+
+		this.game.notify("silence.before", this);
+		this.states = {};
+		this.states.silence = true;
+		this.passives.forEach(passive => passive.deactivate());
+		this.passives = [];
+		this.blueprints = [];
+		this.atk = this.model.atk;
+		let chp = this.currentHp;
+		this.hp = this.model.hp;
+		this.dmg = Math.min(0, this.hp - chp);
+		this.game.notify("silence", this);
 	}
 
 	setVariable (name, value) {
@@ -487,6 +514,21 @@ export default class Card {
 		return copy;
 	}
 
+	transform (model) {
+
+		let transform = new Card(this.game, model);
+
+		this.game.notify("transform.before", this, transform);
+		transform.location = this.location;
+		let index = this.location.cards.indexOf(this);
+		this.location.cards[index] = transform;
+		this.location = this.game.nether;
+		this.blueprints = [];
+		this.game.notify("transform", this, transform);
+
+		return transform;
+	}
+
 	get eff () {
 
 		if (!this.onField && !this.inHand && !this.inCourt)
@@ -534,6 +576,13 @@ export default class Card {
 
 	serialize () {
 
+		let variables = this.variables ? Object.assign({}, this.variables) : undefined;
+		if (variables)
+			Object.keys(variables).forEach(key => {
+				if (typeof variables[key] === 'object')
+					variables[key] = variables[key].id;
+			})
+
 		return {
 			model: this.model.key,
 			mana: this.mana,
@@ -543,10 +592,10 @@ export default class Card {
 			categories: this.categories.slice(),
 			hp: this.hp,
 			bonushp: this.bonushp,
-			boost: this.boost,
+			booster: this.booster,
 			dmg: this.dmg,
 			armor: this.armor,
-			variables: this.variables ? this.variables.map(v => typeof v === 'object' ? v.id : v) : undefined,
+			variables: variables,
 			freezetimer: this.freezetimer,
 			type: this.type,
 			actioned: this.actioned,
@@ -563,7 +612,7 @@ export default class Card {
 		this.atk = data.atk;
 		this.hp = data.hp;
 		this.bonushp = data.bonushp;
-		this.boost = data.boost;
+		this.booster = data.booster;
 		this.states = data.states;
 		this.color = data.color;
 		this.categories = data.categories;
@@ -571,7 +620,12 @@ export default class Card {
 		this.armor = data.armor;
 		this.freezetimer = data.freezetimer;
 		this.type = data.type;
-		this.variables = data.variables ? data.variables.map(v => typeof v === 'object' ? game.find(v) : v) : undefined;
+		this.variables = data.variables;
+		if (this.variables)
+			Object.keys(this.variables).forEach(key => {
+				if (typeof this.variables[key] === 'object')
+					this.variables[key] = game.find(this.variables[key]);
+			})
 		this.actioned = data.actioned;
 		this.summoningSickness = data.summoningSickness;
 		this.index = data.index;

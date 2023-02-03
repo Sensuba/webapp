@@ -21,6 +21,12 @@ export default class SocketManager {
 
 	}
 
+	login (username, password) {
+
+		this.socket.emit('identify', true, username, password);
+		this.socket.on('identified', (key) => this.onIdentify(key));
+	}
+
 	setStatus (status) {
 
 		this.status = status;
@@ -69,8 +75,7 @@ export default class SocketManager {
 		console.log('connected');
 		this.socket.removeAllListeners('connected');
 		this.socket.on('disconnect', this.onDisconnect.bind(this));
-		this.socket.emit('identify', 'Anonymous');
-		this.socket.on('identified', () => this.onIdentify());
+		this.login(0, 0);
 	}
 
 	onDisconnect () {
@@ -78,9 +83,12 @@ export default class SocketManager {
 
 	}
 
-	onIdentify () {
+	onIdentify (key) {
 
 		this.socket.removeAllListeners('identified');
+		console.log('identified as ' + key);
+		this.socket.identified = true;
+		localStorage.setItem('user', {key});
 	}
 
 	onUpdateVersion (version) {

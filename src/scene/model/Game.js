@@ -8,13 +8,14 @@ import Stack from './Stack.js';
 import Graveyard from './Graveyard.js';
 import Discard from './Discard.js';
 import Nether from './Nether.js';
+import Capsule from './Capsule.js';
 import Card from './Card.js';
 import Hero from './Hero.js';
 import Throne from './Throne.js';
 import Broadcaster from '../utility/Broadcaster.js';
 //import System from '../utility/System.js';
 
-const P1_STARTING_HAND_SIZE = 5;
+const P1_STARTING_HAND_SIZE = 4;
 const P2_STARTING_HAND_SIZE = 5;
 
 export default class Game {
@@ -162,6 +163,7 @@ export default class Game {
 			case "graveyard": maker = () => new Graveyard(); break;
 			case "discard": maker = () => new Discard(); break;
 			case "nether": maker = () => new Nether(); break;
+			case "capsule": maker = () => new Capsule(); break;
 			case "card": maker = () => new Card(); break;
 			case "throne": maker = () => new Throne(); break;
 			case "hero": maker = () => new Hero(); break;

@@ -1,8 +1,8 @@
-.game-hand {
+.game-court {
 
-	width: 100%;
 	justify-content: space-around;
-	height: 16vw;
+	height: 12vw;
+    height: 9vw;
 	box-sizing: border-box;
 	pointer-events: none;
 	flex-wrap: wrap;
@@ -10,7 +10,7 @@
 	align-content: flex-start;
 }
 
-.game-hand-card {
+.game-court-card {
 
     z-index: 1;
     width: 8vw;
@@ -20,55 +20,17 @@
 	margin: 1vw;
 }
 
-.game-hand-card-unplayable {
+.game-court-card .game-card-wrapper {
 
-	filter: grayscale(0.5) brightness(0.6);
-}
-
-.game-hand-card .game-card-wrapper {
-
-	font-size: 1.2vw;
-	border-radius: 1.45vw;
-	border-bottom-left-radius: 60% 12%;
-	border-bottom-right-radius: 60% 12%;
-}
-
-.self-area .game-hand-card {
-
-    cursor: pointer;
-}
-
-.self-area .game-hand-card:hover .game-card-wrapper {
-
-	top: 1vw;
-}
-
-.opposite-area .game-hand-card .game-card-wrapper {
-
-    top: 1.5vw;
-}
-
-.opposite-area .game-hand-card:hover .game-card-wrapper {
-
-	top: 1vw;
-}
-
-.self-area .game-hand-card:hover {
-
-    z-index: 2;
-}
-
-.card-focus {
-
-	box-shadow: 0 0 0.2em 0.2em red;
+	font-size: 3.5vw;
 }
 
 @media only screen and (max-width: 600px) {
   
-  .game-hand-card {
+  .game-court-card {
 
-  	width: 18%;
-  	height: 13.5vw;
+  	width: 50vw;
+  	height: 32vw;
   	font-size: 2em;
   	margin: unset;
   	padding: 1%;

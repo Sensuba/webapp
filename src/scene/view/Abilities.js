@@ -24,11 +24,11 @@ export default class Abilities extends Component {
           <Ability src={list[lv === 3 ? 2 : 0]}/>
         </div> : "" }
       { lv === 3 ? <div className="game-ability game-ability-aura" onClick={e => this.props.onSelect(e, list[4])}><Ability src={list[4]}/></div> : "" }
-      { this.props.levelup && lv !== 3 ? <div className={"game-lv-up" + (usable[1] ? "" : " game-ability-locked")} onClick={usable[1] ? (e => this.props.levelup()) : null}>
-          <div className="lv-up-img-wrapper"><img className="lv-up-img" alt="" src={ lv === 1 ? this.props.hero.model['img-lv2'] : this.props.hero.model['img-lvmax'] }/></div>
-          <div className="lv-up-frame"/>
-          <div className="card-mana">{ lv === 2 ? 5 : 1 }</div>
-          <img className="card-manaball" alt="" src="/images/ballmana.png"/>
+      { this.props.levelup && lv !== 3 ? 
+        <div className={"game-ability" + (usable[1] ? "" : " game-ability-locked")}
+          onTouchStart={e => { if (this.props.hero.player.playing && usable[1]) this.props.onGrab({type: "skill", no:"levelup", element: {img: lv === 1 ? this.props.hero.model['img-lv2'] : this.props.hero.model['img-lvmax'], mana: lv === 2 ? 5 : 1}}); }}
+          onClick={e => this.props.onSelect(e, this.props.hero, this.props.hero.level+1)}>
+          <Ability src={{img: lv === 1 ? this.props.hero.model['img-lv2'] : this.props.hero.model['img-lvmax'], mana: lv === 2 ? 5 : 1}}/>
         </div> : "" }
       { lv > 1 ?
         <div

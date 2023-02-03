@@ -6,6 +6,15 @@
 		"title": "Sensuba",
 		"play": "Jouer",
 		"login": "Connexion",
+		"signup": "Inscription",
+		"username": "Nom d'utilisateur",
+		"password": "Mot de passe",
+		"confirmpassword": "Confirmation du mot de passe",
+		"createaccount": "Créer un compte",
+		"alreadyaccount": "J'ai déjà un compte",
+		"usernamelengthwarning": "4 caractères minimum",
+		"passwordlengthwarning": "4 caractères minimum",
+		"confirmpasswordwarning": "Mots de passe correspondants",
 		"loading": "Chargement",
 		"story": "Histoire",
 		"multiplayer": "Multijoueur",
@@ -45,10 +54,12 @@
 			"knight": "chevalier",
 			"archer": "archer",
 			"angel": "ange",
+			"priest": "prêtre",
 			"golem": "golem",
 			"moonfolk": "lunaréen",
 			"staff": "employé",
-			"thief": "voleur",
+			"scientist": "scientifique",
+			"egg": "œuf",
 			"cyborg": "cyborg",
 			"elf": "elfe",
 			"ogre": "ogre",
@@ -69,7 +80,8 @@
 			"spectacle": "du spectacle",
 			"astral": "astral",
 			"blood": "de sang",
-			"sound": "de son"
+			"sound": "de son",
+			"treasure": "trésor"
 		}
 	},
 	"keywords": {
@@ -86,10 +98,12 @@
 		"bounce": "Renvoie",
 		"conjure": "Conjure",
 		"burst": "Charge",
+		"critical": "Critique",
 		"ephemeral": "Ephémère",
 		"exalted": "Exaltation",
 		"warden": "Gardien",
 		"drain": "Drainage",
+		"silence": "Silence",
 		"description": {
 			"fanfare": "Se déclenche lorsque cette unité est jouée de la main",
 			"last will": "Se déclenche lorsque cette unité meurt",
@@ -104,10 +118,12 @@
 			"bounce": "Renvoie une unité dans la main de son propriétaire",
 			"conjure": "Créé une carte dans votre main",
 			"burst": "Attaque immédiatement lorsque cette unité est invoquée",
+			"critical": "S'active si ce sort devrait infliger X dégâts supplémentaires",
 			"ephemeral": "Meurt au début de votre tour",
 			"exalted": "Ne peut pas être ciblé",
 			"warden": "Ne peut pas attaquer ou se déplacer",
-			"drain": "Les dégâts infligés par cette carte rendent autant de PV à votre héros"
+			"drain": "Les dégâts infligés par cette carte rendent autant de PV à votre héros",
+			"silence": "Annule les effets et enchantements liés à une unité"
 		}
 	},
 	"messages": {

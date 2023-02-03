@@ -15,9 +15,4 @@ export default class Hand extends Location {
 	}
 
 	get opposite () { return this.player.opponent.hand }
-
-	addCardWhenFull (card) {
-
-		card.discard();
-	}
 }

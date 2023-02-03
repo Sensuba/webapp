@@ -3,6 +3,7 @@ import Deck from './Deck.js';
 import Court from './Court.js';
 import Graveyard from './Graveyard.js';
 import Discard from './Discard.js';
+import Capsule from './Capsule.js';
 import Throne from './Throne.js';
 import Hero from './Hero.js';
 
@@ -26,6 +27,7 @@ export default class Player {
 		this.court = new Court(this);
 		this.graveyard = new Graveyard(this);
 		this.discard = new Discard(this);
+		this.capsule = new Capsule(this);
 		this.throne = new Throne(this);
 		new Hero(this, decklist.hero);
 		this.deck.init(decklist.cards);
@@ -91,6 +93,10 @@ export default class Player {
 				unit.setState("freeze", false);
 			}
 		})
+		this.hand.cards.forEach(card => {
+			if (card.hasState("temporary"))
+				card.discard();
+		})
 		this.game.notify("cleanup", this);
 		this.opponent.newTurn();
 	}
@@ -101,7 +107,7 @@ export default class Player {
 		if (!card)
 			return;
 		if (this.hand.isFull)
-			card.discard();
+			card.banish();
 		else this.hand.addCard(card);
 		if (n > 1)
 			this.draw(n-1, filter);
@@ -178,8 +184,8 @@ export default class Player {
 
 	play (card, target) {
 
-		this.pay(card.mana);
-		this.game.notify("playcard", this, card, target ? target.data : undefined);
+		this.pay(card.eff.mana);
+		this.game.notify("playcard.before", this, card, target ? target.data : undefined);
 		switch (card.type) {
 		case "unit":
 			card.summon(this.tiles[target.data]);
@@ -189,6 +195,7 @@ export default class Player {
 			break;
 		default: card.banish(); break;
 		}
+		this.game.notify("playcard", this, card, target ? target.data : undefined);
 		if (card.type === "unit" && card.events) {
 			if (card.hasTarget) {
 				if (this.hasValidTargets(card)) {
@@ -234,7 +241,7 @@ export default class Player {
 
 	canPlay (card) {
 		
-		if (!(this.actionable && card && card.location === this.hand && this.canPay(card.mana)))
+		if (!(this.actionable && card && card.location === this.hand && this.canPay(card.eff.mana)))
 			return false;
 		if (card.isUnit)
 			return this.tiles.some(tile => !tile.isFull);
@@ -248,7 +255,7 @@ export default class Player {
 
 	canPlayOn (card, target) {
 		
-		if (!(this.actionable && card && card.location === this.hand && this.canPay(card.mana)))
+		if (!(this.actionable && card && card.location === this.hand && this.canPay(card.eff.mana)))
 			return false;
 		if (card.isUnit)
 			return target !== undefined && target.type === "column" && !this.tiles[target.data].isFull;
@@ -379,6 +386,7 @@ export default class Player {
 			court: this.court.id.no,
 			graveyard: this.graveyard.id.no,
 			discard: this.discard.id.no,
+			capsule: this.capsule.id.no,
 			throne: this.throne.id.no,
 			mana: this.mana,
 			receptacles: this.receptacles,
@@ -394,6 +402,7 @@ export default class Player {
 		this.court = game.find({type: "court", no: data.court});
 		this.graveyard = game.find({type: "graveyard", no: data.graveyard});
 		this.discard = game.find({type: "discard", no: data.discard});
+		this.capsule = game.find({type: "capsule", no: data.capsule});
 		this.throne = game.find({type: "throne", no: data.throne});
 		this.hand.player = this;
 		this.deck.player = this;

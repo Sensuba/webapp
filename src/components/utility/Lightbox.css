@@ -21,7 +21,7 @@
 
 	position: relative;
 	display: inline-block;
-	background-color: #282c34;
+	background-color: #23221f;
 	max-width: 100%;
 	max-height: 100%;
 	margin: auto;
@@ -32,4 +32,15 @@
 	max-height: 80vh;
 	max-width: 80vw;
 	overflow: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  
+  .lightbox-container .lightbox-inner .lightbox {
+
+    height: 15rem;
+    width: 80vw;
+    overflow: visible;
+    background-color: #23221f;
+  }
 }

@@ -85,6 +85,11 @@ let reducer = (state = 0, n) => {
     card.setDamage(n.data[1]);
     break;
   }
+  case "silence": {
+    let card = state.find(n.data[0]);
+    card.silence();
+    break;
+  }
   case "shieldbreak": {
     let card = state.find(n.data[0]);
     delete card.states.shield;
@@ -111,6 +116,15 @@ let reducer = (state = 0, n) => {
     let card = state.find(n.data[0]);
     card.addEffect(n.data[1]);
     break;
+  }
+  case "transform": {
+    let src = state.find(n.data[0]);
+    let transform = state.find(n.data[1]);
+    transform.location = src.location;
+    let index = src.location.cards.indexOf(src);
+    src.location.cards[index] = transform;
+    src.location = src.game.nether;
+    src.blueprints = [];
   }
   case "switch": {
     let tile = state.find(n.data[0]);
@@ -163,8 +177,10 @@ let reducer = (state = 0, n) => {
   default: break;
   }
 
-  if (state)
+  if (state) {
+    state.broadcaster.trigger(n.type, n.data);
     state.update();
+  }
 
   return state;
 }

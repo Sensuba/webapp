@@ -9,7 +9,7 @@ export default class Card extends Component {
   	if (!model.states)
   		return "attack";
     let state = null;
-    ["reach", "drain", "warden"].forEach(s => {
+    ["reach", "drain", "warden", "agility"].forEach(s => {
       if (!model.states.includes(s))
         return;
       if (state)

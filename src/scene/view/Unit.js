@@ -6,7 +6,7 @@ export default class Unit extends Component {
   attackIcon () {
 
     let state = null;
-    ["reach", "drain", "warden", "freeze"].forEach(s => {
+    ["reach", "drain", "warden", "freeze", "agility"].forEach(s => {
       if (!this.props.src.hasState(s))
         return;
       if (state)

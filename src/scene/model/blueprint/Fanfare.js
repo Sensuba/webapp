@@ -27,7 +27,9 @@ export default class Fanfare extends Bloc {
 		owner.events = owner.events || [];
 		owner.events.push(target => {
 			this.chosen = target;
+			owner.game.notify("fanfare.before", owner, target);
 			this.trigger(owner, image);
+			owner.game.notify("fanfare", owner, target);
 		});
 	}
 }

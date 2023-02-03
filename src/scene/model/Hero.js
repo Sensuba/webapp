@@ -7,6 +7,8 @@ const HERO_LVMAX_MANA = 5;
 
 export default class Hero {
 
+	activated = true;
+
 	constructor (player, id) {
 
 		if(!arguments.length) return;
@@ -43,12 +45,15 @@ export default class Hero {
 		this.dmg = 0;
 		this.level = 1;
 		this.passives = [];
+		this.blueprints = [];
 		["colors"].forEach(k => this[k] = this.model[k]);
 		this.skills = [[], []];
+		this.activated = false;
 		this.model.abilities.forEach(ability => {
 			if (ability.blueprint)
 				Reader.read(ability.blueprint, this);
 		})
+		this.activated = true;
 	}
 
 	damage (dmg, src) {
@@ -75,6 +80,13 @@ export default class Hero {
 
 	ripost (other) {
 		
+	}
+
+	addEffect (blueprint) {
+
+		this.blueprints.push(blueprint);
+		Reader.read(blueprint, this);
+		this.game.notify("addeffect", this, blueprint);
 	}
 
 	setState (state) {
@@ -166,7 +178,8 @@ export default class Hero {
 			hp: this.hp,
 			level: this.level,
 			variables: this.variables ? this.variables.map(v => typeof v === 'object' ? v.id : v) : undefined,
-			skillUsed: this.skillUsed
+			skillUsed: this.skillUsed,
+			blueprints: this.blueprints
 		}
 	}
 
@@ -182,9 +195,13 @@ export default class Hero {
 		this.model = Library.getHero(data.model);
 		this.passives = [];
 		this.skills = [[], []];
+		this.activated = false;
 		this.model.abilities.forEach(ability => {
 			if (ability.blueprint)
 				Reader.read(ability.blueprint, this);
 		});
+		this.activated = true;
+		this.blueprints = data.blueprints;
+		this.blueprints.forEach(bp => Reader.read(bp, this.hero));
 	}
 }

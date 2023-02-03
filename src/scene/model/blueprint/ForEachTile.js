@@ -18,7 +18,7 @@ export default class ForEachTile extends Bloc {
 				this.completed.execute(props);
 			return;
 		}
-		this.types = [Types.tiles, Types.tilefilter];
+		this.types = [Types.locations, Types.tilefilter];
 		this.toPrepare.push("for each");
 		this.toPrepare.push("completed");
 	}

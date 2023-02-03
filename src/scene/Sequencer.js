@@ -66,16 +66,27 @@ export default class Sequencer {
 
 	  switch(n.type) {
 	    case "gamestate": return new Wait(this.master, 1000);
+	    case "animation": {
+	    	switch (n.data[0]) {
+	    	case "spark": return new Wait(this.master, 300);
+	    	}
+	    }
+	    case "cast": {
+	    	return new Wait(this.master, 200);
+	    }
 	    case "movecard": {
 	    	if (n.data[2] && n.data[2].type === "hand") {
 		    	let card = this.master.state.model.find(n.data[0]);
 		    	if (card)
 		    		return new AddToHand(this.master, n.data[0].no);
 		    }
-		    if (n.data[1] && n.data[1].type === "hand") {
+		    /*if (n.data[1] && n.data[1].type === "hand") {
 		    	let card = this.master.state.model.find(n.data[0]);
 		    	if (card)
 		    		return new RemoveFromHand(this.master, n.data[0].no);
+		    }*/
+		    if (n.data[2] && n.data[2].type === "court") {
+		    	return new Wait(this.master, 1000);
 		    }
 	    	break; }
 	    default: return null;

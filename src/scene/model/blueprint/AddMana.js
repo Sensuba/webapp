@@ -7,9 +7,9 @@ export default class AddMana extends Bloc {
 
 		super("addmana", src, ctx, true);
 		this.f = (src, ins) => {
-			ins[1].addMana(ins[0]);
+			ins[0].addMana(ins[1]);
 			return [];
 		};
-		this.types = [Types.int, Types.player];
+		this.types = [Types.player, Types.int];
 	}
 }

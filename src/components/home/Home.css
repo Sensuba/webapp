@@ -31,3 +31,85 @@
     margin-bottom: 10vh;
   }
 }
+
+.home-page .lightbox-container {
+
+  animation: logbox-fade-in 0.2s;
+}
+
+@keyframes logbox-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.logbox {
+
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.logbox form {
+
+  flex-direction: column;
+  color: #edeae4;
+  width: 100%;
+}
+
+.logbox form label {
+
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0.2rem;
+}
+
+.logbox form .label-input {
+
+  margin-bottom: 0.2rem;
+}
+
+.logbox input {
+
+  border: none;
+  outline: none;
+  width: 100%;
+  border-radius: 3px;
+  background: linear-gradient(#ece6d780, #6d654e80);
+  font-size: 1.3rem;
+  color: #eaecec;
+  padding: 0.4rem;
+  box-shadow: inset 0 0 0.4rem 0 #00000080;
+  box-sizing: border-box;
+}
+
+.logbox form button {
+
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  min-width: 12rem;
+  justify-content: center;
+  border-width: 0.1rem;
+  background: linear-gradient(to bottom, #cfc6b7, #e6e1d6);
+  position: relative;
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+
+.logbox .more-detail {
+
+  justify-content: center;
+  text-decoration: underline;
+}
+
+.invalid-feedback {
+    transition: 0.2s;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: #dcd635;
+}
+
+.is-invalid~.invalid-feedback, .is-invalid~.invalid-tooltip, .was-validated :invalid~.invalid-feedback, .was-validated :invalid~.invalid-tooltip {
+    color: #dc3545;
+}
