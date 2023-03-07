@@ -158,6 +158,11 @@ a {
   src: url('../fonts/BurbankBigRegular-Medium.otf');
 }
 
+@font-face {
+  font-family: Impact;
+  src: url('../fonts/impact.ttf');
+}
+
 .tooltip {
 
   background: #dfcaaae0;
