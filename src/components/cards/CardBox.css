@@ -71,6 +71,11 @@
 	text-decoration: underline dotted #edeae480;
 }
 
+.game-effect .keyword.soft {
+
+	font-weight: unset;
+}
+
 .game-effect .keyword-icon {
 
 	width: 1em;

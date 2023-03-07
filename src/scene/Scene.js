@@ -40,7 +40,10 @@ export default class Scene extends Component {
 
     this.io = SocketManager.master;
     this.io.onGameupdate = (type, data) => this.update(type, data);
-    this.io.gamemode('room');
+
+    let decks = JSON.parse(localStorage.getItem('decks'))
+    let activedeck = decks.filter(deck => deck.key === localStorage.getItem('activedeck'))[0].body;
+    this.io.gamemode('room', activedeck);
 
     this.grabbing = null;
     this.dragged = React.createRef();

@@ -4,8 +4,9 @@ import Nav from '../nav/Nav';
 import MainButton from '../buttons/MainButton';
 import Flowers from '../other/flowers/Flowers';
 import Lightbox from '../utility/Lightbox';
-import { Input, Button, Label, Form, FormFeedback } from 'reactstrap';
+import { Input, Label, Form, FormFeedback } from 'reactstrap';
 import SocketManager from '../../SocketManager';
+import sha1 from 'sha1';
 
 import { read } from '../../TextManager';
 
@@ -21,7 +22,23 @@ export default class Home extends Component {
     if (username.length < 4 || password.length < 8)
       return;
 
+    password = sha1(password);
+
     SocketManager.master.login(username, password);
+  }
+
+  signup () {
+
+    let username = document.getElementById("username-signup").value;
+    let password = document.getElementById("password-signup").value;
+    let confirmpassword = document.getElementById("password-signup").value;
+
+    if (username.length < 4 || password.length < 8 && confirmpassword === password)
+      return;
+
+    password = sha1(password);
+
+    SocketManager.master.signup(username, password);
   }
 
   render () {
@@ -45,7 +62,7 @@ export default class Home extends Component {
                     <div className="label-input">{ read('menu/password') }</div>
                     <Input id="password-login" type="password" name="password" autoComplete="off"/>
                   </Label>
-                  <MainButton>{ read('menu/login') }</MainButton>
+                  <MainButton onClick={() => this.login()}>{ read('menu/login') }</MainButton>
                   <div className="more-detail" onClick={() => this.setState({logbox: "signup"})}>{ read('menu/createaccount') }</div>
                 </Form>
                 :
@@ -65,7 +82,7 @@ export default class Home extends Component {
                     <Input autoComplete="off" onChange={() => this.setState({"confirmpasswordsignupvalid": document.getElementById("confirm-password-signup").value === document.getElementById("password-signup").value})} invalid={!this.state.confirmpasswordsignupvalid} id="confirm-password-signup" type="password" name="confirm-password"/>
                     <FormFeedback>{ (this.state.confirmpasswordsignupvalid ? "✔ " : "❌ ") + read('menu/confirmpasswordwarning') }</FormFeedback>
                   </Label>
-                  <MainButton>{ read('menu/signup') }</MainButton>
+                  <MainButton onClick={() => this.signup()}>{ read('menu/signup') }</MainButton>
                   <div className="more-detail" onClick={() => this.setState({logbox: "login"})}>{ read('menu/alreadyaccount') }</div>
                 </Form>
             }

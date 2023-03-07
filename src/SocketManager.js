@@ -24,7 +24,13 @@ export default class SocketManager {
 	login (username, password) {
 
 		this.socket.emit('identify', true, username, password);
-		this.socket.on('identified', (key) => this.onIdentify(key));
+		this.socket.on('identified', (key, user) => this.onIdentify(key, user));
+	}
+
+	signup (username, password) {
+
+		this.socket.emit('signup', username, password);
+		this.socket.on('identified', (key, user) => this.onIdentify(key, user));
 	}
 
 	setStatus (status) {
@@ -33,7 +39,7 @@ export default class SocketManager {
 		this.onStatusChange(status);
 	}
 
-	gamemode (mode, params) {
+	gamemode (mode, ...params) {
 
 		this.socket.emit('gamemode', mode, params);
 		this.socket.on('gameupdate', (type, data) => this.onGameupdate(type, data));
@@ -69,13 +75,22 @@ export default class SocketManager {
 		this.socket.emit('gamecommand', command, params);
 	}
 
+	deckbuild (command, ...params) {
+
+		this.socket.emit('deckbuild', command, params);
+	}
+
 	onConnect () {
 
 		this.setStatus('connected');
 		console.log('connected');
 		this.socket.removeAllListeners('connected');
 		this.socket.on('disconnect', this.onDisconnect.bind(this));
-		this.login(0, 0);
+		let user = JSON.parse(localStorage.getItem('user'));
+		if (user && user.accesstoken)
+			this.socket.emit('identify', false, user.key, user.accesstoken);
+		else this.socket.emit('identify', false);
+		this.socket.on('identified', (key, user) => this.onIdentify(key, user));
 	}
 
 	onDisconnect () {
@@ -83,13 +98,91 @@ export default class SocketManager {
 
 	}
 
-	onIdentify (key) {
+	onIdentify (code, data) {
 
 		this.socket.removeAllListeners('identified');
-		console.log('identified as ' + key);
+
+		if (code <= 0) {
+			console.log('failed to identify');
+			return;
+		}
+
+		console.log('identified as ' + (data.user.anonymous ? 'anonymous user ' + data.user.key : data.user.username));
 		this.socket.identified = true;
-		localStorage.setItem('user', {key});
+		this.socket.on('deckbuild', this.onDeckbuild.bind(this));
+		localStorage.setItem('user', JSON.stringify(data.user));
+		localStorage.setItem('decks', JSON.stringify(data.decks));
 	}
+
+	onDeckbuild (command, params) {
+
+		switch (command) {
+		case "newdeck": {
+			let decks = JSON.parse(localStorage.getItem('decks'));
+			let targetdeck = {
+				key: params[2],
+				author: params[3],
+				deckname: params[0],
+				body: {
+					hero: params[1],
+					cards: []
+				}
+			}
+			decks.push(targetdeck);
+			localStorage.setItem('decks', JSON.stringify(decks));
+			if (this.onDeckbuildUpdate)
+				this.onDeckbuildUpdate(targetdeck);
+			break;
+		}
+		case "rename": {
+			let decks = JSON.parse(localStorage.getItem('decks'));
+			let targetdeck;
+			decks.forEach(deck => {
+				if (deck.key === params[0]) {
+					targetdeck = deck;
+					deck.deckname = params[1];
+				}
+			})
+			localStorage.setItem('decks', JSON.stringify(decks));
+			if (this.onDeckbuildUpdate)
+				this.onDeckbuildUpdate(targetdeck);
+			break;
+		}
+		case "addcard": {
+			let decks = JSON.parse(localStorage.getItem('decks'));
+			let targetdeck;
+			decks.forEach(deck => {
+				if (deck.key === params[0]) {
+					targetdeck = deck;
+					deck.body.cards.push(params[1]);
+				}
+			})
+			localStorage.setItem('decks', JSON.stringify(decks));
+			if (this.onDeckbuildUpdate)
+				this.onDeckbuildUpdate(targetdeck);
+			break;
+		}
+		case "removecard": {
+			let decks = JSON.parse(localStorage.getItem('decks'));
+			let targetdeck;
+			decks.forEach(deck => {
+				if (deck.key === params[0]) {
+					targetdeck = deck;
+					let idx = deck.body.cards.findIndex(key => key === params[1]);
+					if (idx >= 0)
+						deck.body.cards.splice(idx, 1);
+				}
+			})
+			localStorage.setItem('decks', JSON.stringify(decks));
+			if (this.onDeckbuildUpdate)
+				this.onDeckbuildUpdate(targetdeck);
+			break;
+		}
+		default: break;
+		}
+	}
+
+
 
 	onUpdateVersion (version) {
 

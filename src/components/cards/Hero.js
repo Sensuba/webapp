@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Hero.css';
 
-export default class Card extends Component {
+export default class Hero extends Component {
 
 	render () {
 

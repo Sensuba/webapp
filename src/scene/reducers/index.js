@@ -120,14 +120,15 @@ let reducer = (state = 0, n) => {
   case "transform": {
     let src = state.find(n.data[0]);
     let transform = state.find(n.data[1]);
-    transform.location = src.location;
+    transform.location = src.location;console.log(n)
     let index = src.location.cards.indexOf(src);
     src.location.cards[index] = transform;
     src.location = src.game.nether;
     src.blueprints = [];
+    break;
   }
   case "switch": {
-    let tile = state.find(n.data[0]);
+    let tile = state.find(n.data[0]);console.log(n.data);
     tile.switch();
     break;
   }

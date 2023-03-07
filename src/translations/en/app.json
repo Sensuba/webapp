@@ -20,7 +20,16 @@
 		"multiplayer": "Multiplayer",
 		"cards": "Cards",
 		"heroes": "Heroes",
-		"portalroom": "Portal room"
+		"decks": "Decks",
+		"portalroom": "Portal room",
+		"chosehero": "Chose a hero",
+		"newdeckname": "New deck",
+		"text": "Text",
+		"name": "Name",
+		"type": "Type",
+		"mana": "Mana",
+		"category": "Category",
+		"orderby": "Order by"
 	},
 	"nav": {
 		"enter": "Enter"
@@ -40,6 +49,7 @@
 		"black": "Black",
 		"hero": "hero",
 		"unit": "unit",
+		"building": "building",
 		"spell": "spell",
 		"skill": "hero skill",
 		"aura": "hero's blessing",
@@ -59,12 +69,14 @@
 			"archer": "archer",
 			"angel": "angel",
 			"priest": "priest",
+			"druid": "druid",
 			"golem": "golem",
 			"moonfolk": "moonfolk",
 			"cyborg": "cyborg",
 			"elf": "elf",
 			"ogre": "ogre",
 			"phoenix": "phoenix",
+			"giant": "giant",
 			"elemental": "elemental",
 			"illusion": "illusion",
 			"wall": "wall",
@@ -78,16 +90,18 @@
 			"water": "water",
 			"light": "light",
 			"shadow": "shadow",
-			"spectacle": "spectacle",
+			"trick": "trick",
 			"astral": "astral",
 			"blood": "blood",
 			"sound": "sound",
+			"fortune": "fortune",
 			"treasure": "treasure"
 		}
 	},
 	"keywords": {
 		"fanfare": "Fanfare",
 		"last will": "Last will",
+		"action": "Action",
 		"shield": "Shield",
 		"undying": "Undying",
 		"agility": "Agility",
@@ -105,9 +119,12 @@
 		"warden": "Warden",
 		"drain": "Drain",
 		"silence": "Silence",
+		"halfup": "half",
+		"halfdown": "half",
 		"description": {
 			"fanfare": "Triggers whenever this unit is played from hand",
 			"last will": "Triggers whenever this unit dies",
+			"action": "Triggers manually by spending a charge, once per turn",
 			"shield": "Prevents the next damage dealt to this unit",
 			"undying": "Resurrects with 1 HP the first time this unit dies",
 			"agility": "Can attack another unit the turn it is summoned or after moving",
@@ -124,7 +141,9 @@
 			"exalted": "Cannot be targeted",
 			"warden": "Cannot attack or move",
 			"drain": "Damage dealt by this card heals your hero by the same amount",
-			"silence": "Removes all effects and enchantments from a unit"
+			"silence": "Removes all effects and enchantments from a unit",
+			"halfup": "Rounded up",
+			"halfdown": "Rounded down"
 		}
 	},
 	"messages": {

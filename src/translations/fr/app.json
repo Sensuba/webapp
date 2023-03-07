@@ -20,7 +20,16 @@
 		"multiplayer": "Multijoueur",
 		"cards": "Cartes",
 		"heroes": "Héros",
-		"portalroom": "Salle des portails"
+		"decks": "Decks",
+		"portalroom": "Salle des portails",
+		"chosehero": "Choisissez un héros",
+		"newdeckname": "Nouveau deck",
+		"text": "Texte",
+		"name": "Nom",
+		"type": "Type",
+		"mana": "Mana",
+		"category": "Catégorie",
+		"orderby": "Trier par"
 	},
 	"nav": {
 		"enter": "Entrer"
@@ -40,6 +49,7 @@
 		"black": "Noir",
 		"hero": "héros",
 		"unit": "unité",
+		"building": "bâtiment",
 		"spell": "sort",
 		"skill": "compétence de héros",
 		"aura": "bénédiction de héros",
@@ -55,6 +65,7 @@
 			"archer": "archer",
 			"angel": "ange",
 			"priest": "prêtre",
+			"druid": "druide",
 			"golem": "golem",
 			"moonfolk": "lunaréen",
 			"staff": "employé",
@@ -64,6 +75,7 @@
 			"elf": "elfe",
 			"ogre": "ogre",
 			"phoenix": "phénix",
+			"giant": "géant",
 			"elemental": "élémentaire",
 			"illusion": "illusion",
 			"wall": "mur",
@@ -77,16 +89,18 @@
 			"water": "d'eau",
 			"light": "de lumière",
 			"shadow": "d'ombre",
-			"spectacle": "du spectacle",
+			"trick": "de ruse",
 			"astral": "astral",
 			"blood": "de sang",
 			"sound": "de son",
+			"fortune": "de fortune",
 			"treasure": "trésor"
 		}
 	},
 	"keywords": {
 		"fanfare": "Fanfare",
 		"last will": "Dernière volonté",
+		"action": "Action",
 		"shield": "Bouclier",
 		"undying": "Revenant",
 		"agility": "Agilité",
@@ -104,9 +118,12 @@
 		"warden": "Gardien",
 		"drain": "Drainage",
 		"silence": "Silence",
+		"halfup": "moitié",
+		"halfdown": "moitié",
 		"description": {
 			"fanfare": "Se déclenche lorsque cette unité est jouée de la main",
 			"last will": "Se déclenche lorsque cette unité meurt",
+			"action": "Se déclenche manuellement en dépensant une charge, une fois par tour",
 			"shield": "Annule les prochains dégâts infligés à cette unité",
 			"undying": "Réssuscite avec 1 PV la première fois que cette unité meurt",
 			"agility": "Peut attaquer une unité lors de son tour d'invocation ou après s'être déplacé",
@@ -123,7 +140,9 @@
 			"exalted": "Ne peut pas être ciblé",
 			"warden": "Ne peut pas attaquer ou se déplacer",
 			"drain": "Les dégâts infligés par cette carte rendent autant de PV à votre héros",
-			"silence": "Annule les effets et enchantements liés à une unité"
+			"silence": "Annule les effets et enchantements liés à une unité",
+			"halfup": "Arrondi au supérieur",
+			"halfdown": "Arrondi à l'inférieur"
 		}
 	},
 	"messages": {

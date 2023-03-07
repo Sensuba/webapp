@@ -9,7 +9,7 @@ import Library from '../../scene/utility/Library';
 
 import { read } from '../../TextManager';
 
-const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility"];
+const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility", "exalted"];
 
 export default class CardBox extends Component {
 
@@ -49,7 +49,7 @@ export default class CardBox extends Component {
 					let ntoken = this.state.token.slice(); ntoken.push(Library.cards[key]);
 					splits.push(<span onClick={() => this.setState({tooltip: null, token: ntoken})} key={i} className="token" id={'effect-' + i}>{ slices.length > 1 ? slices[1] : Library.cards[key].name }</span>);
 				} else if (match[0] === '[') {
-					splits.push(<span key={i} className="keyword" id={'effect-' + i} onClick={() => this.toggleTooltip(i)}>{keywordIcons.includes(el) ? <img className="keyword-icon" src={"/images/icons/" + el + ".png"} alt=""/> : ""}{read('keywords/' + el)}</span>);
+					splits.push(<span key={i} className={"keyword " + (el.startsWith("half") ? "soft" : "")} id={'effect-' + i} onClick={() => this.toggleTooltip(i)}>{keywordIcons.includes(el) ? <img className="keyword-icon" src={"/images/icons/" + el + ".png"} alt=""/> : ""}{read('keywords/' + el)}</span>);
 					splits.push(<Tooltip key={i+"t"} className="tooltip" placement="top" isOpen={this.state.tooltip === i} target={"effect-" + i} toggle={() => this.toggleTooltip(i)}>{ read('keywords/description/' + el) }</Tooltip>);
 				} else if (match[0] === '\n') {
 					splits.push(<br key={i}/>);

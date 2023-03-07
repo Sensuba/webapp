@@ -1,0 +1,9 @@
+.multiplayer-page .deck-list {
+
+	width: 100vw;
+	overflow: auto;
+	flex-wrap: nowrap;
+	position: relative;
+	justify-content: left;
+	padding: 0 0.5rem;
+}

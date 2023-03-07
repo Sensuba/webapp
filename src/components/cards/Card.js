@@ -26,7 +26,7 @@ export default class Card extends Component {
   	if (!model.states)
   		return "heart";
     let state = null;
-    ["shield", "ephemeral", "undying"].forEach(s => {
+    ["shield", "ephemeral", "undying", "exalted"].forEach(s => {
       if (!model.states.includes(s))
         return;
       if (state)
@@ -53,7 +53,8 @@ export default class Card extends Component {
 				<div className={"card-mana" + (src.mana < model.mana ? " card-mana-buff" : (src.mana > model.mana ? " card-mana-debuff" : ""))}>{src.mana}</div>
 				<img className={"card-frame" + (src.mana === undefined ? " no-mana" : "")} alt="" src={src.mana === undefined ? "/images/frame.png" : "/images/framemana.png"}/>
 				{ src.atk ? <div className="card-stat card-atk"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.attackIcon() + ".png"}/><div className={"card-stat-value" + (src.atk > model.atk ? " card-stat-value-buff" : "")}>{src.atk}</div></div> : "" }
-				{ src.hp ? <div className="card-stat card-hp"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.healthIcon() + ".png"}/><div className={"card-stat-value" + (src.hp > model.hp ? " card-stat-value-buff" : "")}>{src.hp}</div></div> : "" }
+        { src.charge ? <div className="card-stat card-atk"><img className="card-stat-icon" alt="" src={"/images/icons/charge.png"}/><div className={"card-stat-value" + (src.charge > model.charge ? " card-stat-value-buff" : "")}>{src.charge}</div></div> : "" }
+        { src.hp ? <div className="card-stat card-hp"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.healthIcon() + ".png"}/><div className={"card-stat-value" + (src.hp > model.hp ? " card-stat-value-buff" : "")}>{src.hp}</div></div> : "" }
 			</div>
 		);
 	}

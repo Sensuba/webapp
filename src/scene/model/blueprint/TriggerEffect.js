@@ -14,13 +14,16 @@ export default class TriggerEffect extends Bloc {
 				ins[0].trigger(ins[2]);
 				ins[2].autocast = false;
 				break;*/
+			case "fanfare":
+				ins[0].trigger(ins[1]);
+				break;
 			case "lastwill":
-				ins[0].trigger(ins[2]);
+				ins[0].trigger(ins[1]);
 				break;
 			default: break;
 			}
 			return [];
 		};
-		this.types = [Types.effect, Types.location, Types.card];
+		this.types = [Types.effect, Types.card];
 	}
 }

@@ -49,14 +49,14 @@
   overflow: auto;
 }
 
-.logbox form {
+.logbox form, .styleform {
 
   flex-direction: column;
   color: #edeae4;
   width: 100%;
 }
 
-.logbox form label {
+.logbox form label, .styleform label {
 
   flex-direction: column;
   width: 100%;
@@ -64,12 +64,12 @@
   margin-bottom: 0.2rem;
 }
 
-.logbox form .label-input {
+.logbox form .label-input, .styleform .label-input {
 
   margin-bottom: 0.2rem;
 }
 
-.logbox input {
+.logbox input, .styleform input {
 
   border: none;
   outline: none;
@@ -83,7 +83,7 @@
   box-sizing: border-box;
 }
 
-.logbox form button {
+.logbox form button, .styleform button {
 
   padding: 0.5rem;
   font-size: 1.5rem;

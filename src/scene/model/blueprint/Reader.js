@@ -56,6 +56,7 @@ import Adjacents from './Adjacents.js';
 
 import CompareCards from './CompareCards.js';
 import ComparePlayers from './ComparePlayers.js';
+import CountCards from './CountCards.js';
 import CountTiles from './CountTiles.js';
 import EditTiles from './EditTiles.js';
 import FilterCard from './FilterCard.js';
@@ -191,6 +192,7 @@ export default class Reader {
 
 			case "cmpcards": bloc = new CompareCards(card, ctx); break;
 			case "cmpplayers": bloc = new ComparePlayers(card, ctx); break;
+			case "countcards": bloc = new CountCards(card, ctx); break;
 			case "counttiles": bloc = new CountTiles(card, ctx); break;
 			case "edittiles": bloc = new EditTiles(card, ctx); break;
 			case "filtercard": bloc = new FilterCard(card, ctx); break;

@@ -43,4 +43,13 @@
     overflow: visible;
     background-color: #23221f;
   }
+  
+  .small.lightbox-container .lightbox-inner .lightbox {
+
+    height: unset;
+    max-height: 15rem;
+    width: 80vw;
+    overflow: visible;
+    background-color: #23221f;
+  }
 }

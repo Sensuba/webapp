@@ -14,6 +14,92 @@
 	background: #2a2011;
 }
 
+.cards-page-search {
+	
+	width: 100%;
+	box-shadow: 0px 0.2rem 0.2rem 0px #000000A0;
+	z-index: 100;
+}
+
+.cards-page-search-tab {
+	
+	height: 2.5rem;
+	width: 100%;
+	border-left: solid 1px #ffffff1c;
+	border-bottom: solid 1px #ffffff1c;
+	background: linear-gradient(60deg, #000000A0, #00000050);
+	flex-direction: column;
+	padding: 0.2rem 0.3rem;
+	font-size: 1rem;
+	overflow: hidden;
+}
+
+.cards-page-search-tab:active {
+
+	background: linear-gradient(60deg, #00000050, #00000020)
+}
+
+.cards-page-search-tab:nth-child(1) {
+	
+	border-left: none;
+}
+
+.cards-page-search-tab .cards-page-search-label {
+
+	color: #7f7a6a;
+	white-space: nowrap;
+}
+
+.cards-page-search-tab .cards-page-search-value {
+
+	color: #edeae4;
+	white-space: nowrap;
+	max-width: 100%;
+}
+
+.selectbox {
+
+  flex-direction: column;
+  color: #edeae4;
+  width: 100%;
+}
+
+.selectbox button {
+
+  padding-top: 0.5rem;
+  font-size: 1.5rem;
+  min-width: 12rem;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  position: relative;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  flex-direction: column;
+  color: #edeae4;
+}
+
+.selectbox button::after {
+
+	content: "";
+	margin-top: 0.5rem;
+	width: 100%;
+	height: 0.1rem;
+	background: linear-gradient(to right, transparent, #7f7a6a, transparent);
+}
+
+.selectbox button:last-child::after {
+
+	content: none;
+}
+
+.cards-page-decks {
+
+	width: 100%;
+	border-bottom: 0.1rem lightgray solid;
+	flex-direction: column;
+}
+
 .cards-page-list {
 
 	height: calc(100% - 4rem);
@@ -33,6 +119,7 @@
 	line-height: 1.4rem;
 	justify-content: space-between;
 	padding: 0 0.2rem;
+	padding-right: 0.5rem;
 	color: #edeae4;
 	box-sizing: border-box;
 }
@@ -50,7 +137,9 @@
 	margin-top: 0.4rem;
 	background: linear-gradient(to right, #00000050, #00000028);
 	line-height: 1.4rem;
+	justify-content: space-between;
 	padding: 0 0.2rem;
+	padding-right: 0.5rem;
 	color: #edeae4;
 	box-sizing: border-box;
 }
@@ -72,6 +161,20 @@
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+}
+
+.card-list .listed-deck {
+
+	padding: 0.1rem;
+	font-size: 0.6rem;
+	height: calc(6em + 0.6rem);
+	width: calc(8em + 0.6rem);
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	margin-bottom: 0.6rem;
+	margin-left: 0.3rem;
+	margin-right: 0.3rem;
 }
 
 .card-list .listed-card .wanderaft-card {
@@ -126,4 +229,161 @@
 .cards-page .card-box {
 
 	font-size: 1rem;
+}
+
+.cards-page .deckbuilder {
+
+	flex-direction: column;
+}
+
+.cards-page .deckbuilder .deckbuilder-nav {
+
+	justify-content: space-evenly;
+}
+
+.cards-page .deckbuilder .deckbuilder-name {
+
+}
+
+.cards-page .deckbuilder .deckbuilder-name input {
+
+	background: none;
+	border: none;
+	font-size: 1.2rem;
+	color: #DEC6A2;
+	width: 100%;
+	border-bottom: 1px solid #DEC6A2;
+	border-radius: 0.3rem;
+	padding: 0 0.6rem;
+	box-sizing: border-box;
+}
+
+.cards-page .deckbuilder .deckbuilder-hero {
+
+	font-size: 0.6rem;
+}
+
+.cards-page .cards-page-cardcountbuilder {
+
+	position: absolute;
+	top: calc(50% + 10rem);
+	left: calc(50% - 6.5rem - 2px);
+	width: 13rem;
+	z-index: 1001;
+	justify-content: center;
+	border-radius: 1rem;
+	overflow: hidden;
+	border: 2px solid white;
+	font-size: 1.4rem;
+}
+
+.cards-page .cards-page-cardcountbuilder .cards-page-cardcountbutton {
+
+	height: 3rem;
+	width: 4rem;
+	background: #DEC6A2;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.2s;
+}
+
+.cards-page .cards-page-cardcountbuilder .cards-page-cardcountbutton:active {
+
+	background: #a18c6d;
+}
+
+.cards-page .cards-page-cardcountbuilder .cards-page-cardcountbutton.cards-page-cardcountbuttonlock {
+
+	background: #c6bbab;
+	color: #8f8f8f;
+}
+
+.cards-page .cards-page-cardcountbuilder .cards-page-cardcount + .cards-page-cardcountbutton {
+
+}
+
+.cards-page .cards-page-cardcountbuilder .cards-page-cardcount {
+
+	height: 3rem;
+	width: 5rem;
+	background: #DEC6A2;
+	justify-content: center;
+	align-items: center;
+	border-left: 1px solid #ccb591;
+	border-right: 1px solid #ccb591;
+}
+
+.cards-page .deck-list {
+
+	width: 100vw;
+	overflow: auto;
+	flex-wrap: nowrap;
+	position: relative;
+	justify-content: left;
+	padding: 0 0.5rem;
+}
+
+.cards-page .new-deck {
+
+	width: 8em;
+	height: 6em;
+	position: relative;
+  	filter: drop-shadow(#00000060 0.15rem 0.15rem);
+}
+
+.cards-page .new-deck::before {
+
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	justify-content: center;
+	overflow: hidden;
+	width: 8em;
+	height: 6em;
+	border-radius: 50%;
+	opacity: 1;
+	transition: opacity 0.5s;
+	background: #f1efeb80;
+}
+
+/*.cards-page .new-deck::after {
+
+	content: "";
+	position: absolute;
+	top: 0.5em;
+	left: 0.5em;
+	width: 7em;
+	height: 5em;
+	background: #FFFFFF00;
+}*/
+
+.cards-page .new-deck::after {
+
+	content: "+";
+	display: flex;
+	position: absolute;
+	font-weight: bold;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+	color: #2d2921;
+}
+
+.cards-page .new-deck-chose-hero-box h2 {
+
+	font-size: 2rem;
+	color: #edeae4;
+	justify-content: center;
+	white-space: nowrap;
+}
+
+.cards-page .new-deck-chose-hero-box .card-list {
+
+	height: calc(13rem - 1em);
+	overflow: scroll;
 }

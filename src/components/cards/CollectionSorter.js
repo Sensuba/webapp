@@ -1,3 +1,6 @@
+
+import { read } from '../../TextManager';
+
 export default (() => {
 
 	var normalize = text => text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -25,7 +28,8 @@ export default (() => {
 
 			switch (type) {
 			case "unit": return 0;
-			case "spell": return 1;
+			case "building": return 1;
+			case "spell": return 2;
 			default: return 99;
 			}
 		}
@@ -87,15 +91,6 @@ export default (() => {
 		}
 	}
 
-	var archetypeTranslation = archetype => {
-
-      switch (archetype) {
-      case "beast": return "bête";
-      case "demon": return "démon";
-      default: return archetype;
-      }
-	}
-
 	var effectFilter = description => card => normalize(card.description).includes(normalize(description.toLowerCase()));
 
 	var filter = (cards, f) => {
@@ -106,6 +101,8 @@ export default (() => {
 			cards = cards.filter(card => card.type === f.type);
 		if (f.name && f.name !== "")
 			cards = cards.filter(card => normalize(card.name).includes(normalize(f.name)));
+		if (f.category && f.category !== "")
+			cards = cards.filter(card => card.categories && card.categories.some(cat => normalize(read("cards/categories/" + cat)).includes(normalize(f.category))));
 		if (f.effect && f.effect !== "")
 			cards = cards.filter(effectFilter(f.effect));
 		if (f.mana && !isNaN(f.mana) && f.manaop && f.manaop !== "")

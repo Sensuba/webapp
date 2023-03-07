@@ -7,6 +7,6 @@ export default class UseMana extends Bloc {
 
 		super("usemana", src, ctx, true);
 		this.f = (src, ins) => [ins[0].pay(ins[1])];
-		this.types = [Types.area, Types.int];
+		this.types = [Types.player, Types.int];
 	}
 }

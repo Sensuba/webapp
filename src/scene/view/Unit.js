@@ -20,7 +20,7 @@ export default class Unit extends Component {
   healthIcon () {
 
     let state = null;
-    ["shield", "ephemeral", "undying"].forEach(s => {
+    ["shield", "ephemeral", "undying", "exalted"].forEach(s => {
       if (!this.props.src.hasState(s))
         return;
       if (state)
@@ -39,8 +39,8 @@ export default class Unit extends Component {
           <img alt="" src={this.props.src.model.img}/>
         </div>
         { this.props.src.hasState("shield") ? <div className="game-shield"/> : "" }
-        { this.props.src.eff.atk ? <div className="card-stat card-atk"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.attackIcon() + ".png"}/><div className={"card-stat-value" + (this.props.src.eff.atk < this.props.src.model.atk ? " card-stat-value-debuff" : (this.props.src.eff.atk > this.props.src.model.atk ? " card-stat-value-buff" : ""))}>{this.props.src.eff.atk}</div></div> : "" }
-        { this.props.src.eff.hp ? <div className="card-stat card-hp"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.healthIcon() + ".png"}/><div className={"card-stat-value" + (this.props.src.dmg ? " card-stat-value-debuff" : (this.props.src.eff.hp > this.props.src.model.hp ? " card-stat-value-buff" : ""))}>{this.props.src.currentHp}</div></div> : "" }
+        { this.props.src.eff.atk ? <div className="card-stat card-atk"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.attackIcon() + ".png"}/><div className={"card-stat-value" + (this.props.src.eff.atk < this.props.src.model.atk ? " card-stat-value-debuff" : (this.props.src.eff.atk > this.props.src.model.atk ? " card-stat-value-buff" : ""))}>{this.props.src.eff.atk || 0}</div></div> : "" }
+        { this.props.src.eff.hp ? <div className="card-stat card-hp"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.healthIcon() + ".png"}/><div className={"card-stat-value" + (this.props.src.dmg ? " card-stat-value-debuff" : (this.props.src.eff.hp > this.props.src.model.hp ? " card-stat-value-buff" : ""))}>{this.props.src.currentHp || 0}</div></div> : "" }
       </div>
     );
   }

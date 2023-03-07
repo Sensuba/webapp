@@ -9,7 +9,7 @@ export default class Cast extends Bloc {
 		this.f = (src, ins) => {
 			switch (ins[0].targetType) {
 			case "column": {
-				let target = {type: "column", data: ins[é]};
+				let target = {type: "column", data: ins[2]};
 				if (ins[0].canTarget(ins[1], target))
 					ins[0].cast(ins[1], target);
 				break;

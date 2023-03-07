@@ -7,6 +7,7 @@ import Error from './home/Error';
 import Loading from './home/Loading';
 import Play from './play/Play';
 import Story from './play/story/Story';
+import Multiplayer from './play/multiplayer/Multiplayer';
 import Game from './game/Game';
 import Dwelling from './play/dwelling/Dwelling';
 import Cards from './play/cards/Cards';
@@ -15,7 +16,7 @@ import SocketManager from '../SocketManager';
 
 import { read, getLanguage, setLanguage } from '../TextManager';
 
-const offlineMode = false;
+const offlineMode = localStorage.getItem('offlineMode') || false;
 
 export default class App extends Component {
 
@@ -61,6 +62,7 @@ export default class App extends Component {
             <Route path="/" element={<Home/>}/>
             <Route path="/play" element={<Dynamo><Play/></Dynamo>}/>
             <Route path="/story" element={<Dynamo><Story/></Dynamo>}/>
+            <Route path="/multiplayer" element={<Dynamo><Multiplayer/></Dynamo>}/>
             <Route path="/game" element={<Dynamo><Game/></Dynamo>}/>
             <Route path="/dwelling" element={<Dynamo><Dwelling/></Dynamo>}/>
             <Route path="/cards" element={<Dynamo><Cards/></Dynamo>}/>

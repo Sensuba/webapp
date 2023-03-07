@@ -1,0 +1,117 @@
+.sensuba-deck {
+
+	width: 8em;
+	height: 6em;
+	position: relative;
+  	filter: drop-shadow(#00000060 0.15rem 0.15rem);
+}
+
+.sensuba-deck .card-image-wrapper {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	justify-content: center;
+	overflow: hidden;
+	width: 8em;
+	height: 6em;
+	border-radius: 50%;
+	opacity: 1;
+	transition: opacity 0.5s;
+}
+
+.sensuba-deck .card-image-wrapper.fade {
+
+	opacity: 0;
+}
+
+.sensuba-deck .card-image-wrapper::after {
+
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border-radius: 50%;
+	top: 0;
+	left: 0;
+}
+
+.sensuba-deck .card-image-wrapper img {
+
+	object-fit: cover;
+}
+
+.sensuba-deck .card-frame {
+
+	position: absolute;
+	top: 0.5em;
+	left: 0.5em;
+	width: 7em;
+	height: 5em;
+}
+
+.sensuba-deck .card-frame::before {
+
+	content: "";
+	position: absolute;
+	top: -0.7em;
+	left: -0.7em;
+	width: 8.4em;
+	height: 6.4em;
+	border-radius: 50%;
+}
+
+.sensuba-deck .deck-name {
+
+	position: absolute;
+	top: 35%;
+	left: 0;
+	width: 100%;
+	height: 65%;
+	background: linear-gradient(to bottom, transparent, #00000080 20%, #00000080);
+	font-size: 1.33em;
+	color: #edeae4;
+	line-height: 1.167rem;
+	justify-content: center;
+	align-items: center;
+}
+
+.sensuba-deck.white.red .card-frame::before { background: linear-gradient(to bottom, goldenrod, darkred) }
+.sensuba-deck.white.red .card-frame { background: linear-gradient(to bottom, goldenrod, darkred) }
+.sensuba-deck.white.red .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em darkred, inset 0 1em 1em -1em goldenrod }
+
+.sensuba-deck.white.blue .card-frame::before { background: linear-gradient(to bottom, goldenrod, #5b9bd9) }
+.sensuba-deck.white.blue .card-frame { background: linear-gradient(to bottom, goldenrod, #5b9bd9) }
+.sensuba-deck.white.blue .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #5b9bd9, inset 0 1em 1em -1em goldenrod }
+
+.sensuba-deck.white.green .card-frame::before { background: linear-gradient(to bottom, goldenrod, #3f875f) }
+.sensuba-deck.white.green .card-frame { background: linear-gradient(to bottom, goldenrod, #3f875f) }
+.sensuba-deck.white.green .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #3f875f, inset 0 1em 1em -1em goldenrod }
+
+.sensuba-deck.white.black .card-frame::before { background: linear-gradient(to bottom, goldenrod, #381e46) }
+.sensuba-deck.white.black .card-frame { background: linear-gradient(to bottom, goldenrod, #381e46) }
+.sensuba-deck.white.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em goldenrod }
+
+.sensuba-deck.red.blue .card-frame::before { background: linear-gradient(to bottom, darkred, #5b9bd9) }
+.sensuba-deck.red.blue .card-frame { background: linear-gradient(to bottom, darkred, #5b9bd9) }
+.sensuba-deck.red.blue .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #5b9bd9, inset 0 1em 1em -1em darkred }
+
+.sensuba-deck.red.green .card-frame::before { background: linear-gradient(to bottom, darkred, #3f875f) }
+.sensuba-deck.red.green .card-frame { background: linear-gradient(to bottom, darkred, #3f875f) }
+.sensuba-deck.red.green .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #3f875f, inset 0 1em 1em -1em darkred }
+
+.sensuba-deck.red.black .card-frame::before { background: linear-gradient(to bottom, darkred, #381e46) }
+.sensuba-deck.red.black .card-frame { background: linear-gradient(to bottom, darkred, #381e46) }
+.sensuba-deck.red.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em darkred }
+
+.sensuba-deck.blue.green .card-frame::before { background: linear-gradient(to bottom, #5b9bd9, #3f875f) }
+.sensuba-deck.blue.green .card-frame { background: linear-gradient(to bottom, #5b9bd9, #3f875f) }
+.sensuba-deck.blue.green .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #3f875f, inset 0 1em 1em -1em #5b9bd9 }
+
+.sensuba-deck.blue.black .card-frame::before { background: linear-gradient(to bottom, #5b9bd9, #381e46) }
+.sensuba-deck.blue.black .card-frame { background: linear-gradient(to bottom, #5b9bd9, #381e46) }
+.sensuba-deck.blue.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em #5b9bd9 }
+
+.sensuba-deck.green.black .card-frame::before { background: linear-gradient(to bottom, #3f875f, #381e46) }
+.sensuba-deck.green.black .card-frame { background: linear-gradient(to bottom, #3f875f, #381e46) }
+.sensuba-deck.green.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em #3f875f }

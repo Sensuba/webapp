@@ -31,5 +31,7 @@ export default class Fanfare extends Bloc {
 			this.trigger(owner, image);
 			owner.game.notify("fanfare", owner, target);
 		});
+		owner.innereffects = owner.innereffects || [];
+		owner.innereffects.push(this);
 	}
 }
