@@ -17,12 +17,13 @@
 	height: 6em;
 	border-radius: 50%;
 	opacity: 1;
-	transition: opacity 0.5s;
+	transition: opacity 0.5s ease-in;
 }
 
 .sensuba-hero .card-image-wrapper.fade {
 
 	opacity: 0;
+	transition: opacity 0.5s ease-in;
 }
 
 .sensuba-hero .card-image-wrapper::after {
@@ -172,3 +173,228 @@
 .sensuba-hero.green.black .card-frame::before { background: linear-gradient(to bottom, #3f875f, #381e46) }
 .sensuba-hero.green.black .card-frame { background: linear-gradient(to bottom, #3f875f, #381e46) }
 .sensuba-hero.green.black .card-image-wrapper::after { box-shadow: inset 0 -1em 1em -1em #381e46, inset 0 1em 1em -1em #3f875f }
+
+
+.sensuba-hero .card-image-placeholder {
+
+	display: none;
+	position: absolute;
+	top: 0.15rem;
+	left: 0.2rem;
+	justify-content: center;
+	flex-wrap: wrap;
+	overflow: hidden;
+	width: 7.6em;
+	height: 5.7em;
+	border-radius: 50%;
+}
+
+.sensuba-hero.white.red .card-image-placeholder {
+
+	background: linear-gradient(#7d704d, #7d4d4d);
+}
+
+.sensuba-hero.white.blue .card-image-placeholder {
+
+	background: linear-gradient(#7d704d, #4d657d);
+}
+
+.sensuba-hero.white.green .card-image-placeholder {
+
+	background: linear-gradient(#7d704d, #527d4d);
+}
+
+.sensuba-hero.white.black .card-image-placeholder {
+
+	background: linear-gradient(#7d704d, #754d7d);
+}
+
+.sensuba-hero.red.blue .card-image-placeholder {
+
+	background: linear-gradient(#7d4d4d, #4d657d);
+}
+
+.sensuba-hero.red.green .card-image-placeholder {
+
+	background: linear-gradient(#7d4d4d, #527d4d);
+}
+
+.sensuba-hero.red.black .card-image-placeholder {
+
+	background: linear-gradient(#7d4d4d, #754d7d);
+}
+
+.sensuba-hero.blue.green .card-image-placeholder {
+
+	background: linear-gradient(#4d657d, #527d4d);
+}
+
+.sensuba-hero.blue.black .card-image-placeholder {
+
+	background: linear-gradient(#4d657d, #754d7d);
+}
+
+.sensuba-hero.green.black .card-image-placeholder {
+
+	background: linear-gradient(#527d4d, #754d7d);
+}
+
+.sensuba-hero.white.red .card-image-placeholder .px {
+
+	animation: wheite-red-px linear 4s infinite;
+}
+
+@keyframes white-red-px {
+
+	0% { background: #c2b89f }
+	16.7% { background: #543737 }
+	33.3% { background: #544b37 }
+	50% { background: #c29f9f }
+	66.7% { background: #7d704d }
+	83.4% { background: #7d4d4d }
+	100% { background: #c2b89f }
+}
+
+.sensuba-hero.white.blue .card-image-placeholder .px {
+
+	animation: white-blue-px linear 4s infinite;
+}
+
+@keyframes white-blue-px {
+
+	0% { background: #c2b89f }
+	16.7% { background: #364553 }
+	33.3% { background: #544b37 }
+	50% { background: #9fb0c1 }
+	66.7% { background: #7d704d }
+	83.4% { background: #4d657d }
+	100% { background: #c2b89f }
+}
+
+.sensuba-hero.white.green .card-image-placeholder .px {
+
+	animation: white-green-px linear 4s infinite;
+}
+
+@keyframes white-green-px {
+
+	0% { background: #c2b89f }
+	16.7% { background: #395336 }
+	33.3% { background: #544b37 }
+	50% { background: #a2c19f }
+	66.7% { background: #7d704d }
+	83.4% { background: #527d4d }
+	100% { background: #c2b89f }
+}
+
+.sensuba-hero.white.black .card-image-placeholder .px {
+
+	animation: white-black-px linear 4s infinite;
+}
+
+@keyframes white-black-px {
+
+	0% { background: #c2b89f }
+	16.7% { background: #4e3653 }
+	33.3% { background: #544b37 }
+	50% { background: #bc9fc1 }
+	66.7% { background: #7d704d }
+	83.4% { background: #754d7d }
+	100% { background: #c2b89f }
+}
+
+.sensuba-hero.red.blue .card-image-placeholder .px {
+
+	animation: red-blue-px linear 4s infinite;
+}
+
+@keyframes red-blue-px {
+
+	0% { background: #c29f9f }
+	16.7% { background: #364553 }
+	33.3% { background: #543737 }
+	50% { background: #9fb0c1 }
+	66.7% { background: #7d4d4d }
+	83.4% { background: #4d657d }
+	100% { background: #c29f9f }
+}
+
+.sensuba-hero.red.green .card-image-placeholder .px {
+
+	animation: red-green-px linear 4s infinite;
+}
+
+@keyframes red-green-px {
+
+	0% { background: #c29f9f }
+	16.7% { background: #395336 }
+	33.3% { background: #543737 }
+	50% { background: #a2c19f }
+	66.7% { background: #7d4d4d }
+	83.4% { background: #527d4d }
+	100% { background: #c29f9f }
+}
+
+.sensuba-hero.red.black .card-image-placeholder .px {
+
+	animation: red-black-px linear 4s infinite;
+}
+
+@keyframes red-black-px {
+
+	0% { background: #c29f9f }
+	16.7% { background: #4e3653 }
+	33.3% { background: #543737 }
+	50% { background: #bc9fc1 }
+	66.7% { background: #7d4d4d }
+	83.4% { background: #754d7d }
+	100% { background: #c29f9f }
+}
+
+.sensuba-hero.blue.green .card-image-placeholder .px {
+
+	animation: blue-green-px linear 4s infinite;
+}
+
+@keyframes blue-green-px {
+
+	0% { background: #9fb0c1 }
+	16.7% { background: #395336 }
+	33.3% { background: #364553 }
+	50% { background: #a2c19f }
+	66.7% { background: #4d657d }
+	83.4% { background: #527d4d }
+	100% { background: #9fb0c1 }
+}
+
+.sensuba-hero.blue.black .card-image-placeholder .px {
+
+	animation: blue-black-px linear 4s infinite;
+}
+
+@keyframes blue-black-px {
+
+	0% { background: #9fb0c1 }
+	16.7% { background: #4e3653 }
+	33.3% { background: #364553 }
+	50% { background: #bc9fc1 }
+	66.7% { background: #4d657d }
+	83.4% { background: #754d7d }
+	100% { background: #9fb0c1 }
+}
+
+.sensuba-hero.green.black .card-image-placeholder .px {
+
+	animation: green-black-px linear 4s infinite;
+}
+
+@keyframes green-black-px {
+
+	0% { background: #a2c19f }
+	16.7% { background: #4e3653 }
+	33.3% { background: #395336 }
+	50% { background: #bc9fc1 }
+	66.7% { background: #527d4d }
+	83.4% { background: #754d7d }
+	100% { background: #a2c19f }
+}

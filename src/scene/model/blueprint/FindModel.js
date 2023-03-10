@@ -9,10 +9,10 @@ export default class FindModel extends Bloc {
 		super("findmodel", src, ctx);
 		this.f = (src, ins) => {
 			var list = Library.cards;
-			var items = Object.keys(list).map(k => list[k]).filter(card => ins[0](src, card));
+			var items = Object.keys(list).map(k => list[k]).filter(card => (!ins[1] || !card.token) && ins[0](card));
 			var item = items.length > 0 ? items[Math.floor(Math.random()*items.length)] : null;
 			return [item, item !== null];
 		};
-		this.types = [Types.modelfilter];
+		this.types = [Types.modelfilter, Types.bool];
 	}
 }

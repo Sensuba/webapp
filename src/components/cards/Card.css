@@ -156,3 +156,122 @@
     -webkit-text-stroke-color: #970000;
     font-weight: bold;
 }
+
+.sensuba-card .card-image-placeholder {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	justify-content: center;
+	flex-wrap: wrap;
+	overflow: hidden;
+	transform: translate(0.1em, -0em);
+	width: 8.3em;
+	height: 6.3em;
+}
+
+.sensuba-card .card-image-placeholder .px, .sensuba-hero .card-image-placeholder .px {
+
+	width: 25%;
+	height: 25%;
+}
+
+.sensuba-card.white-card .card-image-placeholder .px {
+
+	background: #7d704d;
+	animation: white-px linear 4s infinite;
+}
+
+.sensuba-card.red-card .card-image-placeholder .px {
+
+	background: #7d4d4d;
+	animation: red-px linear 4s infinite;
+}
+
+.sensuba-card.blue-card .card-image-placeholder .px {
+
+	background: #4d657d;
+	animation: blue-px linear 4s infinite;
+}
+
+.sensuba-card.green-card .card-image-placeholder .px {
+
+	background: #527d4d;
+	animation: green-px linear 4s infinite;
+}
+
+.sensuba-card.black-card .card-image-placeholder .px {
+
+	background: #754d7d;
+	animation: black-px linear 4s infinite;
+}
+
+.sensuba-card .card-image-placeholder .px:nth-child(1), .sensuba-hero .card-image-placeholder .px:nth-child(1) { animation-delay: 0 !important }
+.sensuba-card .card-image-placeholder .px:nth-child(2), .sensuba-hero .card-image-placeholder .px:nth-child(2) { animation-delay: 2.25s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(3), .sensuba-hero .card-image-placeholder .px:nth-child(3) { animation-delay: 3.5s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(4), .sensuba-hero .card-image-placeholder .px:nth-child(4) { animation-delay: 1.75s !important }
+
+.sensuba-card .card-image-placeholder .px:nth-child(5), .sensuba-hero .card-image-placeholder .px:nth-child(5) { animation-delay: 2s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(6), .sensuba-hero .card-image-placeholder .px:nth-child(6) { animation-delay: 0.25s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(7), .sensuba-hero .card-image-placeholder .px:nth-child(7) { animation-delay: 1.5s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(8), .sensuba-hero .card-image-placeholder .px:nth-child(8) { animation-delay: 3s !important }
+
+.sensuba-card .card-image-placeholder .px:nth-child(9), .sensuba-hero .card-image-placeholder .px:nth-child(9) { animation-delay: 3.25s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(10), .sensuba-hero .card-image-placeholder .px:nth-child(10) { animation-delay: 1.25s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(11), .sensuba-hero .card-image-placeholder .px:nth-child(11) { animation-delay: 0.5s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(12), .sensuba-hero .card-image-placeholder .px:nth-child(12) { animation-delay: 2.5s !important }
+
+.sensuba-card .card-image-placeholder .px:nth-child(13), .sensuba-hero .card-image-placeholder .px:nth-child(13) { animation-delay: 1s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(14), .sensuba-hero .card-image-placeholder .px:nth-child(14) { animation-delay: 3s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(15), .sensuba-hero .card-image-placeholder .px:nth-child(15) { animation-delay: 3.75s !important }
+.sensuba-card .card-image-placeholder .px:nth-child(16), .sensuba-hero .card-image-placeholder .px:nth-child(16) { animation-delay: 0.75s !important }
+
+@keyframes white-px {
+
+	0% { background: #7d704d }
+	20% { background: #c2b89f }
+	40% { background: #7d7769 }
+	60% { background: #544b37 }
+	80% { background: #c4b289 }
+	100% { background: #7d704d }
+}
+
+@keyframes red-px {
+
+	0% { background: #7d4d4d }
+	20% { background: #c29f9f }
+	40% { background: #7d6969 }
+	60% { background: #543737 }
+	80% { background: #c48989 }
+	100% { background: #7d4d4d }
+}
+
+@keyframes blue-px {
+
+	0% { background: #4d657d }
+	20% { background: #9fb0c1 }
+	40% { background: #68737d }
+	60% { background: #364553 }
+	80% { background: #88a6c3 }
+	100% { background: #4d657d }
+}
+
+@keyframes green-px {
+
+	0% { background: #527d4d }
+	20% { background: #a2c19f }
+	40% { background: #6a7d68 }
+	60% { background: #395336 }
+	80% { background: #8ec388 }
+	100% { background: #527d4d }
+}
+
+@keyframes black-px {
+
+	0% { background: #754d7d }
+	20% { background: #bc9fc1 }
+	40% { background: #7a687d }
+	60% { background: #4e3653 }
+	80% { background: #b988c3 }
+	100% { background: #754d7d }
+}

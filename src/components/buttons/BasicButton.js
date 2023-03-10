@@ -6,10 +6,22 @@ export default class BasicButton extends Component {
 
   name = 'basic-button';
 
+  constructor (props) {
+
+    super(props);
+    this.link = React.createRef();
+  }
+
 	renderButton () {
 
 		return ( <div>{ this.props.children }</div> )
 	}
+
+  click () {
+
+    if (this.link)
+      this.link.current.link();
+  }
 
   render () {
 
@@ -17,7 +29,7 @@ export default class BasicButton extends Component {
     let name = this.name;
 
     if (this.props.to)
-      button = (<Link to={this.props.to}>{button}</Link>);
+      button = (<Link ref={this.link} to={this.props.to}>{button}</Link>);
 
     return (
       <div className={name + '-container'}>

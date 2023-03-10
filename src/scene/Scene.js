@@ -144,11 +144,13 @@ export default class Scene extends Component {
 
   updateDragStyle (e) {
 
-  	let x = e.touches[0].pageX;
-  	let y = e.touches[0].pageY;
+    let touching = e.touches !== undefined;
 
-  	this.dragged.current.style.left = x + "px";
-  	this.dragged.current.style.top = y + "px";
+  	let x = touching ? e.touches[0].pageX : e.pageX;
+  	let y = touching ? e.touches[0].pageY : e.pageY;
+
+  	this.dragged.current.style.left = touching ? x + "px" : "calc(" + x + "px - 4em)";
+  	this.dragged.current.style.top = touching ? y + "px" : "calc(" + y + "px - 3em)";
 
     let type = this.grabbing.targetType;
     if (this.grabbing.isUnit)
@@ -181,8 +183,10 @@ export default class Scene extends Component {
 
   updateUnitCommandStyle (e) {
 
-    let x = e.touches[0].pageX;
-    let y = e.touches[0].pageY;
+    let touching = e.touches !== undefined;
+
+    let x = touching ? e.touches[0].pageX : e.pageX;
+    let y = touching ? e.touches[0].pageY : e.pageY;
 
     let columns = document.elementsFromPoint(x, y).filter(el => el.classList.contains("game-field-column"));
     let col = columns.length > 0 ? parseInt(columns[0].getAttribute("column"), 10) : undefined;
@@ -297,7 +301,7 @@ export default class Scene extends Component {
     }
 
 		return (
-			<div className={"scene " + this.controller.name} onClick={() => this.deselect()} onTouchEnd={(e) => this.dragEnd(e)} onTouchCancel={(e) => this.dragEnd(e, true)} onTouchMove={e => this.drag(e)} onContextMenu={e => {this.deselect(); e.preventDefault();}}>
+			<div id="sensuba-scene" className={"scene " + this.controller.name} onClick={() => this.deselect()} onTouchEnd={(e) => this.dragEnd(e)} onDragEnd={(e) => this.dragEnd(e)} onTouchCancel={(e) => this.dragEnd(e, true)} onTouchMove={e => this.drag(e)} onDrag={e => this.drag(e)} onContextMenu={e => {this.deselect(); e.preventDefault();}}>
       { this.state.focus ? <CardBox src={this.state.focus} level={this.state.focusdata} open={true} onClose={() => this.setState({focus:null})}/> : "" }
 			<Field player={this.player} src={this.state.model.field} targeting={this.state.dragged || this.targeting} targetable={targetable} target={this.state.target} onSelect={this.onSelect.bind(this)} onGrab={e => this.grabbing = e}/>
         <div className="game-area self-area">

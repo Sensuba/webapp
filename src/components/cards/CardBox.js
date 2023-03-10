@@ -9,7 +9,7 @@ import Library from '../../scene/utility/Library';
 
 import { read } from '../../TextManager';
 
-const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility", "exalted"];
+const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility", "exalted", "initiative"];
 
 export default class CardBox extends Component {
 
@@ -81,12 +81,14 @@ export default class CardBox extends Component {
 	            		<div className="cardbox-lv">
 	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[0]]})}><Ability src={this.props.src.abilities[0]}/></div>
 	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[1]]})}><Ability src={this.props.src.abilities[1]}/></div>
+	            		<div className="hero-lv-text">{ read('cards/lv2') }</div>
 	            		</div>
 	            		<div className="cardbox-lv-separator"/>
 	            		<div className="cardbox-lv">
 	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[2]]})}><Ability src={this.props.src.abilities[2]}/></div>
 	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[4]]})}><Ability src={this.props.src.abilities[4]}/></div>
 	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[3]]})}><Ability src={this.props.src.abilities[3]}/></div>
+	            		<div className="hero-lv-text">{ read('cards/lvmax') }</div>
 	            		</div>
 	            	</div>
 	            	: <p className="game-effect">{ this.computeEffect() }</p>

@@ -7,6 +7,6 @@ export default class CountTiles extends Bloc {
 
 		super("counttiles", src, ctx);
 		this.f = (src, ins) => [ins[0].filter(tile => ins[1](src, tile)).length];
-		this.types = [Types.tiles, Types.tilefilter];
+		this.types = [Types.locations, Types.tilefilter];
 	}
 }

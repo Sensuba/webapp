@@ -57,6 +57,8 @@ export default class Types {
 		case 'enemy throne': return src.player.opponent.throne;
 		case 'your court': return src.player.court;
 		case 'enemy court': return src.player.opponent.court;
+		case 'your graveyard': return src.player.graveyard;
+		case 'enemy graveyard': return src.player.opponent.graveyard;
 		case 'capsule': return src.player.capsule;
 		default: return null;
 		}
@@ -81,6 +83,8 @@ export default class Types {
 		case 'enemy field and throne': return src.player.opponent.tiles.concat([src.player.opponent.throne]);
 		case 'your court': return [src.player.court];
 		case 'enemy court': return [src.player.opponent.court];
+		case 'your graveyard': return [src.player.graveyard];
+		case 'enemy graveyard': return [src.player.opponent.graveyard];
 		default: return null;
 		}
 	}
@@ -114,6 +118,17 @@ export default class Types {
 		case 'enemy character': return (csrc, card) => card.player && csrc.player !== card.player && card.isCharacter;
 		case 'spell': return (csrc, card) => card.isSpell;
 		default: return (csrc, card) => true;
+		}
+	}
+
+	static modelfilter (value) {
+
+		if (!(typeof value === 'string'))
+			return value;
+		switch (value) {
+		case 'unit': return model => model.type === "unit";
+		case 'spell': return model => model.type === "spell";
+		default: return model => true;
 		}
 	}
 

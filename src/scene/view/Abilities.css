@@ -31,6 +31,7 @@
 	margin: 1vw 3vw;
 	align-items: center;
 	transition: filter 0.2s;
+	cursor: pointer;
 }
 
 .game-ability-locked {
@@ -133,4 +134,44 @@
 .game-lv-up .lv-up-img {
 
 	object-fit: cover;
+}
+
+@media (min-width: 601px) {
+
+	.game-abilities {
+
+		width: calc(15vw + 15vh);
+		left: 3vh;
+		height: 11vh;
+	  	top: unset;
+	  	bottom: 2vh;
+		padding: 0;
+		flex-wrap: nowrap;
+	}
+
+	.opposite-area .game-abilities {
+
+		transform: none;
+	  	top: 0vh;
+		left: calc(47vw + 22vh);
+		right: 0;
+		width: 15vw;
+	}
+
+	.game-ability {
+
+	    z-index: 1;
+	    font-size: 1.7vh;
+	    height: 9.625vh;
+	    pointer-events: all;
+	    margin: 1vh 0.8vw;
+	    align-items: center;
+	    transition: filter 0.2s;
+	}
+
+	.opposite-area .game-ability {
+
+	    font-size: 1vh;
+	    margin: 0.5vh calc(0.5vh + 0.5vw);
+	}
 }

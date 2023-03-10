@@ -22,6 +22,11 @@
 	left: calc(50% - 4.15rem);
 }
 
+.cardbox-focus .cardbox-focus-card .sensuba-hero {
+
+	cursor: pointer;
+}
+
 .cardbox-focus h1 {
 
 	text-align: center;
@@ -50,6 +55,7 @@
 	text-align: center;
 	align-self: center;
 	text-decoration: underline #edeae480;
+	cursor: pointer;
 }
 
 .game-effect {
@@ -87,6 +93,7 @@
 .game-effect .token {
 
 	text-decoration: underline #edeae480;
+	cursor: pointer;
 }
 
 .game-effect br {
@@ -99,7 +106,7 @@
 .cardbox-focus .cardbox-side {
 
 	position: absolute;
-	width: 4rem;
+	width: calc(40vw - 5.5rem);
 	height: 2.5rem;
 	top: 0rem;
 	color: #7f7a6a;
@@ -121,7 +128,7 @@
 	justify-content: center;
 }
 
-.tooltip {
+.tooltip.show.bs-tooltip-auto {
 
 	z-index: 1200;
 	max-width: 15rem;
@@ -143,6 +150,7 @@
 	margin-top: 0.7rem;
 	margin-bottom: 0.5rem;
 	height: 3.2rem;
+	position: relative;
 }
 
 .cardbox-focus .cardbox-abilities .cardbox-lv-separator {
@@ -155,6 +163,7 @@
 .cardbox-focus .cardbox-abilities .cardbox-lv .sensuba-ability {
 
 	margin: 0 0.55rem;
+	cursor: pointer;
 }
 
 .cardbox-focus .cardbox-focus-card.cardbox-focus-ability {
@@ -162,4 +171,111 @@
 	position: absolute;
 	top: -3rem;
 	left: calc(50% - 3.2rem);
+}
+
+.cardbox-focus .cardbox-lv .hero-lv-text {
+
+	position: absolute;
+	left: calc(50% + 4.3rem);
+	height: 3rem;
+	justify-content: center;
+	width: 3rem;
+	top: 0;
+	font-family: Rusty;
+	color: #d1caae40;
+	font-size: 1.5rem;
+	text-align: center;
+	align-items: center;
+}
+
+.cardbox-focus .cardbox-lv-separator + .cardbox-lv .hero-lv-text {
+
+	left: calc(50% + 6.3rem);
+}
+
+@media (min-width: 601px) {
+  
+	.cardbox-focus {
+
+		font-size: 1.5rem;
+	}
+
+	.cardbox-focus .cardbox-focus-card {
+
+		top: -5.5rem;
+    	left: calc(50% - 6.225rem);
+	}
+
+	.cardbox-focus .cardbox-focus-card.cardbox-focus-ability {
+
+		top: -5.5rem;
+	    left: calc(50% - 4.55rem);
+	}
+
+	.cardbox-focus-box.lightbox-container .lightbox-inner .lightbox {
+
+	    height: 22.5rem;
+	    max-width: 40rem;
+	}
+
+	.cardbox-focus h1 {
+
+	    margin-top: 5.25rem;
+	    font-size: 2.25rem;
+	}
+
+	.cardbox-focus h1.small-name {
+
+		font-size: 2.15rem;
+	}
+
+	.cardbox-focus .card-typing {
+		
+		margin-top: 0.5rem;
+	}
+
+	.cardbox-focus .cardbox-side {
+
+		width: calc(40vw - 8.25rem);
+		max-width: 13rem;
+	}
+
+	.cardbox-focus .cardbox-abilities {
+
+		font-size: 0.75rem;
+	    height: 15rem;
+	}
+
+	.cardbox-focus .cardbox-lv .hero-lv-text {
+
+		left: calc(50% + 6.3rem);
+		height: 4.5rem;
+		width: 4.5rem;
+		font-size: 2rem;
+	}
+
+	.cardbox-focus .cardbox-lv-separator + .cardbox-lv .hero-lv-text {
+
+		left: calc(50% + 9.3rem);
+	}
+
+	.cardbox-focus .cardbox-abilities .cardbox-lv {
+
+	    margin-top: 1.05rem;
+	    margin-bottom: 0.75rem;
+	    height: 4.767rem;
+	}
+
+	.cardbox-focus-box.lightbox-container .lightbox-inner .lightbox {
+
+		padding-left: 1.5em;
+		padding-right: 1.5em;
+	}
+
+	.tooltip.show.bs-tooltip-auto {
+
+		max-width: 18rem;
+		font-size: 1.2rem;/*
+		padding: 0.4rem;*/
+	}
 }

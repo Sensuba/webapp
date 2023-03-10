@@ -63,11 +63,57 @@
 	box-shadow: 0 0 0.2em 0.2em red;
 }
 
+@media (min-width: 601px) {
+
+	.scene .game-hand {
+
+		width: calc(70vw - 20vh);
+		right: calc(15vw - 16vh);
+		height: 15vh;
+		flex-wrap: nowrap;
+	    justify-content: flex-end;
+	}
+
+	.game-hand-card {
+
+	    height: 12vh;
+		margin: 1vh;
+	}
+
+	.game-hand-card .game-card-wrapper {
+
+	    font-size: 2.4vh;
+	    border-radius: 2.9vh;
+	}
+
+	.scene .opposite-area .game-hand {
+
+		width: calc(40vw - 37vh);
+		position: fixed;
+	    top: 0;
+		height: 15vh;
+	    left: calc(6vw + 10vh);
+	    transform: rotateZ(180deg);
+	}
+
+	.opposite-area .game-hand-card .game-card-wrapper {
+
+	    font-size: 1.7vh;
+	    border-radius: 2.175vh;
+	    transform: rotateZ(180deg);
+	}
+
+	.opposite-area .game-hand {
+
+		width: 10vw;
+	}
+}
+
 @media only screen and (max-width: 600px) {
   
   .game-hand-card {
 
-  	width: 18%;
+  	width: 18% !important;
   	height: 13.5vw;
   	font-size: 2em;
   	margin: unset;
@@ -96,7 +142,7 @@
 
 	.opposite-area .game-hand-card {
 
-  		width: 3%;
+  		width: 3% !important;
 	}
 
 	.self-area .game-hand-card:hover .game-card-wrapper {

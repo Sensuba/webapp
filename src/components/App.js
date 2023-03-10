@@ -1,6 +1,6 @@
 import './App.css';
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
 
 import Home from './home/Home';
 import Error from './home/Error';
@@ -23,6 +23,7 @@ export default class App extends Component {
   constructor (props) {
 
     super(props);
+    this.home = React.createRef();
     let io = SocketManager.master;
     if (!offlineMode) {
       io.start();
@@ -59,7 +60,7 @@ export default class App extends Component {
       <div className="app">
         <Router>
           <Routes>
-            <Route path="/" element={<Home/>}/>
+            <Route path="/" element={<Home ref={this.home}/>}/>
             <Route path="/play" element={<Dynamo><Play/></Dynamo>}/>
             <Route path="/story" element={<Dynamo><Story/></Dynamo>}/>
             <Route path="/multiplayer" element={<Dynamo><Multiplayer/></Dynamo>}/>

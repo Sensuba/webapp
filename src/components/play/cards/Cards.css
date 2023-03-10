@@ -102,7 +102,7 @@
 
 .cards-page-list {
 
-	height: calc(100% - 4rem);
+	height: calc(100% - 9rem);
 	width: 100%;
 	position: relative;
 	overflow: auto;
@@ -233,16 +233,20 @@
 
 .cards-page .deckbuilder {
 
+	margin-top: 1rem;
 	flex-direction: column;
 }
 
 .cards-page .deckbuilder .deckbuilder-nav {
 
 	justify-content: space-evenly;
+	margin-bottom: 1rem;
+	align-items: center;
 }
 
 .cards-page .deckbuilder .deckbuilder-name {
 
+	height: 3rem;
 }
 
 .cards-page .deckbuilder .deckbuilder-name input {
@@ -261,6 +265,7 @@
 .cards-page .deckbuilder .deckbuilder-hero {
 
 	font-size: 0.6rem;
+	cursor: pointer;
 }
 
 .cards-page .cards-page-cardcountbuilder {
@@ -285,6 +290,7 @@
 	justify-content: center;
 	align-items: center;
 	transition: all 0.2s;
+	cursor: pointer;
 }
 
 .cards-page .cards-page-cardcountbuilder .cards-page-cardcountbutton:active {
@@ -296,6 +302,7 @@
 
 	background: #c6bbab;
 	color: #8f8f8f;
+	cursor: default;
 }
 
 .cards-page .cards-page-cardcountbuilder .cards-page-cardcount + .cards-page-cardcountbutton {
@@ -386,4 +393,165 @@
 
 	height: calc(13rem - 1em);
 	overflow: scroll;
+}
+
+.cards-page-deck-section {
+
+		background: linear-gradient(60deg, #00000080, #00000030);
+		padding-bottom: 0.4rem;
+}
+
+.cards-page-deck-section, .cards-page-heroesandcards-section {
+
+	flex-direction: column;
+}
+
+#heroes-border {
+
+	margin-top: 0;
+}
+
+@media (min-width: 601px) {
+  
+	.card-list .listed-card {
+
+		font-size: 1rem;
+		height: calc(6em + 1rem);
+		width: calc(8em + 1rem);
+	}
+
+	.card-list .listed-deck {
+
+		font-size: 1rem;
+		height: calc(6em + 1rem);
+		width: calc(8em + 1rem);
+		margin-bottom: 1rem;
+		margin-left: 0.5rem;
+		margin-right: 0.5rem;
+	}
+
+	.cards-page .hideable-border {
+		
+		cursor: pointer;
+	}
+
+	.cards-page-deck-section .cards-border .cards-border-right {
+		
+		display: none;
+	}
+
+	.cards-page-deck-section .cards-border {
+		
+		pointer-events: none;
+	}
+
+	.cards-page .deckbuilder .deckbuilder-hero {
+
+		font-size: 1rem;
+	}
+
+	.cards-border {
+
+		height: 2.2rem;
+		width: 100%;
+		margin-top: 0.8rem;
+		margin-bottom: 0.4rem;
+		background: linear-gradient(to right, #000000A0, #00000050, #000000A0);
+		line-height: 2.2rem;
+		justify-content: space-between;
+		padding: 0 0.6rem;
+		padding-right: 0.5rem;
+		color: #edeae4;
+		box-sizing: border-box;
+	}
+
+	.color-border {
+		
+		height: 2.2rem;
+		width: 100%;
+		margin-top: 0.8rem;
+		margin-bottom: 0.4rem;
+		background: linear-gradient(to right, #00000050, #00000028);
+		line-height: 2.2rem;
+		justify-content: space-between;
+		padding: 0 0.6rem;
+		padding-right: 0.5rem;
+		color: #edeae4;
+		box-sizing: border-box;
+	}
+
+	.cards-page .cards-page-cardcountbuilder {
+
+    top: calc(50% + 14rem);
+    left: calc(50% - 7.5rem - 2px);
+    width: 15rem;
+    font-size: 1.5rem;
+	}
+
+	.cards-page .cards-page-cardcountbuilder .cards-page-cardcountbutton {
+
+		height: 3.4rem;
+		width: 4.6rem;
+	}
+
+	.cards-page .cards-page-cardcountbuilder .cards-page-cardcount {
+
+		height: 3.4rem;
+		width: 5.8rem;
+	}
+
+	.cards-page-search {
+
+		width: calc(80% - 15rem);
+		margin-left: calc(0px - 20% - 15rem);
+	    box-shadow: 0px 0.2rem 0.2rem 0px #000000a0;
+	    z-index: 100;
+	}
+
+	.cards-page-list {
+
+		width: calc(80% - 15rem);
+		margin-left: calc(0px - 20% - 15rem);
+	}
+
+	.cards-page-deck-section {
+
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		width: calc(20% + 15rem);
+		height: calc(100% - 7.9rem);
+		padding-top: 2.9rem;
+		overflow: auto;
+		padding-bottom: 1rem;
+	}
+
+	.cards-page-heroesandcards-section {
+
+	}
+
+	.cards-page-search-tab {
+		
+		cursor: pointer;
+	}
+
+	.cards-page-search-tab:hover {
+
+		background: linear-gradient(60deg, #00000050, #00000020)
+	}
+
+	.cards-page-search-tab:active {
+
+		background: linear-gradient(60deg, #FFFFFF16, #FFFFFF06)
+	}
+
+	.cards-page .deckbuilder .deckbuilder-name {
+
+		height: 4rem;
+	}
+
+	#heroes-border {
+
+		margin-top: 0.8rem;
+	}
 }

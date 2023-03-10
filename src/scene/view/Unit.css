@@ -5,6 +5,7 @@
 	position: relative;
 	filter: grayscale(0) brightness(1);
 	transition: filter 0.2s;
+	cursor: pointer;
 }
 
 .game-unit .card-image-wrapper {
@@ -132,4 +133,17 @@
 @keyframes shieldsize {
   from {top: -0.6em; left: -0.6em; width: 9em; height: 7em; }
   to {top: -0.9em; left: -0.9em; width: 9.6em; height: 7.6em; }
+}
+
+@media (min-width: 601px) {
+
+	.game-unit .card-image-wrapper {
+
+		border-radius: 3.5vh;
+	}
+	
+	.game-unit .game-shield {
+
+		border-radius: 3.5vh;
+  }
 }

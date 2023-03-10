@@ -25,6 +25,7 @@ export default class Play extends Component {
             <div className="play-button-wrapper"><PictureButton img="./images/bookshelves.png" to="/cards">{ read('menu/cards') }</PictureButton></div> */}
           </div>
         </div>
+        <Back to="/"/>
       </div>
     );
   }

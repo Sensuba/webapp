@@ -7,6 +7,7 @@ import Skill from './Skill.js';
 import Fanfare from './Fanfare.js';
 import LastWill from './LastWill.js';
 import Listener from './Listener.js';
+import HandListener from './HandListener.js';
 import Aura from './Aura.js';
 import PassiveMutation from './PassiveMutation.js';
 
@@ -43,6 +44,7 @@ import Conjure from './Conjure.js';
 import ChangeCost from './ChangeCost.js';
 import Overload from './Overload.js';
 import TriggerEffect from './TriggerEffect.js';
+import ExtraTrigger from './ExtraTrigger.js';
 import DelayedTrigger from './DelayedTrigger.js';
 import DelayedChangeCost from './DelayedChangeCost.js';
 
@@ -66,6 +68,8 @@ import FilterCover from './FilterCover.js';
 import FilterVariable from './FilterVariable.js';
 import FilterEffect from './FilterEffect.js';
 import MergeCardFilters from './MergeCardFilters.js';
+import MergeModelFilters from './MergeModelFilters.js';
+import ReverseModelFilter from './ReverseModelFilter.js';
 import MergeMutations from './MergeMutations.js';
 import CheckCard from './CheckCard.js';
 import CheckTile from './CheckTile.js';
@@ -91,6 +95,7 @@ import FindCard from './FindCard.js';
 import FindModel from './FindModel.js';
 import Extremum from './Extremum.js';
 import InnerData from './InnerData.js';
+import Analyse from './Analyse.js';
 
 import FactorOverload from './FactorOverload.js';
 
@@ -100,6 +105,7 @@ import Model from './Model.js';
 import BreakCard from './BreakCard.js';
 import BreakTile from './BreakTile.js';
 import BreakLocation from './BreakLocation.js';
+import BreakPlayer from './BreakPlayer.js';
 
 import If from './If.js';
 import Loop from './Loop.js';
@@ -107,6 +113,7 @@ import Timer from './Timer.js';
 import ForEachCard from './ForEachCard.js';
 import ForEachTile from './ForEachTile.js';
 import ForEachEffect from './ForEachEffect.js';
+import ForEachEvent from './ForEachEvent.js';
 
 import Plus from './Plus.js';
 import Minus from './Minus.js';
@@ -143,6 +150,7 @@ export default class Reader {
 			case "fanfare": bloc = new Fanfare(card, ctx); break;
 			case "lastwill": bloc = new LastWill(card, ctx); break;
 			case "listener": bloc = new Listener(card, ctx); break;
+			case "handlistener": bloc = new HandListener(card, ctx); break;
 			case "aura": bloc = new Aura(card, ctx); break;
 			case "passivemut": bloc = new PassiveMutation(card, ctx); break;
 
@@ -179,6 +187,7 @@ export default class Reader {
 			case "changecost": bloc = new ChangeCost(card, ctx); break;
 			case "overload": bloc = new Overload(card, ctx); break;
 			case "trigger": bloc = new TriggerEffect(card, ctx); break;
+			case "extratrigger": bloc = new ExtraTrigger(card, ctx); break;
 			case "delayedtrigger": bloc = new DelayedTrigger(card, ctx); break;
 			case "delayedchangecost": bloc = new DelayedChangeCost(card, ctx); break;
 
@@ -202,6 +211,8 @@ export default class Reader {
 			case "filtervar": bloc = new FilterVariable(card, ctx); break;
 			case "filtereffect": bloc = new FilterEffect(card, ctx); break;
 			case "mergecfilters": bloc = new MergeCardFilters(card, ctx); break;
+			case "mergemfilters": bloc = new MergeModelFilters(card, ctx); break;
+			case "revmfilter": bloc = new ReverseModelFilter(card, ctx); break;
 			case "mergemut": bloc = new MergeMutations(card, ctx); break;
 			case "checkcard": bloc = new CheckCard(card, ctx); break;
 			case "checktile": bloc = new CheckTile(card, ctx); break;
@@ -227,6 +238,7 @@ export default class Reader {
 			case "findmodel": bloc = new FindModel(card, ctx); break;
 			case "extremum": bloc = new Extremum(card, ctx); break;
 			case "innerdata": bloc = new InnerData(card, ctx); break;
+			case "analyse": bloc = new Analyse(card, ctx); break;
 
 			case "hand": bloc = new Hand(card, ctx); break;
 			case "model": bloc = new Model(card, ctx); break;
@@ -234,6 +246,7 @@ export default class Reader {
 			case "brkcard": bloc = new BreakCard(card, ctx); break;
 			case "brktile": bloc = new BreakTile(card, ctx); break;
 			case "brklocation": bloc = new BreakLocation(card, ctx); break;
+			case "brkplayer": bloc = new BreakPlayer(card, ctx); break;
 
 			case "if": bloc = new If(card, ctx); break;
 			case "loop": bloc = new Loop(card, ctx); break;
@@ -241,6 +254,7 @@ export default class Reader {
 			case "forcard": bloc = new ForEachCard(card, ctx); break;
 			case "fortile": bloc = new ForEachTile(card, ctx); break;
 			case "foreffect": bloc = new ForEachEffect(card, ctx); break;
+			case "forevent": bloc = new ForEachEvent(card, ctx); break;
 
 			case "opplus": bloc = new Plus(card, ctx); break;
 			case "opminus": bloc = new Minus(card, ctx); break;

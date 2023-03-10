@@ -24,6 +24,7 @@ export default class Card {
 
 	get isHero () { return false }
 	get isUnit () { return this.type === "unit" }
+	get isBuilding () { return this.type === "building" }
 	get isSpell () { return this.type === "spell" }
 	get isCharacter () { return this.isUnit }
 
@@ -37,6 +38,7 @@ export default class Card {
 	reset () {
 
 		this.passives = [];
+		this.handPassives = [];
 		this.blueprints = [];
 		["mana", "type", "color", "categories", "atk", "hp", "blueprint", "states"].forEach(k => this[k] = this.model[k]);
 		this.categories = this.categories.slice();
@@ -61,11 +63,15 @@ export default class Card {
 
 		if (this.activated && this.onField && location.id.type !== "tile")
 			this.deactivate();
+		else if (this.handActivated && this.inHand)
+			this.deactivateHand();
 		this.location = location;
 		if (former && former.hasCard(this))
 			former.removeCard(this);
 		if (location && !location.hasCard(this))
 			location.addCard(this);
+		if (!this.handActivated && this.inHand)
+			this.activateHand();
 
 		this.game.notify("movecard", this, former, location);
 	}
@@ -191,7 +197,7 @@ export default class Card {
 
 	get canAttack () {
 
-		if (!this.onField)
+		if (!this.onField || this.isBuilding)
 			return false;
 		if (this.hasState("warden") || this.hasState('freeze'))
 			return false;
@@ -206,7 +212,7 @@ export default class Card {
 
 	attack () {
 
-		if (!this.onField)
+		if (!this.onField || this.isBuilding)
 			return;
 
 		let target = this.findAttackTarget();
@@ -232,7 +238,7 @@ export default class Card {
 
 	canMove (right) {
 
-		if (!this.onField)
+		if (!this.onField || this.isBuilding)
 			return false;
 		if (this.hasState("warden") || this.hasState('freeze'))
 			return false;
@@ -250,7 +256,7 @@ export default class Card {
 
 	move (right) {
 
-		if (!this.onField)
+		if (!this.onField || this.isBuilding)
 			return;
 
 		if (!right && this.location.x <= 0)
@@ -276,6 +282,8 @@ export default class Card {
 
 	ripost (other) {
 
+		if (this.isBuilding)
+			return;
 		if (this.eff.atk > 0)
 			other.damage(Math.max(this.eff.atk - (other.eff.armor || 0)), this);
 	}
@@ -500,6 +508,22 @@ export default class Card {
 		this.passives.forEach(passive => passive.deactivate());
 	}
 
+	activateHand () {
+
+		if (this.handActivated)
+			return;
+		this.handActivated = true;
+		this.handPassives.forEach(passive => passive.activate());
+	}
+
+	deactivateHand () {
+
+		if (!this.handActivated)
+			return;
+		this.handActivated = false;
+		this.handPassives.forEach(passive => passive.deactivate());
+	}
+
 	copy (reset=false) {
 
 		let copy = new Card(this.game, this.model);
@@ -523,6 +547,14 @@ export default class Card {
 		let index = this.location.cards.indexOf(this);
 		this.location.cards[index] = transform;
 		this.location = this.game.nether;
+		if (this.activated && transform.onField) {
+			this.deactivate();
+			transform.activate();
+		}
+		else if (this.handActivated && transform.inHand) {
+			this.deactivateHand();
+			transform.activateHand();
+		}
 		this.blueprints = [];
 		this.game.notify("transform", this, transform);
 
@@ -597,6 +629,7 @@ export default class Card {
 			armor: this.armor,
 			variables: variables,
 			freezetimer: this.freezetimer,
+			extratriggers: this.extratriggers,
 			type: this.type,
 			actioned: this.actioned,
 			summoningSickness: this.summoningSickness,
@@ -619,6 +652,7 @@ export default class Card {
 		this.dmg = data.dmg;
 		this.armor = data.armor;
 		this.freezetimer = data.freezetimer;
+		this.extratriggers = data.extratriggers;
 		this.type = data.type;
 		this.variables = data.variables;
 		if (this.variables)
@@ -630,10 +664,13 @@ export default class Card {
 		this.summoningSickness = data.summoningSickness;
 		this.index = data.index;
 		this.passives = [];
+		this.handPassives = [];
 		this.model = Library.getCard(data.model);
 		this.blueprints = data.blueprints;
 		this.blueprints.forEach(bp => Reader.read(bp, this));
 		if (this.onField)
 			this.activate();
+		if (this.inHand)
+			this.activateHand();
 	}
 }

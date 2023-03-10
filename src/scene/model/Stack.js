@@ -31,7 +31,8 @@ export default class Stack extends Location {
 		let targetdata = target ? target.data : undefined;
 		this.game.notify("cast.before", card, player, targetdata);
 		if (card.events)
-			card.events.forEach(e => e(targetdata));
+			for (let i = 0; i <= (card.extratriggers || 0); i++)
+				card.events.forEach(e => e(targetdata));
 		this.game.notify("cast", this, player, targetdata);
 		card.goto(player.graveyard);
 		this.waitingList[this.resolving-1].forEach(r => this.resolve(r.player, r.card));

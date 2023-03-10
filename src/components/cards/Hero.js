@@ -12,6 +12,12 @@ export default class Hero extends Component {
 		return(
 			<div className={"sensuba-hero no-select " + this.props.src.colors[0] + " " + this.props.src.colors[1]}>
 				<div className="card-frame"/>
+		        <div className="card-image-placeholder">
+		          <div className="px"/><div className="px"/><div className="px"/><div className="px"/>
+		          <div className="px"/><div className="px"/><div className="px"/><div className="px"/>
+		          <div className="px"/><div className="px"/><div className="px"/><div className="px"/>
+		          <div className="px"/><div className="px"/><div className="px"/><div className="px"/>
+		        </div>
 				<div className={"card-image-wrapper" + (!this.props.level || this.props.level === 1 ? "" : " fade")}>
 					<img alt="" src={this.props.src.img}/>
 				</div>

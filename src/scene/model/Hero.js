@@ -23,6 +23,7 @@ export default class Hero {
 
 	get isHero () { return true }
 	get isUnit () { return false }
+	get isBuilding () { return false }
 	get isSpell () { return false }
 	get isCharacter () { return true }
 

@@ -13,7 +13,7 @@
 	position: absolute;
 	bottom: 0;
 	right: 0vw;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	width: 65vw;
 	z-index: 2;
 }
@@ -24,7 +24,7 @@
 	bottom: 0;
 	left: 10vw;
 	width: 65vw;
-	z-index: 4;
+	z-index: 11;
 }
 
 .scene .opposite-area .game-hand {
@@ -123,17 +123,31 @@
 
 .scene .game-card-wrapper {
 
-	filter: drop-shadow(0.5vw 0.5vw);
+	filter: drop-shadow(0.15rem 0.15rem);
 }
 
-.scene .opposite-area .game-hand {
+.scene .game-card-wrapper .sensuba-card {
 
-	filter: drop-shadow(-0.4vw -0.4vw);
+	filter: none;
 }
+
 
 .scene .opposite-area .game-card-wrapper {
 
-	filter: drop-shadow(-0.2vw -0.2vw);
+	filter: drop-shadow(0.1rem 0.1rem);
+}
+
+@media (min-width: 601px) {
+
+	.scene .game-card-wrapper {
+
+		filter: drop-shadow(0.3rem 0.3rem);
+	}
+
+	.scene .opposite-area .game-card-wrapper {
+
+		filter: drop-shadow(0.2rem 0.2rem);
+	}
 }
 
 @media only screen and (max-height: 600px) {
@@ -294,6 +308,56 @@
 	position: absolute;
 	z-index: 100;
 	pointer-events: none;
+}
+
+@media (min-width: 601px) {
+
+	.scene .game-area-data {
+
+	    width: 26rem;
+	    height: 12vh;
+	    left: calc(51vw + 12vh);
+	    position: absolute;
+	    top: calc(73vh + 0px);
+	    font-size: 2.5vh;
+	    color: #d1caae;
+	    flex-direction: row;
+	    flex-wrap: wrap;
+	}
+
+	.scene .opposite-area .game-area-data {
+
+	    top: 10vh;
+	}
+
+	.scene .game-area-data-stat {
+
+	    width: 5.5rem;
+	}
+
+	.scene .game-area-data-hand, .scene .game-area-data-deck {
+
+	    padding-left: 0;
+	}
+
+  .scene .turn-indicator {
+
+		width: calc(15vw + 15vh);
+	  height: 2vh;
+	  bottom: 24.5vh;
+	  left: 3vh;
+	  font-size: 3.5vh;
+	  justify-content: center;
+	}
+
+	.scene .game-buttons {
+
+		width: calc(15vw + 15vh);
+	  justify-content: center;
+	    font-size: 1.9vh;
+	    left: 3vh;
+	    bottom: 13.75vh;
+	}
 }
 
 @media only screen and (max-width: 600px) {

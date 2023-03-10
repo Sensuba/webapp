@@ -204,7 +204,8 @@ export default class Player {
 					this.game.notify("targetphase", this, card);
 				}
 			}
-			else card.events.forEach(e => e());
+			else for (let i = 0; i <= (card.extratriggers || 0); i++)
+				card.events.forEach(e => e());
 		}
 	}
 
@@ -222,7 +223,8 @@ export default class Player {
 
 		if (!this.canPlayTarget(target))
 			return false;
-		this.targeting.events.forEach(e => e(target.data));
+		for (let i = 0; i <= (this.targeting.extratriggers || 0); i++)
+			this.targeting.events.forEach(e => e(target.data));
 		this.game.phase = "main";
 		delete this.targeting;
 		this.game.notify("mainphase", this);

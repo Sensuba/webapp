@@ -12,7 +12,24 @@ import { read } from '../../TextManager';
 
 export default class Home extends Component {
 
-  state={}
+  constructor (props) {
+
+    super(props);
+    this.playlink = React.createRef();
+    let user = JSON.parse(localStorage.getItem('user'));
+
+    this.state = {
+      connected: user && !user.anonymous,
+      username: user && !user.anonymous ? user.username : undefined
+    }
+  }
+
+  play () {
+
+    if (this.playlink) {
+      this.playlink.current.click();
+    }
+  }
 
   login () {
 
@@ -24,7 +41,13 @@ export default class Home extends Component {
 
     password = sha1(password);
 
-    SocketManager.master.login(username, password);
+    SocketManager.master.login(username, password, success => { if (success) this.play(); });
+  }
+
+  logout () {
+
+    SocketManager.master.logout();
+    this.setState({connected: false, username: undefined});
   }
 
   signup () {
@@ -38,7 +61,7 @@ export default class Home extends Component {
 
     password = sha1(password);
 
-    SocketManager.master.signup(username, password);
+    SocketManager.master.signup(username, password, success => { if (success) this.play(); });
   }
 
   render () {
@@ -92,8 +115,12 @@ export default class Home extends Component {
 
         <div className="main">
           <h1>{ read('menu/title') }</h1>
-          <MainButton to="/play">{ read('menu/play') }</MainButton>
-          <MainButton onClick={() => this.setState({logbox: "login"})}>{ read('menu/login') }</MainButton>
+          <MainButton ref={this.playlink} to="/play">{ read('menu/play') }</MainButton>
+          {
+            this.state.connected ?
+            <MainButton onClick={() => this.logout()}>{ read('menu/logout') }</MainButton> :
+            <MainButton onClick={() => this.setState({logbox: "login"})}>{ read('menu/login') }</MainButton>
+          }
         </div>
       </div>
     );

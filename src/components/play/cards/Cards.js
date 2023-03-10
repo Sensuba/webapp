@@ -20,7 +20,7 @@ export default class Cards extends Component {
     focus: null,
     deck: null,
     filter: {
-      name: "",
+      search: "",
       type: "",
       collectable: true,
       orderBy: "type"
@@ -94,17 +94,17 @@ export default class Cards extends Component {
         <div className="main">
           <div className="cards-page-nav"></div>
           <div className="cards-page-search">
-            <Lightbox className="small" open={this.state.search === "name"} onClose={() => this.setState({search: null})}>
+            <Lightbox className="small" open={this.state.search === "search"} onClose={() => this.setState({search: null})}>
               <div className="styleform">
-                  <Label for="cards-page-search-name">
-                <div className="label-input">{ read('menu/name') }</div>
-                <Input onBlur={e => {this.state.filter.name = e.target.value; this.setState({filter: this.state.filter});}} id="cards-page-search-name" type="text" name="search" autoComplete="off"/>
+                  <Label for="cards-page-search-search">
+                <div className="label-input">{ read('menu/search') }</div>
+                <Input onBlur={e => {this.state.filter.search = e.target.value; this.setState({filter: this.state.filter});}} id="cards-page-search-search" type="text" name="search" autoComplete="off"/>
                 </Label>
               </div>
             </Lightbox>
-            <Label for="cards-page-search-name" className="cards-page-search-tab" onClick={() => this.setState({search: "name"})}>
-              <div className="cards-page-search-label">{ read('menu/name') }</div>
-              <div className="cards-page-search-value">{ this.state.filter.name }</div>
+            <Label for="cards-page-search-search" className="cards-page-search-tab" onClick={() => this.setState({search: "search"})}>
+              <div className="cards-page-search-label">{ read('menu/search') }</div>
+              <div className="cards-page-search-value">{ this.state.filter.search }</div>
             </Label>
             <Lightbox className="small" open={this.state.search === "type"} onClose={() => this.setState({search: null})}>
               <div className="selectbox">
@@ -143,60 +143,69 @@ export default class Cards extends Component {
             </div>
           </div>
           <div className="cards-page-list">
-            <div className="cards-border" onClick={() => {this.state.hiding.decks = !this.state.hiding.decks; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('menu/decks') }</div><div className="cards-border-right">{this.state.hiding.decks ? "+" : "-"}</div></div>
-            { this.state.hiding.decks ? "" :
-            <div className="deck-list-carousel">
-            <div className="card-list deck-list">
-              <div className="listed-deck"><div onClick={() => this.setState({newdeck: true})} className="new-deck"/></div>
-              {
-                decks.map((deck, i) => <div key={i} className="listed-deck" onClick={() => {
-                    if (this.state.deck && this.state.deck.key === deck.key)
-                      this.setState({deck: null});
-                    else this.setState({deck});
-                  }
-                }><Deck src={deck}/></div>)
-              }
-              </div>
-            </div>
-            }
-            {
-              this.state.deck ?
-              <div className="deckbuilder">
-                <div className="deckbuilder-nav">
-                  <div className="deckbuilder-hero" onClick={() => this.setState({focus:Library.getHero(this.state.deck.body.hero)})}><Hero src={Library.getHero(this.state.deck.body.hero)}/></div>
-                  <div className="deckbuilder-name"><Input type="text" defaultValue={this.state.deck.deckname} onBlur={e => {
-                    if (this.state.deck.deckname !== e.target.value) {
-                      if (e.target.value.length > 0)
-                        SocketManager.master.deckbuild("rename", this.state.deck.key, e.target.value);
-                      else e.target.value = this.state.deck.deckname
+            <div className="cards-page-deck-section">
+              <div className="cards-border" onClick={() => {this.state.hiding.decks = !this.state.hiding.decks; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('menu/decks') }</div><div className="cards-border-right">{this.state.hiding.decks ? "+" : "-"}</div></div>
+              { this.state.hiding.decks ? "" :
+              <div className="deck-list-carousel">
+              <div className="card-list deck-list">
+                <div className="listed-deck"><div onClick={() => this.setState({newdeck: true})} className="new-deck"/></div>
+                {
+                  decks.sort((a, b) => a.deckname > b.deckname ? 1 : -1).map((deck, i) => <div key={i} className="listed-deck" onClick={() => {
+                      if (this.state.deck && this.state.deck.key === deck.key)
+                        this.setState({deck: null});
+                      else {
+                        this.setState({deck});
+                        let deckname = document.getElementById("deckname-input");
+                        if (deckname)
+                          deckname.value = deck.deckname;
+                      }
                     }
-                  }}/></div>
-                </div>
-                <div className="card-list">
-                {
-                  this.state.deck.body.cards.map((card, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:Library.getCard(card)})}><Card src={Library.getCard(card)}/></div>)
+                  }><Deck src={deck}/></div>)
                 }
                 </div>
               </div>
-              : ""
-            }
-            <div className="cards-border" onClick={() => {this.state.hiding.heroes = !this.state.hiding.heroes; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('menu/heroes') }</div><div className="cards-border-right">{this.state.hiding.heroes ? "+" : "-"}</div></div>
-                <div className={"card-list " + (this.state.hiding.heroes ? "invisible" : "")}>
-                {
-                  heroes.map((hero, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:hero})}><Hero src={hero}/></div>)
-                }
+              }
+              {
+                this.state.deck && !this.state.hiding.decks ?
+                <div className="deckbuilder">
+                  <div className="deckbuilder-nav">
+                    <div className="deckbuilder-hero" onClick={() => this.setState({focus:Library.getHero(this.state.deck.body.hero)})}><Hero src={Library.getHero(this.state.deck.body.hero)} level={3}/></div>
+                    <div className="deckbuilder-name"><Input id="deckname-input" type="text" defaultValue={this.state.deck.deckname} onBlur={e => {
+                      if (this.state.deck.deckname !== e.target.value) {
+                        if (e.target.value.length > 0)
+                          SocketManager.master.deckbuild("rename", this.state.deck.key, e.target.value);
+                        else e.target.value = this.state.deck.deckname
+                      }
+                    }}/></div>
+                  </div>
+                  <div className="card-list">
+                  {
+                    sorter.sort(this.state.deck.body.cards.map(card => Library.getCard(card)), "type").map((card, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus: card})}><Card src={card}/></div>)
+                  }
+                  </div>
                 </div>
-            <div className="cards-border"><div className="cards-border-left">{ read('menu/cards') }</div><div className="cards-border-right"></div></div>
-            {
-              Object.keys(colors).map(color => colors[color].length > 0 ? <div key={color} className="color-list">
-                <div className="color-border" onClick={() => {this.state.hiding[color] = !this.state.hiding[color]; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('cards/' + color) }</div><div className="cards-border-right">{this.state.hiding[color] ? "+" : "-"}</div></div>
-                <div className={"card-list " + (this.state.hiding[color] ? "invisible" : "")}>
-                {
-                  colors[color].map((card, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:card})}><Card src={card}/></div>)
-                }
-                </div>
-              </div> : "")
-            }
+                : ""
+              }
+            </div>
+            <div className="cards-page-heroesandcards-section">
+              <div id="heroes-border" className="cards-border hideable-border" onClick={() => {this.state.hiding.heroes = !this.state.hiding.heroes; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('menu/heroes') }</div><div className="cards-border-right">{this.state.hiding.heroes ? "+" : "-"}</div></div>
+                  <div className={"card-list " + (this.state.hiding.heroes ? "invisible" : "")}>
+                  {
+                    heroes.map((hero, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:hero})}><Hero src={hero}/></div>)
+                  }
+                  </div>
+              <div className="cards-border"><div className="cards-border-left">{ read('menu/cards') }</div><div className="cards-border-right"></div></div>
+              {
+                Object.keys(colors).map(color => colors[color].length > 0 ? <div key={color} className="color-list">
+                  <div className="color-border hideable-border" onClick={() => {this.state.hiding[color] = !this.state.hiding[color]; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('cards/' + color) }</div><div className="cards-border-right">{this.state.hiding[color] ? "+" : "-"}</div></div>
+                  <div className={"card-list " + (this.state.hiding[color] ? "invisible" : "")}>
+                  {
+                    colors[color].map((card, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:card})}><Card src={card}/></div>)
+                  }
+                  </div>
+                </div> : "")
+              }
+            </div>
           </div>
           </div>
         <Back to="/play"/>

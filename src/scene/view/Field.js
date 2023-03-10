@@ -18,13 +18,14 @@ export default class Field extends Component {
           key={c}>
           { [this.props.player.opponent.id.no, this.props.player.id.no].map(p => <div player={p} className="game-field-tile" key={p}>
             { this.props.src.tiles[p][c].cards.map(card =>
-              <div
+              <div draggable="true"
               key={card.id.no}
               id={"sensuba-card-" + card.id.no}
               className={"game-card-wrapper" + (this.props.targeting ? (this.props.targetable({type: "card", data: card}) ? " game-card-targetable" : "") : "")} 
               onClick={e => this.props.onSelect(e, card)}
               onTouchStart={e => this.props.onGrab(card)}
-              >
+              onDragStart={e => { let img = new Image(); img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='; e.dataTransfer.setDragImage(img, 0, 0); this.props.onGrab(card); }}
+          >
                 <Unit src={card}/>
               </div>)
             }

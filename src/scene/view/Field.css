@@ -39,6 +39,7 @@
 	background: #ffecbf;
 	box-shadow: inset 0 0 1rem #533a1180;
 	flex-direction: column;
+	justify-content: space-evenly;
 	transition: background 0.2s, box-shadow 0.2s;
 }
 
@@ -77,4 +78,33 @@
 .game-field-tile .game-card-wrapper {
 
 	margin: 2vw 0;
+}
+
+@media (min-width: 601px) {
+
+	.game-field {
+
+		width: 110vh;
+		height: 56vh;
+		top: 14.5vh;
+		left: unset;
+	}
+
+	.game-field-tile {
+
+	    font-size: 1.65vh;
+	    padding-top: calc(4vh - 0.2vw);
+	    padding-bottom: 0vh;
+	}
+
+	.game-field-tile:nth-child(2) {
+
+	    padding-top: 0vh;
+	    padding-bottom: calc(4vh - 0.2vw);
+	}
+
+	.game-field-tile .game-card-wrapper {
+
+	    margin: calc(1vh - 0vw) 0;
+	}
 }

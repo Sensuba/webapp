@@ -21,16 +21,23 @@ export default class SocketManager {
 
 	}
 
-	login (username, password) {
+	login (username, password, callback) {
 
 		this.socket.emit('identify', true, username, password);
-		this.socket.on('identified', (key, user) => this.onIdentify(key, user));
+		this.socket.on('identified', (key, user) => this.onIdentify(key, user, callback));
 	}
 
-	signup (username, password) {
+	logout () {
+
+		localStorage.removeItem('user');
+		localStorage.removeItem('decks');
+		this.socket.emit('identify', false);
+	}
+
+	signup (username, password, callback) {
 
 		this.socket.emit('signup', username, password);
-		this.socket.on('identified', (key, user) => this.onIdentify(key, user));
+		this.socket.on('identified', (key, user) => this.onIdentify(key, user, callback));
 	}
 
 	setStatus (status) {
@@ -98,7 +105,7 @@ export default class SocketManager {
 
 	}
 
-	onIdentify (code, data) {
+	onIdentify (code, data, callback) {
 
 		this.socket.removeAllListeners('identified');
 
@@ -109,9 +116,12 @@ export default class SocketManager {
 
 		console.log('identified as ' + (data.user.anonymous ? 'anonymous user ' + data.user.key : data.user.username));
 		this.socket.identified = true;
+		this.socket.removeAllListeners('deckbuild');
 		this.socket.on('deckbuild', this.onDeckbuild.bind(this));
 		localStorage.setItem('user', JSON.stringify(data.user));
 		localStorage.setItem('decks', JSON.stringify(data.decks));
+		if (callback)
+			callback(data.user.anonymous !== true);
 	}
 
 	onDeckbuild (command, params) {

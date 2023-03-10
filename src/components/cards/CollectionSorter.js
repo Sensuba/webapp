@@ -1,5 +1,6 @@
 
 import { read } from '../../TextManager';
+import Library from '../../scene/utility/Library';
 
 export default (() => {
 
@@ -71,11 +72,15 @@ export default (() => {
 		default: break;
 		}
 
-		cards.sort((a, b) => {
+		let newcards = cards.slice();
+
+		newcards.sort((a, b) => {
 			var r = func(a, b);
 			if (r === 0) return nameSort(a, b);
 			return r;
-		})
+		});
+
+		return newcards;
 	}
 
 	var opFilter = (attr, value, op) => {
@@ -91,7 +96,48 @@ export default (() => {
 		}
 	}
 
-	var effectFilter = description => card => normalize(card.description).includes(normalize(description.toLowerCase()));
+	var effectFilter = description => card => normalize(card.description).includes(normalize(description));
+
+	var searchFilter = search => card => {
+
+		if (normalize(card.name).includes(normalize(search)))
+			return true;
+
+		if (card.categories && card.categories.some(cat => normalize(read("cards/categories/" + cat)).includes(normalize(search))))
+			return true;
+
+		let effects = card.abilities ? card.abilities.map(a => a.effect) : [card.effect];
+
+		let flag = false;
+		effects.forEach(text => {
+
+			let ntext = "";
+			// eslint-disable-next-line
+			let texts = text.split(/\[[^\[]+\]|\{[^\{]+\}|\n/);
+			// eslint-disable-next-line
+			let matches = text.match(/\[[^\[]+\]|\{[^\{]+\}|\n/g);
+			if (matches)
+				matches.forEach((match,i) => {
+					let el = match.slice(1, -1);
+					ntext += texts[i];
+					if (match[0] === '{') {
+						let slices = el.split('/');
+						let key = slices[0];
+						ntext += slices.length > 1 ? slices[1] : Library.cards[key].name;
+					} else if (match[0] === '[') {
+						ntext += read('keywords/' + el);
+					} else if (match[0] === '\n') {
+						ntext += "";
+					}
+				});
+			ntext += texts[texts.length-1];
+
+			if (normalize(ntext).includes(normalize(search))) 
+				flag = true;
+		});
+
+		return flag;
+	}
 
 	var filter = (cards, f) => {
 
@@ -99,6 +145,8 @@ export default (() => {
 			cards = cards.filter(card => !card.token);
 		if (f.type && f.type !== "")
 			cards = cards.filter(card => card.type === f.type);
+		if (f.search && f.search !== "") 
+			cards = cards.filter(searchFilter(f.search));
 		if (f.name && f.name !== "")
 			cards = cards.filter(card => normalize(card.name).includes(normalize(f.name)));
 		if (f.category && f.category !== "")
@@ -108,7 +156,7 @@ export default (() => {
 		if (f.mana && !isNaN(f.mana) && f.manaop && f.manaop !== "")
 			cards = cards.filter(opFilter("mana", parseInt(f.mana, 10), f.manaop));
 		if (f.orderBy)
-			sort(cards, f.orderBy);
+			cards = sort(cards, f.orderBy);
 		return cards;
 	}
 
