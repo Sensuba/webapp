@@ -41,6 +41,8 @@ export default class Card {
 		this.handPassives = [];
 		this.blueprints = [];
 		["mana", "type", "color", "categories", "atk", "hp", "blueprint", "states"].forEach(k => this[k] = this.model[k]);
+		if (!this.categories)
+			this.categories = [];
 		this.categories = this.categories.slice();
 		let states = {};
 		if (this.states)
@@ -109,6 +111,8 @@ export default class Card {
 
 		if (card.hasState("burst"))
 			card.burst();
+
+		return card;
 	}
 
 	damage (dmg, src) {

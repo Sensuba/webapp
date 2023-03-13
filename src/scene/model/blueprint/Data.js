@@ -6,7 +6,7 @@ export default class Data extends Bloc {
 	constructor (name, src, ctx, d) {
 
 		super(name, src, ctx);
-		this.f = (src, ins) => d(ins[0]);
+		this.f = (src, ins, props) => d(ins[0]);
 		this.types = [Types.data];
 	}
 }

@@ -1,6 +1,7 @@
 import Wait from './view/animation/Wait';
 import AddToHand from './view/animation/AddToHand';
-import RemoveFromHand from './view/animation/RemoveFromHand';
+//import RemoveFromHand from './view/animation/RemoveFromHand';
+import Summon from './view/animation/Summon';
 
 export default class Sequencer {
 
@@ -10,8 +11,8 @@ export default class Sequencer {
 		this.queue = [];
 		this.current = null;
 		this.dispatch = dispatch;
-		this.extraturns = [0, 0];
-		this.currentturn = -1;
+		/*this.extraturns = [0, 0];
+		this.currentturn = -1;*/
 	}
 
 	add (n) {
@@ -35,6 +36,22 @@ export default class Sequencer {
 		if (anim) {
 			if (anim.sync)
 				this.current = anim;
+			if (!anim.before)
+				this.dispatch(n);
+			anim.start(() => {
+				if (anim.before)
+					this.dispatch(n);
+				this.next();
+			});
+		} else {
+			this.dispatch(n);
+			this.next();
+		}
+
+		/*var anim = this.notifToAnim(n);
+		if (anim) {
+			if (anim.sync)
+				this.current = anim;
 			if (anim.before) {
 				anim.start(() => {
 					this.dispatch(n);
@@ -53,7 +70,7 @@ export default class Sequencer {
 		} else {
 			this.dispatch(n);
 			this.next();
-		}
+		}*/
 	}
 
 	update () {
@@ -69,10 +86,14 @@ export default class Sequencer {
 	    case "animation": {
 	    	switch (n.data[0]) {
 	    	case "spark": return new Wait(this.master, 300);
+	    	default: return null;
 	    	}
 	    }
 	    case "cast": {
 	    	return new Wait(this.master, 200);
+	    }
+	    case "summon": {
+	    	return new Summon(this.master, n.data[0].no);
 	    }
 	    case "movecard": {
 	    	if (n.data[2] && n.data[2].type === "hand") {

@@ -15,7 +15,7 @@ export default class Hand extends Component {
           onClick={e => { if (!this.props.hidden) this.props.onSelect(e, c); }}
           onTouchStart={e => { if (!this.props.hidden && this.props.src.player.canPlay(c) && this.props.src.player.playing) this.props.onGrab(c); }}
           onDragStart={e => { let img = new Image(); img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='; e.dataTransfer.setDragImage(img, 0, 0); if (!this.props.hidden && this.props.src.player.canPlay(c) && this.props.src.player.playing) { this.props.onGrab(c); } }}
-          style={{width: "" + Math.min(Math.floor(100 / this.props.src.cards.length), 18) + "%"}}
+          style={{left: "calc(50% " + (i < (this.props.src.cards.length-1)/2 ? "- " : "+ ") + (Math.abs(i - (this.props.src.cards.length-1)/2) * (9 + 25/this.props.src.cards.length)) + "% - 4em)"}}
           >
             <div id={"sensuba-card-" + c.id.no} className={"game-card-wrapper" + (this.props.isDragged(c) ? " invisible" : "")}>
               <Card src={this.props.hidden ? null : c.eff}/>

@@ -21,6 +21,8 @@ export default class And extends Bloc {
 		props = props || {};
 		let src = props.src || this.src;
 		var f = this.f || (() => []);
+		props.trace = props.trace || [];
+		props.trace.push(this);
 		this.out = f(src, props);
 		if (this.to)
 			this.to.execute(props);

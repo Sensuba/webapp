@@ -20,6 +20,7 @@ import Send from './Send.js';
 import Draw from './Draw.js';
 import Damage from './Damage.js';
 import Heal from './Heal.js';
+import Summon from './Summon.js';
 import Destroy from './Destroy.js';
 import Copy from './Copy.js';
 import Transform from './Transform.js';
@@ -57,6 +58,7 @@ import ClearVariable from './ClearVariable.js';
 import Adjacents from './Adjacents.js';
 
 import CompareCards from './CompareCards.js';
+import CompareLocations from './CompareLocations.js';
 import ComparePlayers from './ComparePlayers.js';
 import CountCards from './CountCards.js';
 import CountTiles from './CountTiles.js';
@@ -68,6 +70,7 @@ import FilterCover from './FilterCover.js';
 import FilterVariable from './FilterVariable.js';
 import FilterEffect from './FilterEffect.js';
 import MergeCardFilters from './MergeCardFilters.js';
+import MergeTileFilters from './MergeTileFilters.js';
 import MergeModelFilters from './MergeModelFilters.js';
 import ReverseModelFilter from './ReverseModelFilter.js';
 import MergeMutations from './MergeMutations.js';
@@ -163,6 +166,7 @@ export default class Reader {
 			case "draw": bloc = new Draw(card, ctx); break;
 			case "damage": bloc = new Damage(card, ctx); break;
 			case "heal": bloc = new Heal(card, ctx); break;
+			case "summon": bloc = new Summon(card, ctx); break;
 			case "destroy": bloc = new Destroy(card, ctx); break;
 			case "copy": bloc = new Copy(card, ctx); break;
 			case "transform": bloc = new Transform(card, ctx); break;
@@ -200,6 +204,7 @@ export default class Reader {
 			case "adjacents": bloc = new Adjacents(card, ctx); break;
 
 			case "cmpcards": bloc = new CompareCards(card, ctx); break;
+			case "cmplocations": bloc = new CompareLocations(card, ctx); break;
 			case "cmpplayers": bloc = new ComparePlayers(card, ctx); break;
 			case "countcards": bloc = new CountCards(card, ctx); break;
 			case "counttiles": bloc = new CountTiles(card, ctx); break;
@@ -211,6 +216,7 @@ export default class Reader {
 			case "filtervar": bloc = new FilterVariable(card, ctx); break;
 			case "filtereffect": bloc = new FilterEffect(card, ctx); break;
 			case "mergecfilters": bloc = new MergeCardFilters(card, ctx); break;
+			case "mergetfilters": bloc = new MergeTileFilters(card, ctx); break;
 			case "mergemfilters": bloc = new MergeModelFilters(card, ctx); break;
 			case "revmfilter": bloc = new ReverseModelFilter(card, ctx); break;
 			case "mergemut": bloc = new MergeMutations(card, ctx); break;
@@ -278,9 +284,11 @@ export default class Reader {
 			case "animation": bloc = new Animation(card, ctx); break;
 
 			case "play-trigger": bloc = new Trigger(el.type, card, ctx, "playcard"); break;
-			case "play-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1], data[2]]); break;
+			case "play-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1], data[2], data[2]]); break;
 			case "damage-trigger": bloc = new Trigger(el.type, card, ctx, "damage"); break;
 			case "damage-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[2], data[1]]); break;
+			case "destroy-trigger": bloc = new Trigger(el.type, card, ctx, "destroy"); break;
+			case "destroy-data": bloc = new Data(el.type, card, ctx, data => [data[0]]); break;
 			case "attack-trigger": bloc = new Trigger(el.type, card, ctx, "attack"); break;
 			case "attack-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
 			case "levelup-trigger": bloc = new Trigger(el.type, card, ctx, "levelup"); break;

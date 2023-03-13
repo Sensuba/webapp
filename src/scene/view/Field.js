@@ -15,6 +15,7 @@ export default class Field extends Component {
             (this.props.target && this.props.target.type === "column" && this.props.target.data === c ?
               " game-field-column-target" : (this.props.targetable({type: "column", data: c}) ? " game-field-column-targetable" : "")
             ) : "")}
+          onClick={e => this.props.onSelect(e, {type: "column", data: c})}
           key={c}>
           { [this.props.player.opponent.id.no, this.props.player.id.no].map(p => <div player={p} className="game-field-tile" key={p}>
             { this.props.src.tiles[p][c].cards.map(card =>

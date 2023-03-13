@@ -172,6 +172,7 @@ a {
 
   background: #dfcaaaf0;
   border: 2px dashed #382a15;
+  border-radius: 4px;
   font-family: MarcellusSC;
   padding: 0.25rem;
   transition: opacity 0.2s;

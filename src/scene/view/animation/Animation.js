@@ -9,7 +9,7 @@ export default class Animation {
 
 	loadAudio (name, delay) {
 
-		this.audio = new Audio("/audio/" + name + ".ogg");
+		this.audio = new Audio("/audio/sfx/" + name + ".ogg");
 		this.audio.setAttribute("type", "audio/ogg");
 		if (delay)
 			this.audioDelay = delay;

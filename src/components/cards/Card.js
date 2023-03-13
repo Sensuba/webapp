@@ -8,16 +8,12 @@ export default class Card extends Component {
     let model = this.props.src.key ? this.props.src : this.props.src.model;
   	if (!model.states)
   		return "attack";
-    let state = null;
-    ["reach", "drain", "warden", "agility", "initiative"].forEach(s => {
-      if (!model.states.includes(s))
-        return;
-      if (state)
-        state = "starattack";
-      state = s;
-    });
+    let states = ["warden", "burst", "agility", "reach", "initiative", "drain"];
+    for (let state in states)
+      if (model.states.includes(states[state]))
+        return states[state];
     
-    return state || "attack";
+    return "attack";
   }
 
   healthIcon () {
@@ -25,16 +21,12 @@ export default class Card extends Component {
     let model = this.props.src.key ? this.props.src : this.props.src.model;
   	if (!model.states)
   		return "heart";
-    let state = null;
-    ["shield", "ephemeral", "undying", "exalted"].forEach(s => {
-      if (!model.states.includes(s))
-        return;
-      if (state)
-        state = "starhealth";
-      state = s;
-    });
+    let states = ["ephemeral", "shield", "undying", "exalted"];
+    for (let state in states)
+      if (model.states.includes(states[state]))
+        return states[state];
     
-    return state || "heart";
+    return "heart";
   }
 
 	render () {

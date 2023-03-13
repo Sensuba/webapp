@@ -16,6 +16,8 @@ export default class Bloc {
 		
 		props = props || {};
 		let src = props.src || this.src;
+		props.trace = props.trace || [];
+		props.trace.push(this);
 		var f = this.f || (() => []);
 		this.out = f(src, this.computeIn(props), props);
 		if (this.to)

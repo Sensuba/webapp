@@ -1,0 +1,68 @@
+.sensuba-card-summon .game-unit .card-image-wrapper {
+
+	animation: card-summon-color 0.4s 1, card-summon-opacity 0.2s 1;
+}
+
+.game-unit-wrapper {
+
+  opacity: 0;
+}
+
+.game-unit-wrapper.sensuba-card-summoned {
+
+  opacity: 1;
+}
+
+.sensuba-card-summon .game-unit.game-unit-actioned {
+
+  filter: grayscale(0) brightness(1);
+}
+
+@keyframes card-summon-color {
+  0%   { filter: contrast(0) sepia(1) brightness(2); box-shadow: 0 0 1em 1em #fcf403; }
+  100%   { filter: contrast(1) sepia(0) brightness(1); box-shadow: 0 0 0 0 #fcf403; }
+}
+
+@keyframes card-summon-opacity {
+  0%   { opacity: 0; }
+  100%   { opacity: 1; }
+}
+
+.sensuba-card-summon .game-unit .card-stat {
+
+  animation: card-summon-stat 0.6s 1;
+}
+
+@keyframes card-summon-stat {
+  0%   { opacity: 0; }
+  30%   { opacity: 0; }
+  100%   { opacity: 1; }
+}
+
+.game-field-tile .sensuba-card-summon {
+
+    animation: card-summon-margin 0.4s;
+}
+
+@keyframes card-summon-margin {
+  0%   { margin: 0vw 0; }
+  100%   { margin: 2vw 0; }
+}
+
+.game-field-tile .sensuba-card-summon .game-unit {
+
+  animation: card-summon-size 0.4s;
+}
+
+@keyframes card-summon-size {
+  0%   { margin-top: -6em; }
+  100%   { margin-top: 0; }
+}
+
+@media (min-width: 601px) {
+
+  @keyframes card-summon-margin {
+    0%   { margin: 0vh 0; }
+    100%   { margin: 1vh 0; }
+  }
+}

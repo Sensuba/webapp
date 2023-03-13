@@ -36,12 +36,12 @@ export default class Analyse extends Bloc {
 	countThisTurn (event, props) {
 
 		let c = 0;
-		event.gameboard.log.logs.forEach(log => {
+		event.game.broadcaster.log.forEach(log => {
 			if (log.type === "newturn")
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = { src:log.src, data:log.data };
-			if (event.check(log.type, log.src, log.data) && this.in[2](nprops)) {
+			nprops.data = log.data;
+			if (event.check(log.type, log.data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
@@ -52,12 +52,12 @@ export default class Analyse extends Bloc {
 	countSincePreviousTurn (event, props) {
 
 		let c = 0;
-		event.gameboard.log.logs.forEach(log => {
-			if (log.type === "newturn" && log.src.id.no !== this.src.area.id.no)
+		event.game.broadcaster.log.forEach(log => {
+			if (log.type === "newturn" && log.data[0].id.no !== this.src.player.id.no)
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = { src:log.src, data:log.data };
-			if (event.check(log.type, log.src, log.data) && this.in[2](nprops)) {
+			nprops.data = log.data;
+			if (event.check(log.type, log.data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
@@ -68,9 +68,9 @@ export default class Analyse extends Bloc {
 	countPreviousTurn (event, props) {
 
 		let c = 0, n = 0, you = false;
-		event.gameboard.log.logs.forEach(log => {
+		event.game.broadcaster.log.forEach(log => {
 			if (log.type === "newturn") {
-				if (log.src.id.no === this.src.area.id.no) {
+				if (log.data[0].id.no === this.src.player.id.no) {
 					you = true;
 					c = n;
 					n = 0;
@@ -79,8 +79,8 @@ export default class Analyse extends Bloc {
 			if (!you)
 				return;
 			let nprops = Object.assign({}, props);
-			nprops.data = { src:log.src, data:log.data };
-			if (event.check(log.type, log.src, log.data) && this.in[2](nprops)) {
+			nprops.data = log.data;
+			if (event.check(log.type, log.data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				n += add === null || add === undefined ? 1 : add;
 			}
@@ -91,9 +91,9 @@ export default class Analyse extends Bloc {
 	countYourTurn (event, props) {
 
 		let c = 0, you = false;
-		event.gameboard.log.logs.forEach(log => {
+		event.game.broadcaster.log.forEach(log => {
 			if (log.type === "newturn") {
-				if (log.src.id.no === this.src.area.id.no) {
+				if (log.data[0].id.no === this.src.player.id.no) {
 					you = true;
 					c = 0;
 				} else you = false;
@@ -101,8 +101,8 @@ export default class Analyse extends Bloc {
 			if (!you)
 				return;
 			let nprops = Object.assign({}, props);
-			nprops.data = { src:log.src, data:log.data };
-			if (event.check(log.type, log.src, log.data) && this.in[2](nprops)) {
+			nprops.data = log.data;
+			if (event.check(log.type, log.data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
@@ -113,12 +113,12 @@ export default class Analyse extends Bloc {
 	countSinceYourTurn (event, props) {
 
 		let c = 0;
-		event.gameboard.log.logs.forEach(log => {
-			if (log.type === "newturn" && log.src.id.no === this.src.area.id.no)
+		event.game.broadcaster.log.forEach(log => {
+			if (log.type === "newturn" && log.data[0].id.no === this.src.player.id.no)
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = { src:log.src, data:log.data };
-			if (event.check(log.type, log.src, log.data) && this.in[2](nprops)) {
+			nprops.data = log.data;
+			if (event.check(log.type, log.data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
@@ -128,10 +128,10 @@ export default class Analyse extends Bloc {
 
 	countAllGame (event, props) {
 
-		return event.gameboard.log.logs.reduce((acc, log) => {
+		return event.game.broadcaster.log.reduce((acc, log) => {
 			let nprops = Object.assign({}, props);
-			nprops.data = { src:log.src, data:log.data };
-			if (event.check(log.type, log.src, log.data) && this.in[2](nprops)) {
+			nprops.data = log.data;
+			if (event.check(log.type, log.data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				return acc + (add === null || add === undefined ? 1 : add);
 			}

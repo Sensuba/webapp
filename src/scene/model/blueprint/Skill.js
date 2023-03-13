@@ -23,7 +23,7 @@ export default class Skill extends Bloc {
 
 		if (cardfilter) {
 			skill.targetType = "card";
-			skill.targetFunction = target => this.in[3]()(owner, target);
+			skill.targetFunction = target => !target.hasState('exalted') && this.in[3]()(owner, target);
 		} else if (columnfilter) {
 			skill.targetType = "column";
 			skill.targetFunction = target => this.in[2]()(owner, target);

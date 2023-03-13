@@ -124,6 +124,14 @@
 	box-sizing: border-box;
 }
 
+.cards-border-cardcount {
+
+	margin-left: 0.5em;
+	opacity: 0.3;
+	font-size: 0.8em;
+	margin-top: 0.1em;
+}
+
 .color-list {
 	
 	width: 100%;

@@ -40,7 +40,9 @@
 		"opponentsturn": "Opponent's turn",
 		"endturn": "End turn",
 		"hand": "Cards in hand",
-		"mana": "Mana"
+		"deck": "Cards in deck",
+		"mana": "Mana",
+		"gems": "Gems"
 	},
 	"cards": {
 		"white": "White",
@@ -52,6 +54,7 @@
 		"unit": "unit",
 		"building": "building",
 		"spell": "spell",
+		"categoryseparator": "&",
 		"skill": "hero skill",
 		"aura": "hero's blessing",
 		"lv2": "LV 2",
@@ -67,6 +70,7 @@
 			"pirate": "pirate",
 			"staff": "staff",
 			"scientist": "scientist",
+			"plant": "plant",
 			"egg": "egg",
 			"knight": "knight",
 			"archer": "archer",

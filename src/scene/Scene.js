@@ -8,6 +8,7 @@ import Abilities from './view/Abilities';
 
 import { createStore } from 'redux';
 import reducers from './reducers';
+import { Tooltip } from 'reactstrap';
 
 import SceneButton from '../components/buttons/SceneButton';
 import Card from '../components/cards/Card';
@@ -19,7 +20,7 @@ import Sequencer from './Sequencer';
 import PlayingState from './controller/state/PlayingState';
 import TargetingState from './controller/state/TargetingState';
 import WaitingState from './controller/state/WaitingState';
-import MovingState from './controller/state/MovingState';
+//import MovingState from './controller/state/MovingState';
 
 import { read } from '../TextManager';
 
@@ -34,6 +35,7 @@ export default class Scene extends Component {
       this.setState({model: this.store.getState()}, () => { if (this.sequencer.resume) this.sequencer.resume(); });
     });
 
+    this.volume = 1;
     this.noPlayer = 0;
     this.controller = new WaitingState(this);
     this.sequencer = new Sequencer(this, n => this.store.dispatch(n));
@@ -133,10 +135,15 @@ export default class Scene extends Component {
 
   onSelect(e, element, data) {
 
-    if (this.targeting && this.player.targeting && this.player.targeting.targetType === "card" && element.id && (element.id.type === "card" || element.id.type === "hero") && this.player.canPlayTarget({type: "card", data: element}))
-      this.controller.act("target", {type: "card", data: element.id});
-    else
-  	 this.focus(element.model || element, data);
+    if (element.type && element.type === "column") {
+      if (this.targeting && this.player.targeting && this.player.targeting.targetType === "column" && this.player.canPlayTarget({type: "column", data: element.data}))
+        this.controller.act("target", {type: "column", data: element.data});
+    } else {
+      if (this.targeting && this.player.targeting && this.player.targeting.targetType === "card" && element.id && (element.id.type === "card" || element.id.type === "hero") && this.player.canPlayTarget({type: "card", data: element}))
+        this.controller.act("target", {type: "card", data: element.id});
+      else
+    	 this.focus(element.model || element, data);
+    }
   	//this.controller.act("play", element);
   }
 
@@ -207,7 +214,7 @@ export default class Scene extends Component {
       } else {
         let units = document.elementsFromPoint(x, y).filter(el => el.classList.contains("game-unit"));
         let cardno = units.length > 0 ? parseInt(units[0].getAttribute("card-no"), 10) : undefined;
-        let switchcommand = cardno && cardno != this.grabbing.id.no.toString();
+        let switchcommand = cardno && cardno !== this.grabbing.id.no.toString();
         if (switchcommand) {
           if (this.state.command !== "switch")
             this.setState({command: "switch"});
@@ -275,6 +282,11 @@ export default class Scene extends Component {
     }
   }
 
+  toggleTooltip (name) {
+
+    this.setState({tooltip: this.state.tooltip === name ? undefined : name});
+  }
+
 	render () {
 
 		if (!this.state.model)
@@ -283,7 +295,9 @@ export default class Scene extends Component {
     let targetable = target => {
 
       if (this.targeting) {
-        return this.player.targeting && this.player.targeting.targetType === "card" && this.player.canPlayTarget(target);
+        if (!target || !this.player.targeting || this.player.targeting.targetType !== target.type)
+          return false;
+        return this.player.canPlayTarget(target);
       }
 
       if (!this.state.dragged)
@@ -310,10 +324,14 @@ export default class Scene extends Component {
           <Hero src={this.player.hero} onSelect={this.onSelect.bind(this)}/>
           <Abilities levelup={() => this.controller.act("levelup")} hero={this.player.hero} onGrab={e => this.grabbing = e} onSelect={this.onSelect.bind(this)}/>
           <div className="game-area-data">
-            <div className="game-area-data-stat game-area-data-mana"><img className="game-area-data-stat-icon" src='/images/icons/mana.png'/><div className="game-area-data-stat-value">{ this.player.mana + (this.player.mana < 10 ? " " : "") + "/" + (this.player.receptacles < 10 ? " " : "") + this.player.receptacles }</div></div>
-            <div className="game-area-data-stat game-area-data-gems"><img className="game-area-data-stat-icon" src='/images/icons/gem.png'/><div className="game-area-data-stat-value">{ this.player.gems }</div></div>
-            <div className="game-area-data-stat game-area-data-hand"><img className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.hand.count }</div></div>
-            <div className="game-area-data-stat game-area-data-deck"><img className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.deck.count }</div></div>
+            <div id="game-area-data-mana" className="game-area-data-stat game-area-data-mana"><img alt="mana" className="game-area-data-stat-icon" src='/images/icons/mana.png'/><div className="game-area-data-stat-value">{ this.player.mana + (this.player.mana < 10 ? " " : "") + "/" + (this.player.receptacles < 10 ? " " : "") + this.player.receptacles }</div></div>
+            <Tooltip className="tooltip game-area-data-tooltip" placement="top" target="game-area-data-mana" isOpen={this.state.tooltip === "mana"} toggle={() => this.toggleTooltip("mana")}>{ read('scene/mana') }</Tooltip>
+            <div id="game-area-data-gems" className="game-area-data-stat game-area-data-gems"><img alt="gems" className="game-area-data-stat-icon" src='/images/icons/gem.png'/><div className="game-area-data-stat-value">{ this.player.gems }</div></div>
+            <Tooltip className="tooltip game-area-data-tooltip" placement="top" target="game-area-data-gems" isOpen={this.state.tooltip === "gems"} toggle={() => this.toggleTooltip("gems")}>{ read('scene/gems') }</Tooltip>
+            <div id="game-area-data-hand" className="game-area-data-stat game-area-data-hand"><img alt="cards in hand" className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.hand.count }</div></div>
+            <Tooltip className="tooltip game-area-data-tooltip" placement="top" target="game-area-data-hand" isOpen={this.state.tooltip === "hand"} toggle={() => this.toggleTooltip("hand")}>{ read('scene/hand') }</Tooltip>
+            <div id="game-area-data-deck" className="game-area-data-stat game-area-data-deck"><img alt="cards in deck" className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.deck.count }</div></div>
+            <Tooltip className="tooltip game-area-data-tooltip" placement="top" target="game-area-data-deck" isOpen={this.state.tooltip === "deck"} toggle={() => this.toggleTooltip("deck")}>{ read('scene/deck') }</Tooltip>
           </div>
         </div>
         <div className="game-area opposite-area">
@@ -322,10 +340,14 @@ export default class Scene extends Component {
           <Hero src={this.player.opponent.hero} onSelect={this.onSelect.bind(this)}/>
           <Abilities hero={this.player.opponent.hero} onGrab={e => {}} onSelect={this.onSelect.bind(this)}/>
           <div className="game-area-data">
-            <div className="game-area-data-stat game-area-data-mana"><img className="game-area-data-stat-icon" src='/images/icons/mana.png'/><div className="game-area-data-stat-value">{ this.player.opponent.mana + (this.player.opponent.mana < 10 ? " " : "") + "/" + (this.player.opponent.receptacles < 10 ? " " : "") + this.player.opponent.receptacles }</div></div>
-            <div className="game-area-data-stat game-area-data-gems"><img className="game-area-data-stat-icon" src='/images/icons/gem.png'/><div className="game-area-data-stat-value">{ this.player.opponent.gems }</div></div>
-            <div className="game-area-data-stat game-area-data-hand"><img className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.opponent.hand.count }</div></div>
-            <div className="game-area-data-stat game-area-data-deck"><img className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.opponent.deck.count }</div></div>
+            <div id="game-area-data-mana-op" className="game-area-data-stat game-area-data-mana"><img alt="mana (opponent)" className="game-area-data-stat-icon" src='/images/icons/mana.png'/><div className="game-area-data-stat-value">{ this.player.opponent.mana + (this.player.opponent.mana < 10 ? " " : "") + "/" + (this.player.opponent.receptacles < 10 ? " " : "") + this.player.opponent.receptacles }</div></div>
+            <Tooltip className="tooltip game-area-data-tooltip" placement="top" target="game-area-data-mana-op" isOpen={this.state.tooltip === "manaop"} toggle={() => this.toggleTooltip("manaop")}>{ read('scene/mana') }</Tooltip>
+            <div id="game-area-data-gems-op" className="game-area-data-stat game-area-data-gems"><img alt="gems (opponent)" className="game-area-data-stat-icon" src='/images/icons/gem.png'/><div className="game-area-data-stat-value">{ this.player.opponent.gems }</div></div>
+            <Tooltip className="tooltip game-area-data-tooltip" placement="top" target="game-area-data-gems-op" isOpen={this.state.tooltip === "gemsop"} toggle={() => this.toggleTooltip("gemsop")}>{ read('scene/gems') }</Tooltip>
+            <div id="game-area-data-hand-op" className="game-area-data-stat game-area-data-hand"><img alt="cards in hand (opponent)" className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.opponent.hand.count }</div></div>
+            <Tooltip className="tooltip game-area-data-tooltip" placement="top" target="game-area-data-hand-op" isOpen={this.state.tooltip === "handop"} toggle={() => this.toggleTooltip("handop")}>{ read('scene/hand') }</Tooltip>
+            <div id="game-area-data-deck-op" className="game-area-data-stat game-area-data-deck"><img alt="cards in deck (opponent)" className="game-area-data-stat-icon" src='/images/back.jpg'/><div className="game-area-data-stat-value">{ this.player.opponent.deck.count }</div></div>
+            <Tooltip className="tooltip game-area-data-tooltip" placement="top" target="game-area-data-deck-op" isOpen={this.state.tooltip === "deckop"} toggle={() => this.toggleTooltip("deckop")}>{ read('scene/deck') }</Tooltip>
           </div>
         </div>
         <div className="game-buttons">

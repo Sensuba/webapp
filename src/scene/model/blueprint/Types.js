@@ -18,7 +18,14 @@ export default class Types {
 
 	static player (value, src) {
 
-		return typeof value === 'string' ? (value === "self" ? src.player : src.player.opponent) : value;
+		if (!(typeof value === 'string'))
+			return value;
+		switch (value) {
+		case 'self': return src.player;
+		case 'opponent': return src.player.opponent;
+		case 'any': return null;
+		default: return null;
+		}
 	}
 
 	static event (value, src) {
@@ -121,6 +128,16 @@ export default class Types {
 		}
 	}
 
+	static model (value, src) {
+
+		if (!(typeof value === 'string'))
+			return value;
+		switch (value) {
+		case 'this': return src.model;
+		default: return src.model;
+		}
+	}
+
 	static modelfilter (value) {
 
 		if (!(typeof value === 'string'))
@@ -172,6 +189,22 @@ export default class Types {
 		case 'fanfare': return target => target.type === "fanfare";
 		case 'last will': return target => target.type === "lastwill";
 		default: return target => true;
+		}
+	}
+
+	static period (value, src) {
+
+		if (!(typeof value === 'string'))
+			return value;
+		switch (value) {
+		case 'this turn': return 1;
+		case 'enemy turn': return 2;
+		case 'since previous turn': return 3;
+		case 'previous turn': return 4;
+		case 'your turn': return 5;
+		case 'since your turn': return 6;
+		case 'all game': return 0;
+		default: return 0;
 		}
 	}
 

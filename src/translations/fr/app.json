@@ -40,7 +40,9 @@
 		"opponentsturn": "Tour de l'adversaire",
 		"endturn": "Fin du tour",
 		"hand": "Cartes en main",
-		"mana": "Mana"
+		"deck": "Cartes dans le deck",
+		"mana": "Mana",
+		"gems": "Gemmes"
 	},
 	"cards": {
 		"white": "Blanc",
@@ -52,6 +54,7 @@
 		"unit": "unité",
 		"building": "bâtiment",
 		"spell": "sort",
+		"categoryseparator": "et",
 		"skill": "compétence de héros",
 		"aura": "bénédiction de héros",
 		"lv2": "NV 2",
@@ -74,6 +77,7 @@
 			"moonfolk": "lunaréen",
 			"staff": "employé",
 			"scientist": "scientifique",
+			"plant": "plante",
 			"egg": "œuf",
 			"cyborg": "cyborg",
 			"elf": "elfe",

@@ -72,8 +72,8 @@ export default class CardBox extends Component {
 	            <h1 className={ this.current.name.length >= 25 ? "small-name" : ""}>{this.current.name}</h1>
 	            {
 	            	ability ? <div className="card-typing">{ this.current.type === "aura" ? read('cards/aura') : read('cards/skill') }</div> :
-	            	(read('system/categorylast') ? <div className="card-typing"><span className="card-type">{ read('cards/' + this.current.type) }</span>{ this.current.categories ? this.current.categories.map(category => <span key={category} className="card-category">&nbsp;{ read('cards/categories/' + category) }</span>) : "" }</div>
-	            	: <div className="card-typing">{ this.current.categories ? [...this.current.categories].reverse().map(category => <span key={category} className="card-category">{ read('cards/categories/' + category) }&nbsp;</span>) : "" }<span className="card-type">{ read('cards/' + this.current.type) }</span></div>)
+	            	(read('system/categorylast') ? <div className="card-typing"><span className="card-type">{ read('cards/' + this.current.type) }</span>{ this.current.categories ? this.current.categories.map((category, i) => <span key={category} className="card-category">&nbsp;{ i > 0 ? read('cards/categoryseparator') + " " : "" }{ read('cards/categories/' + category) }</span>) : "" }</div>
+	            	: <div className="card-typing">{ this.current.categories ? [...this.current.categories].reverse().map((category, i) => <span key={category} className="card-category">{ i > 0 ? read('cards/categoryseparator') + " " : "" }{ read('cards/categories/' + category) }&nbsp;</span>) : "" }<span className="card-type">{ read('cards/' + this.current.type) }</span></div>)
 	            }
 	            {
 	            	this.current.colors ?

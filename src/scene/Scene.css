@@ -315,7 +315,7 @@
 	.scene .game-area-data {
 
 	    width: 26rem;
-	    height: 12vh;
+	    height: 3vh;
 	    left: calc(51vw + 12vh);
 	    position: absolute;
 	    top: calc(73vh + 0px);
@@ -323,6 +323,12 @@
 	    color: #d1caae;
 	    flex-direction: row;
 	    flex-wrap: wrap;
+	}
+
+	.scene .game-area-data-stat-icon {
+
+		width: 3vh;
+		height: 3vh;
 	}
 
 	.scene .opposite-area .game-area-data {

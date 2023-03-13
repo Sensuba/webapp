@@ -12,12 +12,14 @@
 
 .game-hand-card {
 
+	top: 0;
     z-index: 1;
     width: 8vw;
     height: 6vw;
 	pointer-events: all;
 	transition: 0.4s left, 0.4s transform, 0.2s filter;
 	margin: 1vw;
+	font-size: 1.2vw;
 }
 
 .game-hand-card-unplayable {
@@ -68,7 +70,7 @@
 	.scene .game-hand {
 
 		width: calc(70vw - 20vh);
-		right: calc(15vw - 16vh);
+		right: calc(15vw - 12vh);
 		height: 15vh;
 		flex-wrap: nowrap;
 	    justify-content: flex-end;
@@ -78,6 +80,14 @@
 
 	    height: 12vh;
 		margin: 1vh;
+		position: absolute;
+		top: 0em;
+		animation: game-hand-card-appear 0.3s ease-out;
+	}
+
+	@keyframes game-hand-card-appear {
+		from { top: 6em }
+		to { top: 0em }
 	}
 
 	.game-hand-card .game-card-wrapper {

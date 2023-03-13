@@ -22,6 +22,8 @@ export default class DelayedChangeCost extends Bloc {
 		
 		props = props || {};
 		let src = props.src || this.src;
+		props.trace = props.trace || [];
+		props.trace.push(this);
 		var f = this.f || (() => []);
 		this.out = f(src, [this.in[0](props)], props);
 		if (this.to)

@@ -188,16 +188,16 @@ export default class Cards extends Component {
               }
             </div>
             <div className="cards-page-heroesandcards-section">
-              <div id="heroes-border" className="cards-border hideable-border" onClick={() => {this.state.hiding.heroes = !this.state.hiding.heroes; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('menu/heroes') }</div><div className="cards-border-right">{this.state.hiding.heroes ? "+" : "-"}</div></div>
+              <div id="heroes-border" className="cards-border hideable-border" onClick={() => {this.state.hiding.heroes = !this.state.hiding.heroes; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('menu/heroes') }<span className="cards-border-cardcount">{ "(" + heroes.length + ")" }</span></div><div className="cards-border-right">{this.state.hiding.heroes ? "+" : "-"}</div></div>
                   <div className={"card-list " + (this.state.hiding.heroes ? "invisible" : "")}>
                   {
                     heroes.map((hero, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:hero})}><Hero src={hero}/></div>)
                   }
                   </div>
-              <div className="cards-border"><div className="cards-border-left">{ read('menu/cards') }</div><div className="cards-border-right"></div></div>
+              <div className="cards-border"><div className="cards-border-left">{ read('menu/cards') }<span className="cards-border-cardcount">{ "(" + cards.length + ")" }</span></div><div className="cards-border-right"></div></div>
               {
                 Object.keys(colors).map(color => colors[color].length > 0 ? <div key={color} className="color-list">
-                  <div className="color-border hideable-border" onClick={() => {this.state.hiding[color] = !this.state.hiding[color]; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('cards/' + color) }</div><div className="cards-border-right">{this.state.hiding[color] ? "+" : "-"}</div></div>
+                  <div className="color-border hideable-border" onClick={() => {this.state.hiding[color] = !this.state.hiding[color]; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('cards/' + color) }<span className="cards-border-cardcount">{ "(" + colors[color].length + ")" }</span></div><div className="cards-border-right">{this.state.hiding[color] ? "+" : "-"}</div></div>
                   <div className={"card-list " + (this.state.hiding[color] ? "invisible" : "")}>
                   {
                     colors[color].map((card, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:card})}><Card src={card}/></div>)
