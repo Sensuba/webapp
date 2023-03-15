@@ -40,8 +40,45 @@
 	left: calc(10% - 0.35rem);
 }
 
+@media (min-width: 601px) {
+
+	.back-arrow-wrapper {
+
+		display: none;
+	}
+
+	.back-text {
+
+		position: fixed;
+		top: 0;
+		left: 0;
+		color: #dec6a2;
+		font-size: 1.6rem;
+		padding: 0 1.2rem;
+		line-height: 4rem;
+		cursor: pointer;
+		transition: padding 0.2s;
+	}
+
+	.back-text::before {
+
+		content: "<";
+		padding-right: 0.3em;
+	}
+
+	.back-text:hover {
+
+		padding-left: 1rem;
+		padding-right: 1.4rem;
+	}
+}
+
 @media only screen and (max-height: 600px) {
 
+	.back-text {
+
+		display: none;
+	}
 
 	.back-arrow-wrapper {
 

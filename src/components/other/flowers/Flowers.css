@@ -29,6 +29,12 @@
 	opacity: 0.3;
 }
 
+.play-page .background-flower {
+
+	background-image: url('./flower2.png');
+	opacity: 0.1;
+}
+
 @keyframes flower-rotation {
 
 	from { transform: rotateZ(0); }

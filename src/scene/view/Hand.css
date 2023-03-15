@@ -106,6 +106,12 @@
 	    transform: rotateZ(180deg);
 	}
 
+	.opposite-area .game-hand-card {
+
+		position: unset;
+		width: 10%;
+	}
+
 	.opposite-area .game-hand-card .game-card-wrapper {
 
 	    font-size: 1.7vh;

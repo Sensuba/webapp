@@ -2,6 +2,7 @@
 	"system": {
 		"categorylast": ""
 	},
+	"language": "English",
 	"menu": {
 		"title": "Sensuba",
 		"play": "Play",
@@ -17,20 +18,33 @@
 		"passwordlengthwarning": "At least 8 characters",
 		"confirmpasswordwarning": "Matching passwords",
 		"loading": "Loading",
+		"options": "Options",
+		"language": "Language",
+		"changelanguage": "Change",
+		"languagewarning": "Changing the language will reload the app",
 		"story": "Story",
 		"multiplayer": "Multiplayer",
 		"cards": "Cards",
 		"heroes": "Heroes",
 		"decks": "Decks",
+		"collection": "Collection",
 		"portalroom": "Portal room",
+		"titlescreen": "Title screen",
+		"back": "Back",
+		"ranked": "Ranked",
+		"unranked": "Unranked",
 		"chosehero": "Chose a hero",
 		"newdeckname": "New deck",
 		"search": "Search",
+		"deckbuilder": "Deckbuilder",
 		"name": "Name",
 		"type": "Type",
 		"mana": "Mana",
 		"category": "Category",
-		"orderby": "Order by"
+		"orderby": "Order by",
+		"delete": "Delete",
+		"nonvaliddeck": "Your deck needs 30 cards to be playable",
+		"askconfirmation": "Are you sure?"
 	},
 	"nav": {
 		"enter": "Enter"
@@ -98,7 +112,6 @@
 			"light": "light",
 			"shadow": "shadow",
 			"trick": "trick",
-			"astral": "astral",
 			"blood": "blood",
 			"sound": "sound",
 			"fortune": "fortune",
@@ -115,6 +128,7 @@
 		"initiative": "Initiative",
 		"reach": "Reach",
 		"armor": "Armor",
+		"barrier": "Barrière",
 		"enrage": "Enrage",
 		"freeze": "Freeze",
 		"bounce": "Bounce",
@@ -126,6 +140,7 @@
 		"warden": "Warden",
 		"drain": "Drain",
 		"silence": "Silence",
+		"volatile": "volatile",
 		"halfup": "half",
 		"halfdown": "half",
 		"description": {
@@ -149,6 +164,7 @@
 			"warden": "Cannot attack or move",
 			"drain": "Damage dealt by this card heals your hero by the same amount",
 			"silence": "Removes all effects and enchantments from a unit",
+			"volatile": "Gets discarded at the end of your turn",
 			"halfup": "Rounded up",
 			"halfdown": "Rounded down"
 		}

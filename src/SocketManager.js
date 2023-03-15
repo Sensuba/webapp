@@ -144,6 +144,14 @@ export default class SocketManager {
 				this.onDeckbuildUpdate(targetdeck);
 			break;
 		}
+		case "delete": {
+			let decks = JSON.parse(localStorage.getItem('decks'));
+			decks = decks.filter(deck => deck.key !== params[0]);
+			localStorage.setItem('decks', JSON.stringify(decks));
+			if (this.onDeckbuildUpdate)
+				this.onDeckbuildUpdate();
+			break;
+		}
 		case "rename": {
 			let decks = JSON.parse(localStorage.getItem('decks'));
 			let targetdeck;

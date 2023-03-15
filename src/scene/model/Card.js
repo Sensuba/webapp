@@ -117,6 +117,9 @@ export default class Card {
 
 	damage (dmg, src) {
 
+		if (src.isSpell && this.eff.barrier)
+			dmg -= this.eff.barrier;
+
 		if (dmg <= 0)
 			return { damage: 0, kill: false, overkill: 0 };
 
@@ -333,6 +336,18 @@ export default class Card {
 	}
 
 	hasState (state) {
+
+		switch (state) {
+		case "armor": {
+			return this.eff.armor && this.eff.armor > 0;
+			break;
+		}
+		case "barrier": {
+			return this.eff.barrier && this.eff.barrier > 0;
+			break;
+		}
+		default: break;
+		}
 
 		return this.eff.states && this.eff.states[state];
 	}
@@ -631,6 +646,7 @@ export default class Card {
 			booster: this.booster,
 			dmg: this.dmg,
 			armor: this.armor,
+			barrier: this.barrier,
 			variables: variables,
 			freezetimer: this.freezetimer,
 			extratriggers: this.extratriggers,
@@ -655,6 +671,7 @@ export default class Card {
 		this.categories = data.categories;
 		this.dmg = data.dmg;
 		this.armor = data.armor;
+		this.barrier = data.barrier;
 		this.freezetimer = data.freezetimer;
 		this.extratriggers = data.extratriggers;
 		this.type = data.type;

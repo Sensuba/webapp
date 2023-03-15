@@ -1,6 +1,6 @@
 import './App.css';
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import Home from './home/Home';
 import Error from './home/Error';
@@ -9,7 +9,6 @@ import Play from './play/Play';
 import Story from './play/story/Story';
 import Multiplayer from './play/multiplayer/Multiplayer';
 import Game from './game/Game';
-import Dwelling from './play/dwelling/Dwelling';
 import Cards from './play/cards/Cards';
 
 import SocketManager from '../SocketManager';
@@ -65,7 +64,6 @@ export default class App extends Component {
             <Route path="/story" element={<Dynamo><Story/></Dynamo>}/>
             <Route path="/multiplayer" element={<Dynamo><Multiplayer/></Dynamo>}/>
             <Route path="/game" element={<Dynamo><Game/></Dynamo>}/>
-            <Route path="/dwelling" element={<Dynamo><Dwelling/></Dynamo>}/>
             <Route path="/cards" element={<Dynamo><Cards/></Dynamo>}/>
             <Route
                 path="*"

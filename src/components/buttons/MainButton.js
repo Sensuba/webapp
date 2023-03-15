@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './MainButton.css';
-import Link from "../utility/Link";
 import BasicButton from './BasicButton';
 
 export default class MainButton extends BasicButton {

@@ -62,7 +62,9 @@ export default class Unit extends Component {
         </div>
         { this.props.src.hasState("shield") ? <div className="game-shield"/> : "" }
         { this.props.src.hasState("undying") ? <div className="game-undying"/> : "" }
+        { this.props.src.hasState("exalted") ? <div className="game-exalted"/> : "" }
         { this.props.src.hasState("freeze") ? <div className="game-freeze"/> : "" }
+        { this.props.src.hasState("silence") ? <div className="game-silence"/> : "" }
         { this.props.src.eff.atk ? <div className="card-stat card-atk"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.attack[this.state.tick % this.attack.length] + ".png"}/><div className={"card-stat-value" + (this.props.src.eff.atk < this.props.src.model.atk ? " card-stat-value-debuff" : (this.props.src.eff.atk > this.props.src.model.atk ? " card-stat-value-buff" : ""))}>{this.props.src.eff.atk || 0}</div></div> : "" }
         { this.props.src.eff.hp ? <div className="card-stat card-hp"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.health[this.state.tick % this.health.length] + ".png"}/><div className={"card-stat-value" + (this.props.src.dmg ? " card-stat-value-debuff" : (this.props.src.eff.hp > this.props.src.model.hp ? " card-stat-value-buff" : ""))}>{this.props.src.currentHp || 0}</div></div> : "" }
       </div>

@@ -2,6 +2,7 @@
 	"system": {
 		"categorylast": "true"
 	},
+	"language": "Français",
 	"menu": {
 		"title": "Sensuba",
 		"play": "Jouer",
@@ -17,20 +18,33 @@
 		"passwordlengthwarning": "4 caractères minimum",
 		"confirmpasswordwarning": "Mots de passe correspondants",
 		"loading": "Chargement",
+		"options": "Options",
+		"language": "Langue",
+		"changelanguage": "Changer",
+		"languagewarning": "Changer la langue causera un rechargement de l'application",
 		"story": "Histoire",
 		"multiplayer": "Multijoueur",
 		"cards": "Cartes",
 		"heroes": "Héros",
 		"decks": "Decks",
+		"collection": "Collection",
 		"portalroom": "Salle des portails",
+		"titlescreen": "Ecran titre",
+		"back": "Retour",
+		"ranked": "Classé",
+		"unranked": "Amical",
 		"chosehero": "Choisissez un héros",
 		"newdeckname": "Nouveau deck",
 		"search": "Recherche",
+		"deckbuilder": "Editeur de deck",
 		"name": "Nom",
 		"type": "Type",
 		"mana": "Mana",
 		"category": "Catégorie",
-		"orderby": "Trier par"
+		"orderby": "Trier par",
+		"delete": "Supprimer",
+		"nonvaliddeck": "Votre deck doit contenir 30 cartes pour être valide",
+		"askconfirmation": "Supprimer le deck ?"
 	},
 	"nav": {
 		"enter": "Entrer"
@@ -98,7 +112,6 @@
 			"light": "de lumière",
 			"shadow": "d'ombre",
 			"trick": "de ruse",
-			"astral": "astral",
 			"blood": "de sang",
 			"sound": "de son",
 			"fortune": "de fortune",
@@ -117,6 +130,7 @@
 		"enrage": "Enrage",
 		"freeze": "Gèle",
 		"armor": "Armure",
+		"barrier": "Barrière",
 		"bounce": "Renvoie",
 		"conjure": "Conjure",
 		"burst": "Charge",
@@ -126,6 +140,7 @@
 		"warden": "Gardien",
 		"drain": "Drainage",
 		"silence": "Silence",
+		"volatile": "volatile",
 		"halfup": "moitié",
 		"halfdown": "moitié",
 		"description": {
@@ -149,6 +164,7 @@
 			"warden": "Ne peut pas attaquer ou se déplacer",
 			"drain": "Les dégâts infligés par cette carte rendent autant de PV à votre héros",
 			"silence": "Annule les effets et enchantements liés à une unité",
+			"volatile": "Est défaussé à la fin de votre tour",
 			"halfup": "Arrondi au supérieur",
 			"halfdown": "Arrondi à l'inférieur"
 		}

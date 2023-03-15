@@ -2,6 +2,7 @@ import Wait from './view/animation/Wait';
 import AddToHand from './view/animation/AddToHand';
 //import RemoveFromHand from './view/animation/RemoveFromHand';
 import Summon from './view/animation/Summon';
+import Silence from './view/animation/Silence';
 
 export default class Sequencer {
 
@@ -94,6 +95,9 @@ export default class Sequencer {
 	    }
 	    case "summon": {
 	    	return new Summon(this.master, n.data[0].no);
+	    }
+	    case "silence": {
+	    	return new Silence(this.master, n.data[0].no);
 	    }
 	    case "movecard": {
 	    	if (n.data[2] && n.data[2].type === "hand") {

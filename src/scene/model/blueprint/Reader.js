@@ -14,6 +14,7 @@ import PassiveMutation from './PassiveMutation.js';
 import State from './State.js';
 import Variation from './Variation.js';
 import Armor from './Armor.js';
+import Barrier from './Barrier.js';
 import Booster from './Booster.js';
 
 import Send from './Send.js';
@@ -160,6 +161,7 @@ export default class Reader {
 			case "state": bloc = new State(card, ctx); break;
 			case "variation": bloc = new Variation(card, ctx); break;
 			case "armor": bloc = new Armor(card, ctx); break;
+			case "barrier": bloc = new Barrier(card, ctx); break;
 			case "booster": bloc = new Booster(card, ctx); break;
 
 			case "send": bloc = new Send(card, ctx); break;

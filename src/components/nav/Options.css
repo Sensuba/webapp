@@ -5,6 +5,11 @@
 	cursor: pointer;
 }
 
+.nav-options .lightbox-container {
+
+	cursor: default;
+}
+
 .options-icon {
 
 	width: 2rem;
@@ -25,4 +30,144 @@
 .nav-options:hover .options-icon {
 
 	transform: rotateZ(90deg);
+}
+
+.options-box {
+
+	flex-direction: column;
+}
+
+.options-box h1 {
+
+	text-align: center;
+	align-self: center;
+	margin-top: 0.5rem;
+	margin-bottom: 1.5rem;
+	font-size: 2rem;
+	line-height: 2rem;
+	justify-content: center;
+	white-space: nowrap;
+	color: #edeae4;
+}
+
+.options-row {
+
+	justify-content: space-between;
+}
+
+.options-row .options-param {
+
+	color: /*#7f7a6a*/#dec6a2;
+}
+
+.options-row .options-value {
+
+	color: #edeae4;
+}
+
+.options-row .options-value .options-button {
+
+	color: #f1a635;
+	cursor: pointer;
+}
+
+.options-row .options-value .options-button:hover {
+
+	color: #b47d29;
+}
+
+.options-row .options-language {
+
+	color: #f1a635;
+	cursor: pointer;
+	padding: 0.25rem 0;
+	margin: 0.25rem calc(25% - 2rem);
+	width: calc(50% + 4rem);
+	justify-content: center;
+}
+
+.options-row .options-language:hover {
+
+	color: #b47d29;
+}
+
+.options-row .options-language.options-language-current {
+
+	cursor: default;
+	text-decoration: underline;
+}
+
+.options-row .options-language.options-language-current:hover {
+
+	color: #f1a635;
+}
+
+.options-row .options-back {
+
+	color: #dec6a2;
+	cursor: pointer;
+	font-size: 0.8em;
+	margin: 0.5rem calc(35% - 2rem);
+	margin-top: 0.75rem;
+	width: calc(30% + 4rem);
+	justify-content: center;
+}
+
+.options-row .options-back:hover {
+
+	color: #ab9576;
+}
+
+.options-box .options-warning {
+
+	font-size: 1rem;
+	justify-content: center;
+	text-align: center;
+	width: calc(100% - 3rem);
+	margin: 0rem 1.5rem;
+	margin-top: -1rem;
+	margin-bottom: 0.5rem;
+	color: #b47d29;
+}
+
+@media (min-width: 601px) {
+
+	.options-box h1 {
+
+		font-size: 2.5rem;
+		line-height: 2.5rem;
+		margin-left: 1rem;
+		margin-right: 1rem;
+	}
+
+	.options-row {
+
+		width: 25rem;
+	}
+
+	.options-row .options-language {
+
+		margin: 0.25rem 7.5rem;
+		width: 10rem;
+	}
+
+	.options-row .options-back {
+
+		margin: 0.5rem 8.5rem;
+		margin-top: 0.75rem;
+		width: 8rem;
+	}
+
+	.options-row .options-param {
+
+		margin-right: 3rem;
+	}
+
+	.options-box .options-warning {
+
+		width: 20rem;
+		margin: 0rem 2.5rem;
+		margin-top: -1rem;
+		margin-bottom: 0.5rem;
+	}
 }

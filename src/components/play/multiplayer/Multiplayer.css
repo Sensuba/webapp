@@ -7,3 +7,81 @@
 	justify-content: left;
 	padding: 0 0.5rem;
 }
+
+.multiplayer-params {
+
+	width: 100%;
+	height: 100%;
+	padding: 4rem;
+	box-sizing: border-box;
+	flex-direction: column;
+	align-items: center;
+}
+
+.multiplayer-mode-changes {
+
+	position: absolute;
+	top: 4rem;
+	left: calc(50vw - 12.5vh);
+	width: 25vh;
+	height: 25vh;
+}
+
+.multiplayer-mode-changes .mode-change {
+
+	position: absolute;
+	width: 4rem;
+	height: 4rem;
+	top: calc(12.5vh - 2rem);
+	left: -4rem;
+	font-size: 4rem;
+	line-height: 4rem;
+	color: #dec6a2;
+	cursor: pointer;
+	justify-content: right;
+	box-sizing: border-box;
+	padding: 0;
+	transition: padding 0.2s;
+	filter: drop-shadow(0 0 0.8vh black);
+}
+
+.multiplayer-mode-changes .mode-change + .mode-change {
+
+	left: unset;
+	right: -4rem;
+	justify-content: left;
+}
+
+.multiplayer-mode-changes .mode-change:hover {
+
+	padding-right: 0.3rem;
+}
+
+.multiplayer-mode-changes .mode-change + .mode-change:hover {
+
+	padding-right: unset;
+	padding-left: 0.3rem;
+}
+
+.multiplayer-icon {
+
+	position: relative;
+	width: 25vh;
+	height: 25vh;
+	opacity: 1;
+}
+
+.multiplayer-icon img {
+
+	object-fit: contain;
+	width: 100%;
+	height: 100%;
+	filter: sepia(1) drop-shadow(0 0 0.8vh black)
+}
+
+.multiplayer-title {
+
+	color: #dec6a2;
+	margin: 1rem;
+	font-size: 2.5rem;
+}
