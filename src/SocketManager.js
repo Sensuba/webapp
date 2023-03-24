@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const serverURL = process.env.SERVER_URL || 'http://localhost:8080';
+const serverURL = process.env.REACT_APP_SERVER_URL || 'http://localhost:8080';
 let master;
 
 export default class SocketManager {
