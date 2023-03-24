@@ -156,6 +156,10 @@ export default class Hero {
 		}
 	}
 
+	destroy () {
+		
+	}
+
 	refresh () {
 
 		delete this.skillUsed;

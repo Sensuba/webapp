@@ -188,14 +188,6 @@
 	object-fit: contain;
 }
 
-.scene .game-area-data-gems .game-area-data-stat-icon {
-
-	height: 0.88em;
-	width: 0.88em;
-	margin: 0.06em;
-	object-fit: contain;
-}
-
 .scene .game-area-data-hand, .scene .game-area-data-deck {
 
 	padding-left: 3vw;
@@ -407,7 +399,7 @@
   		flex-direction: row-reverse;
   		height: 20vw;
   		align-content: center;
-  		padding-top: 6.25vw;
+  		margin-top: 6.25vw;
   		padding-left: 2vw;
   }
 

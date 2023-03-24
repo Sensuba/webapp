@@ -5,8 +5,17 @@
 	height: 80vw;
 	top: calc(25vh - 10vw);
 	left: 0;
-	background: #ffecbf;
+	background: linear-gradient(to bottom, transparent, #d1caae40, transparent);
 	transition: background 0.2s, box-shadow 0.2s;
+}
+
+.inner-field {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .game-field-filter {
@@ -23,12 +32,13 @@
 
 .game-field.game-field-target .game-field-filter {
 
-	background: #e2ae9440;
+	background: #e2ae9460;
 	animation: column-target-shadow 1s alternate infinite;
 }
 
 .game-field.game-field-targetable .game-field-filter {
 
+	background: #e2ae9420;
 	animation: column-target-shadow 1s alternate infinite;
 }
 
@@ -36,11 +46,28 @@
 
 	width: 100%;
 	height: 100%;
-	background: #ffecbf;
-	box-shadow: inset 0 0 1rem #533a1180;
+	/*background: #ffecbf;*/
+	/*box-shadow: inset 0 0 1rem #533a1180;*/
 	flex-direction: column;
 	justify-content: space-evenly;
 	transition: background 0.2s, box-shadow 0.2s;
+	position: relative;
+}
+
+.game-field-column::before {
+
+	content: "";
+	width: 2px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: -1px;
+	background: linear-gradient(to bottom, transparent, #d1caae, transparent);
+}
+
+.game-field-column:nth-child(1)::before {
+
+	content: none;
 }
 
 .game-field-column.game-field-column-target {
@@ -51,6 +78,7 @@
 
 .game-field-column.game-field-column-targetable {
 
+	background: #e2ae9420;
 	animation: column-target-shadow 1s alternate infinite;
 }
 
@@ -84,10 +112,16 @@
 
 	.game-field {
 
-		width: 110vh;
 		height: 56vh;
 		top: 14.5vh;
 		left: unset;
+	}
+
+	.inner-field {
+
+		width: 150vh;
+		max-width: 100%;
+		left: calc(50% - 75vh);
 	}
 
 	.game-field-tile {

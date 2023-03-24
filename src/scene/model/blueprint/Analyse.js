@@ -1,5 +1,6 @@
 import Bloc from './Bloc.js';
 import Types from './Types.js';
+import System from '../../utility/System.js';
 
 export default class Analyse extends Bloc {
 
@@ -33,15 +34,21 @@ export default class Analyse extends Bloc {
 			this.to.execute(props);
 	}
 
+	getData (log) {
+
+		return System.isServer ? log.data : (log.data.game ? [] : log.data.map(data => data && data.type ? this.src.game.find(data) : data));
+	}
+
 	countThisTurn (event, props) {
 
 		let c = 0;
 		event.game.broadcaster.log.forEach(log => {
+			let data = this.getData(log);
 			if (log.type === "newturn")
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
-			if (event.check(log.type, log.data) && this.in[2](nprops)) {
+			nprops.data = data;
+			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
@@ -53,11 +60,12 @@ export default class Analyse extends Bloc {
 
 		let c = 0;
 		event.game.broadcaster.log.forEach(log => {
-			if (log.type === "newturn" && log.data[0].id.no !== this.src.player.id.no)
+			let data = this.getData(log);
+			if (log.type === "newturn" && data[0].id.no !== this.src.player.id.no)
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
-			if (event.check(log.type, log.data) && this.in[2](nprops)) {
+			nprops.data = data;
+			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
@@ -69,8 +77,9 @@ export default class Analyse extends Bloc {
 
 		let c = 0, n = 0, you = false;
 		event.game.broadcaster.log.forEach(log => {
+			let data = this.getData(log);
 			if (log.type === "newturn") {
-				if (log.data[0].id.no === this.src.player.id.no) {
+				if (data[0].id.no === this.src.player.id.no) {
 					you = true;
 					c = n;
 					n = 0;
@@ -79,8 +88,8 @@ export default class Analyse extends Bloc {
 			if (!you)
 				return;
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
-			if (event.check(log.type, log.data) && this.in[2](nprops)) {
+			nprops.data = data;
+			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				n += add === null || add === undefined ? 1 : add;
 			}
@@ -92,8 +101,9 @@ export default class Analyse extends Bloc {
 
 		let c = 0, you = false;
 		event.game.broadcaster.log.forEach(log => {
+			let data = this.getData(log);
 			if (log.type === "newturn") {
-				if (log.data[0].id.no === this.src.player.id.no) {
+				if (data[0].id.no === this.src.player.id.no) {
 					you = true;
 					c = 0;
 				} else you = false;
@@ -101,8 +111,8 @@ export default class Analyse extends Bloc {
 			if (!you)
 				return;
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
-			if (event.check(log.type, log.data) && this.in[2](nprops)) {
+			nprops.data = data;
+			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
@@ -114,11 +124,12 @@ export default class Analyse extends Bloc {
 
 		let c = 0;
 		event.game.broadcaster.log.forEach(log => {
-			if (log.type === "newturn" && log.data[0].id.no === this.src.player.id.no)
+			let data = this.getData(log);
+			if (log.type === "newturn" && data[0].id.no === this.src.player.id.no)
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
-			if (event.check(log.type, log.data) && this.in[2](nprops)) {
+			nprops.data = data;
+			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
@@ -130,8 +141,9 @@ export default class Analyse extends Bloc {
 
 		return event.game.broadcaster.log.reduce((acc, log) => {
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
-			if (event.check(log.type, log.data) && this.in[2](nprops)) {
+			let data = this.getData(log);
+			nprops.data = data;
+			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				return acc + (add === null || add === undefined ? 1 : add);
 			}

@@ -9,9 +9,8 @@ export default class Error extends Component {
   render () {
 
     return (
-      <div className="main-page light error-page">
+      <div className={"main-page error-page" + (this.props.dark ? "" : " light")}>
         <Flowers/>
-        <Nav/>
         <div className="main">
           <StoryText>{ this.props.children }</StoryText>
         </div>

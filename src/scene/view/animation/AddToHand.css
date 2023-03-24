@@ -22,8 +22,8 @@
 
 
   @keyframes add-to-hand {
-    0%   { top: 36vw; }
-    100%   { top: 12vw; }
+    0%   { top: 0vw; }
+    100%   { top: 0vw; }
   }
 
   @keyframes add-to-hand-opposite {

@@ -1,0 +1,104 @@
+.nav-logs {
+
+	position: fixed;
+	top: 1rem;
+	right: 4rem;
+	width: 2rem;
+	height: 2rem;
+	cursor: pointer;
+	z-index: 20;
+}
+
+.nav-logs .lightbox-container {
+
+	cursor: default;
+}
+
+.logs-icon {
+
+	width: 2rem;
+	height: 2rem;
+	background: url('./logs.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	filter: brightness(1.0) drop-shadow(0.2rem 0.2rem #000000A0);
+	transition: filter 0.2s, transform 0.4s;
+	transform: rotateZ(0deg);
+}
+
+.logs-box {
+
+	flex-direction: column;
+}
+
+.logs-box h1 {
+
+	text-align: center;
+	align-self: center;
+	margin-top: 0.5rem;
+	margin-bottom: 1.5rem;
+	font-size: 2rem;
+	line-height: 2rem;
+	justify-content: center;
+	white-space: nowrap;
+	color: #edeae4;
+}
+
+.logs-list {
+
+	flex-direction: column-reverse;
+}
+
+.logs-log {
+
+	color: #edeae4;
+	position: relative;
+	width: 100%;
+}
+
+.small-log.logs-log {
+
+	font-size: 0.6em;
+	padding-left: 1em;
+}
+
+.logs-log.main-log {
+
+	color: #f1a635;
+}
+
+.logs-log + .logs-log {
+
+	margin-bottom: 0.5rem;
+}
+
+.logs-log + .small-log.logs-log {
+
+	margin-bottom: 0.1rem;
+}
+
+.logs-log + .logs-log::before {
+
+	content: "";
+	position: absolute;
+	bottom: -0.25rem;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background: linear-gradient(to right, transparent, #edeae4, transparent);
+}
+
+.logs-log + .small-log.logs-log::before {
+
+	content: none;
+}
+
+.logs-log + .logs-log.main-log::before {
+
+	background: linear-gradient(to right, transparent, #f1a635, transparent);
+}
+
+.logs-log.game-effect {
+
+	text-align: left;
+}

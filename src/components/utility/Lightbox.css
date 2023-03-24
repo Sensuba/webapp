@@ -10,6 +10,11 @@
 	background-color: #5555;
 }
 
+.lightbox-container.opaque {
+
+	background: linear-gradient(to bottom, #2a2011, #666666 200vh);
+}
+
 .lightbox-container .lightbox-inner {
 
 	display: table-cell;
@@ -40,7 +45,6 @@
 
     height: 15rem;
     width: 80vw;
-    overflow: visible;
     background-color: #23221f;
   }
   

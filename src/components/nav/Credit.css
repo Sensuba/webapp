@@ -1,0 +1,81 @@
+.nav-credit {
+
+	box-sizing: border-box;
+	padding: 0.25rem;
+	padding-left: 0.5rem;
+	width: 12.5rem;
+	height: 2.5rem;
+	cursor: pointer;
+	top: 0.75rem;
+	right: 4rem;
+	position: absolute;
+	border-radius: 1.25rem;
+	background: #00000080;
+}
+
+.nav-credit .lightbox-container {
+
+	cursor: default;
+}
+
+.shards-icon {
+
+	width: 1.3rem;
+	height: 1.3rem;
+	background: url('./shard.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	filter: drop-shadow(0.2rem 0.2rem #000000A0);
+	margin-right: 0.2rem;
+	margin-left: -0.3rem;
+	margin-top: 0.15rem;
+}
+
+.runes-icon {
+
+	width: 2rem;
+	height: 2rem;
+	background: url('./rune.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	filter: drop-shadow(0.2rem 0.2rem #000000A0);
+}
+
+.main-page.light .nav-credit, .game-page .nav-credit {
+
+	display: none;
+}
+
+.nav-credit-count {
+
+	width: 4.5rem;
+	height: 2rem;
+	border-radius: 1rem;
+	background: #dec6a2f0;
+	line-height: 1.5rem;
+	padding: 0.25rem 0.5rem;
+	box-sizing: border-box;
+	margin-right: 0.5rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+	justify-content: right;
+}
+
+.nav-shards-count {
+
+	font-size: 0.8rem;
+	line-height: 1rem;
+	width: 3rem;
+	height: 1.3rem;
+	border-radius: 0.65rem;
+	padding: 0.15rem 0.3rem;
+	margin-top: 0.15rem;
+}
+
+@media (min-width: 601px) {
+
+	.nav-credit {
+
+		right: calc(4vw + 3rem);
+	}
+}

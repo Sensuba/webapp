@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Options.css';
 import Lightbox from '../utility/Lightbox';
+import MainButton from '../buttons/MainButton';
 
 import { read, getLanguage, setLanguage } from '../../TextManager';
 
@@ -29,6 +30,9 @@ export default class Options extends Component {
             <div className="options-row">
               <div className="options-param">{ read('menu/language') }</div>
               <div className="options-value">{ read('language') + " /" }&nbsp;<span onClick={() => this.setState({status: "language"})} className="options-button">{ read('menu/changelanguage') }</span></div>
+            </div>
+            <div className="concede-button">
+              <MainButton to="/multiplayer" color="red">{ read('menu/concede') }</MainButton>
             </div>
           </div>
         </Lightbox>

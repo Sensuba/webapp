@@ -17,7 +17,7 @@
 	width: 32rem;
 	max-width: 90vw;
 	justify-content: center;
-	color: #edeae4;
+	color: /*#edeae4*/#dec6a2;
 }
 
 .main-page.light .story-text {

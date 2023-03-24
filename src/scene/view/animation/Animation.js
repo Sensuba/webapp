@@ -1,10 +1,11 @@
 export default class Animation {
 
-	constructor (master, time, before) {
+	constructor (master, time, before, callback) {
 
 		this.master = master;
 		this.time = time;
 		this.before = before;
+		this.callback = callback;
 	}
 
 	loadAudio (name, delay) {
@@ -31,9 +32,17 @@ export default class Animation {
 		this.run();
 
 		if (this.sync && update)
-			setTimeout(update, this.time);
-		else if (update)
-			update();
+			setTimeout(() => {
+				update();
+				if (this.callback)
+					this.callback();
+			}, this.time);
+		else {
+			if (update)
+				update();
+			if (this.callback)
+				this.callback();
+		}
 	}
 
 	run () {

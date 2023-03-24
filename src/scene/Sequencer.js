@@ -3,6 +3,10 @@ import AddToHand from './view/animation/AddToHand';
 //import RemoveFromHand from './view/animation/RemoveFromHand';
 import Summon from './view/animation/Summon';
 import Silence from './view/animation/Silence';
+import Attack from './view/animation/Attack';
+import Damage from './view/animation/Damage';
+import Heal from './view/animation/Heal';
+import Destroy from './view/animation/Destroy';
 
 export default class Sequencer {
 
@@ -12,16 +16,17 @@ export default class Sequencer {
 		this.queue = [];
 		this.current = null;
 		this.dispatch = dispatch;
+		this.logs = [];
 		/*this.extraturns = [0, 0];
 		this.currentturn = -1;*/
 	}
 
-	add (n) {
+	add (event) {
 
 		if (this.current)
-			this.queue.push(n);
+			this.queue.push(event);
 		else
-			this.read(n);
+			this.read(event);
 	}
 
 	next () {
@@ -31,8 +36,12 @@ export default class Sequencer {
 			this.read(this.queue.shift());
 	}
 
-	read (n) {
+	read (event) {
 
+		let n = event.n;
+		this.logs.push(n);
+		if (event.callback)
+			event.callback();
 		var anim = this.notifToAnim(n);
 		if (anim) {
 			if (anim.sync)
@@ -99,6 +108,28 @@ export default class Sequencer {
 	    case "silence": {
 	    	return new Silence(this.master, n.data[0].no);
 	    }
+	    case "attack": {
+	    	return new Attack(this.master, n.data[0].no);
+	    }
+	    case "destroy.before": {
+	    	return new Destroy(this.master, n.data[0].no);
+	    }
+	    case "damage": {
+	    	return new Damage(this.master, n.data[0], n.data[1]);
+	    }
+	    case "heal": {
+	    	return new Heal(this.master, n.data[0], n.data[1]);
+	    }
+		/*case "playcard.before": {
+		    let card = this.master.state.model.find(n.data[1]);
+		    return card.isSpell ? new Wait(this.master, 1000) : null;
+		}
+		case "playcard": {
+			return null;
+		}*/
+		case "skilltrigger.before": {
+			return new Wait(this.master, 1000);
+		}
 	    case "movecard": {
 	    	if (n.data[2] && n.data[2].type === "hand") {
 		    	let card = this.master.state.model.find(n.data[0]);

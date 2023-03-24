@@ -32,7 +32,6 @@ export default class Game {
 		this.register(this, "game");
 		players.forEach(p => this.players.push(new Player(this, p.deck)));
 		this.field = new Field(this);
-		this.nether = new Nether(this);
 		this.stack = new Stack(this);
 		this.phase = "init";
 	}

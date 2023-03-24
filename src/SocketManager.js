@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const serverURL = /*process.env.SERVER_URL ||*/ 'http://localhost:8080';
+const serverURL = process.env.SERVER_URL || 'http://localhost:8080';
 let master;
 
 export default class SocketManager {
@@ -14,11 +14,11 @@ export default class SocketManager {
 	start () {
 
 		this.setStatus('connecting');
-		console.log('connecting to server...')
+		console.log('connecting to server...');
 		this.socket = io.connect(serverURL);
 		this.attemps = 0;
 		this.socket.on('connected', this.onConnect.bind(this));
-
+		this.socket.on('kick', this.onKick.bind(this));
 	}
 
 	login (username, password, callback) {
@@ -31,7 +31,8 @@ export default class SocketManager {
 
 		localStorage.removeItem('user');
 		localStorage.removeItem('decks');
-		this.socket.emit('identify', false);
+		this.socket.emit('logout');
+		window.location.reload(false);
 	}
 
 	signup (username, password, callback) {
@@ -50,12 +51,16 @@ export default class SocketManager {
 
 		this.socket.emit('gamemode', mode, params);
 		this.socket.on('gameupdate', (type, data) => this.onGameupdate(type, data));
+		this.socket.on('failed', (err) => this.onFail(err));
 	}
 
 	exitGame () {
 
 		this.socket.emit('exitgame');
 		this.socket.removeAllListeners('gameupdate');
+		this.socket.removeAllListeners('failed');
+		this.onGameupdate = (type, data) => {};
+		this.onFail = (err) => {};
 	}
 
 	getLibraryVersion (callback) {
@@ -74,7 +79,8 @@ export default class SocketManager {
 		this.socket.on('updatecards', cards => this.onUpdateCards(cards));
 		this.socket.on('updateheroes', heroes => this.onUpdateHeroes(heroes));
 		this.socket.on('updateterrains', terrains => this.onUpdateTerrains(terrains));
-		this.loading = [0, 4];
+		this.socket.on('updateportals', portals => this.onUpdatePortals(portals));
+		this.loading = [0, 5];
 	}
 
 	command (command, ...params) {
@@ -85,6 +91,11 @@ export default class SocketManager {
 	deckbuild (command, ...params) {
 
 		this.socket.emit('deckbuild', command, params);
+	}
+
+	portal (command, ...params) {
+
+		this.socket.emit('portal', command, params);
 	}
 
 	onConnect () {
@@ -102,7 +113,24 @@ export default class SocketManager {
 
 	onDisconnect () {
 
+		this.status = 'disconnected';
+		if (this.socket)
+			this.socket.disconnect();
+    	this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {}, close: () => {} };
+    	console.log('lost connexion');
+    	this.onStatusChange(this.status);
+	}
 
+	onKick (key) {
+
+		setTimeout(() => {
+			let user = localStorage.getItem('user');
+			if (user) {
+				user = JSON.parse(user);
+				if (user && user.key !== key)
+					return;
+			}window.location.reload(false);
+		}, 100)
 	}
 
 	onIdentify (code, data, callback) {
@@ -117,14 +145,47 @@ export default class SocketManager {
 		console.log('identified as ' + (data.user.anonymous ? 'anonymous user ' + data.user.key : data.user.username));
 		this.socket.identified = true;
 		this.socket.removeAllListeners('deckbuild');
+		this.socket.removeAllListeners('reward');
+		this.socket.removeAllListeners('action');
 		this.socket.on('deckbuild', this.onDeckbuild.bind(this));
+		this.socket.on('reward', this.onReward.bind(this));
+		this.socket.on('action', this.onAction.bind(this));
 		localStorage.setItem('user', JSON.stringify(data.user));
 		localStorage.setItem('decks', JSON.stringify(data.decks));
+		localStorage.setItem('collection', JSON.stringify(data.collection));
 		if (callback)
 			callback(data.user.anonymous !== true);
 	}
 
-	onDeckbuild (command, params) {
+	onAction (type, params, main=true) {
+
+		switch (type) {
+		case "updatecredits": {
+			let user = JSON.parse(localStorage.getItem('user'));
+			user.runes = params[0];
+			user.shards = params[1];
+			if (main) {
+				localStorage.setItem('user', JSON.stringify(user));
+				this.onCreditUpdate(params[0], params[1]);
+			} else
+				setTimeout(() => this.onCreditUpdate(params[0], params[1]), 100)
+			break;
+		}
+		case "exploreportal": {
+			let user = JSON.parse(localStorage.getItem('user'));
+			user.exploration = params[0];
+			if (main) {
+				localStorage.setItem('user', JSON.stringify(user));
+				this.onExplorePortal(params[0]);
+			} else
+				setTimeout(() => this.onExplorePortal(params[0]), 100)
+			break;
+		}
+		default: break;
+		}
+	}
+
+	onDeckbuild (command, params, main=true) {
 
 		switch (command) {
 		case "newdeck": {
@@ -139,17 +200,26 @@ export default class SocketManager {
 				}
 			}
 			decks.push(targetdeck);
-			localStorage.setItem('decks', JSON.stringify(decks));
-			if (this.onDeckbuildUpdate)
-				this.onDeckbuildUpdate(targetdeck);
+			if (main) {
+				localStorage.setItem('decks', JSON.stringify(decks));
+				this.onDeckbuildUpdate(targetdeck)
+			} else
+				setTimeout(() => this.onDeckbuildUpdate(targetdeck), 100);
 			break;
 		}
 		case "delete": {
 			let decks = JSON.parse(localStorage.getItem('decks'));
 			decks = decks.filter(deck => deck.key !== params[0]);
-			localStorage.setItem('decks', JSON.stringify(decks));
-			if (this.onDeckbuildUpdate)
-				this.onDeckbuildUpdate();
+			if (main)
+				localStorage.setItem('decks', JSON.stringify(decks));
+			let validDecks = decks.filter(deck => deck.body.cards.length === 30);
+			let activeDeck = localStorage.getItem('activedeck');
+			if (main && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
+				localStorage.removeItem('activedeck');
+			if (main)
+				this.onDeckbuildUpdate(null)
+			else
+				setTimeout(() => this.onDeckbuildUpdate(null), 100);
 			break;
 		}
 		case "rename": {
@@ -161,9 +231,16 @@ export default class SocketManager {
 					deck.deckname = params[1];
 				}
 			})
-			localStorage.setItem('decks', JSON.stringify(decks));
-			if (this.onDeckbuildUpdate)
-				this.onDeckbuildUpdate(targetdeck);
+			if (main)
+				localStorage.setItem('decks', JSON.stringify(decks));
+			let validDecks = decks.filter(deck => deck.body.cards.length === 30);
+			let activeDeck = localStorage.getItem('activedeck');
+			if (main && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
+				localStorage.removeItem('activedeck');
+			if (main)
+				this.onDeckbuildUpdate(targetdeck)
+			else
+				setTimeout(() => this.onDeckbuildUpdate(targetdeck), 100);
 			break;
 		}
 		case "addcard": {
@@ -175,9 +252,16 @@ export default class SocketManager {
 					deck.body.cards.push(params[1]);
 				}
 			})
-			localStorage.setItem('decks', JSON.stringify(decks));
-			if (this.onDeckbuildUpdate)
-				this.onDeckbuildUpdate(targetdeck);
+			if (main)
+				localStorage.setItem('decks', JSON.stringify(decks));
+			let validDecks = decks.filter(deck => deck.body.cards.length === 30);
+			let activeDeck = localStorage.getItem('activedeck');
+			if (main && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
+				localStorage.removeItem('activedeck');
+			if (main)
+				this.onDeckbuildUpdate(targetdeck)
+			else
+				setTimeout(() => this.onDeckbuildUpdate(targetdeck), 100);
 			break;
 		}
 		case "removecard": {
@@ -191,11 +275,50 @@ export default class SocketManager {
 						deck.body.cards.splice(idx, 1);
 				}
 			})
-			localStorage.setItem('decks', JSON.stringify(decks));
-			if (this.onDeckbuildUpdate)
-				this.onDeckbuildUpdate(targetdeck);
+			if (main)
+				localStorage.setItem('decks', JSON.stringify(decks));
+			let validDecks = decks.filter(deck => deck.body.cards.length === 30);
+			let activeDeck = localStorage.getItem('activedeck');
+			if (main && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
+				localStorage.removeItem('activedeck');
+			if (main)
+				this.onDeckbuildUpdate(targetdeck)
+			else
+				setTimeout(() => this.onDeckbuildUpdate(targetdeck), 100);
 			break;
 		}
+		default: break;
+		}
+	}
+
+	onReward (type, data, main=true) {
+
+		switch (type) {
+		case "openportal":
+			let newcards = data.filter(d => d.type === "card").map(d => d.key);
+			let collection;
+			if (newcards.length > 0) {
+				collection = JSON.parse(localStorage.getItem('collection'));
+				newcards.forEach(card => collection.cards.push(card));
+				if (main)
+					localStorage.setItem('collection', JSON.stringify(collection));
+			}
+			if (main)
+				this.onCollectionUpdate(collection, data);
+			else if (newcards.length > 0)
+				setTimeout(() => this.onCollectionUpdate(collection), 100);
+
+			let shards = data.filter(d => d.type === "shards").reduce((acc, d) => acc + d.value, 0);
+			if (shards) {
+				let user = JSON.parse(localStorage.getItem('user'));
+				user.shards += shards;
+				if (main) {
+					localStorage.setItem('user', JSON.stringify(user));
+					this.onCreditUpdate(user.runes, user.shards);
+				} else
+					setTimeout(() => this.onCreditUpdate(user.runes, user.shards), 100);
+			}
+			break;
 		default: break;
 		}
 	}
@@ -237,8 +360,22 @@ export default class SocketManager {
 		this.onUpdateLibrary(this.loading[0], this.loading[1]);
 	}
 
+	onUpdatePortals (portals) {
+
+		localStorage.setItem('library.portals', JSON.stringify(portals));
+		localStorage.setItem('library.portals.version', parseInt(localStorage.getItem('library.portals.version') || "0", 10)+1);
+		this.socket.removeAllListeners('updateportals');
+		this.loading[0]++;
+		this.onUpdateLibrary(this.loading[0], this.loading[1]);
+	}
+
 	onStatusChange (status) {}
 	onGameupdate (type, data) {}
+	onDeckbuildUpdate (targetdeck) {}
+	onCollectionUpdate (collection) {}
+	onCreditUpdate (runes, shards) {}
+	onExplorePortal (explore) {}
+	onFail (err) {}
 
 	static get master () {
 

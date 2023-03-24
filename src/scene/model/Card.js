@@ -247,7 +247,7 @@ export default class Card {
 
 		if (!this.onField || this.isBuilding)
 			return false;
-		if (this.hasState("warden") || this.hasState('freeze'))
+		if (this.hasState("warden") || this.hasState('freeze') || this.hasState('trap'))
 			return false;
 		if (this.summoningSickness || this.actioned)
 			return false;
@@ -325,7 +325,7 @@ export default class Card {
 		if (this.location && this.location.id.type === "nether")
 			return;
 		this.game.notify("banish.before", this);
-		this.goto(this.game.nether);
+		this.goto(this.player.nether);
 		this.blueprints = [];
 		this.game.notify("banish", this);
 	}
@@ -386,6 +386,24 @@ export default class Card {
 			return false;
 
 		return this.targetFunction(target.data);
+	}
+
+	autocast (player) {
+
+		if (!this.isSpell)
+			return;
+		player = player || this.player;
+		if (!this.hasTarget) {
+			this.game.stack.cast(player, this);
+		} else if (player.hasValidTargets(this)) {
+			let targets;
+			if (this.targetType === "column")
+				targets = this.game.field.columns.filter(col => this.canTarget(player, {type: "column", data: col}))
+			else if (this.targetType === "card")
+				targets = this.game.field.all.some(tile => tile.cards.some(c => this.canTarget(player, {type: "card", data: c}))) || this.canTarget(player, {type: "card", data: player.hero}) || this.canTarget(player, {type: "card", data: player.opponent.hero});
+			if (targets)
+				this.game.stack.cast(player, this, targets[Math.floor(Math.random() * targets.length)]);
+		}
 	}
 
 	cast (player, target) {
@@ -469,7 +487,7 @@ export default class Card {
 		this.atk = this.model.atk;
 		let chp = this.currentHp;
 		this.hp = this.model.hp;
-		this.dmg = Math.min(0, this.hp - chp);
+		this.dmg = Math.max(0, this.hp - chp);
 		this.game.notify("silence", this);
 	}
 
@@ -565,7 +583,7 @@ export default class Card {
 		transform.location = this.location;
 		let index = this.location.cards.indexOf(this);
 		this.location.cards[index] = transform;
-		this.location = this.game.nether;
+		this.location = this.player.nether;
 		if (this.activated && transform.onField) {
 			this.deactivate();
 			transform.activate();
@@ -612,7 +630,7 @@ export default class Card {
 		// Remove damage when removing HP mutations
 		if (this.onField) {
 			let bonushp = Math.max(0, this.effective.hp - this.hp);
-			let diffhp = this.bonushp ? this.bonushp - bonushp : 0;
+			let diffhp = this.bonushp && this.bonushp > bonushp ? this.bonushp - bonushp : 0;
 			if (diffhp)
 				this.dmg -= Math.min(diffhp, this.dmg);
 			this.bonushp = bonushp ? bonushp : undefined;

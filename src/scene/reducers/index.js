@@ -47,6 +47,12 @@ let reducer = (state = 0, n) => {
     card.goto(loc);
     break;
   }
+  case "playcard.before": {
+    break;
+  }
+  case "playcard": {
+    break;
+  }
   case "summon": {
     let card = state.find(n.data[0]);
     delete card.actioned;

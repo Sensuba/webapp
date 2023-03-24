@@ -1,0 +1,26 @@
+.sensuba-card-attack .game-unit {
+
+	animation: card-attack 0.5s 1 ease-in-out alternate;
+  animation-iteration-count: 2;
+  z-index: 1;
+}
+
+@keyframes card-attack {
+  0% {transform: translateY(0em) scale(1)}
+  65% {transform: translateY(0em) scale(1.2);}
+  70% {transform: translateY(0em) scale(1.2);}
+  100% {transform: translateY(6em) scale(1.2)}
+}
+
+.game-field-tile + .game-field-tile .sensuba-card-attack .game-unit {
+
+  animation: card-attack-reverse 0.5s 1 ease-in alternate;
+  animation-iteration-count: 2;
+}
+
+@keyframes card-attack-reverse {
+  0% {transform: translateY(0em) scale(1)}
+  65% {transform: translateY(0em) scale(1.2);}
+  70% {transform: translateY(0em) scale(1.2);}
+  100% {transform: translateY(-6em) scale(1.2)}
+}

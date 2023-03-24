@@ -3,6 +3,7 @@ import Deck from './Deck.js';
 import Court from './Court.js';
 import Graveyard from './Graveyard.js';
 import Discard from './Discard.js';
+import Nether from './Nether.js';
 import Capsule from './Capsule.js';
 import Throne from './Throne.js';
 import Hero from './Hero.js';
@@ -27,6 +28,7 @@ export default class Player {
 		this.court = new Court(this);
 		this.graveyard = new Graveyard(this);
 		this.discard = new Discard(this);
+		this.nether = new Nether(this);
 		this.capsule = new Capsule(this);
 		this.throne = new Throne(this);
 		new Hero(this, decklist.hero);
@@ -46,11 +48,6 @@ export default class Player {
 	get opponent () {
 
 		return this.game.players.filter(p => p !== this)[0];
-	}
-
-	get nether () {
-
-		return this.game.nether;
 	}
 
 	get tiles () {
@@ -106,7 +103,12 @@ export default class Player {
 		let card = this.deck.draw(filter);
 		if (!card)
 			return;
-		if (this.hand.isFull)
+		if (card.isSpell && card.hasState('automatic')) {
+			this.game.notify("automatic.before", this, card);
+			card.autocast();
+			this.game.notify("automatic", this, card);
+		}
+		else if (this.hand.isFull)
 			card.banish();
 		else this.hand.addCard(card);
 		if (n > 1)
@@ -388,6 +390,7 @@ export default class Player {
 			court: this.court.id.no,
 			graveyard: this.graveyard.id.no,
 			discard: this.discard.id.no,
+			nether: this.nether.id.no,
 			capsule: this.capsule.id.no,
 			throne: this.throne.id.no,
 			mana: this.mana,
@@ -404,6 +407,7 @@ export default class Player {
 		this.court = game.find({type: "court", no: data.court});
 		this.graveyard = game.find({type: "graveyard", no: data.graveyard});
 		this.discard = game.find({type: "discard", no: data.discard});
+		this.nether = game.find({type: "nether", no: data.nether});
 		this.capsule = game.find({type: "capsule", no: data.capsule});
 		this.throne = game.find({type: "throne", no: data.throne});
 		this.hand.player = this;
@@ -411,6 +415,7 @@ export default class Player {
 		this.court.player = this;
 		this.graveyard.player = this;
 		this.discard.player = this;
+		this.nether.player = this;
 		this.throne.player = this;
 		this.mana = data.mana;
 		this.receptacles = data.receptacles;

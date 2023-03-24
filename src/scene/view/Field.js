@@ -8,12 +8,13 @@ export default class Field extends Component {
 
     return (
       <div className={"game-field" + (this.props.targeting && this.props.targetable() ? (this.props.target && this.props.target.type === undefined ? " game-field-target" : " game-field-targetable") : "")}>
+      <div className="inner-field">
       {
         [0, 1, 2, 3, 4].map(c => 
           <div column={c}
           className={"game-field-column" + (this.props.targeting ? 
-            (this.props.target && this.props.target.type === "column" && this.props.target.data === c ?
-              " game-field-column-target" : (this.props.targetable({type: "column", data: c}) ? " game-field-column-targetable" : "")
+            (this.props.target && this.props.target.type === "column" && this.props.target.data === c && this.props.targetable({type: "column", data: c}, true) ?
+              " game-field-column-target" : (this.props.targetable({type: "column", data: c}, false) ? " game-field-column-targetable" : "")
             ) : "")}
           onClick={e => this.props.onSelect(e, {type: "column", data: c})}
           key={c}>
@@ -34,6 +35,7 @@ export default class Field extends Component {
           }
         </div>)
       }
+      </div>
       <div className="game-field-filter"/>
       </div>
     );

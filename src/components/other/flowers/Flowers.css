@@ -21,18 +21,18 @@
 .background-flower {
 
 	position: absolute;
-	background-image: url('./flower.png');
+	background-image: url('./flower2.png');
+	opacity: 0.1;
 	height: 2.5rem;
 	width: 2.5rem;
 	background-size: 100%;
 	animation: flower-rotation linear 10s infinite, flower-fall linear 60s infinite;
-	opacity: 0.3;
 }
 
-.play-page .background-flower {
+.main-page.light .background-flower {
 
-	background-image: url('./flower2.png');
-	opacity: 0.1;
+	background-image: url('./flower.png');
+	opacity: 0.3;
 }
 
 @keyframes flower-rotation {

@@ -16,10 +16,10 @@ export default class Play extends Component {
         <Nav/>
         <div className="main">
           <div className="play-buttons">
-            <MenuButton to="/story">{ read('menu/story') }</MenuButton>
+            <MenuButton to="/">{ read('menu/story') }</MenuButton>
             <MenuButton to="/multiplayer">{ read('menu/multiplayer') }</MenuButton>
             <MenuButton to="/cards">{ read('menu/collection') }</MenuButton>
-            <MenuButton to="/cards">{ read('menu/portalroom') }</MenuButton>
+            <MenuButton to="/portals">{ read('menu/portalroom') }</MenuButton>
             <MenuButton to="/">{ read('menu/titlescreen') }</MenuButton>
           </div>
         </div>

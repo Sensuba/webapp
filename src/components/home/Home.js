@@ -47,7 +47,6 @@ export default class Home extends Component {
   logout () {
 
     SocketManager.master.logout();
-    this.setState({connected: false, username: undefined});
   }
 
   signup () {

@@ -195,6 +195,7 @@ a {
 
   ::-webkit-scrollbar-track {
     background: #00000020;
+    border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb {

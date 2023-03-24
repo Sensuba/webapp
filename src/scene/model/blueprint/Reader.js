@@ -73,6 +73,7 @@ import FilterEffect from './FilterEffect.js';
 import MergeCardFilters from './MergeCardFilters.js';
 import MergeTileFilters from './MergeTileFilters.js';
 import MergeModelFilters from './MergeModelFilters.js';
+import ReverseCardFilter from './ReverseCardFilter.js';
 import ReverseModelFilter from './ReverseModelFilter.js';
 import MergeMutations from './MergeMutations.js';
 import CheckCard from './CheckCard.js';
@@ -220,6 +221,7 @@ export default class Reader {
 			case "mergecfilters": bloc = new MergeCardFilters(card, ctx); break;
 			case "mergetfilters": bloc = new MergeTileFilters(card, ctx); break;
 			case "mergemfilters": bloc = new MergeModelFilters(card, ctx); break;
+			case "revcfilter": bloc = new ReverseCardFilter(card, ctx); break;
 			case "revmfilter": bloc = new ReverseModelFilter(card, ctx); break;
 			case "mergemut": bloc = new MergeMutations(card, ctx); break;
 			case "checkcard": bloc = new CheckCard(card, ctx); break;

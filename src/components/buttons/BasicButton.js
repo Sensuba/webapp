@@ -30,9 +30,9 @@ export default class BasicButton extends Component {
 
     if (this.props.to)
       button = (<Link ref={this.link} to={this.props.to}>{button}</Link>);
-
+    
     return (
-      <div className={name + '-container'}>
+      <div className={name + '-container ' + (this.props.color ? this.props.color + "-color" : "")}>
         <div className={name + '-wrapper'}>
           <Button onClick={this.props.onClick} className={name}>{button}</Button>
         </div>

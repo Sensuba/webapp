@@ -1,0 +1,68 @@
+.sensuba-card-heal .game-unit .card-image-wrapper, .sensuba-card-heal.game-hero .card-image-wrapper {
+
+	animation: card-heal 1s 1;
+}
+
+@keyframes card-heal {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 207, 17, 0.5); }
+  30% { box-shadow: 0 0 1.5em 0.5em rgba(255, 255, 255, 0.5); }
+  60% { box-shadow: 0 0 1.5em 0.5em rgba(145, 240, 255, 0.5); }
+  100%   { box-shadow: 0 0 0 0 rgba(0, 207, 17, 0.5); }
+}
+
+.sensuba-card-heal .game-animmask {
+
+	display: block;
+  overflow: hidden;
+  animation: card-heal-mask 1s 1;
+}
+
+.sensuba-card-heal .game-digitanim {
+
+  display: block;
+  animation: card-heal-digit 1s 1;
+}
+
+@keyframes card-heal-digit {
+  0% { font-size: 6em; line-height: 2em; opacity: 1; color: rgb(153, 255, 214);}
+  50% { font-size: 8em; line-height: 1.5em; opacity: 1; color: rgb(153, 255, 214);}
+  100% { font-size: 10em; line-height: 1.2em; opacity: 0; color: white;}
+}
+
+@keyframes card-heal-mask {
+  0%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 1%); }
+  3%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 10%); }
+  6%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 20%); }
+  9%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 30%); }
+  12%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 40%); }
+  15%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 50%); }
+  18%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 60%); }
+  21%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 70%); }
+  24%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 80%); }
+  27%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 90%); }
+  30%  { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 100%); }
+  33%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(255, 255, 255, 0.7) 10%, transparent 100%); }
+  36%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(250, 254, 255, 0.7) 20%, transparent 100%); }
+  39%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(240, 252, 255, 0.7) 30%, transparent 100%); }
+  42%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(230, 251, 255, 0.7) 40%, transparent 100%); }
+  45%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(220, 250, 255, 0.7) 50%, transparent 100%); }
+  48%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(210, 249, 255, 0.7) 60%, transparent 100%); }
+  51%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(200, 248, 255, 0.7) 70%, transparent 100%); }
+  54%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(190, 247, 255, 0.7) 80%, transparent 100%); }
+  57%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(180, 246, 255, 0.7) 90%, transparent 100%); }
+  60%  { background: radial-gradient(rgba(145, 240, 255, 0.7) 0%, rgba(170, 244, 255, 0.7)); }
+  63%  { background: radial-gradient(transparent 0%, rgba(145, 240, 255, 0.7) 15%, rgba(160, 243, 255, 0.7)); }
+  66%  { background: radial-gradient(transparent 0%, rgba(145, 240, 255, 0.7) 30%, rgba(150, 242, 255, 0.7)); }
+  69%  { background: radial-gradient(transparent 0%, rgba(145, 240, 255, 0.7) 45%, rgba(145, 240, 255, 0.7)); }
+  72%  { background: radial-gradient(transparent 0%, rgba(145, 240, 255, 0.7) 60%, rgba(145, 240, 255, 0.7)); }
+  75%  { background: radial-gradient(transparent 0%, rgba(145, 240, 255, 0.7) 75%, rgba(145, 240, 255, 0.7)); }
+  78%  { background: radial-gradient(transparent 0%, rgba(145, 240, 255, 0.7) 90%, rgba(145, 240, 255, 0.7)); }
+  81%  { background: radial-gradient(transparent 0%, rgba(145, 240, 255, 0.7)); }
+  84%  { background: radial-gradient(transparent 15%, rgba(145, 240, 255, 0.7)); }
+  87%  { background: radial-gradient(transparent 30%, rgba(145, 240, 255, 0.7)); }
+  90%  { background: radial-gradient(transparent 45%, rgba(145, 240, 255, 0.7)); }
+  93%  { background: radial-gradient(transparent 60%, rgba(145, 240, 255, 0.7)); }
+  96%  { background: radial-gradient(transparent 75%, rgba(145, 240, 255, 0.7)); }
+  99%  { background: radial-gradient(transparent 90%, rgba(145, 240, 255, 0.7)); }
+  100%  { background: transparent; }
+}

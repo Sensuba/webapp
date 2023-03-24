@@ -58,3 +58,20 @@ button {
 	padding: 0;
 	border-width: 0;
 }
+
+
+
+.main-button-container.red-color .main-button {
+
+	background: linear-gradient(to bottom, #6c1d1d, #964646);
+	color: white;
+	border-top-color: #dddddd;
+	border-left-color: #dddddd;
+	border-bottom-color: #aaaaaa;
+	border-right-color: #aaaaaa;
+}
+
+.main-button-container.red-color .main-button:after {
+
+	background: linear-gradient(to bottom, #340404, #510808);
+}

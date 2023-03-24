@@ -37,12 +37,14 @@ export default class Cards extends Component {
       black: false
     },
     search: null,
-    action: null
+    action: null,
+    collection: JSON.parse(localStorage.getItem('collection'))
   }
 
   componentDidMount () {
 
     SocketManager.master.onDeckbuildUpdate = deck => this.setState({deck, action: null});
+    SocketManager.master.onCollectionUpdate = collection => this.setState({collection});
   }
 
   componentWillUnmount () {
@@ -57,9 +59,15 @@ export default class Cards extends Component {
 
   render () {
 
-    let cards = sorter.filter(Object.values(Library.cards), this.state.filter);
-    let heroes = sorter.filter(Object.values(Library.heroes), Object.assign({}, this.state.filter, {orderBy: "color"}));
-    let decks = JSON.parse(localStorage.getItem('decks'));
+    let cards = Object.values(Library.cards);
+    cards = cards.filter(card => card.basic || this.state.collection.cards.includes(card.key));
+    cards = sorter.filter(cards, this.state.filter);
+
+    let heroes = Object.values(Library.heroes);
+    heroes = heroes.filter(hero => hero.basic || this.state.collection.heroes.includes(hero.key))
+    heroes = sorter.filter(heroes, Object.assign({}, this.state.filter, {orderBy: "color"}));
+
+    let decks = JSON.parse(localStorage.getItem('decks')) || [];
 
     let colors = {white: [], red: [], blue: [], green: [], black: []};
     Object.keys(colors).forEach(color => colors[color] = cards.filter(c => c.color === color));
@@ -94,8 +102,8 @@ export default class Cards extends Component {
           </div>
         </Lightbox>
         <Lightbox className="delete-box small" open={this.state.action === "delete"} onClose={() => this.setState({action: null})}>
-          <h1>{ read('menu/askconfirmation') }</h1>
-          <MainButton onClick={() => SocketManager.master.deckbuild("delete", this.state.deck.key)}>{ read('menu/delete') }</MainButton>
+          <h1>{ read('menu/askconfirmationdelete') }</h1>
+          <MainButton color="red" onClick={() => SocketManager.master.deckbuild("delete", this.state.deck.key)}>{ read('menu/delete') }</MainButton>
         </Lightbox>
         <Nav/>
         <div className="main">
@@ -118,7 +126,6 @@ export default class Cards extends Component {
                 <div className="selectbox">
                   <Button onClick={() => { this.state.filter.type = ""; this.setState({filter: this.state.filter, search: null}); }}>_</Button>
                   <Button onClick={() => { this.state.filter.type = "unit"; this.setState({filter: this.state.filter, search: null}); }}>{ this.capitalize(read("cards/unit")) }</Button>
-                  <Button onClick={() => { this.state.filter.type = "building"; this.setState({filter: this.state.filter, search: null}); }}>{ this.capitalize(read("cards/building")) }</Button>
                   <Button onClick={() => { this.state.filter.type = "spell"; this.setState({filter: this.state.filter, search: null}); }}>{ this.capitalize(read("cards/spell")) }</Button>
                 </div>
               </Lightbox>
@@ -161,7 +168,7 @@ export default class Cards extends Component {
               <div className="card-list deck-list">
                 <div className="listed-deck"><div onClick={() => this.setState({newdeck: true})} className="new-deck"/></div>
                 {
-                  decks.sort((a, b) => a.deckname > b.deckname ? 1 : -1).map((deck, i) => <div key={i} className="listed-deck" onClick={() => {
+                  decks.sort((a, b) => a.deckname > b.deckname ? 1 : -1).map((deck, i) => <div key={i} className={"listed-deck" + (this.state.deck && this.state.deck.key === deck.key ? " selected-deck" : "")} onClick={() => {
                       if (this.state.deck && this.state.deck.key === deck.key)
                         this.setState({deck: null});
                       else {
@@ -192,7 +199,10 @@ export default class Cards extends Component {
                     <div className="deckbuilder-nav-row">
                       <Tooltip target="deckbuilder-count" isOpen={this.state.tooltip === "nonvaliddeck"} toggle={() => this.setState({tooltip: (this.state.tooltip === "nonvaliddeck" || this.state.deck.body.cards.length === 30) ? null : "nonvaliddeck" })}>{ read('menu/nonvaliddeck') }</Tooltip>
                       <div id="deckbuilder-count" className={"deckbuilder-count" + (this.state.deck.body.cards.length === 30 ? " deckbuilder-valid-count" : "")}><div className="deckbuilder-status">{this.state.deck.body.cards.length === 30 ? "✔" : "✘"}</div>{ this.state.deck.body.cards.length + " / 30" }</div>
-                      <div className="deckbuilder-delete"><MainButton onClick={() => this.setState({action: "delete"})}>{ read('menu/delete') }</MainButton></div>
+                      <div className="deckbuilder-buttons">
+                        <div className="deckbuilder-back"><MainButton onClick={() => this.setState({deck: null})}>{ read('menu/back') }</MainButton></div>
+                        <div className="deckbuilder-delete"><MainButton color="red" onClick={() => this.setState({action: "delete"})}>{ read('menu/delete') }</MainButton></div>
+                      </div>
                     </div>
                   </div>
                   <div className="card-list">

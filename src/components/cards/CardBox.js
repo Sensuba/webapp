@@ -9,11 +9,11 @@ import Library from '../../scene/utility/Library';
 
 import { read } from '../../TextManager';
 
-const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility", "exalted", "initiative"];
+const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility", "exalted", "initiative", "trap"];
 
 export default class CardBox extends Component {
 
-	state={ token: [] }
+	state={ token: [], mask: false }
 
 	constructor (props) {
 
@@ -21,6 +21,24 @@ export default class CardBox extends Component {
 
 		this.state.level = props.level;
 	}
+
+	  componentDidMount () {
+
+    	document.addEventListener("keydown", e => {
+	    	switch(e.keyCode) {
+	        case 77:
+	            this.setState({mask: !this.state.mask});
+	            break;
+	        default: 
+	            break;
+	        }
+	    });
+	  }
+
+	  componentWillUnmount () {
+
+	    document.removeEventListener("keydown", this._handleKeyDown);
+	  }
 
 	toggleTooltip(f) {
 
@@ -47,10 +65,13 @@ export default class CardBox extends Component {
 					let slices = el.split('/');
 					let key = slices[0];
 					let ntoken = this.state.token.slice(); ntoken.push(Library.cards[key]);
-					splits.push(<span onClick={() => this.setState({tooltip: null, token: ntoken})} key={i} className="token" id={'effect-' + i}>{ slices.length > 1 ? slices[1] : Library.cards[key].name }</span>);
+					let repeat = this.current.key && key === this.current.key.toString();
+					splits.push(<span onClick={repeat ? () => {} : () => this.setState({tooltip: null, token: ntoken})} key={i} className={"token" + (repeat ? " repeat-token" : "")} id={'effect-' + i}>{ slices.length > 1 ? slices[1] : Library.cards[key].name }</span>);
 				} else if (match[0] === '[') {
-					splits.push(<span key={i} className={"keyword " + (el.startsWith("half") || el === "volatile" ? "soft" : "")} id={'effect-' + i} onClick={() => this.toggleTooltip(i)}>{keywordIcons.includes(el) ? <img className="keyword-icon" src={"/images/icons/" + el + ".png"} alt=""/> : ""}{read('keywords/' + el)}</span>);
-					splits.push(<Tooltip key={i+"t"} className="tooltip" placement="top" isOpen={this.state.tooltip === i} target={"effect-" + i} toggle={() => this.toggleTooltip(i)}>{ read('keywords/description/' + el) }</Tooltip>);
+					let slices = el.split('/');
+					let keyword = slices[0];
+					splits.push(<span key={i} className={"keyword " + (keyword.startsWith("half") || keyword === "volatile" ? "soft" : "")} id={'effect-' + i} onClick={() => this.toggleTooltip(i)}>{keywordIcons.includes(keyword) ? <img className="keyword-icon" src={"/images/icons/" + keyword + ".png"} alt=""/> : ""}{slices.length > 1 ? slices[1] : read('keywords/' + keyword)}</span>);
+					splits.push(<Tooltip key={i+"t"} className="tooltip" placement="top" isOpen={this.state.tooltip === i} target={"effect-" + i} toggle={() => this.toggleTooltip(i)}>{ read('keywords/description/' + keyword) }</Tooltip>);
 				} else if (match[0] === '\n') {
 					splits.push(<br key={i}/>);
 				}
@@ -66,7 +87,7 @@ export default class CardBox extends Component {
 		let colors = this.current.colors || (this.current.color ? [this.current.color] : []);
 
 		return(
-			<Lightbox className="cardbox-focus-box" open={this.props.open} onClose={this.props.onClose}>
+			<Lightbox className={"cardbox-focus-box" + (this.state.mask ? " opaque" : "")} open={this.props.open} onClose={this.props.onClose}>
 	          <div className="cardbox-focus">
 	            <div className={"cardbox-focus-card" + (ability ? " cardbox-focus-ability" : "") }>{ this.current.colors ? <div onClick={() => this.setState({level: ((this.state.level || 1)%3+1)})}><Hero level={this.state.level} src={this.current}/></div> : (ability ? <Ability src={this.current}/> : <Card src={this.current}/>) }</div>
 	            <h1 className={ this.current.name.length >= 25 ? "small-name" : ""}>{this.current.name}</h1>

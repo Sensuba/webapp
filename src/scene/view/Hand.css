@@ -17,9 +17,10 @@
     width: 8vw;
     height: 6vw;
 	pointer-events: all;
-	transition: 0.4s left, 0.4s transform, 0.2s filter;
+	transition: 0.4s left, 0.4s top, 0.4s transform, 0.4s opacity, 0.2s filter;
 	margin: 1vw;
 	font-size: 1.2vw;
+	position: absolute;
 }
 
 .game-hand-card-unplayable {
@@ -80,7 +81,6 @@
 
 	    height: 12vh;
 		margin: 1vh;
-		position: absolute;
 		top: 0em;
 		animation: game-hand-card-appear 0.3s ease-out;
 	}
@@ -134,12 +134,33 @@
   	font-size: 2em;
   	margin: unset;
   	padding: 1%;
+  	top: 0;
+	animation: game-hand-card-appear 0.3s ease-out;
+  }
+
+  @keyframes game-hand-card-appear {
+	from { transform: translateX(10vw); opacity: 0 }
+	to { transform: translateX(0vw); opacity: 1 }
+  }
+  
+  .opposite-area .game-hand {
+
+	overflow: visible;
+  }
+  
+  .opposite-area .game-hand-card {
+
+	animation: game-hand-card-appear-opposite 0.3s ease-out;
+  }
+
+  @keyframes game-hand-card-appear-opposite {
+	from { transform: translateX(-10vw); opacity: 0 }
+	to { transform: translateX(0vw); opacity: 1 }
   }
 
   .game-hand {
 
   	pointer-events: all;
-    overflow: auto;
     padding: 1vw;
   }
 
@@ -179,7 +200,7 @@
 
 
 
-.game-hand-card .game-temporary {
+.game-hand-card .game-temporary::after {
 
     position: absolute;
     top: 0em;

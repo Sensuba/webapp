@@ -10,6 +10,7 @@ import Story from './play/story/Story';
 import Multiplayer from './play/multiplayer/Multiplayer';
 import Game from './game/Game';
 import Cards from './play/cards/Cards';
+import Portals from './play/portals/Portals';
 
 import SocketManager from '../SocketManager';
 
@@ -30,6 +31,8 @@ export default class App extends Component {
 
         if (!this.state.connected && status === 'connected') {
           this.setState({connected: true});
+        } else if (this.state.connected && status === "disconnected") {
+          this.setState({connected: false}, () => io.start());
         }
       }
     }
@@ -63,8 +66,9 @@ export default class App extends Component {
             <Route path="/play" element={<Dynamo><Play/></Dynamo>}/>
             <Route path="/story" element={<Dynamo><Story/></Dynamo>}/>
             <Route path="/multiplayer" element={<Dynamo><Multiplayer/></Dynamo>}/>
-            <Route path="/game" element={<Dynamo><Game/></Dynamo>}/>
+            <Route path="/game" element={ localStorage.getItem('activedeck') ? <Dynamo><Game/></Dynamo> : <Navigate to="/multiplayer" replace /> }/>
             <Route path="/cards" element={<Dynamo><Cards/></Dynamo>}/>
+            <Route path="/portals" element={<Dynamo><Portals/></Dynamo>}/>
             <Route
                 path="*"
                 element={<Navigate to="/" replace />}

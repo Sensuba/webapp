@@ -18,7 +18,7 @@
 	
 	width: 100%;
 	box-shadow: 0px 0.2rem 0.2rem 0px #000000A0;
-	z-index: 100;
+	z-index: 99;
 }
 
 .cards-page-search-tab {
@@ -260,6 +260,11 @@
 	margin-right: 0.3rem;
 }
 
+.card-list .listed-deck.selected-deck .sensuba-deck .card-image-wrapper {
+
+	box-shadow: 0 0 0.2rem 0.15rem #e6dcc0;
+}
+
 .card-list .listed-card .wanderaft-card {
 
 	transition: font-size 0.2s;
@@ -372,6 +377,7 @@
 	color: #ffcd00;
 	font-weight: bold;
 	line-height: 2.5rem;
+	margin-left: 1em;
 }
 
 .cards-page .deckbuilder .deckbuilder-count.deckbuilder-valid-count {
@@ -385,29 +391,18 @@
 
 .deckbuilder-delete .main-button-container {
 
-	margin: 0.4rem;
 }
 
-.deckbuilder-delete .main-button, .delete-box .main-button {
+.deckbuilder-buttons .main-button-container {
 
-	background: linear-gradient(to bottom, #6c1d1d, #964646);
-	color: white;
-	border-top-color: #dddddd;
-	border-left-color: #dddddd;
-	border-bottom-color: #aaaaaa;
-	border-right-color: #aaaaaa;
+	margin: 0.6rem;
 }
 
-.deckbuilder-delete .main-button {
+.deckbuilder-delete .main-button, .deckbuilder-back .main-button {
 
 	font-size: 1.2rem;
   padding: 0.333rem;
   min-width: 5.33rem;
-}
-
-.deckbuilder-delete .main-button:after, .delete-box .main-button:after {
-
-	background: linear-gradient(to bottom, #340404, #510808);
 }
 
 .delete-box h1 {
@@ -614,6 +609,11 @@
 		margin-right: 0.5rem;
 	}
 
+	.card-list .listed-deck.selected-deck .sensuba-deck .card-image-wrapper {
+
+		box-shadow: 0 0 0.6rem 0.5rem #e6dcc0;
+	}
+
 	.cards-page-deck-section.hidden-decks .deck-list-carousel, 	.cards-page-deck-section.hidden-decks .deckbuilder {
 
 		display: inherit;
@@ -693,7 +693,7 @@
 	.cards-page-search {
 
 	    box-shadow: 0px 0.2rem 0.2rem 0px #000000a0;
-	    z-index: 100;
+	    z-index: 99;
 	}
 
 	.cards-page-list {
@@ -778,7 +778,7 @@
 		margin-bottom: 0.7rem;
 	}
 
-	.deckbuilder-delete .main-button {
+	.deckbuilder-delete .main-button, .deckbuilder-back .main-button {
 
 		font-size: 1.35rem;
 	  padding: 0.375rem;

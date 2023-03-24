@@ -103,7 +103,7 @@ export default (() => {
 		if (normalize(card.name).includes(normalize(search)))
 			return true;
 
-		if (card.categories && card.categories.some(cat => normalize(read("cards/categories/" + cat)).includes(normalize(search))))
+		if (card.categories && card.categories.some(cat => normalize(read("cards/categories/" + cat) || "").includes(normalize(search))))
 			return true;
 
 		let effects = card.abilities ? card.abilities.map(a => a.effect) : [card.effect];

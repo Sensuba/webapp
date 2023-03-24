@@ -3,6 +3,9 @@
 	width: 2rem;
 	height: 2rem;
 	cursor: pointer;
+	top: 1rem;
+	right: 1rem;
+	position: absolute;
 }
 
 .nav-options .lightbox-container {
@@ -118,7 +121,7 @@
 	color: #ab9576;
 }
 
-.options-box .options-warning {
+.options-warning {
 
 	font-size: 1rem;
 	justify-content: center;
@@ -128,6 +131,29 @@
 	margin-top: -1rem;
 	margin-bottom: 0.5rem;
 	color: #b47d29;
+}
+
+.concede-button {
+
+	margin: auto;
+	margin-top: 1rem;
+	display: none;
+}
+
+.game-page .concede-button {
+
+	display: inherit;
+}
+
+@media (max-width: 600px) {
+
+	.concede-button .main-button {
+
+		font-size: 1.2rem;
+		padding: 0.333rem;
+		min-width: 5.33rem;
+	}
+
 }
 
 @media (min-width: 601px) {

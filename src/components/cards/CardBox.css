@@ -96,6 +96,11 @@
 	cursor: pointer;
 }
 
+.game-effect .token.repeat-token {
+
+	cursor: default;
+}
+
 .game-effect br {
 
 	content: "";

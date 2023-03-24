@@ -2,10 +2,12 @@
 let cards = JSON.parse(localStorage.getItem('library.cards'));
 let terrains = JSON.parse(localStorage.getItem('library.terrains'));
 let heroes = JSON.parse(localStorage.getItem('library.heroes'));
+let portals = JSON.parse(localStorage.getItem('library.portals'));
 
 let cardsversion = localStorage.getItem('library.cards.version');
 let terrainsversion = localStorage.getItem('library.terrains.version');
 let heroesversion = localStorage.getItem('library.heroes.version');
+let portalsversion = localStorage.getItem('library.portals.version');
 
 export default class Library {
 
@@ -25,6 +27,15 @@ export default class Library {
 			heroesversion = localStorage.getItem('library.heroes.version');
 		}
 		return heroes;
+	}
+
+	static get portals () {
+		
+		if (localStorage.getItem('library.portals.version') !== portalsversion) {
+			portals = JSON.parse(localStorage.getItem('library.portals'));
+			portalsversion = localStorage.getItem('library.portals.version');
+		}
+		return portals;
 	}
 
 	static getCard(key) {
@@ -52,5 +63,14 @@ export default class Library {
 			heroesversion = localStorage.getItem('library.heroes.version');
 		}
 		return heroes[key];
+	}
+
+	static getPortal(key) {
+
+		if (localStorage.getItem('library.portals.version') !== portalsversion) {
+			portals = JSON.parse(localStorage.getItem('library.portals'));
+			portalsversion = localStorage.getItem('library.portals.version');
+		}
+		return portals[key];
 	}
 }
