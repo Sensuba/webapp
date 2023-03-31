@@ -17,7 +17,7 @@ export default class Portal extends Component {
 				</div>
 				<div className="portal-name">{portal.name}</div>
 
-
+				{  this.props.animate ?
           <div className="portal-fog">
           <div className="circle"></div>
             <div className="circle2"></div>
@@ -30,7 +30,8 @@ export default class Portal extends Component {
                 <feDisplacementMap in="SourceGraphic" scale="30" />
               </filter>
             </svg>
-            </div>
+            </div> : ""
+          }
           <div className="portal-dark-filter"/>
 
           </div>

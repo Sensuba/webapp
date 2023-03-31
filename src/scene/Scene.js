@@ -26,6 +26,7 @@ import WaitingState from './controller/state/WaitingState';
 //import MovingState from './controller/state/MovingState';
 
 import { read } from '../TextManager';
+import { play, stopMusic, stopCategory } from '../SoundManager';
 
 export default class Scene extends Component {
 	
@@ -58,7 +59,18 @@ export default class Scene extends Component {
 
   componentWillUnmount () {
 
-  	this.io.exitGame();
+    this.stop();
+  }
+
+  stop () {
+
+    if (this.state.end)
+      return;
+    this.stopped = true;
+    this.props.setConcede(null);
+    stopMusic();
+    stopCategory('scene');
+    this.io.exitGame();
   }
 
   get player () {
@@ -88,6 +100,20 @@ export default class Scene extends Component {
       }
       else
         this.controller = new WaitingState(this);
+      break;
+    }
+    case "start": {
+      let hero = this.state.model.players[this.noPlayer].hero.model;
+      if (hero && hero.theme)
+        play(hero.theme, "music");
+      this.props.setConcede(() => SocketManager.master.command('concede'));
+      break;
+    }
+    case "endresult": {
+      this.setState({end: true, endresult: data[0], runes: data[1]}, () => {
+        setTimeout(() => this.endscreenClickable = true, 2000);
+      });
+      this.stop();
       break;
     }
     case "mainphase": {
@@ -324,10 +350,10 @@ export default class Scene extends Component {
 	render () {
 
     if (this.state.error)
-      return <Error dark>{ read('messages/' + this.state.error) }<Back to="/multiplayer"/></Error>;
+      return <Error dark>{ read('messages/' + this.state.error) }<Back onClick={() => this.props.back()}/></Error>;
 
 		if (!this.state.model)
-			return <Error dark>{ read('messages/matchmaking') }<Back to="/multiplayer"/></Error>;
+			return <Error dark>{ read('messages/matchmaking') }<Back onClick={() => this.props.back()}/></Error>;
 
     let targetable = (target, allowunits) => {
 
@@ -352,7 +378,16 @@ export default class Scene extends Component {
     }
 
 		return (
+      <div className={"scene-wrapper" + (this.state.end ? " endgame-scene" : "")}>
+      { this.state.end ?
+      <div onClick={() => { if (this.endscreenClickable) this.props.back(); }} className={"endgame-screen" + (this.state.endresult === 1 ? "" : (this.state.endresult === -1 ? " defeat-screen" : " error-screen"))}>
+        <div className="endgame-title">
+          { (this.state.endresult === 1 ? read('scene/victory') : (this.state.endresult === -1 ? read('scene/defeat') : read('scene/error'))).split("").map((letter,i) => <div key={i} className="endgame-letter" style={{animationDelay: "" + (i*150) + "ms"}}>{ letter }</div>) }
+          { this.state.runes ? <div className="endgame-runes">{ "+" + this.state.runes }<div className="runes-icon"/></div> : "" }
+        </div>
+      </div> : "" }
 			<div id="sensuba-scene" className={"scene " + this.controller.name} onClick={() => this.deselect()} onTouchEnd={(e) => this.dragEnd(e)} onDragEnd={(e) => this.dragEnd(e)} onTouchCancel={(e) => this.dragEnd(e, true)} onTouchMove={e => this.drag(e)} onDrag={e => this.drag(e)} onContextMenu={e => {this.deselect(); e.preventDefault();}}>
+      
       { this.state.focus ? <CardBox src={this.state.focus} level={this.state.focusdata} open={true} onClose={() => this.setState({focus:null})}/> : "" }
 			<Logs focus={model => this.focus(model)} player={this.player} src={this.sequencer.logs} model={this.state.model}/>
       <Field player={this.player} src={this.state.model.field} targeting={this.state.dragged || this.targeting} targetable={targetable} target={this.state.target} onSelect={this.onSelect.bind(this)} onGrab={e => this.grabbing = e}/>
@@ -396,7 +431,7 @@ export default class Scene extends Component {
         <div className={"turn-indicator playing" + (this.player.playing ? "" : " fade")}>{ read('scene/yourturn') }</div>
         <div className={"turn-indicator" + (this.player.opponent.playing ? "" : " fade")}>{ read('scene/opponentsturn') }</div>
       <div ref={this.dragged} className="dragged-card">{this.state.dragged ? (this.state.dragged.type === "skill"  ? <Ability src={this.state.dragged.element}/> : <Card src={this.state.dragged.eff}/>) : ""}</div>
-	        </div>
+	        </div></div>
 		);
 	}
 }

@@ -103,6 +103,7 @@ select {
   opacity: 0;
   transition: 0.4s;
   pointer-events: none;
+  animation: none;
 }
 
 a {

@@ -26,7 +26,9 @@ export default class Damage extends Animation {
 					delete this.master.damageAnim[this.card.type + this.card.no];
 				}
 			}, 600);
-			document.querySelector((this.card.type === "hero" ? "#sensuba-hero-" : "#sensuba-card-") + this.card.no + " .game-digitanim").innerHTML = this.value;
+			let danim = document.querySelector((this.card.type === "hero" ? "#sensuba-hero-" : "#sensuba-card-") + this.card.no + " .game-digitanim");
+			if (danim)
+				danim.innerHTML = this.value;
 		}
 	}
 }

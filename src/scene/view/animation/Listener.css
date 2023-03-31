@@ -1,0 +1,23 @@
+.sensuba-card-blink .game-unit .card-image-wrapper {
+
+	animation: card-blink 0.8s 1;
+}
+
+@keyframes card-blink {
+  0%   { box-shadow: 0 0 0 0 #42f5ee; }
+  50% { box-shadow: 0 0 1.5em 0.5em #42f5ee; }
+  100%   { box-shadow: 0 0 0 0 #42f5ee; }
+}
+
+.sensuba-card-blink .game-animmask {
+
+  display: block;
+  overflow: hidden;
+  animation: card-blink-mask 0.8s 1 ease-in-out;
+}
+
+@keyframes card-blink-mask {
+  0%   { background: #42f5ee00; }
+  50%   { background: #42f5ee80; }
+  100%   { background: #42f5ee00; }
+}

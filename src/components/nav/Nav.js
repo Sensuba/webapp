@@ -11,7 +11,7 @@ export default class Nav extends Component {
 
     return (
       <nav>
-        <Options/>
+        <Options concede={this.props.concede}/>
         <Credit/>
       </nav>
     );

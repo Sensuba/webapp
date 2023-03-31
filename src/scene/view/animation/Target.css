@@ -1,0 +1,37 @@
+.sensuba-card-target::after {
+
+  height: 12em;
+  width: 12em;
+  content: "";
+  background: url('./target.png');
+  background-size: 100%;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  position: absolute;
+  opacity: 0;
+  top: calc(50% - 6em);
+  left: calc(50% - 6em);
+  z-index: 100;
+	animation: tile-target-size 1.2s 1, tile-target-opacity 1.2s 1, tile-target-rotation 1.2s 1 linear;
+  filter: drop-shadow(0.2rem 0.2rem #00000060);
+}
+
+@keyframes tile-target-size {
+  0% {height: 11.5em; width: 11.5em; margin: 0.25em;}
+  17% {height: 11em; width: 11em; margin: 0.5em;}
+  50% {height: 12vw; width: 12em; margin: 0em;}
+  83% {height: 11em; width: 11em; margin: 0.5em;}
+  100% {height: 11.5em; width: 11.5em; margin: 0.25em;}
+}
+
+@keyframes tile-target-rotation {
+  0% {transform: rotateZ(-15deg);}
+  100% {transform: rotateZ(15deg);}
+}
+
+@keyframes tile-target-opacity {
+  0% {opacity: 0}
+  15% {opacity: 1}
+  85% {opacity: 1}
+  100% {opacity: 0}
+}

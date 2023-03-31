@@ -1,24 +1,53 @@
 .sensuba-card-destroy {
 
-	animation: card-destroy 0.4s 1;
+	animation: card-destroy-margin 0.4s 1;
+  margin: 0vw 0;
+}
+
+.sensuba-card-destroy .game-unit {
+
+  animation: card-destroy-size-op 0.4s 1, card-destroy 0.4s 1;
+  opacity: 0; filter: brightness(0);
+  margin-bottom: -6em;
+}
+
+.game-field-tile + .game-field-tile .sensuba-card-destroy .game-unit {
+
+  animation: card-destroy-size 0.4s 1, card-destroy 0.4s 1;
+  margin-top: -6em;
+  margin-bottom: unset;
 }
 
 @keyframes card-destroy {
-  0% { font-size: 1em; margin: 0vw; filter: brightness(1); }
-  50% { font-size: 0.5em; margin: 3.15vw 4.15vw; filter: brightness(0); }
-  100% { font-size: 0vw; margin: 6.3vw 8.3vw; filter: brightness(0); }
+  0% { opacity: 1; filter: brightness(1); }
+  50% { opacity: 0.5;filter: brightness(0); }
+  100% { opacity: 0; filter: brightness(0); }
+}
+
+@keyframes card-destroy-size {
+  0%   { margin-top: 0; }
+  100%   { margin-top: -6em; }
+}
+
+@keyframes card-destroy-size-op {
+  0%   { margin-bottom: 0; }
+  100%   { margin-bottom: -6em; }
+}
+
+@keyframes card-destroy-margin {
+  0%   { margin: 2vw 0; }
+  100%   { margin: 0vw 0; }
 }
 
 @media (min-width: 601px) {
 
   .sensuba-card-destroy {
 
-    animation: card-destroy 0.4s 1;
+    /*animation: card-destroy 0.4s 1;*/
   }
 
-  @keyframes card-destroy {
-    0% { font-size: 0.95em; margin: 0vw; filter: brightness(1); }
-    50% { font-size: 0.475em; margin: 2.59875vh 3.42375vh; filter: brightness(0); }
-    100% { font-size: 0vw; margin: 5.1975vh 6.8475vh; filter: brightness(0); }
+  @keyframes card-destroy-margin {
+    0%   { margin: 1vh 0; }
+    100%   { margin: 0vh 0; }
   }
 }

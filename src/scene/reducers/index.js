@@ -9,6 +9,8 @@ let reducer = (state = 0, n) => {
     break;
   }
   case "startup": {
+    let player = state.find(n.data[0]);
+    state.turnPlayer = player;
     state.phase = "start";
     break;
   }

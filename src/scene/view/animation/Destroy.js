@@ -15,7 +15,7 @@ export default class Destroy extends Animation {
 		var el = document.getElementById("sensuba-card-" + this.card);
 		if (el) {
 			el.classList.add("sensuba-card-destroy");
-			setTimeout(() => el.classList.remove("sensuba-card-destroy"), 400);
+			//setTimeout(() => el.classList.remove("sensuba-card-destroy"), 400);
 		}
 	}
 }

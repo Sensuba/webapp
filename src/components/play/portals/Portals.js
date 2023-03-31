@@ -30,7 +30,7 @@ export default class Portals extends Component {
   componentDidMount () {
 
     SocketManager.master.onCollectionUpdate = (collection, reward) => {
-      if (reward) {
+      if (reward && reward.length > 1) {
         this.setState({reward, rewarding: true});
       } else
         this.setState({collection});
@@ -49,11 +49,13 @@ export default class Portals extends Component {
   render () {
 
     let portals = Object.values(Library.portals);
+    // Temporary
+    portals = portals.filter(p => p.key <= 15);
     let user = JSON.parse(localStorage.getItem('user'));
 
     let cards = [];
     if (this.state.portal) {
-      Object.keys(this.state.portal.cards).forEach(rarity => this.state.portal.cards[rarity].forEach(key => cards.push(Library.getCard(key))));
+      Object.keys(this.state.portal.cards).forEach(rarity => this.state.portal.cards[rarity].forEach(key => cards.push(Object.assign({rarity}, Library.getCard(key)))));
       cards = sorter.sort(cards, 'type');
     }
 
@@ -61,6 +63,17 @@ export default class Portals extends Component {
     if (this.state.exploration) {
       let duration = (new Date()) - (new Date(this.state.exploration.date)) + 10;
       timer = Math.ceil((Library.portals[this.state.exploration.key].min * 60000 - duration)/60000);
+    }
+
+    let left = null, right = null;
+    if (this.state.focus) {
+      let index = cards.findIndex(card => card.key === this.state.focus.key);
+      if (index >= 0) {
+        if (index > 0)
+          left = cards[index-1];
+        if (index < cards.length-1)
+          right = cards[index+1];
+      }
     }
 
     return (
@@ -88,7 +101,13 @@ export default class Portals extends Component {
         </div>
         {
           this.state.focus ?
-          <CardBox src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
+          <div>
+            <CardBox left={left ? () => this.setState({focus:left}) : undefined} right={right ? () => this.setState({focus:right}) : undefined} src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
+            {
+              this.state.collection.cards.includes(this.state.focus.key) ? "" :
+              <div className="portals-page-craftcard" onClick={() => SocketManager.master.portal('craft', this.state.portal.key, this.state.focus.key)}>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "" + (this.state.portal.runes * (this.state.focus.rarity === "common" ? 0.5 : (this.state.focus.rarity === "uncommon" ? 1 : 2)))}</span></div>
+            }
+          </div>
           : ""
         }
         <Nav/>

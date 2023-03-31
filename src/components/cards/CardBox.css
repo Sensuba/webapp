@@ -198,6 +198,54 @@
 	left: calc(50% + 6.3rem);
 }
 
+.cardbox-arrow {
+
+	position: absolute;
+	width: 3rem;
+	height: 3rem;
+	top: 3.75rem;
+	left: calc(10vw - 3.5rem);
+	font-size: 4rem;
+	line-height: 4rem;
+	color: #dec6a2;
+	cursor: pointer;
+	justify-content: right;
+	box-sizing: border-box;
+	padding: 0;
+	transition: padding 0.2s;
+	filter: drop-shadow(0 0 0.8vh black);
+}
+
+.cardbox-arrow.cardbox-arrow-right {
+
+	left: unset;
+	right: calc(10vw - 3.5rem);
+	justify-content: left;
+}
+
+.cardbox-arrow img {
+
+	height: 80%;
+	margin: 10%;
+	transform: scaleX(-1);
+}
+
+.cardbox-arrow.cardbox-arrow-right img {
+
+	transform: scaleX(1);
+}
+
+.cardbox-arrow:hover {
+
+	padding-right: 0.3rem;
+}
+
+.cardbox-arrow.cardbox-arrow-right:hover {
+
+	padding-right: unset;
+	padding-left: 0.3rem;
+}
+
 @media (min-width: 601px) {
   
 	.cardbox-focus {
@@ -282,5 +330,20 @@
 		max-width: 18rem;
 		font-size: 1.2rem;/*
 		padding: 0.4rem;*/
+	}
+
+	.cardbox-arrow {
+
+		width: 4rem;
+		height: 4rem;
+		top: 10.25rem;
+		left: -2rem;
+	}
+
+	.cardbox-arrow.cardbox-arrow-right {
+
+		left: unset;
+		right: -2rem;
+		justify-content: left;
 	}
 }

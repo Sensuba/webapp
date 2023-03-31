@@ -72,12 +72,35 @@ export default class Cards extends Component {
     let colors = {white: [], red: [], blue: [], green: [], black: []};
     Object.keys(colors).forEach(color => colors[color] = cards.filter(c => c.color === color));
 
+    let left = null, right = null;
+    if (this.state.focus) {
+      if (!this.state.focus.type) {
+        let index = heroes.findIndex(hero => hero.key === this.state.focus.key);
+        if (index >= 0) {
+          if (index > 0)
+            left = heroes[index-1];
+          if (index < heroes.length-1)
+            right = heroes[index+1];
+        }
+      } else {
+        ["white", "red", "blue", "green", "black"].forEach(color => {
+          let index = colors[color].findIndex(card => card.key === this.state.focus.key);
+          if (index >= 0) {
+            if (index > 0)
+              left = colors[color][index-1];
+            if (index < colors[color].length-1)
+              right = colors[color][index+1];
+          }
+        })
+      }
+    }
+
     return (
       <div className="main-page cards-page">
         {
           this.state.focus ?
           <div>
-            <CardBox src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
+            <CardBox left={left ? () => this.setState({focus:left}) : undefined} right={right ? () => this.setState({focus:right}) : undefined} src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
             {
               this.state.deck && !this.state.focus.colors && Library.getHero(this.state.deck.body.hero).colors.includes(this.state.focus.color) ?
               <div className="cards-page-cardcountbuilder">

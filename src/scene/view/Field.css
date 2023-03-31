@@ -95,12 +95,15 @@
 	font-size: 2vw;
 	align-items: center;
 	justify-content: flex-end;
-	padding: 4vw 0;
+	padding-bottom: 4vw;
+	padding-top: unset;
 }
 
 .game-field-tile:nth-child(1) {
 
 	flex-flow: column-reverse;
+	padding-bottom: unset;
+	padding-top: 4vw;
 }
 
 .game-field-tile .game-card-wrapper {
@@ -127,6 +130,10 @@
 	.game-field-tile {
 
 	    font-size: 1.65vh;
+	}
+
+	.game-field-tile:nth-child(1) {
+		
 	    padding-top: calc(4vh - 0.2vw);
 	    padding-bottom: 0vh;
 	}

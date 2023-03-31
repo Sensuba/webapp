@@ -49,6 +49,7 @@ export default class Hero {
 		this.blueprints = [];
 		["colors"].forEach(k => this[k] = this.model[k]);
 		this.skills = [[], []];
+		this.states = {};
 		this.activated = false;
 		this.model.abilities.forEach(ability => {
 			if (ability.blueprint)
@@ -90,13 +91,29 @@ export default class Hero {
 		this.game.notify("addeffect", this, blueprint);
 	}
 
-	setState (state) {
-		
-	}
-
 	hasState (state) {
 
-		return false;
+		switch (state) {
+		case "armor": {
+			return this.eff.armor && this.eff.armor > 0;
+			break;
+		}
+		case "barrier": {
+			return this.eff.barrier && this.eff.barrier > 0;
+			break;
+		}
+		default: break;
+		}
+
+		return this.eff.states && this.eff.states[state];
+	}
+
+	setState (state, value) {
+
+		this.states = this.states || {};
+		this.game.notify("setstate.before", this, state, value);
+		this.states[state] = value;
+		this.game.notify("setstate", this, state, value);
 	}
 
 	heal (heal, src) {
@@ -158,6 +175,12 @@ export default class Hero {
 
 	destroy () {
 		
+		if (this.game.broadcaster.locked) {
+			this.sentenced = true;
+			return;
+		}
+
+		this.game.notify("herodestroy", this);
 	}
 
 	refresh () {
@@ -167,11 +190,31 @@ export default class Hero {
 
 	get eff () {
 
-		return this;
+		return this.effective || this;
 	}
 
 	update () {
 
+		// Copy base data
+		this.effective = this.serialize();
+		this.effective.model = this.model;
+
+		// Apply auras
+		this.game.auras.forEach(aura => {
+			if (aura.applicable(this))
+				this.effective = aura.apply(this.effective);
+		});
+
+		// Apply mutations
+		if (this.mutations)
+			this.effective = this.mutations.sort((a, b) => a.priority - b.priority).reduce((card, mut) => mut.apply(card), this.effective);
+
+		// Remove damage when removing HP mutations
+		let bonushp = Math.max(0, this.effective.hp - this.hp);
+		let diffhp = this.bonushp && this.bonushp > bonushp ? this.bonushp - bonushp : 0;
+		if (diffhp)
+			this.dmg -= Math.min(diffhp, this.dmg);
+		this.bonushp = bonushp ? bonushp : undefined;
 	}
 
 	serialize () {
@@ -179,6 +222,7 @@ export default class Hero {
 		return {
 			model: this.model.key,
 			dmg: this.dmg,
+			states: Object.assign({}, this.states),
 			colors: this.colors,
 			hp: this.hp,
 			level: this.level,
@@ -194,6 +238,7 @@ export default class Hero {
 		this.colors = data.colors;
 		this.hp = data.hp;
 		this.dmg = data.dmg;
+		this.states = data.states;
 		this.level = data.level;
 		this.skillUsed = data.skillUsed;
 		this.variables = data.variables ? data.variables.map(v => typeof v === 'object' ? game.find(v) : v) : undefined;

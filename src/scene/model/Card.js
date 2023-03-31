@@ -10,9 +10,12 @@ export default class Card {
 		this.game = game;
 		this.game.register(this, "card");
 		this.model = model;
-		this.reset();
+		this.reset(true);
 
 		this.game.notify("newcard", this, this.serialize());
+
+		if (this.blueprints[0])
+			Reader.read(this.blueprints[0], this);
 	}
 
 	get player () {
@@ -32,10 +35,12 @@ export default class Card {
 	get inDeck () { return this.location && this.location.id.type === "deck" }
 	get onField () { return this.location && this.location.id.type === "tile" }
 	get inCourt () { return this.location && this.location.id.type === "court" }
+	get destroyed () { return this.location && this.location.id.type === "graveyard" }
+	get banished () { return this.location && this.location.id.type === "nether" }
 
 	get currentHp () { return this.eff.hp === undefined ? undefined : this.eff.hp - this.dmg }
 
-	reset () {
+	reset (soft=false) {
 
 		this.passives = [];
 		this.handPassives = [];
@@ -51,7 +56,8 @@ export default class Card {
 		if (this.blueprint) {
 			this.blueprints.push(this.blueprint);
 			delete this.blueprint;
-			Reader.read(this.blueprints[0], this);
+			if (!soft)
+				Reader.read(this.blueprints[0], this);
 		}
 	}
 
@@ -80,7 +86,7 @@ export default class Card {
 
 	sendTo (location) {
 
-		if (this.location === location)
+		if (this.location === location || this.banished)
 			return this;
 
 		if (this.location && this.location.layer && location.layer && this.location.layer > location.layer) {
@@ -147,12 +153,11 @@ export default class Card {
 
 		if (heal <= 0)
 			return;
-		this.game.notify("heal.before", this, heal, src);
-		if (!this.dmg)
-			return;
-		heal = Math.min(this.dmg, heal);
-		this.dmg -= heal;
-		this.game.notify("heal", this, heal, src);
+		this.game.notify("heal.before", this, heal, src, 0);
+		let actualheal = Math.min(this.dmg, heal);
+		let overheal = heal - actualheal;
+		this.dmg -= actualheal;
+		this.game.notify("heal", this, actualheal, src, overheal);
 	}
 
 	get ghost () {
@@ -171,14 +176,15 @@ export default class Card {
 
 		let tile = this.location;
 		this.goto(this.player.graveyard);
+
+		this.game.notify("destroy", this);
+
 		if (this.hasState("undying") && !tile.isFull) {
 			let card = this.sendTo(tile);
 			card.setDamage(card.hp - 1);
 			card.setState("undying", false);
 			card.summon(tile);
 		}
-		
-		this.game.notify("destroy", this);
 	}
 
 	get inFront () {
@@ -212,8 +218,8 @@ export default class Card {
 			return false;
 		if (this.summoningSickness && !(this.hasState('agility') && this.findAttackTarget().isUnit))
 			return false;
-		if (this.inBack && !this.hasState("reach"))
-			return false;
+		//if (this.inBack && !this.hasState("reach"))
+		//	return false;
 		return true;
 	}
 
@@ -229,10 +235,17 @@ export default class Card {
 		if (target === this || (target.isUnit && !target.onField))
 			return;
 
+		let lock = !this.game.broadcaster.locked;
+		if (lock)
+			this.game.broadcaster.lock();
+
 		let atk = Math.max(0, this.eff.atk - (target.eff.armor || 0));
 		if (!this.hasState("initiative"))
 			target.ripost(this);
 		target.damage(atk, this);
+
+		if (lock)
+			this.game.broadcaster.unlock();
 	}
 
 	tryToAttack () {
@@ -299,8 +312,6 @@ export default class Card {
 
 		if (!this.onField)
 			return;
-		if (this.inBack)
-			this.location.switch();
 		this.attack();
 	}
 
@@ -349,7 +360,7 @@ export default class Card {
 		default: break;
 		}
 
-		return this.eff.states && this.eff.states[state];
+		return this.eff.states && this.eff.states[state] === true;
 	}
 
 	setState (state, value) {
@@ -431,6 +442,10 @@ export default class Card {
 			if (this.dmg)
 				this.dmg = 0;
 		}
+
+		if (this.ghost)
+			this.destroy();
+
 		this.game.notify("setstats", this, mana, atk, hp);
 	}
 
@@ -449,6 +464,9 @@ export default class Card {
 			this.atk += atk;
 		if (hp)
 			this.hp += hp;
+
+		if (this.ghost)
+			this.destroy();
 
 		this.game.notify("addstats", this, atk, hp);
 	}
@@ -488,6 +506,10 @@ export default class Card {
 		let chp = this.currentHp;
 		this.hp = this.model.hp;
 		this.dmg = Math.max(0, this.hp - chp);
+
+		if (this.ghost)
+			this.destroy();
+
 		this.game.notify("silence", this);
 	}
 

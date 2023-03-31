@@ -14,7 +14,7 @@ export default class DelayedTrigger extends Bloc {
 			Reader.read(blueprint, ins[0].hero);
 			return [];
 		};
-		this.types = [Types.player, Types.event, Types.bool, Types.player, Types.timestamp];
+		this.types = [Types.player, Types.event, Types.bool, Types.player, Types.timestamp, Types.int];
 		this.toPrepare.push("callback");
 	}
 
@@ -60,7 +60,10 @@ export default class DelayedTrigger extends Bloc {
 			}
 		})
 		listener.init(own => this.in[1]().subscribe((t,d) => {
-			if (this.in[2]({src: this.src, data: d})) {
+			let data = {};
+			let code = this.in[5] ? (this.in[5]({src: this.src}) || 0) : 0;
+			data[code] = d;
+			if (this.in[2]({src: this.src, data})) {
 				that.data = d;
 				listener.deactivate();
 				owner.blueprints.splice(owner.blueprints.findIndex(b => JSON.stringify(b) === JSON.stringify(blueprint)), 1);

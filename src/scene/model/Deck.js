@@ -36,10 +36,7 @@ export default class Deck extends Location {
 			return;
 
 		let card = filter ? this.cards.find(filter) : this.cards[0];
-		if (card) {
-			this.removeCard(card);
-			this.game.notify("draw", card, this);
-		}
+		
 		return card;
 	}
 }

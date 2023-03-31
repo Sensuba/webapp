@@ -577,6 +577,15 @@
 	margin-top: 0;
 }
 
+.cards-page .sensuba-card, .cards-page .sensuba-deck, .cards-page .sensuba-hero {
+
+   -webkit-transform: translateZ(0);
+   -moz-transform: translateZ(0);
+   -ms-transform: translateZ(0);
+   -o-transform: translateZ(0);
+   transform: translateZ(0);
+}
+
 @media (min-width: 601px) {
 
 	.cards-page .card-list {

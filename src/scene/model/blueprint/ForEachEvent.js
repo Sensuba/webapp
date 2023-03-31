@@ -27,7 +27,7 @@ export default class ForEachEvent extends Bloc {
 				this.completed.execute(props);
 			return;
 		}
-		this.types = [Types.event, Types.period, Types.bool];
+		this.types = [Types.event, Types.period, Types.bool, Types.int];
 		this.toPrepare.push("for each");
 		this.toPrepare.push("completed");
 	}
@@ -49,7 +49,9 @@ export default class ForEachEvent extends Bloc {
 			if (log.type === "newturn")
 				c = [];
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
+			nprops.data = nprops.data || {};
+			let code = this.in[3] ? (this.in[3]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, log.data) && this.in[2](nprops))
 				c.push(log);
 		})
@@ -69,7 +71,9 @@ export default class ForEachEvent extends Bloc {
 			if (you)
 				return;
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
+			nprops.data = nprops.data || {};
+			let code = this.in[3] ? (this.in[3]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, log.data) && this.in[2](nprops))
 				c.push(log);
 		})
@@ -83,7 +87,9 @@ export default class ForEachEvent extends Bloc {
 			if (log.type === "newturn" && log.data[0].id.no !== this.src.player.id.no)
 				c = [];
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
+			nprops.data = nprops.data || {};
+			let code = this.in[3] ? (this.in[3]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, log.data) && this.in[2](nprops))
 				c.push(log);
 		})
@@ -104,7 +110,9 @@ export default class ForEachEvent extends Bloc {
 			if (!you)
 				return;
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
+			nprops.data = nprops.data || {};
+			let code = this.in[3] ? (this.in[3]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, log.data) && this.in[2](nprops))
 				n.push(log);
 		})
@@ -115,7 +123,9 @@ export default class ForEachEvent extends Bloc {
 
 		return event.game.broadcaster.log.filter(log => {
 			let nprops = Object.assign({}, props);
-			nprops.data = log.data;
+			nprops.data = nprops.data || {};
+			let code = this.in[3] ? (this.in[3]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			return event.check(log.type, log.data) && this.in[2](nprops)
 		});
 	}

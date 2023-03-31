@@ -88,7 +88,15 @@ export default class Game {
 
 	notify (type, ...data) {
 
-		this.broadcaster.notify(type, data);
+		switch (type) {
+		case "herodestroy":
+			this.stop();
+			this.broadcaster.trigger(type, data);
+			break;
+		default:
+			this.broadcaster.notify(type, data);
+			break;
+		}
 	}
 
 	update () {

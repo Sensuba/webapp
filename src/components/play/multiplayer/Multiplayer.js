@@ -7,6 +7,7 @@ import Deck from '../../cards/Deck';
 import Flowers from '../../other/flowers/Flowers';
 import StoryText from '../../text/StoryText';
 import SocketManager from '../../../SocketManager';
+import Scene from '../../../scene/Scene';
 
 import { read } from '../../../TextManager';
 
@@ -18,17 +19,20 @@ export default class Multiplayer extends Component {
 
     let activeDeck = localStorage.getItem('activedeck');
     let decks = JSON.parse(localStorage.getItem('decks')).filter(deck => deck.body.cards.length === 30).sort((a, b) => a.deckname > b.deckname ? 1 : -1);
+    if (activeDeck && !decks.some(deck => deck.key === activeDeck)) {
+      localStorage.removeItem('activedeck')
+      activeDeck = null;
+    }
     if (!activeDeck) {
       if (decks.length > 0)
         localStorage.setItem('activedeck', decks[0].key);
       activeDeck = decks.length > 0 ? decks[0].key : undefined;
-    } else if (decks.length < 0)
-      localStorage.removeItem('activedeck')
-
+    }
     this.state = {
       decks,
       deck: decks.filter(deck => deck.key === activeDeck)[0],
-      mode: "unranked"
+      mode: "unranked",
+      game: false
     }
   }
 
@@ -36,12 +40,15 @@ export default class Multiplayer extends Component {
 
     let activeDeck = localStorage.getItem('activedeck');
     let decks = JSON.parse(localStorage.getItem('decks')).filter(deck => deck.body.cards.length === 30).sort((a, b) => a.deckname > b.deckname ? 1 : -1);
+    if (activeDeck && !decks.some(deck => deck.key === activeDeck)) {
+      localStorage.removeItem('activedeck')
+      activeDeck = null;
+    }
     if (!activeDeck) {
       if (decks.length > 0)
         localStorage.setItem('activedeck', decks[0].key);
       activeDeck = decks.length > 0 ? decks[0].key : undefined;
-    } else if (decks.length < 0)
-      localStorage.removeItem('activedeck')
+    }
 
     this.setState({decks, deck: decks.filter(deck => deck.key === activeDeck)[0]})
   }
@@ -57,6 +64,25 @@ export default class Multiplayer extends Component {
   }
 
   render () {
+
+    if (this.state.game)
+      return (
+      <div className="main-page game-page">
+        <Nav concede={ this.state.concede }/>
+        <Scene setConcede={concede => this.setState({concede})} back={() => {
+          if (!this.started)
+            return;
+          this.started = false;
+          this.concede = null;
+          document.getElementsByClassName("main-page")[0].classList.add("fade-out");
+          setTimeout(() => {
+            document.getElementsByClassName("main-page")[0].classList.remove("fade-out");
+            this.setState({game: false});
+          }, 500);
+          
+        }}/>
+      </div>
+    );
 
     return (
       <div className="main-page multiplayer-page">
@@ -94,7 +120,16 @@ export default class Multiplayer extends Component {
                 <StoryText>{ read('messages/nodeck') }</StoryText>
               </div>
             }
-            { this.state.deck ? <MainButton to="/game">{ read('nav/enter') }</MainButton> : "" }
+            { this.state.deck ? <MainButton onClick={() => {
+              if (this.started)
+                return;
+              this.started = true;
+              document.getElementsByClassName("main-page")[0].classList.add("fade-out");
+              setTimeout(() => {
+                document.getElementsByClassName("main-page")[0].classList.remove("fade-out");
+                this.setState({game: true});
+              }, 500);
+          }}>{ read('nav/enter') }</MainButton> : "" }
           </div>
           {/*<Deck src={this.state.deck}/>
           <div className="deck-list-carousel">

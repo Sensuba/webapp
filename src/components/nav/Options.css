@@ -56,6 +56,8 @@
 .options-row {
 
 	justify-content: space-between;
+	margin-top: 0.2em;
+	margin-bottom: 0.2em;
 }
 
 .options-row .options-param {
@@ -121,6 +123,36 @@
 	color: #ab9576;
 }
 
+.options-audio-tick {
+
+	height: 100%;
+	width: 0.8em;
+	cursor: pointer;
+	position: relative;
+}
+
+.options-audio-tick::after {
+
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: calc(100% - 0.2em);
+	width: calc(100% - 0.2em);
+	margin: 0.1em;
+	background: #7f7a6a;
+}
+
+.options-audio-tick.audio-tick-active::after {
+
+	background: #f1a635;
+}
+
+.options-audio-tick:nth-child(1)::after {
+
+	background: #101010;
+}
+
 .options-warning {
 
 	font-size: 1rem;
@@ -137,12 +169,10 @@
 
 	margin: auto;
 	margin-top: 1rem;
-	display: none;
 }
 
 .game-page .concede-button {
 
-	display: inherit;
 }
 
 @media (max-width: 600px) {

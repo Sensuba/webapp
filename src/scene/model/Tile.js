@@ -77,8 +77,8 @@ export default class Tile extends Location {
 
 		if (this.unitCount <= 1)
 			return false;
-		if (this.units.some(u => u.actioned || u.hasState('trap')))
-			return false;
+		//if (this.units.some(u => u.actioned || u.hasState('trap')))
+		//	return false;
 		return true;
 	}
 

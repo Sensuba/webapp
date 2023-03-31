@@ -360,6 +360,20 @@
 	margin-left: 0.7em;
 }
 
+.portals-page-craftcard .cost {
+
+	font-size: 0.8em;
+	margin-left: 0.7em;
+	align-items: center;
+}
+
+.portals-page-craftcard .cost .shards-icon {
+
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-top: unset;
+}
+
 .portal-focus-button .runes-icon {
 
 	height: 0.8em;
@@ -465,6 +479,31 @@
 
 	width: 8em;
 	height: 6em;
+}
+
+.portals-page .portals-page-craftcard {
+	
+	position: absolute;
+	top: calc(50% + 10rem);
+	left: calc(50% - 6.5rem - 2px);
+	width: 13rem;
+	height: 3rem;
+	z-index: 1001;
+	justify-content: center;
+	border-radius: 1rem;
+	overflow: hidden;
+	border: 2px solid white;
+	font-size: 1.4rem;
+	line-height: 3rem;
+	background: linear-gradient(to bottom, #6693e1, #3e6bb9);
+	color: #edeae4;
+	cursor: pointer;
+}
+
+.portals-page .portals-page-craftcard:active {
+	
+	background: linear-gradient(to bottom, #7d92b8, #475e86);
+	color: #c8c5be;
 }
 
 
@@ -662,5 +701,13 @@
 		line-height: 2.5rem;
 		margin-left: 1rem;
 		margin-right: 1rem;
+	}
+
+	.portals-page .portals-page-craftcard {
+
+	    top: calc(50% + 14rem);
+	    left: calc(50% - 7.5rem - 2px);
+	    width: 15rem;
+	    font-size: 1.5rem;
 	}
 }

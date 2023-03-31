@@ -136,7 +136,7 @@
     -webkit-text-stroke-color: #228c97;
 }
 
-.game-unit.game-unit-actioned {
+.game-unit.game-unit-sickness {
 
 	filter: grayscale(0.5) brightness(0.6);
 }
@@ -148,11 +148,11 @@
 .game-unit .game-exalted {
 
   position: absolute;
-  top: 0.4em;
-  left: 0.4em;
+  top: 0em;
+  left: 0em;
   font-size: 1em;
-	width: 7.5em;
-  height: 5.5em;
+  width: 8.3em;
+  height: 6.3em;
     border-radius: 3.5vw;
   animation: game-exalted 7s infinite linear;
 }
@@ -163,6 +163,46 @@
   50% { background: rgba(255, 255, 255, 0); box-shadow: 0px 0px 1em 0.4em rgba(225,225,225,0); }
   80% { background: rgba(205, 255, 255, 0.4); box-shadow: 0px 0px 1em 0.4em rgba(185,225,225,0.8); }
   100% { background: rgba(255, 255, 255, 0); box-shadow: 0px 0px 1em 0.4em rgba(225,225,225,0); }
+}
+
+
+
+
+
+.game-unit.game-unit-sickness.state-agility {
+
+  filter: none;
+}
+
+.game-unit.game-unit-actioned.state-agility {
+
+  filter: grayscale(0.5) brightness(0.6);
+}
+
+.game-unit.game-unit-sickness .game-agility {
+
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  font-size: 1em;
+  width: 8.4em;
+  height: 6.4em;
+    border-radius: 3.5vw;
+  animation: game-agility 7s infinite linear;
+  transition: opacity 0.3s;
+}
+
+.game-unit.game-unit-actioned .game-agility {
+
+  opacity: 0;
+}
+
+@keyframes game-agility {
+  0% { background: rgba(150, 210, 150, 0.1); box-shadow: 0px 0px 1em 0.4em rgba(175,255,175,0.4); }
+  20% { background: rgba(150, 210, 150, 0.3); box-shadow: 0px 0px 1em 0.4em rgba(175,255,175,0.8); }
+  50% { background: rgba(150, 210, 150, 0.1); box-shadow: 0px 0px 1em 0.4em rgba(175,255,175,0.4); }
+  80% { background: rgba(150, 210, 150, 0.3); box-shadow: 0px 0px 1em 0.4em rgba(175,255,175,0.8); }
+  100% { background: rgba(150, 210, 150, 0.1); box-shadow: 0px 0px 1em 0.4em rgba(175,255,175,0.4); }
 }
 
 
@@ -340,47 +380,6 @@
 
 
 
-@media (min-width: 601px) {
-
-  .game-unit {
-
-   font-size: 0.95em; 
-  }
-
-	.game-unit .card-image-wrapper {
-
-		border-radius: 3.5vh;
-	}
-	
-	.game-unit .game-shield {
-
-		border-radius: 3.5vh;
-  }
-	
-	.game-unit .game-undying {
-
-		border-radius: 3.5vh;
-  }
-	
-	.game-unit .game-freeze {
-
-		border-radius: 3.5vh;
-  }
-
-  @keyframes card-target-shadow {
-    from { box-shadow: 0 0 0.9em 0.4rem #aa0000; }
-    to { box-shadow: 0 0 0.9em 0.55rem #aa0000; }
-  }
-
-  .game-animmask {
-
-    border-radius: 3.5vh;
-  }
-}
-
-
-
-
 
 
 .game-unit .game-lastwill {
@@ -402,4 +401,51 @@
   width: 2.5em;
   height: 2.5em;
   object-fit: contain;
+}
+
+
+
+
+
+@media (min-width: 601px) {
+
+  .game-unit {
+
+   font-size: 0.95em; 
+  }
+
+	.game-unit .card-image-wrapper {
+
+		border-radius: 3.5vh;
+	}
+	
+	.game-unit .game-shield {
+
+		border-radius: 3.5vh;
+  }
+	
+	.game-unit .game-undying {
+
+		border-radius: 3.5vh;
+  }
+  
+  .game-unit .game-freeze {
+
+    border-radius: 3.5vh;
+  }
+  
+  .game-unit.game-unit-sickness .game-agility {
+
+    border-radius: 3.5vh;
+  }
+
+  @keyframes card-target-shadow {
+    from { box-shadow: 0 0 0.9em 0.4rem #aa0000; }
+    to { box-shadow: 0 0 0.9em 0.55rem #aa0000; }
+  }
+
+  .game-animmask {
+
+    border-radius: 3.5vh;
+  }
 }

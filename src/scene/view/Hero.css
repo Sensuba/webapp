@@ -63,6 +63,21 @@
     font-family: Impact;
 }
 
+
+
+.game-hero .game-exalted {
+
+  position: absolute;
+  z-index: 1;
+  top: 0em;
+  left: 0em;
+  font-size: 1em;
+  width: 8em;
+  height: 6em;
+    border-radius: 50%;
+  animation: game-exalted 7s infinite linear;
+}
+
 @media (min-width: 601px) {
 
 	.game-hero {

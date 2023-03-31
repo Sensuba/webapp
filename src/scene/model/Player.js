@@ -110,7 +110,11 @@ export default class Player {
 		}
 		else if (this.hand.isFull)
 			card.banish();
-		else this.hand.addCard(card);
+		else {
+			this.game.notify("draw.before", this, card);
+			this.hand.addCard(card);
+			this.game.notify("draw", this, card);
+		}
 		if (n > 1)
 			this.draw(n-1, filter);
 		else return card;

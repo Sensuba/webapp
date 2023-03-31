@@ -7,7 +7,7 @@ export default class FindCard extends Bloc {
 
 		super("findcard", src, ctx);
 		this.f = (src, ins) => {
-			var items = ins[0].map(loc => loc.cards).reduce((acc, el) => acc.concat(el)).filter(card => !ins[1] || ins[1](src, card));
+			var items = ins[0].map(loc => loc.cards).reduce((acc, el) => acc.concat(el), []).filter(card => !ins[1] || ins[1](src, card));
 			var item = items.length > 0 ? items[Math.floor(Math.random()*items.length)] : null;
 			return [item, item !== null];
 		};

@@ -294,7 +294,7 @@ export default class SocketManager {
 	onReward (type, data, main=true) {
 
 		switch (type) {
-		case "openportal":
+		case "openportal": {
 			let newcards = data.filter(d => d.type === "card").map(d => d.key);
 			let collection;
 			if (newcards.length > 0) {
@@ -319,6 +319,7 @@ export default class SocketManager {
 					setTimeout(() => this.onCreditUpdate(user.runes, user.shards), 100);
 			}
 			break;
+		}
 		default: break;
 		}
 	}

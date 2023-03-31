@@ -1,3 +1,5 @@
+import { play } from '../../../SoundManager';
+
 export default class Animation {
 
 	constructor (master, time, before, callback) {
@@ -10,8 +12,7 @@ export default class Animation {
 
 	loadAudio (name, delay) {
 
-		this.audio = new Audio("/audio/sfx/" + name + ".ogg");
-		this.audio.setAttribute("type", "audio/ogg");
+		this.audio = name;
 		if (delay)
 			this.audioDelay = delay;
 	}
@@ -20,14 +21,10 @@ export default class Animation {
 		
 		if (this.audioDelay)
 			setTimeout(() => {
-				if (!this.master.mute && this.audio) {
-					this.audio.volume = this.master.volume;
-					this.audio.play();
-				}
+				play(this.audio, 'sfx', 'scene');
 			}, this.audioDelay)
-		else if (!this.master.mute && this.audio) {
-			this.audio.volume = this.master.volume;
-			this.audio.play();
+		else if (this.audio) {
+			play(this.audio, 'sfx', 'scene');
 		}
 		this.run();
 

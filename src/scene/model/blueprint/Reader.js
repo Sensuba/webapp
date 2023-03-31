@@ -60,6 +60,7 @@ import Adjacents from './Adjacents.js';
 
 import CompareCards from './CompareCards.js';
 import CompareLocations from './CompareLocations.js';
+import CompareTiles from './CompareTiles.js';
 import ComparePlayers from './ComparePlayers.js';
 import CountCards from './CountCards.js';
 import CountTiles from './CountTiles.js';
@@ -79,6 +80,7 @@ import MergeMutations from './MergeMutations.js';
 import CheckCard from './CheckCard.js';
 import CheckTile from './CheckTile.js';
 import CheckColumn from './CheckColumn.js';
+import CheckLocation from './CheckLocation.js';
 import ColumnSide from './ColumnSide.js';
 import ColumnTiles from './ColumnTiles.js';
 import AdjacentTiles from './AdjacentTiles.js';
@@ -208,6 +210,7 @@ export default class Reader {
 
 			case "cmpcards": bloc = new CompareCards(card, ctx); break;
 			case "cmplocations": bloc = new CompareLocations(card, ctx); break;
+			case "cmptiles": bloc = new CompareTiles(card, ctx); break;
 			case "cmpplayers": bloc = new ComparePlayers(card, ctx); break;
 			case "countcards": bloc = new CountCards(card, ctx); break;
 			case "counttiles": bloc = new CountTiles(card, ctx); break;
@@ -227,6 +230,7 @@ export default class Reader {
 			case "checkcard": bloc = new CheckCard(card, ctx); break;
 			case "checktile": bloc = new CheckTile(card, ctx); break;
 			case "checkcolumn": bloc = new CheckColumn(card, ctx); break;
+			case "checkloc": bloc = new CheckLocation(card, ctx); break;
 			case "columnside": bloc = new ColumnSide(card, ctx); break;
 			case "columntiles": bloc = new ColumnTiles(card, ctx); break;
 			case "adjacenttiles": bloc = new AdjacentTiles(card, ctx); break;
@@ -291,6 +295,8 @@ export default class Reader {
 			case "play-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1], data[2], data[2]]); break;
 			case "damage-trigger": bloc = new Trigger(el.type, card, ctx, "damage"); break;
 			case "damage-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[2], data[1]]); break;
+			case "heal-trigger": bloc = new Trigger(el.type, card, ctx, "heal"); break;
+			case "heal-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[2], data[1], data[3]]); break;
 			case "destroy-trigger": bloc = new Trigger(el.type, card, ctx, "destroy"); break;
 			case "destroy-data": bloc = new Data(el.type, card, ctx, data => [data[0]]); break;
 			case "attack-trigger": bloc = new Trigger(el.type, card, ctx, "attack"); break;

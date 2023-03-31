@@ -6,6 +6,7 @@
 	width: 100vw;
 	position: relative;
 	background: linear-gradient(-10deg, #ebe1ae10, #f0ecda20, #00000010), radial-gradient(circle at 10% 10%, #dff0da10, transparent);
+	transition: filter 2s;
 }
 
 .scene .game-hand {
@@ -300,6 +301,114 @@
 	position: absolute;
 	z-index: 100;
 	pointer-events: none;
+}
+
+.endgame-screen {
+
+	position: fixed;
+	z-index: 1200;
+	top: -25vh;
+	left: 0;
+	height: 150vh;
+	width: 100vw;
+	background: linear-gradient(to bottom, transparent, #00bdff80 50%, transparent);
+	animation: endgame-enter 1s ease-in-out 1;
+	justify-content: center;
+	align-items: center;
+}
+
+.endgame-screen.defeat-screen {
+
+	background: linear-gradient(to bottom, transparent, #ff001f80 50%, transparent);
+}
+
+.endgame-screen.error-screen {
+
+	background: linear-gradient(to bottom, transparent, #51515180 50%, transparent);
+}
+
+@keyframes endgame-enter {
+
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+.endgame-screen .endgame-title {
+
+	position: relative;
+}
+
+.endgame-screen .endgame-letter {
+
+	opacity: 0;
+	font-size: 4rem;
+	animation: endgame-enter 1s ease-in-out 1;
+	animation-fill-mode: forwards;
+	font-style: italic;
+	font-weight: bold;
+	color: #0a0a21A0;
+}
+
+.endgame-screen.defeat-screen .endgame-letter {
+
+	color: #210a0aA0;
+}
+
+.endgame-screen.error-screen .endgame-letter {
+
+	color: #0d0d0da0;
+}
+
+.endgame-screen .endgame-runes {
+
+	position: absolute;
+	top: 6rem;
+	left: calc(50% - 5rem);
+	width: 10rem;
+	justify-content: center;
+	font-size: 2rem;
+	line-height: 2rem;
+	font-style: italic;
+	color: #edeae4;
+	text-shadow: 0.1rem 0.1rem 0px #00000080;
+	opacity: 0;
+	animation: endgame-enter 1s ease-in-out 1;
+	animation-delay: 1.5s;
+	animation-fill-mode: forwards;
+}
+
+.endgame-screen.defeat-screen .endgame-runes {
+
+	color: #edeae4;
+}
+
+.endgame-screen.error-screen .endgame-runes {
+
+	color: #edeae4;
+}
+
+.endgame-screen .endgame-runes .runes-icon {
+
+	margin-left: 0.5rem;
+	margin-top: 0.25rem;
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.endgame-scene .scene {
+
+	filter: grayscale(0.5) brightness(0.5);
+}
+
+.scene-wrapper {
+
+	background: #00000000;
+	transition: background 2s;
+}
+
+.scene-wrapper.endgame-scene {
+
+	background: #00000080;
 }
 
 @media (min-width: 601px) {

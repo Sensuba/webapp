@@ -17,18 +17,22 @@ export default class Logs extends Component {
     switch (n.type) {
     case "startup": {
       log.main = true;
+    }
+    case "endturn": {
       log.text = n.data[0].no === parseInt(this.props.player.id.no, 10) ? read('logs/you' + n.type) : read('logs/enemy' + n.type);
       break;
     }
     case "damage":
+    case "heal":
+    case "listener":
     case "destroy":
     case "summon":
     case "attack":
     case "silence":
     {
       let card = this.props.model.find(n.data[0]);
-      log.text = card.player === this.props.player ? read('logs/you' + n.type) : read('logs/enemy' + n.type + (card.isHero ? 'hero' : ''));
-      log.small = true;console.log(log)
+      log.text = card.player === this.props.player ? read('logs/you' + n.type + (card.isHero ? 'hero' : '')) : read('logs/enemy' + n.type + (card.isHero ? 'hero' : ''));
+      log.small = true;
       break;
     }
     case "leveluptrigger.before":
@@ -65,7 +69,11 @@ export default class Logs extends Component {
         let el = match.slice(1, -1);
         splits.push(<span key={i+"a"}>{ texts[i] }</span>);
         if (match[0] === '{') {
-          if (isNaN(log.n.data[el])) {
+          if (el === "skill") {
+            let player = this.props.model.find(log.n.data[0]);
+            let skill = player.hero.model.abilities[(log.n.data[3]-2)*2+log.n.data[1]];
+            splits.push(<span onClick={() => this.props.focus(skill)} key={i} className="token" id={'effect-' + i}>{ skill.name }</span>);
+          } else if (isNaN(log.n.data[el])) {
             let data = this.props.model.find(log.n.data[el]);
             switch (log.n.data[el].type) {
             case "card": {

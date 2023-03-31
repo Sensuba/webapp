@@ -21,7 +21,7 @@ export default class Analyse extends Bloc {
 			}
 			return [count > 0, count];
 		}
-		this.types = [Types.event, Types.period, Types.bool, Types.int];
+		this.types = [Types.event, Types.period, Types.bool, Types.int, Types.int];
 	}
 
 	execute (props) {
@@ -47,7 +47,9 @@ export default class Analyse extends Bloc {
 			if (log.type === "newturn")
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = data;
+			nprops.data = nprops.data || {};
+			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
@@ -64,7 +66,9 @@ export default class Analyse extends Bloc {
 			if (log.type === "newturn" && data[0].id.no !== this.src.player.id.no)
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = data;
+			nprops.data = nprops.data || {};
+			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
@@ -88,7 +92,9 @@ export default class Analyse extends Bloc {
 			if (!you)
 				return;
 			let nprops = Object.assign({}, props);
-			nprops.data = data;
+			nprops.data = nprops.data || {};
+			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				n += add === null || add === undefined ? 1 : add;
@@ -111,7 +117,9 @@ export default class Analyse extends Bloc {
 			if (!you)
 				return;
 			let nprops = Object.assign({}, props);
-			nprops.data = data;
+			nprops.data = nprops.data || {};
+			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
@@ -128,7 +136,9 @@ export default class Analyse extends Bloc {
 			if (log.type === "newturn" && data[0].id.no === this.src.player.id.no)
 				c = 0;
 			let nprops = Object.assign({}, props);
-			nprops.data = data;
+			nprops.data = nprops.data || {};
+			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
@@ -142,7 +152,9 @@ export default class Analyse extends Bloc {
 		return event.game.broadcaster.log.reduce((acc, log) => {
 			let nprops = Object.assign({}, props);
 			let data = this.getData(log);
-			nprops.data = data;
+			nprops.data = nprops.data || {};
+			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
+			nprops.data[code] = log.data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				return acc + (add === null || add === undefined ? 1 : add);
