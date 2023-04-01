@@ -206,6 +206,19 @@ export default class Scene extends Component {
 
   deselect () {}
 
+  commandElement (query) {
+
+    if (this.cmdElement) {
+      this.cmdElement.classList.remove("active");
+      this.cmdElement = null;
+    }
+    if (!query)
+      return;
+    let el = document.querySelector(query);
+    el.classList.add("active");
+    this.cmdElement = el;
+  }
+
   updateDragStyle (e) {
 
     let touching = e.touches !== undefined;
@@ -269,28 +282,40 @@ export default class Scene extends Component {
 
     if (col === this.grabbing.location.x) {
       if (opposite) {
-        if (this.state.command !== "attack")
+        if (this.state.command !== "attack" && this.grabbing.canAttack) {
           this.setState({command: "attack"});
+          this.commandElement("#column-" + col + " .game-attack-action");
+        }
       } else {
         let units = document.elementsFromPoint(x, y).filter(el => el.classList.contains("game-unit"));
         let cardno = units.length > 0 ? parseInt(units[0].getAttribute("card-no"), 10) : undefined;
         let switchcommand = cardno && cardno !== this.grabbing.id.no.toString();
         if (switchcommand) {
-          if (this.state.command !== "switch")
+          if (this.state.command !== "switch") {
             this.setState({command: "switch"});
+            this.commandElement(null);
+          }
         } else {
-          if (this.state.command)
+          if (this.state.command) {
             this.setState({command: undefined});
+            this.commandElement(null);
+          }
         }
       }
     } else if (!opposite && col < this.grabbing.location.x) {
-      if (this.state.command !== "moveleft")
+      if (this.state.command !== "moveleft") {
         this.setState({command: "moveleft"});
+        this.commandElement(null);
+      }
     } else if (!opposite && col > this.grabbing.location.x) {
-      if (this.state.command !== "moveright")
+      if (this.state.command !== "moveright") {
         this.setState({command: "moveright"});
-    } else if (this.state.command)
+        this.commandElement(null);
+      }
+    } else if (this.state.command) {
         this.setState({command: undefined});
+        this.commandElement(null);
+    }
   }
 
   drag (e) {
@@ -315,6 +340,7 @@ export default class Scene extends Component {
   dragEnd (e, cancel=false) {
 
   	this.grabbing = null;
+    this.commandElement(null);
   	if (this.state.dragged || this.state.commanding)
   		this.setState({dragged: null, commanding: null, target: undefined, command: undefined});
     if (cancel)

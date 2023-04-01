@@ -411,6 +411,44 @@
 	background: #00000080;
 }
 
+.scene .game-attack-action {
+
+	position: absolute;
+	top: 0;
+	left: 0%;
+	width: 80%;
+	height: 70%;
+	pointer-events: none;
+	margin: 12vw 10%;
+	opacity: 0;
+	transition: opacity 0.1s;
+	filter: drop-shadow(#00000060 0.15rem 0.15rem) brightness(0.8);
+	flex-direction: column-reverse;
+}
+
+.scene .game-attack-action.active {
+
+	opacity: 0.8;
+}
+
+.scene .game-attack-action img {
+
+	object-fit: fill;
+	width: 100%;
+	height: 100%;
+}
+
+.scene .game-attack-action.active img {
+
+	animation: game-attack-slide 0.3s;
+}
+
+@keyframes game-attack-slide {
+
+	from { height: 0%; opacity: 0 }
+	to { height: 100%; opacity: 1 }
+}
+
 @media (min-width: 601px) {
 
 	.scene .game-area-data {
@@ -464,6 +502,12 @@
 	    font-size: 1.9vh;
 	    left: 3vh;
 	    bottom: 13.75vh;
+	}
+
+	.scene .game-attack-action {
+
+		width: 60%;
+		margin: 8.4vh 20%;
 	}
 }
 

@@ -12,6 +12,7 @@ export default class Field extends Component {
       {
         [0, 1, 2, 3, 4].map(c => 
           <div column={c}
+          id={"column-" + c}
           className={"game-field-column" + (this.props.targeting ? 
             (this.props.target && this.props.target.type === "column" && this.props.target.data === c && this.props.targetable({type: "column", data: c}, true) ?
               " game-field-column-target" : (this.props.targetable({type: "column", data: c}, false) ? " game-field-column-targetable" : "")
@@ -33,6 +34,8 @@ export default class Field extends Component {
             }
           </div>)
           }
+          
+          <div className="game-attack-action"><img alt="attack-action" src="/images/arrowaction.png"/></div>
         </div>)
       }
       </div>
