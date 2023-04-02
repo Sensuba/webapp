@@ -11,9 +11,9 @@ export default class Target extends Animation {
 
 	run () {
 
-		var el = document.getElementById("sensuba-card-" + this.card);
+		var el = document.getElementById("sensuba-" + this.card.type + "-" + this.card.no);
 		if (el) {
-			el.classList.add("sensuba-card-target");
+			setTimeout(() => el.classList.add("sensuba-card-target"), 10);
 			setTimeout(() => el.classList.remove("sensuba-card-target"), 1200);
 		}
 	}

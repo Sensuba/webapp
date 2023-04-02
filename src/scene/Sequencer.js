@@ -125,19 +125,22 @@ export default class Sequencer {
 	    	return new Heal(this.master, n.data[0], n.data[1]);
 	    }
 	    case "listener": {
-	    	return new Listener(this.master, n.data[0].no);
+	    	return new Listener(this.master, n.data[0]);
+	    }
+	    case "burst": {
+	    	return new Wait(this.master, 100);
 	    }
 		case "cast.before": {
-		    return n.data[2] && n.data[2].type === "card" ? new Target(this.master, n.data[2].no) : new Wait(this.master, 1000);
+		    return n.data[2] && (n.data[2].type === "card" || n.data[2].type === "hero") ? new Target(this.master, n.data[2]) : new Wait(this.master, 1000);
 		}
 		/*case "playcard": {
 			return null;
 		}*/
 		case "skilltrigger.before": {
-			return n.data[2] && n.data[2].type === "card" ? new Target(this.master, n.data[2].no) : new Wait(this.master, 1000);
+			return n.data[2] && (n.data[2].type === "card" || n.data[2].type === "hero") ? new Target(this.master, n.data[2]) : new Wait(this.master, 1000);
 		}
 		case "playtarget.before": {
-			return n.data[2] && n.data[2].type === "card" ? new Target(this.master, n.data[2].no) : null;
+			return n.data[2] && (n.data[2].type === "card" || n.data[2].type === "hero") ? new Target(this.master, n.data[2]) : null;
 		}
 	    case "movecard": {
 	    	if (n.data[2] && n.data[2].type === "hand") {

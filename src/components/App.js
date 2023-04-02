@@ -55,7 +55,7 @@ export default class App extends Component {
       return <div className="app"/>;
 
     if (!this.state.connected && !offlineMode)
-      return <div className="app"><Error>{ read('messages/connecterror') }</Error></div>;
+      return <div className="app"><Error startup={1000}>{ read('messages/connecterror') }</Error></div>;
 
     return (
       <div className="app">

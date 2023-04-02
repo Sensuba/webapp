@@ -113,6 +113,7 @@ import BreakCard from './BreakCard.js';
 import BreakTile from './BreakTile.js';
 import BreakLocation from './BreakLocation.js';
 import BreakPlayer from './BreakPlayer.js';
+import BaseStats from './BaseStats.js';
 
 import If from './If.js';
 import Loop from './Loop.js';
@@ -261,6 +262,7 @@ export default class Reader {
 			case "brktile": bloc = new BreakTile(card, ctx); break;
 			case "brklocation": bloc = new BreakLocation(card, ctx); break;
 			case "brkplayer": bloc = new BreakPlayer(card, ctx); break;
+			case "basestats": bloc = new BaseStats(card, ctx); break;
 
 			case "if": bloc = new If(card, ctx); break;
 			case "loop": bloc = new Loop(card, ctx); break;

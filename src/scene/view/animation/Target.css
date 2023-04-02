@@ -14,12 +14,18 @@
   z-index: 100;
 	animation: tile-target-size 1.2s 1, tile-target-opacity 1.2s 1, tile-target-rotation 1.2s 1 linear;
   filter: drop-shadow(0.2rem 0.2rem #00000060);
+  font-size: 1.1em;
+}
+
+.game-hero.sensuba-card-target::after {
+
+  font-size: 0.9em;
 }
 
 @keyframes tile-target-size {
   0% {height: 11.5em; width: 11.5em; margin: 0.25em;}
   17% {height: 11em; width: 11em; margin: 0.5em;}
-  50% {height: 12vw; width: 12em; margin: 0em;}
+  50% {height: 12em; width: 12em; margin: 0em;}
   83% {height: 11em; width: 11em; margin: 0.5em;}
   100% {height: 11.5em; width: 11.5em; margin: 0.25em;}
 }

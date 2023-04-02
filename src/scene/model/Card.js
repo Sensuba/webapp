@@ -162,7 +162,7 @@ export default class Card {
 
 	get ghost () {
 
-		return this.onField && (this.dmg >= this.eff.hp || this.sentenced);
+		return this.onField && ((this.dmg || 0) >= this.eff.hp || this.sentenced);
 	}
 
 	destroy () {

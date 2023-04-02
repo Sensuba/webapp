@@ -49,12 +49,12 @@ export default class Analyse extends Bloc {
 			let nprops = Object.assign({}, props);
 			nprops.data = nprops.data || {};
 			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
-			nprops.data[code] = log.data;
+			nprops.data[code] = data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
 			}
-		})
+		});
 		return c;
 	}
 
@@ -68,7 +68,7 @@ export default class Analyse extends Bloc {
 			let nprops = Object.assign({}, props);
 			nprops.data = nprops.data || {};
 			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
-			nprops.data[code] = log.data;
+			nprops.data[code] = data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
@@ -94,7 +94,7 @@ export default class Analyse extends Bloc {
 			let nprops = Object.assign({}, props);
 			nprops.data = nprops.data || {};
 			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
-			nprops.data[code] = log.data;
+			nprops.data[code] = data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				n += add === null || add === undefined ? 1 : add;
@@ -119,7 +119,7 @@ export default class Analyse extends Bloc {
 			let nprops = Object.assign({}, props);
 			nprops.data = nprops.data || {};
 			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
-			nprops.data[code] = log.data;
+			nprops.data[code] = data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
@@ -138,7 +138,7 @@ export default class Analyse extends Bloc {
 			let nprops = Object.assign({}, props);
 			nprops.data = nprops.data || {};
 			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
-			nprops.data[code] = log.data;
+			nprops.data[code] = data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				c += add === null || add === undefined ? 1 : add;
@@ -154,7 +154,7 @@ export default class Analyse extends Bloc {
 			let data = this.getData(log);
 			nprops.data = nprops.data || {};
 			let code = this.in[4] ? (this.in[4]({src: this.src}) || 0) : 0;
-			nprops.data[code] = log.data;
+			nprops.data[code] = data;
 			if (event.check(log.type, data) && this.in[2](nprops)) {
 				let add = this.in[3] ? this.in[3](nprops) : null;
 				return acc + (add === null || add === undefined ? 1 : add);

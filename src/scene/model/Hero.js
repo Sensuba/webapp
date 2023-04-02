@@ -72,10 +72,8 @@ export default class Hero {
 		if (src && src.hasState("drain"))
 			src.player.hero.heal(dmg, src);
 
-		if (this.onField && this.dmg >= this.hp && !this.dead) {
-			this.dead = true;
-			this.game.notify("herodead", this);
-		}
+		if (this.dmg >= this.hp)
+			this.destroy();
 		
 		return { damage: dmg, kill, overkill };
 	}
@@ -114,6 +112,11 @@ export default class Hero {
 		this.game.notify("setstate.before", this, state, value);
 		this.states[state] = value;
 		this.game.notify("setstate", this, state, value);
+	}
+
+	hasCategory (category) {
+
+		return false;
 	}
 
 	heal (heal, src) {

@@ -229,8 +229,11 @@ export default class Player {
 
 		if (!this.canPlayTarget(target))
 			return false;
+		let targetdata = target ? target.data : undefined;
+		this.game.notify("playtarget.before", this, this.targeting, targetdata);
 		for (let i = 0; i <= (this.targeting.extratriggers || 0); i++)
 			this.targeting.events.forEach(e => e(target.data));
+		this.game.notify("playtarget", this, this.targeting, targetdata);
 		this.game.phase = "main";
 		delete this.targeting;
 		this.game.notify("mainphase", this);
@@ -304,11 +307,18 @@ export default class Player {
 
 		if (!this.canLevelUp())
 			return false;
-		this.game.notify("leveluptrigger.before", this);
+		let level = this.hero.level+1;
+		this.game.notify("leveluptrigger.before", this, level);
 		this.hero.skillUsed = true;
 		this.levelUp();
-		this.game.notify("leveluptrigger", this);
+		this.game.notify("leveluptrigger", this, level);
 		return true;
+	}
+
+	concede () {
+
+		this.game.notify("concede", this);
+		this.hero.destroy();
 	}
 
 	canUseSkill (no) {
@@ -350,10 +360,11 @@ export default class Player {
 	useSkill (no, target) {
 
 		this.pay(this.hero.skills[this.hero.level-2][no].mana);
-		this.game.notify("skilltrigger.before", this, no);
+		let targetdata = target ? target.data : undefined;
+		this.game.notify("skilltrigger.before", this, no, targetdata, this.hero.level);
 		this.hero.skillUsed = true;
 		this.hero.useSkill(no, target);
-		this.game.notify("skilltrigger", this, no);
+		this.game.notify("skilltrigger", this, no, targetdata, this.hero.level);
 	}
 
 	tryToUseSkill (no, target) {

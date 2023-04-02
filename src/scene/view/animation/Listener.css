@@ -1,4 +1,4 @@
-.sensuba-card-blink .game-unit .card-image-wrapper {
+.sensuba-card-blink .game-unit .card-image-wrapper, .sensuba-card-blink .sensuba-hero .card-image-wrapper {
 
 	animation: card-blink 0.8s 1;
 }

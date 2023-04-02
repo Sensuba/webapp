@@ -126,6 +126,11 @@ export default class Scene extends Component {
           this.controller = new TargetingState(this, this.state.model);
       break;
     }
+    case "playtarget.before": {
+      if (data[0].no.toString() === this.noPlayer.toString())
+          this.controller = new WaitingState(this);
+      break;
+    }
     case "endturn": {
       if (data[0].no.toString() === this.noPlayer.toString())
         this.controller = new WaitingState(this);
@@ -398,6 +403,8 @@ export default class Scene extends Component {
           return target !== undefined && target.type === this.state.dragged.model.targetType && this.state.dragged.model.targetFunction(target.data);
         return target === undefined;
       }
+      if (!this.grabbing)
+        return false;
       if (this.grabbing.hasTarget)
         return this.grabbing.canTarget(this.player, target) || (allowunits && this.grabbing.isUnit);
       return (target === undefined && this.grabbing.isSpell) || (allowunits && this.grabbing.isUnit);

@@ -6,7 +6,7 @@ export default class StoryText extends Component {
   render () {
 
     return (
-      <div className="story-text-wrapper"><div className="story-text">{ this.props.children }</div></div>
+      <div className={"story-text-wrapper " + this.props.className}><div className="story-text">{ this.props.children }</div></div>
     );
   }
 }

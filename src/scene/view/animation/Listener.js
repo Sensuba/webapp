@@ -12,7 +12,7 @@ export default class Listener extends Animation {
 
 	run () {
 
-		var el = document.querySelector("#sensuba-card-" + this.card);
+		var el = document.querySelector("#sensuba-" + this.card.type + "-" + this.card.no);
 		if (el) {
 			el.classList.add("sensuba-card-blink");
 			setTimeout(() => el.classList.remove("sensuba-card-blink"), 800);

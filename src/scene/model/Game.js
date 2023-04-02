@@ -38,20 +38,31 @@ export default class Game {
 
 	start (player) {
 
-		if (this.live)
-			return;
-		this.live = true;
-		this.notify("start");
-		this.turnPlayer =  player || this.players[Math.floor(Math.random()*this.players.length)];
-		this.turnPlayer.opponent.addGems(1);
-		this.turnPlayer.draw(P1_STARTING_HAND_SIZE);
-		this.turnPlayer.opponent.draw(P2_STARTING_HAND_SIZE);
-		this.turnPlayer.newTurn ();
+		try {
+			if (this.live)
+				return;
+			this.live = true;
+			this.notify("start");
+			this.turnPlayer =  player || this.players[Math.floor(Math.random()*this.players.length)];
+			this.turnPlayer.opponent.addGems(1);
+			this.turnPlayer.draw(P1_STARTING_HAND_SIZE);
+			this.turnPlayer.opponent.draw(P2_STARTING_HAND_SIZE);
+			this.turnPlayer.newTurn ();
+		} catch (e) {
+			this.abort(e);
+		}
 	}
 
 	stop () {
 
 		this.broadcaster.stop();
+		this.stopped = true;
+	}
+
+	abort (error) {
+
+		this.notify('error', error);
+		this.stop();
 	}
 
 	register (item, type) {
