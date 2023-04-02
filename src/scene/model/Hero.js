@@ -222,6 +222,13 @@ export default class Hero {
 
 	serialize () {
 
+		let variables = this.variables ? Object.assign({}, this.variables) : undefined;
+		if (variables)
+			Object.keys(variables).forEach(key => {
+				if (typeof variables[key] === 'object')
+					variables[key] = variables[key].id;
+			})
+
 		return {
 			model: this.model.key,
 			dmg: this.dmg,
@@ -229,7 +236,7 @@ export default class Hero {
 			colors: this.colors,
 			hp: this.hp,
 			level: this.level,
-			variables: this.variables ? this.variables.map(v => typeof v === 'object' ? v.id : v) : undefined,
+			variables: variables,
 			skillUsed: this.skillUsed,
 			blueprints: this.blueprints
 		}
@@ -244,7 +251,12 @@ export default class Hero {
 		this.states = data.states;
 		this.level = data.level;
 		this.skillUsed = data.skillUsed;
-		this.variables = data.variables ? data.variables.map(v => typeof v === 'object' ? game.find(v) : v) : undefined;
+		this.variables = data.variables;
+		if (this.variables)
+			Object.keys(this.variables).forEach(key => {
+				if (typeof this.variables[key] === 'object')
+					this.variables[key] = game.find(this.variables[key]);
+			})
 		this.model = Library.getHero(data.model);
 		this.passives = [];
 		this.skills = [[], []];
