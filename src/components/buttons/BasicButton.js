@@ -19,8 +19,6 @@ export default class BasicButton extends Component {
 
   click () {
 
-    if (this.props.onClick)
-      this.props.onClick();
     if (this.link)
       this.link.current.link();
   }
@@ -36,7 +34,7 @@ export default class BasicButton extends Component {
     return (
       <div className={name + '-container ' + (this.props.color ? this.props.color + "-color" : "")}>
         <div className={name + '-wrapper'}>
-          <Button onClick={() => this.click()} className={name}>{button}</Button>
+          <Button onClick={this.props.onClick} className={name}>{button}</Button>
         </div>
       </div>
     );
