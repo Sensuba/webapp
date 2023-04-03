@@ -62,7 +62,7 @@ export default class DelayedChangeCost extends Bloc {
 				unsub();
 			}
 		})
-		listener.init(own => new Event(own, "playcard", (t,d) => this.in[1]({src: own})(own, d[1]) ).subscribe((t,d) => {
+		listener.init(own => new Event(own, "playcard.before", (t,d) => this.in[1]({src: own})(own, d[1]) ).subscribe((t,d) => {
 			if (this.in[2]({src: this.src, data: d})) {
 				that.data = d;
 				listener.deactivate();

@@ -12,8 +12,8 @@ export default class Error extends Component {
 
     this.state = {}
     if (this.props.startup)
-      this.timeout = setTimeout(() => { this.setState({display: false}); delete this.timeout; }, this.props.startup);
-    else this.state.display = false;
+      this.timeout = setTimeout(() => { this.setState({display: true}); delete this.timeout; }, this.props.startup);
+    else this.state.display = true;
   }
 
   componentWillUnmount() {

@@ -139,6 +139,8 @@ export default class SocketManager {
 
 		if (code <= 0) {
 			console.log('failed to identify');
+			if (callback)
+				callback(false);
 			return;
 		}
 

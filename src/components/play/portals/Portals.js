@@ -66,7 +66,7 @@ export default class Portals extends Component {
     }
 
     let left = null, right = null;
-    if (this.state.focus) {
+    if (this.state.focus && !this.state.rewarding) {
       let index = cards.findIndex(card => card.key === this.state.focus.key);
       if (index >= 0) {
         if (index > 0)
@@ -104,7 +104,7 @@ export default class Portals extends Component {
           <div>
             <CardBox left={left ? () => this.setState({focus:left}) : undefined} right={right ? () => this.setState({focus:right}) : undefined} src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
             {
-              this.state.collection.cards.includes(this.state.focus.key) ? "" :
+              this.state.collection.cards.includes(this.state.focus.key) || this.state.rewarding ? "" :
               <div className="portals-page-craftcard" onClick={() => SocketManager.master.portal('craft', this.state.portal.key, this.state.focus.key)}>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "" + (this.state.portal.runes * (this.state.focus.rarity === "common" ? 0.5 : (this.state.focus.rarity === "uncommon" ? 1 : 2)))}</span></div>
             }
           </div>

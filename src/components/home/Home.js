@@ -4,6 +4,7 @@ import Nav from '../nav/Nav';
 import MainButton from '../buttons/MainButton';
 import Flowers from '../other/flowers/Flowers';
 import Lightbox from '../utility/Lightbox';
+import Loader from '../utility/Loader';
 import { Input, Label, Form, FormFeedback } from 'reactstrap';
 import SocketManager from '../../SocketManager';
 import sha1 from 'sha1';
@@ -19,6 +20,7 @@ export default class Home extends Component {
     let user = JSON.parse(localStorage.getItem('user'));
 
     this.state = {
+      connecting: false,
       connected: user && !user.anonymous,
       username: user && !user.anonymous ? user.username : undefined
     }
@@ -41,7 +43,8 @@ export default class Home extends Component {
 
     password = sha1(password);
 
-    SocketManager.master.login(username, password, success => { if (success) this.play(); });
+    this.setState({connecting: true});
+    SocketManager.master.login(username, password, success => { if (success) this.play(); else this.setState({connecting: false}); });
   }
 
   logout () {
@@ -55,12 +58,13 @@ export default class Home extends Component {
     let password = document.getElementById("password-signup").value;
     let confirmpassword = document.getElementById("password-signup").value;
 
-    if (username.length < 4 || password.length < 8 && confirmpassword === password)
+    if (username.length < 4 || password.length < 8 || confirmpassword !== password)
       return;
 
     password = sha1(password);
 
-    SocketManager.master.signup(username, password, success => { if (success) this.play(); });
+    this.setState({connecting: true});
+    SocketManager.master.signup(username, password, success => { if (success) this.play(); else this.setState({connecting: false}); });
   }
 
   render () {
@@ -69,7 +73,6 @@ export default class Home extends Component {
       <div className="main-page light home-page">
         <Flowers/>
         <Nav/>
-
         { this.state.logbox ?
           <Lightbox open={true} onClose={() => this.setState({logbox: null})}> 
             <div className="logbox">
@@ -110,6 +113,15 @@ export default class Home extends Component {
             }
             </div>
           </Lightbox> : ""
+        }
+        {
+          this.state.connecting ?
+          <div className="lightbox-container">
+            <div className="lightbox-inner" onClick={() => this.props.onClose()}>
+              <Loader/>
+            </div>
+          </div>
+          : ""
         }
 
         <div className="main">
