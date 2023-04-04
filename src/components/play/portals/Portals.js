@@ -50,7 +50,7 @@ export default class Portals extends Component {
 
     let portals = Object.values(Library.portals);
     // Temporary
-    portals = portals.filter(p => p.key <= 15);
+    portals = portals.filter(p => p.key !== 16);
     let user = JSON.parse(localStorage.getItem('user'));
 
     let cards = [];
