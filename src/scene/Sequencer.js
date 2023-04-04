@@ -9,6 +9,7 @@ import Heal from './view/animation/Heal';
 import Destroy from './view/animation/Destroy';
 import Listener from './view/animation/Listener';
 import Target from './view/animation/Target';
+import ShieldBreak from './view/animation/ShieldBreak';
 
 export default class Sequencer {
 
@@ -129,6 +130,9 @@ export default class Sequencer {
 	    }
 	    case "burst": {
 	    	return new Wait(this.master, 100);
+	    }
+	    case "shieldbreak": {
+	    	return new ShieldBreak(this.master, n.data[0]);
 	    }
 		case "cast.before": {
 		    return n.data[2] && (n.data[2].type === "card" || n.data[2].type === "hero") ? new Target(this.master, n.data[2]) : new Wait(this.master, 1000);

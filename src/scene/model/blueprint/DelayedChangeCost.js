@@ -62,18 +62,16 @@ export default class DelayedChangeCost extends Bloc {
 				unsub();
 			}
 		})
-		listener.init(own => new Event(own, "playcard.before", (t,d) => this.in[1]({src: own})(own, d[1]) ).subscribe((t,d) => {
-			if (this.in[2]({src: this.src, data: d})) {
-				that.data = d;
-				listener.deactivate();
-				aura.deactivate();
-				owner.blueprints.splice(owner.blueprints.findIndex(b => JSON.stringify(b) === JSON.stringify(blueprint)), 1);
-				owner.passives = owner.passives.filter(p => p !== listener && p !== aura);
-				unsub();
-				this.out = [this.data];
-				if (this.callback)
-					this.callback.execute({ src: own, image: image });
-			}
+		listener.init(own => new Event(own, "playcard.before", (t,d) => !this.in[1]({src: own}) || this.in[1]({src: own})(own, d[1]) ).subscribe((t,d) => {
+			that.data = d;
+			listener.deactivate();
+			aura.deactivate();
+			owner.blueprints.splice(owner.blueprints.findIndex(b => JSON.stringify(b) === JSON.stringify(blueprint)), 1);
+			owner.passives = owner.passives.filter(p => p !== listener && p !== aura);
+			unsub();
+			this.out = [this.data];
+			if (this.callback)
+				this.callback.execute({ src: own, image: image });
 		}), true);
 	}
 }

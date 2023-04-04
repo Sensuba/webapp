@@ -44,7 +44,7 @@ export default class Home extends Component {
     password = sha1(password);
 
     this.setState({connecting: true});
-    SocketManager.master.login(username, password, success => { if (success) this.play(); else this.setState({connecting: false}); });
+    SocketManager.master.login(username, password, success => { if (success) this.play(); this.setState({connecting: false}); });
   }
 
   logout () {
@@ -64,7 +64,7 @@ export default class Home extends Component {
     password = sha1(password);
 
     this.setState({connecting: true});
-    SocketManager.master.signup(username, password, success => { if (success) this.play(); else this.setState({connecting: false}); });
+    SocketManager.master.signup(username, password, success => { if (success) this.play(); this.setState({connecting: false}); });
   }
 
   render () {

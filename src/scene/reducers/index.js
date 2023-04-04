@@ -120,6 +120,11 @@ let reducer = (state = 0, n) => {
     card.clearVariable(n.data[1]);
     break;
   }
+  case "refreshskill": {
+    let hero = state.find(n.data[0]);
+    delete hero.skillUsed;
+    break;
+  }
   case "addeffect": {
     let card = state.find(n.data[0]);
     card.addEffect(n.data[1]);

@@ -61,7 +61,7 @@ export default class Portals extends Component {
 
     let timer = 0;
     if (this.state.exploration) {
-      let duration = (new Date()) - (new Date(this.state.exploration.date)) + 10;
+      let duration = (new Date()) - (new Date(this.state.exploration.date)) + 2000;
       timer = Math.ceil((Library.portals[this.state.exploration.key].min * 60000 - duration)/60000);
     }
 

@@ -121,8 +121,8 @@ export default class CardBox extends Component {
 	            </div>
 	            { this.state.token.length > 0 ? <div className="cardbox-back-to-parent" onClick={() => this.setState({tooltip: null, token: this.state.token.length > 1 ? this.state.token.slice(0, this.state.token.length-1) : [] })}>{ this.state.token.length > 1 ? this.state.token[this.state.token.length-2].name : this.props.src.name }</div> : "" }
 	          </div>
-	          { this.props.left ? <div onClick={() => this.props.left()} className="cardbox-arrow cardbox-arrow-left"><img src="/images/arrowhead.png"/></div> : "" }
-	          { this.props.right ? <div onClick={() => this.props.right()} className="cardbox-arrow cardbox-arrow-right"><img src="/images/arrowhead.png"/></div> : "" }
+	          { this.props.left && this.state.token.length === 0 && !this.state.mask ? <div onClick={() => this.props.left()} className="cardbox-arrow cardbox-arrow-left"><img src="/images/arrowhead.png"/></div> : "" }
+	          { this.props.right && this.state.token.length === 0 && !this.state.mask ? <div onClick={() => this.props.right()} className="cardbox-arrow cardbox-arrow-right"><img src="/images/arrowhead.png"/></div> : "" }
 	        </Lightbox>
 		);
 	}

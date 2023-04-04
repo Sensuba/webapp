@@ -226,6 +226,9 @@ export default class Scene extends Component {
 
   updateDragStyle (e) {
 
+    if (!this.grabbing)
+      return;
+
     let touching = e.touches !== undefined;
 
   	let x = touching ? e.touches[0].pageX : e.pageX;
