@@ -407,6 +407,16 @@
 
 
 
+
+.game-unit.state-hidden {
+
+  filter: grayscale(1) brightness(0.5);
+}
+
+
+
+
+
 @media (min-width: 601px) {
 
   .game-unit {

@@ -28,6 +28,8 @@ export default class Analyse extends Bloc {
 		
 		props = props || {};
 		let src = props.src || this.src;
+		props.trace = props.trace || [];
+		props.trace.push(this);
 		var f = this.f || (() => []);
 		this.out = f(src, [this.in[0](props), this.in[1](props)], props);
 		if (this.to)

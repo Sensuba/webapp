@@ -121,7 +121,7 @@ export default class Card {
 		return card;
 	}
 
-	damage (dmg, src) {
+	damage (dmg, src, frenzy) {
 
 		if (src.isSpell && this.eff.barrier)
 			dmg -= this.eff.barrier;
@@ -143,8 +143,11 @@ export default class Card {
 		if (src && src.hasState("drain"))
 			src.player.hero.heal(dmg, src);
 
-		if (this.ghost)
+		if (this.ghost) {
+			if (frenzy)
+				frenzy.forEach(f => f(this));
 			this.destroy();
+		}
 		
 		return { damage: dmg, kill, overkill };
 	}
@@ -203,6 +206,8 @@ export default class Card {
 		this.location.opposite.units.forEach(c => {
 			if (target)
 				return;
+			if (c.hasState("hidden"))
+				return;
 			target = c;
 		})
 		return target || this.player.opponent.hero;
@@ -242,7 +247,7 @@ export default class Card {
 		let atk = Math.max(0, this.eff.atk - (target.eff.armor || 0));
 		if (!this.hasState("initiative"))
 			target.ripost(this);
-		target.damage(atk, this);
+		target.damage(atk, this, this.frenzy);
 
 		if (lock)
 			this.game.broadcaster.unlock();
@@ -312,6 +317,7 @@ export default class Card {
 
 		if (!this.onField)
 			return;
+		this.game.notify("burst", this);
 		this.attack();
 	}
 
@@ -392,6 +398,8 @@ export default class Card {
 		if (this.targetType !== target.type)
 			return false;
 		if (this.targetType === "card" && target.data.hasState("exalted"))
+			return false;
+		if (this.targetType === "card" && target.data.hasState("hidden"))
 			return false;
 		if (target.data === this)
 			return false;
@@ -547,8 +555,12 @@ export default class Card {
 
 		if (this.hasState("ephemeral"))
 			this.destroy();
-		else if (this.hasState("freeze"))
-			this.freezetimer = true;
+		else {
+			if (this.hasState("freeze"))
+				this.freezetimer = true;
+			if (this.states && this.states.hidden)
+				delete this.states.hidden;
+		}
 	}
 
 	activate () {

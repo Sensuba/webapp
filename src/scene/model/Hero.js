@@ -156,6 +156,15 @@ export default class Hero {
 		this.game.notify("skill", this, no);
 	}
 
+	refreshSkill () {
+
+		if (!this.skillUsed)
+			return;
+		this.game.notify("refreshskill.before", this);
+		delete this.skillUsed;
+		this.game.notify("refreshskill", this);
+	}
+
 	setVariable (name, value) {
 
 		this.variables = this.variables || {};

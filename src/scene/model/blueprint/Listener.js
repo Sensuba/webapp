@@ -7,13 +7,15 @@ export default class Listener extends Bloc {
 	constructor (src, ctx) {
 
 		super("listener", src, ctx, true);
-		this.types = [Types.event, Types.bool, Types.int];
+		this.types = [Types.event, Types.bool, Types.int, Types.bool];
 		this.out = [this, null];
 	}
 
 	execute (props) {
 		
 		props = props || {};
+		props.trace = props.trace || [];
+		props.trace.push(this);
 		this.out = [this, this.data];
 		if (this.to)
 			this.to.execute(props);
@@ -29,7 +31,8 @@ export default class Listener extends Bloc {
 			data[code] = d;
 			if (this.in[1]({src: this.src, data})) {
 				that.data = d;
-				own.game.notify("listener", own);
+				if (!this.in[3] || this.in[3]({src: this.src}))
+					own.game.notify("listener", own);
 				that.execute({ src: own, image: image });
 			}
 		})));

@@ -8,6 +8,7 @@ import Fanfare from './Fanfare.js';
 import LastWill from './LastWill.js';
 import Listener from './Listener.js';
 import HandListener from './HandListener.js';
+import Frenzy from './Frenzy.js';
 import Aura from './Aura.js';
 import PassiveMutation from './PassiveMutation.js';
 
@@ -34,9 +35,11 @@ import Enrage from './Enrage.js';
 import AddShield from './AddShield.js';
 import Freeze from './Freeze.js';
 import Silence from './Silence.js';
+import BreakShield from './BreakShield.js';
 import Cast from './Cast.js';
 import Switch from './Switch.js';
 import AddMana from './AddMana.js';
+import RefillMana from './RefillMana.js';
 import UseMana from './UseMana.js';
 import AddReceptacle from './AddReceptacle.js';
 import AddGem from './AddGem.js';
@@ -45,6 +48,7 @@ import GenerateSummon from './GenerateSummon.js';
 import Conjure from './Conjure.js';
 import ChangeCost from './ChangeCost.js';
 import Overload from './Overload.js';
+import RefreshSkill from './RefreshSkill.js';
 import TriggerEffect from './TriggerEffect.js';
 import ExtraTrigger from './ExtraTrigger.js';
 import DelayedTrigger from './DelayedTrigger.js';
@@ -85,6 +89,7 @@ import ColumnSide from './ColumnSide.js';
 import ColumnTiles from './ColumnTiles.js';
 import AdjacentTiles from './AdjacentTiles.js';
 import ConditionalMutation from './ConditionalMutation.js';
+import SkillFreshness from './SkillFreshness.js';
 
 import Category from './Category.js';
 import Boost from './Boost.js';
@@ -159,6 +164,7 @@ export default class Reader {
 			case "lastwill": bloc = new LastWill(card, ctx); break;
 			case "listener": bloc = new Listener(card, ctx); break;
 			case "handlistener": bloc = new HandListener(card, ctx); break;
+			case "frenzy": bloc = new Frenzy(card, ctx); break;
 			case "aura": bloc = new Aura(card, ctx); break;
 			case "passivemut": bloc = new PassiveMutation(card, ctx); break;
 
@@ -185,9 +191,11 @@ export default class Reader {
 			case "addshield": bloc = new AddShield(card, ctx); break;
 			case "freeze": bloc = new Freeze(card, ctx); break;
 			case "silence": bloc = new Silence(card, ctx); break;
+			case "breakshield": bloc = new BreakShield(card, ctx); break;
 			case "cast": bloc = new Cast(card, ctx); break;
 			case "switch": bloc = new Switch(card, ctx); break;
 			case "addmana": bloc = new AddMana(card, ctx); break;
+			case "refillmana": bloc = new RefillMana(card, ctx); break;
 			case "usemana": bloc = new UseMana(card, ctx); break;
 			case "addrec": bloc = new AddReceptacle(card, ctx); break;
 			case "addgem": bloc = new AddGem(card, ctx); break;
@@ -196,6 +204,7 @@ export default class Reader {
 			case "conjure": bloc = new Conjure(card, ctx); break;
 			case "changecost": bloc = new ChangeCost(card, ctx); break;
 			case "overload": bloc = new Overload(card, ctx); break;
+			case "refreshskill": bloc = new RefreshSkill(card, ctx); break;
 			case "trigger": bloc = new TriggerEffect(card, ctx); break;
 			case "extratrigger": bloc = new ExtraTrigger(card, ctx); break;
 			case "delayedtrigger": bloc = new DelayedTrigger(card, ctx); break;
@@ -236,6 +245,7 @@ export default class Reader {
 			case "columntiles": bloc = new ColumnTiles(card, ctx); break;
 			case "adjacenttiles": bloc = new AdjacentTiles(card, ctx); break;
 			case "conditionmut": bloc = new ConditionalMutation(card, ctx); break;
+			case "skillfresh": bloc = new SkillFreshness(card, ctx); break;
 
 			case "category": bloc = new Category(card, ctx); break;
 			case "boost": bloc = new Boost(card, ctx); break;
@@ -303,6 +313,8 @@ export default class Reader {
 			case "destroy-data": bloc = new Data(el.type, card, ctx, data => [data[0]]); break;
 			case "attack-trigger": bloc = new Trigger(el.type, card, ctx, "attack"); break;
 			case "attack-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
+			case "breakshield-trigger": bloc = new Trigger(el.type, card, ctx, "shieldbreak"); break;
+			case "breakshield-data": bloc = new Data(el.type, card, ctx, data => [data[0]]); break;
 			case "levelup-trigger": bloc = new Trigger(el.type, card, ctx, "levelup"); break;
 			case "levelup-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
 
