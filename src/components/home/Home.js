@@ -117,7 +117,7 @@ export default class Home extends Component {
         {
           this.state.connecting ?
           <div className="lightbox-container">
-            <div className="lightbox-inner" onClick={() => this.props.onClose()}>
+            <div className="lightbox-inner">
               <Loader/>
             </div>
           </div>

@@ -11,6 +11,7 @@ import MainButton from '../../buttons/MainButton';
 import Library from '../../../scene/utility/Library';
 import SocketManager from '../../../SocketManager';
 import Lightbox from '../../utility/Lightbox';
+import Loader from '../../utility/Loader';
 
 import sorter from '../../cards/CollectionSorter';
 import { read } from '../../../TextManager';
@@ -43,7 +44,17 @@ export default class Cards extends Component {
 
   componentDidMount () {
 
-    SocketManager.master.onDeckbuildUpdate = deck => this.setState({deck, action: null});
+    SocketManager.master.onDeckbuildUpdate = deck => {
+      if (!deck) {
+        this.setState({deck, action: null, waiting: false, newdeck: false});
+      } else if (this.state.newdeck || (this.state.deck && deck.key === this.state.deck.key)) {
+        this.setState({deck, action: null, waiting: false, newdeck: false});
+        let deckname = document.getElementById("deckname-input");
+        if (deckname)
+          deckname.value = deck.deckname;
+      } else
+        this.forceUpdate()
+    }
     SocketManager.master.onCollectionUpdate = collection => this.setState({collection});
   }
 
@@ -119,15 +130,24 @@ export default class Cards extends Component {
           {
             heroes.map((hero, i) => <div key={i} className="listed-card" onClick={() => {
               SocketManager.master.deckbuild("newdeck", read('menu/newdeckname'), hero.key);
-              this.setState({newdeck: false});
+              this.setState({waiting: true});
             }}><Hero src={hero}/></div>)
           }
           </div>
         </Lightbox>
         <Lightbox className="delete-box small" open={this.state.action === "delete"} onClose={() => this.setState({action: null})}>
           <h1>{ read('menu/askconfirmationdelete') }</h1>
-          <MainButton color="red" onClick={() => SocketManager.master.deckbuild("delete", this.state.deck.key)}>{ read('menu/delete') }</MainButton>
+          <MainButton color="red" onClick={() => { SocketManager.master.deckbuild("delete", this.state.deck.key); this.setState({waiting: true}); } }>{ read('menu/delete') }</MainButton>
         </Lightbox>
+        {
+          this.state.waiting ?
+          <div className="lightbox-container">
+            <div className="lightbox-inner">
+              <Loader/>
+            </div>
+          </div>
+          : ""
+        }
         <Nav/>
         <div className="main">
           <div className="cards-page-nav"></div>

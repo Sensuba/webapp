@@ -74,6 +74,7 @@ export default class SocketManager {
 
 	loadLibrary (language) {
 
+		console.log("loading library...");
 		this.socket.emit('loadlibrary', language);
 		this.socket.on('updateversion', cards => this.onUpdateVersion(cards));
 		this.socket.on('updatecards', cards => this.onUpdateCards(cards));

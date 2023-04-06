@@ -32,6 +32,7 @@ export default class App extends Component {
           this.setState({connected: true});
         } else if (this.state.connected && status === "disconnected") {
           this.setState({connected: false}, () => io.start());
+          checkLibraryVersion = false;
         }
       }
     }
@@ -93,12 +94,17 @@ class Dynamo extends Component {
       }
     }, 500)
     if (!offlineMode && !this.libraryLoaded) {
+      this.state = {
+        loading: 0,
+        loaded: false
+      }
       let io = SocketManager.master;
       let updatelibrary = () => {
         io.loadLibrary(getLanguage());
         io.onUpdateLibrary = (n, total) => {
           this.setState({loading:n/total});
           if (n >= total) {
+            console.log("updated");
             if (this.showLoadingScreenFade) {
               document.getElementsByClassName("main-page")[0].classList.add("fade-out");
               setTimeout(() => this.setState({loaded:true}), 500);
@@ -117,12 +123,11 @@ class Dynamo extends Component {
           else updatelibrary();
         })
       else updatelibrary();
-    }
-
-    this.state = {
-      loading: 0,
-      loaded: this.hasLibraryData
-    }
+    } else 
+      this.state = {
+        loading: 0,
+        loaded: this.hasLibraryData
+      }
   }
 
   get libraryLoaded () {
