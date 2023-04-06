@@ -255,6 +255,8 @@
 		"matchmaking": "Recherche d'un autre joueur...",
 		"alreadyingame": "Ce compte est déjà en cours de partie. Veuillez terminer votre partie précédente avant d'en lancer une nouvelle.",
 		"nodeck": "Vous n'avez pas de deck valide. Créez-en un dans votre collection.",
-		"selectportal": "Selectionnez un portail et obtenez de nouvelles cartes pour votre collection."
+		"selectportal": "Selectionnez un portail et obtenez de nouvelles cartes pour votre collection.",
+		"selecthero": "Selectionnez un héros disponible.",
+		"everyheroalready": "Vous possédez déjà tous les héros disponibles."
 	}
 }

@@ -4,12 +4,15 @@ import './Portals.css';
 import Nav from '../../nav/Nav';
 import Back from '../../Back';
 import Portal from '../../cards/Portal';
+import Hero from '../../cards/Hero';
+import Ability from '../../cards/Ability';
 import Card from '../../cards/Card';
 //import Hero from '../../cards/Hero';
 import CardBox from '../../cards/CardBox';
 import MainButton from '../../buttons/MainButton';
 import Library from '../../../scene/utility/Library';
 import SocketManager from '../../../SocketManager';
+import { play, stopMusic } from '../../../SoundManager';
 import Lightbox from '../../utility/Lightbox';
 import StoryText from '../../text/StoryText';
 import Loader from '../../utility/Loader';
@@ -22,6 +25,7 @@ export default class Portals extends Component {
   state = {
     focus: null,
     action: null,
+    heroes: false,
     collection: JSON.parse(localStorage.getItem('collection')),
     reward: [{}, {}],
     rewarding: false,
@@ -31,10 +35,15 @@ export default class Portals extends Component {
   componentDidMount () {
 
     SocketManager.master.onCollectionUpdate = (collection, reward) => {
-      if (reward && reward.length > 1) {
-        this.setState({action: null, reward, rewarding: true});
-      } else
-        this.setState({action: null, collection});
+      if (this.state.heroes) {
+        this.setState({hero: null, action: null, collection});
+        stopMusic();
+      } else {
+        if (reward && reward.length > 1) {
+          this.setState({action: null, reward, rewarding: true, collection});
+        } else
+          this.setState({action: null, collection});
+      }
     }
     SocketManager.master.onExplorePortal = (exploration) => this.setState({exploration});
     this.interval = setInterval(() => this.forceUpdate(), 30000);
@@ -45,6 +54,7 @@ export default class Portals extends Component {
     delete SocketManager.master.onCollectionUpdate;
     delete SocketManager.master.onExplorePortal;
     clearInterval(this.interval);
+    stopMusic();
   }
 
   render () {
@@ -52,6 +62,8 @@ export default class Portals extends Component {
     let portals = Object.values(Library.portals);
     // Temporary
     portals = portals.filter(p => p.key !== 16);
+    let heroes = Object.values(Library.heroes);
+    heroes = heroes.filter(hero => hero.craftable && !this.state.collection.heroes.includes(hero.key));
     let user = JSON.parse(localStorage.getItem('user'));
 
     let cards = [];
@@ -114,7 +126,7 @@ export default class Portals extends Component {
           <div>
             <CardBox left={left ? () => this.setState({focus:left}) : undefined} right={right ? () => this.setState({focus:right}) : undefined} src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
             {
-              this.state.collection.cards.includes(this.state.focus.key) || this.state.rewarding ? "" :
+              !this.state.focus.key || (this.state.collection.cards.includes(this.state.focus.key) || this.state.rewarding) ? "" :
               <div className="portals-page-craftcard" onClick={() => { if (user.shards >= (this.state.portal.runes * (this.state.focus.rarity === "common" ? 1 : (this.state.focus.rarity === "uncommon" ? 2 : 4)))) { SocketManager.master.portal('craft', this.state.portal.key, this.state.focus.key); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "" + (this.state.portal.runes * (this.state.focus.rarity === "common" ? 1 : (this.state.focus.rarity === "uncommon" ? 2 : 4)))}</span></div>
             }
           </div>
@@ -126,10 +138,10 @@ export default class Portals extends Component {
           <div className="portals-page-search">
             <div className="portals-page-search-main">
               <div className="portals-page-search-tab">
-                <div className="portals-page-search-main-label">{ read("menu/portals") }</div>
+                <div className="portals-page-search-main-label" onClick={() => { this.setState({heroes: false, hero: null}); stopMusic(); } }>{ read("menu/portals") }</div>
               </div>
               <div className="portals-page-search-tab">
-                <div className="portals-page-search-main-label">{ read('menu/heroes') }</div>
+                <div className="portals-page-search-main-label" onClick={() => this.setState({heroes: true, portal: null})}>{ read('menu/heroes') }</div>
               </div>
             </div>
             {
@@ -143,9 +155,20 @@ export default class Portals extends Component {
                  : "" }</div>
             </div>
           </div>
-          <div className="portals-page-main">
+          <div className={"portals-page-main " + (this.state.heroes ? "hero-mode" : "portal-mode") }>
             <div className="portal-list">
               {
+                this.state.heroes ?
+                  heroes.map((hero, i) => <div key={i} className={"listed-portal listed-hero" + (this.state.hero && this.state.hero.key === hero.key ? " selected-hero" : "")} onClick={() => {
+                    if (this.state.hero && this.state.hero.key === hero.key) {
+                    }
+                    else {
+                      this.setState({hero, level: 1});
+                      play(hero.theme, "music");
+                    }
+                  }
+                }><Hero src={hero}/></div>)
+                :
                 portals.map((portal, i) => <div key={i} className={"listed-portal" + (this.state.portal && this.state.portal.key === portal.key ? " selected-portal" : "")} onClick={() => {
                     if (this.state.portal && this.state.portal.key === portal.key) {
                     }
@@ -155,8 +178,33 @@ export default class Portals extends Component {
                   }
                 }><Portal src={portal}/></div>)
               }
-              </div>
+            </div>
               {
+                this.state.heroes ? (
+                  this.state.hero ?
+                  <div className="portal-focus">
+                    <div key={this.state.hero.key} className="focused-portal" onClick={() => this.setState({level: ((this.state.level || 1)%3+1)})}>
+                      <Hero level={this.state.level} src={this.state.hero}/>
+                    </div>
+                  <div className="portal-cards-text-short"><div className="hero-lv-text">{ read('cards/lv2') }</div></div><div className="portal-cards-text-short"><div className="hero-lv-text">{ read('cards/lvmax') }</div></div>
+                  <div className="portal-cards">
+                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[0]})}><Ability src={this.state.hero.abilities[0]}/></div>
+                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[1]})}><Ability src={this.state.hero.abilities[1]}/></div>
+                    </div>
+                    <div className="portal-cards">
+                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[2]})}><Ability src={this.state.hero.abilities[2]}/></div>
+                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[4]})}><Ability src={this.state.hero.abilities[4]}/></div>
+                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[3]})}><Ability src={this.state.hero.abilities[3]}/></div>
+                    </div>
+                    <div className="portal-name">{this.state.hero.name}</div>
+                    <div className="portal-description">{this.state.hero.flavor}</div>
+                    <div className="portal-focus-buttons">
+                      <div className={"portal-focus-button" + (1600 > user.runes ? " locked" : "")} onClick={() => { if (1600 <= user.runes) { SocketManager.master.portal('crafthero', this.state.hero.key, false); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="runes-icon"/>{ "1600" }</span></div>
+                      <div className={"portal-focus-button" + (800 > user.shards ? " locked" : "")} onClick={() => { if (800 <= user.shards) { SocketManager.master.portal('crafthero', this.state.hero.key, true); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "800" }</span></div>
+                    </div>
+                  </div>
+                  : <div className="portal-focus"><StoryText>{ heroes.length <= 0 ? read('messages/everyheroalready') : read('messages/selecthero') }</StoryText></div>
+                  ) : (
                 this.state.portal ?
                 <div className="portal-focus">
                   <div className="focused-portal">
@@ -182,8 +230,8 @@ export default class Portals extends Component {
                   </div>
                 </div>
                 : <div className="portal-focus"><StoryText>{ read('messages/selectportal') }</StoryText></div>
+                )
               }
-              
             </div>
           </div>
         <Back to="/play"/>

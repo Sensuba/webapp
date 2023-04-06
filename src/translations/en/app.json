@@ -255,6 +255,8 @@
 		"matchmaking": "Waiting for another player...",
 		"alreadyingame": "This account is already in a game. Finish your previous game before starting another.",
 		"nodeck": "You don't have any valid deck to play with. Build one in your collection.",
-		"selectportal": "Select a portal and obtain new cards to add to your collection."
+		"selectportal": "Select a portal and obtain new cards to add to your collection.",
+		"selecthero": "Select an available hero.",
+		"everyheroalready": "You already own all available heroes."
 	}
 }

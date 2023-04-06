@@ -299,16 +299,18 @@ export default class SocketManager {
 		switch (type) {
 		case "openportal": {
 			let newcards = data.filter(d => d.type === "card").map(d => d.key);
+			let newheroes = data.filter(d => d.type === "hero").map(d => d.key);
 			let collection;
-			if (newcards.length > 0) {
+			if (newcards.length > 0 || newheroes.length > 0) {
 				collection = JSON.parse(localStorage.getItem('collection'));
 				newcards.forEach(card => collection.cards.push(card));
+				newheroes.forEach(hero => collection.heroes.push(hero));
 				if (main)
 					localStorage.setItem('collection', JSON.stringify(collection));
 			}
 			if (main)
 				this.onCollectionUpdate(collection, data);
-			else if (newcards.length > 0)
+			else if (newcards.length > 0 || newheroes.length > 0)
 				setTimeout(() => this.onCollectionUpdate(collection), 100);
 
 			let shards = data.filter(d => d.type === "shards").reduce((acc, d) => acc + d.value, 0);

@@ -157,6 +157,20 @@
 	cursor: default;
 }
 
+.portal-list .listed-portal.listed-hero {
+
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	padding: 0 0.5em;
+	transition: filter 0.2s;
+}
+
+.portal-list .listed-portal.listed-hero:hover, .portal-list .listed-portal.listed-hero.selected-hero {
+
+	filter: brightness(0.5);
+}
+
 .portal-list .listed-portal .circle {
 
     position: absolute;
@@ -205,6 +219,22 @@
 	margin-top: 3rem;
 }
 
+.hero-mode .portal-focus .focused-portal {
+
+	margin-top: calc(3rem + 1em);
+	margin-bottom: 2em;
+}
+
+.portal-focus .sensuba-hero {
+
+	cursor: pointer;
+}
+
+.portal-focus .cardbox-ability {
+
+	cursor: pointer;
+}
+
 .portal-focus .portal-cards {
 
 	position: absolute;
@@ -222,6 +252,18 @@
 
 	left: unset;
 	right: 0;
+}
+
+.hero-mode .portal-focus .portal-cards {
+
+	padding-top: 10vw;
+	height: 54vw;
+	width: 26vw;
+	justify-content: space-evenly;
+}
+
+.hero-mode .portal-focus .portal-cards + .portal-cards {
+
 }
 
 .portal-focus .portal-cards .portal-card-wrapper {
@@ -284,6 +326,13 @@
 	left: 0;
 	color: #dec6a280;
 	font-size: calc(0.5rem + 1vw);
+}
+
+.hero-mode .portal-focus .portal-cards-text-short {
+
+	margin-top: 2.5vw;
+	width: 27vw;
+	font-size: 1.5rem;
 }
 
 .portal-focus .portal-cards-text-short + .portal-cards-text-short {
@@ -546,6 +595,11 @@
 		font-size: calc(8vh - 1.2rem);
 	}
 
+	.hero-mode .portal-focus .focused-portal {
+
+		font-size: calc(8vh - 1.2rem);
+	}
+
 	.portal-focus .portal-cards {
 
 		position: absolute;
@@ -559,10 +613,49 @@
 		padding-top: 14vh;
 	}
 
+	.hero-mode .portal-focus .portal-cards {
+
+		flex-direction: row;
+		width: calc(40vh + 10vw);
+		height: 20vh;
+		top: 10vh;
+		padding-top: unset;
+		justify-content: center;
+	}
+
+	.hero-mode .portal-focus .portal-cards .cardbox-ability {
+
+		margin: 0 1em;
+	}
+
 	.portal-focus .portal-cards + .portal-cards {
 
 		left: calc(50% + 26vh + 10vw);
 		right: unset;
+	}
+
+	.hero-mode .portal-focus .portal-cards + .portal-cards {
+
+		left: calc(50% + 10vh + 8vw);
+		right: unset;
+		top: 30vh;
+	}
+
+	.hero-mode .portal-focus .portal-cards-text-short {
+
+		display: inherit;
+		width: calc(40vh + 10vw);
+		left: calc(50% + 10vh + 8vw);
+	    height: 20vh;
+	    top: 0vh;
+	    margin-top: 0;
+		justify-content: center;
+		font-size: 2rem;
+	}
+
+	.hero-mode .portal-focus .portal-cards-text-short + .portal-cards-text-short {
+
+	    top: 20vh;
 	}
 
 	.portal-focus .portal-cards .portal-card-wrapper {

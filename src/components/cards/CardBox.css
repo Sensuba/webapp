@@ -178,19 +178,23 @@
 	left: calc(50% - 3.2rem);
 }
 
+.hero-lv-text {
+	
+	font-family: Rusty;
+	color: #d1caae40;
+	text-align: center;
+	align-items: center;
+}
+
 .cardbox-focus .cardbox-lv .hero-lv-text {
 
 	position: absolute;
 	left: calc(50% + 4.3rem);
+	font-size: 1.5rem;
 	height: 3rem;
 	justify-content: center;
 	width: 3rem;
 	top: 0;
-	font-family: Rusty;
-	color: #d1caae40;
-	font-size: 1.5rem;
-	text-align: center;
-	align-items: center;
 }
 
 .cardbox-focus .cardbox-lv-separator + .cardbox-lv .hero-lv-text {
