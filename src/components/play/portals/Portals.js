@@ -39,7 +39,7 @@ export default class Portals extends Component {
         stopMusic();
       } else {
         if (reward && reward.length > 1) {
-          this.setState({action: null, reward, rewarding: true, collection});
+          this.setState({action: null, reward, rewarding: true});
         } else
           this.setState({action: null, collection});
       }
