@@ -145,6 +145,15 @@ let reducer = (state = 0, n) => {
     tile.switch();
     break;
   }
+  case "copy": {
+    let src = state.find(n.data[0]);
+    let card = state.find(n.data[1]);
+    let serial = src.serialize();
+    delete serial.model;
+    delete serial.index;
+    Object.keys(serial).forEach(key => card[key] = serial[key]);
+    break;
+  }
   case "addmana": {
     let player = state.find(n.data[0]);
     player.mana += n.data[1];
