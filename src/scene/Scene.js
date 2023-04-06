@@ -48,6 +48,13 @@ export default class Scene extends Component {
     this.io.onGameupdate = (type, data) => this.update(type, data);
     this.io.onFail = (err) => this.setState({error: err});
 
+    window.spectate = key => {
+      this.io.exitGame();
+      this.io.gamemode('spectate', key);
+      this.io.onGameupdate = (type, data) => this.update(type, data);
+      this.io.onFail = (err) => this.setState({error: err});
+    }
+
     let decks = JSON.parse(localStorage.getItem('decks'))
     let activedeck = decks.filter(deck => deck.key === localStorage.getItem('activedeck'))[0].body;
     this.io.gamemode('room', activedeck);
