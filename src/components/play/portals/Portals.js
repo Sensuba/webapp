@@ -126,7 +126,7 @@ export default class Portals extends Component {
             <CardBox left={left ? () => this.setState({focus:left}) : undefined} right={right ? () => this.setState({focus:right}) : undefined} src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
             {
               !this.state.focus.key || (this.state.collection.cards.includes(this.state.focus.key) || this.state.rewarding) ? "" :
-              <div className="portals-page-craftcard" onClick={() => { if (user.shards >= (this.state.portal.runes * (this.state.focus.rarity === "common" ? 1 : (this.state.focus.rarity === "uncommon" ? 2 : 4)))) { SocketManager.master.portal('craft', this.state.portal.key, this.state.focus.key); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "" + (this.state.portal.runes * (this.state.focus.rarity === "common" ? 1 : (this.state.focus.rarity === "uncommon" ? 2 : 4)))}</span></div>
+              <div className="portals-page-craftcard" onClick={() => { if (user.shards >= (this.state.portal.runes * (this.state.focus.rarity === "common" ? 1 : (this.state.focus.rarity === "uncommon" ? 2 : 4)))) { SocketManager.master.portal('craft', this.state.portal.key, this.state.focus.key); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "" + (this.state.portal.runes * (this.state.focus.rarity === "common" ? 2 : (this.state.focus.rarity === "uncommon" ? 5 : 10)))}</span></div>
             }
           </div>
           : ""
@@ -198,8 +198,8 @@ export default class Portals extends Component {
                     <div className="portal-name">{this.state.hero.name}</div>
                     <div className="portal-description">{this.state.hero.flavor}</div>
                     <div className="portal-focus-buttons">
-                      <div className={"portal-focus-button" + (1600 > user.runes ? " locked" : "")} onClick={() => { if (1600 <= user.runes) { SocketManager.master.portal('crafthero', this.state.hero.key, false); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="runes-icon"/>{ "1600" }</span></div>
-                      <div className={"portal-focus-button" + (800 > user.shards ? " locked" : "")} onClick={() => { if (800 <= user.shards) { SocketManager.master.portal('crafthero', this.state.hero.key, true); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "800" }</span></div>
+                      <div className={"portal-focus-button" + (500 > user.runes ? " locked" : "")} onClick={() => { if (500 <= user.runes) { SocketManager.master.portal('crafthero', this.state.hero.key, false); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="runes-icon"/>{ "500" }</span></div>
+                      <div className={"portal-focus-button" + (2000 > user.shards ? " locked" : "")} onClick={() => { if (2000 <= user.shards) { SocketManager.master.portal('crafthero', this.state.hero.key, true); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "2000" }</span></div>
                     </div>
                   </div>
                   : <div className="portal-focus"><StoryText>{ heroes.length <= 0 ? read('messages/everyheroalready') : read('messages/selecthero') }</StoryText></div>

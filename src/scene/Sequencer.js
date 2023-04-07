@@ -113,7 +113,7 @@ export default class Sequencer {
 	    case "silence": {
 	    	return new Silence(this.master, n.data[0].no);
 	    }
-	    case "attack": {
+	    case "attack.before": {
 	    	return new Attack(this.master, n.data[0].no);
 	    }
 	    case "destroy.before": {
