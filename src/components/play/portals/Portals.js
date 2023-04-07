@@ -62,7 +62,7 @@ export default class Portals extends Component {
     // Temporary
     portals = portals.filter(p => p.key !== 16);
     let heroes = Object.values(Library.heroes);
-    heroes = heroes.filter(hero => hero.craftable && !this.state.collection.heroes.includes(hero.key));
+    heroes = heroes.filter(hero => hero.runes && !this.state.collection.heroes.includes(hero.key));
     let user = JSON.parse(localStorage.getItem('user'));
 
     let cards = [];
@@ -198,8 +198,8 @@ export default class Portals extends Component {
                     <div className="portal-name">{this.state.hero.name}</div>
                     <div className="portal-description">{this.state.hero.flavor}</div>
                     <div className="portal-focus-buttons">
-                      <div className={"portal-focus-button" + (500 > user.runes ? " locked" : "")} onClick={() => { if (500 <= user.runes) { SocketManager.master.portal('crafthero', this.state.hero.key, false); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="runes-icon"/>{ "500" }</span></div>
-                      <div className={"portal-focus-button" + (2000 > user.shards ? " locked" : "")} onClick={() => { if (2000 <= user.shards) { SocketManager.master.portal('crafthero', this.state.hero.key, true); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "2000" }</span></div>
+                      <div className={"portal-focus-button" + (this.state.hero.runes > user.runes ? " locked" : "")} onClick={() => { if (this.state.hero.runes <= user.runes) { SocketManager.master.portal('crafthero', this.state.hero.key, false); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="runes-icon"/>{ this.state.hero.runes }</span></div>
+                      <div className={"portal-focus-button" + (this.state.hero.runes * 2 > user.shards ? " locked" : "")} onClick={() => { if (this.state.hero.runes * 2 <= user.shards) { SocketManager.master.portal('crafthero', this.state.hero.key, true); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ (this.state.hero.runes * 2) }</span></div>
                     </div>
                   </div>
                   : <div className="portal-focus"><StoryText>{ heroes.length <= 0 ? read('messages/everyheroalready') : read('messages/selecthero') }</StoryText></div>
