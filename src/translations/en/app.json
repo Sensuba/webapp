@@ -247,7 +247,10 @@
 		"enemysilence": "Enemy {0} is silenced",
 		"listener": "{0} triggers",
 		"youlistener": "Your {0} triggers",
-		"enemylistener": "Enemy {0} triggers"
+		"enemylistener": "Enemy {0} triggers",
+		"burn": "{0} gets discarded",
+		"youburn": "You discard {0}",
+		"enemyburn": "Your opponent discards {0}"
 	},
 	"messages": {
 		"connecterror": "Unable to connect to the server. Please try again later.",

@@ -423,7 +423,7 @@
 	margin-top: unset;
 }
 
-.portal-focus-button .runes-icon {
+.portal-focus-button .runes-icon, .portal-focus-button .shards-icon {
 
 	height: 0.8em;
 	width: 0.8em;
@@ -721,7 +721,7 @@
 		margin: 0.5rem;
 	}
 
-	.portal-focus-button .runes-icon {
+	.portal-focus-button .runes-icon, .portal-focus-button .shards-icon {
 
 		height: 1.2em;
 		width: 1.2em;

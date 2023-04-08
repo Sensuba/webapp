@@ -17,6 +17,8 @@ export default class Logs extends Component {
     switch (n.type) {
     case "startup": {
       log.main = true;
+      log.text = n.data[0].no === parseInt(this.props.player.id.no, 10) ? read('logs/you' + n.type) : read('logs/enemy' + n.type);
+      break;
     }
     case "endturn": {
       log.text = n.data[0].no === parseInt(this.props.player.id.no, 10) ? read('logs/you' + n.type) : read('logs/enemy' + n.type);
@@ -27,14 +29,15 @@ export default class Logs extends Component {
     case "listener":
     case "destroy":
     case "summon":
-    case "attack":
     case "silence":
+    case "burn":
     {
       let card = this.props.model.find(n.data[0]);
       log.text = card.player === this.props.player ? read('logs/you' + n.type + (card.isHero ? 'hero' : '')) : read('logs/enemy' + n.type + (card.isHero ? 'hero' : ''));
       log.small = true;
       break;
     }
+    case "attack.before":
     case "leveluptrigger.before":
     case "skilltrigger.before":
     case "attacktrigger.before":
