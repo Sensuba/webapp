@@ -126,7 +126,7 @@ export default class Portals extends Component {
             <CardBox left={left ? () => this.setState({focus:left}) : undefined} right={right ? () => this.setState({focus:right}) : undefined} src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
             {
               !this.state.focus.key || (this.state.collection.cards.includes(this.state.focus.key) || this.state.rewarding) ? "" :
-              <div className="portals-page-craftcard" onClick={() => { if (user.shards >= (this.state.portal.runes * (this.state.focus.rarity === "common" ? 1 : (this.state.focus.rarity === "uncommon" ? 2 : 4)))) { SocketManager.master.portal('craft', this.state.portal.key, this.state.focus.key); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "" + (this.state.portal.runes * (this.state.focus.rarity === "common" ? 2 : (this.state.focus.rarity === "uncommon" ? 5 : 10)))}</span></div>
+              <div className="portals-page-craftcard" onClick={() => { if (user.shards >= (this.state.portal.runes * (this.state.focus.rarity === "common" ? 2 : (this.state.focus.rarity === "uncommon" ? 4 : 8)))) { SocketManager.master.portal('craft', this.state.portal.key, this.state.focus.key); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "" + (this.state.portal.runes * (this.state.focus.rarity === "common" ? 2 : (this.state.focus.rarity === "uncommon" ? 4 : 8)))}</span></div>
             }
           </div>
           : ""
