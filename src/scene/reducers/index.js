@@ -164,6 +164,16 @@ let reducer = (state = 0, n) => {
     player.receptacles += n.data[1];
     break;
   }
+  case "destroyreceptacles": {
+    let player = state.find(n.data[0]);
+    player.receptacles -= n.data[1];
+    break;
+  }
+  case "setmaxmana": {
+    let player = state.find(n.data[0]);
+    player.maxMana = n.data[1];
+    break;
+  }
   case "addgems": {
     let player = state.find(n.data[0]);
     player.gems += n.data[1];

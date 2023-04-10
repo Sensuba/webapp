@@ -27,6 +27,7 @@ export default class Play extends Bloc {
 		owner.events = owner.events || [];
 		owner.events.push(target => {
 			this.chosen = target;
+			this.out = [this, this.chosen, this.chosen];
 			this.trigger(owner, image);
 		});
 	}

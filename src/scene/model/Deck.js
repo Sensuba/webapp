@@ -5,6 +5,7 @@ import Library from '../utility/Library.js';
 export default class Deck extends Location {
 
 	layer = 1;
+	curseLevel = 1;
 
 	constructor (player) {
 
@@ -30,10 +31,21 @@ export default class Deck extends Location {
 	    }
 	}
 
+	curse () {
+
+		this.game.notify("curse.before", this, this.curseLevel);
+		this.player.hero.damage(this.curseLevel);
+		this.curseLevel++;
+		this.game.notify("curse.before", this, this.curseLevel-1);
+	}
+
 	draw(filter) {
 
-		if (this.cards.length <= 0)
+		if (this.cards.length <= 0) {
+			if (!filter)
+				this.curse();
 			return;
+		}
 
 		let card = filter ? this.cards.find(filter) : this.cards[0];
 		

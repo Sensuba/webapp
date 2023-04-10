@@ -9,8 +9,8 @@ export default class FilterCard extends Bloc {
 		this.f = (src, ins) => [
 			(src, target) => target && target === ins[0],
 			(src, target) => target !== ins[0],
-			(src, target) => target && ins[0] && target.model.key !== ins[0].model.key,
-			(src, target) => target && ins[0] && target.model.key === ins[0].model.key
+			(src, target) => target && ins[0] && target.model.key === ins[0].model.key,
+			target => target && ins[0] && target.key === ins[0].model.key
 		];
 		this.types = [Types.card];
 	}

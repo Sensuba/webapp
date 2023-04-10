@@ -58,6 +58,11 @@ export default class Hero {
 		this.activated = true;
 	}
 
+	get ghost () {
+
+		return ((this.dmg || 0) >= this.eff.hp || this.sentenced);
+	}
+
 	damage (dmg, src) {
 
 		if (dmg <= 0)

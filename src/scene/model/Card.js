@@ -177,12 +177,14 @@ export default class Card {
 
 		this.game.notify("destroy.before", this);
 
+		let undying = this.hasState("undying");
+
 		let tile = this.location;
 		this.goto(this.player.graveyard);
 
 		this.game.notify("destroy", this);
 
-		if (this.hasState("undying") && !tile.isFull) {
+		if (undying && !tile.isFull) {
 			let card = this.sendTo(tile);
 			card.setDamage(card.hp - 1);
 			card.setState("undying", false);
@@ -235,7 +237,7 @@ export default class Card {
 
 		let target = this.findAttackTarget();
 
-		this.game.notify("attack", this, target);
+		this.game.notify("attack.before", this, target, false);
 
 		if (target === this || (target.isUnit && !target.onField))
 			return;
@@ -247,7 +249,9 @@ export default class Card {
 		let atk = Math.max(0, this.eff.atk - (target.eff.armor || 0));
 		if (!this.hasState("initiative"))
 			target.ripost(this);
-		target.damage(atk, this, this.frenzy);
+		let dmg = target.damage(atk, this, this.frenzy);
+
+		this.game.notify("attack", this, target, dmg.kill);
 
 		if (lock)
 			this.game.broadcaster.unlock();
@@ -339,7 +343,7 @@ export default class Card {
 
 	banish () {
 
-		if (this.location && this.location.id.type === "nether")
+		if (!this.location || this.location.id.type === "nether")
 			return;
 		this.game.notify("banish.before", this);
 		this.goto(this.player.nether);
@@ -606,6 +610,8 @@ export default class Card {
 		delete serial.model;
 		delete serial.index;
 		Object.keys(serial).forEach(key => copy[key] = serial[key]);
+
+		this.game.notify("copy", this, copy);
 		return copy;
 	}
 

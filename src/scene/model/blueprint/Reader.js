@@ -42,6 +42,8 @@ import AddMana from './AddMana.js';
 import RefillMana from './RefillMana.js';
 import UseMana from './UseMana.js';
 import AddReceptacle from './AddReceptacle.js';
+import DestroyReceptacle from './DestroyReceptacle.js';
+import SetMaxMana from './SetMaxMana.js';
 import AddGem from './AddGem.js';
 import Generate from './Generate.js';
 import GenerateSummon from './GenerateSummon.js';
@@ -72,9 +74,11 @@ import EditTiles from './EditTiles.js';
 import FilterCard from './FilterCard.js';
 import FilterStats from './FilterStats.js';
 import FilterDamaged from './FilterDamaged.js';
+import FilterDestroyed from './FilterDestroyed.js';
 import FilterCover from './FilterCover.js';
 import FilterVariable from './FilterVariable.js';
 import FilterEffect from './FilterEffect.js';
+import MergeLocations from './MergeLocations.js';
 import MergeCardFilters from './MergeCardFilters.js';
 import MergeTileFilters from './MergeTileFilters.js';
 import MergeModelFilters from './MergeModelFilters.js';
@@ -113,6 +117,7 @@ import FactorOverload from './FactorOverload.js';
 
 import Hand from './Hand.js';
 import Model from './Model.js';
+import ManaPool from './ManaPool.js';
 
 import BreakCard from './BreakCard.js';
 import BreakTile from './BreakTile.js';
@@ -198,6 +203,8 @@ export default class Reader {
 			case "refillmana": bloc = new RefillMana(card, ctx); break;
 			case "usemana": bloc = new UseMana(card, ctx); break;
 			case "addrec": bloc = new AddReceptacle(card, ctx); break;
+			case "destroyreceptacle": bloc = new DestroyReceptacle(card, ctx); break;
+			case "setmaxmana": bloc = new SetMaxMana(card, ctx); break;
 			case "addgem": bloc = new AddGem(card, ctx); break;
 			case "generate": bloc = new Generate(card, ctx); break;
 			case "generatesummon": bloc = new GenerateSummon(card, ctx); break;
@@ -228,9 +235,11 @@ export default class Reader {
 			case "filtercard": bloc = new FilterCard(card, ctx); break;
 			case "filterstats": bloc = new FilterStats(card, ctx); break;
 			case "filterdamaged": bloc = new FilterDamaged(card, ctx); break;
+			case "filterdestroyed": bloc = new FilterDestroyed(card, ctx); break;
 			case "filtercover": bloc = new FilterCover(card, ctx); break;
 			case "filtervar": bloc = new FilterVariable(card, ctx); break;
 			case "filtereffect": bloc = new FilterEffect(card, ctx); break;
+			case "mergeloc": bloc = new MergeLocations(card, ctx); break;
 			case "mergecfilters": bloc = new MergeCardFilters(card, ctx); break;
 			case "mergetfilters": bloc = new MergeTileFilters(card, ctx); break;
 			case "mergemfilters": bloc = new MergeModelFilters(card, ctx); break;
@@ -267,6 +276,7 @@ export default class Reader {
 
 			case "hand": bloc = new Hand(card, ctx); break;
 			case "model": bloc = new Model(card, ctx); break;
+			case "manapool": bloc = new ManaPool(card, ctx); break;
 
 			case "brkcard": bloc = new BreakCard(card, ctx); break;
 			case "brktile": bloc = new BreakTile(card, ctx); break;
@@ -312,7 +322,7 @@ export default class Reader {
 			case "destroy-trigger": bloc = new Trigger(el.type, card, ctx, "destroy"); break;
 			case "destroy-data": bloc = new Data(el.type, card, ctx, data => [data[0]]); break;
 			case "attack-trigger": bloc = new Trigger(el.type, card, ctx, "attack"); break;
-			case "attack-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
+			case "attack-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1], data[2]]); break;
 			case "breakshield-trigger": bloc = new Trigger(el.type, card, ctx, "shieldbreak"); break;
 			case "breakshield-data": bloc = new Data(el.type, card, ctx, data => [data[0]]); break;
 			case "levelup-trigger": bloc = new Trigger(el.type, card, ctx, "levelup"); break;

@@ -112,7 +112,7 @@ export default class CardBox extends Component {
 	            		<div className="hero-lv-text">{ read('cards/lvmax') }</div>
 	            		</div>
 	            	</div>
-	            	: <p className="game-effect">{ this.computeEffect() }</p>
+	            	: <p className={ "game-effect" + (this.current.effect.length >= 125 ? " small-effect" : "")}>{ this.computeEffect() }</p>
 	            }
 	            <div className="cardbox-side cardbox-left">
 	            </div>

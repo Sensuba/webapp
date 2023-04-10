@@ -17,6 +17,8 @@ export default class Player {
 	receptacles = 0;
 	gems = 0;
 
+	maxMana = MAX_RECEPTACLES;
+
 	constructor (game, decklist) {
 
 		if(!arguments.length) return;
@@ -108,8 +110,11 @@ export default class Player {
 			card.autocast();
 			this.game.notify("automatic", this, card);
 		}
-		else if (this.hand.isFull)
+		else if (this.hand.isFull) {
+			this.game.notify("burn.before", this, card);
 			card.banish();
+			this.game.notify("burn", this, card);
+		}
 		else {
 			this.game.notify("draw.before", this, card);
 			this.hand.addCard(card);
@@ -134,13 +139,32 @@ export default class Player {
 		if (value <= 0)
 			return;
 		this.game.notify("addreceptacles.before", this, value);
-		value = Math.min(MAX_RECEPTACLES - this.receptacles, value);
+		value = Math.min(this.maxMana - this.receptacles, value);
 		if (value <= 0)
 			return;
 		this.receptacles += value;
 		this.game.notify("addreceptacles", this, value);
 		if (filled)
 			this.addMana(value);
+	}
+
+	destroyReceptacles (value=1) {
+
+		if (value <= 0)
+			return;
+		this.game.notify("destroyreceptacles.before", this, value);
+		value = Math.min(this.receptacles, value);
+		if (value <= 0)
+			return;
+		this.receptacles -= value;
+		this.game.notify("destroyreceptacles", this, value);
+	}
+
+	setMaxReceptacles (value) {
+
+		this.game.notify("setmaxmana.before", this, value);
+		this.maxMana = value;
+		this.game.notify("setmaxmana", this, value);
 	}
 
 	addGems (value) {
