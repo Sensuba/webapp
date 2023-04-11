@@ -8,6 +8,7 @@ import { Tooltip } from 'reactstrap';
 import Library from '../../scene/utility/Library';
 
 import { read } from '../../TextManager';
+import { getMusic, play, stopMusic } from '../../SoundManager';
 
 const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility", "exalted", "initiative", "trap"];
 
@@ -115,14 +116,15 @@ export default class CardBox extends Component {
 	            	: <p className={ "game-effect" + (this.current.effect.length >= 125 ? " small-effect" : "")}>{ this.computeEffect() }</p>
 	            }
 	            <div className="cardbox-side cardbox-left">
+	            	{ this.current.theme ? <div className={"cardbox-sound" + (getMusic() === this.current.theme ? " active-sound" : "")} onClick={() => { if (getMusic() === this.current.theme) stopMusic(); else play(this.current.theme, 'music'); this.forceUpdate(); }}><img alt="change-music" src="/images/sound.png"/></div> : ""}
 	            </div>
 	            <div className="cardbox-side cardbox-right">
 	             	{ colors.map(c => <div key={c} className="cardbox-color">{ read('cards/' + c).toLowerCase() }</div>) }
 	            </div>
 	            { this.state.token.length > 0 ? <div className="cardbox-back-to-parent" onClick={() => this.setState({tooltip: null, token: this.state.token.length > 1 ? this.state.token.slice(0, this.state.token.length-1) : [] })}>{ this.state.token.length > 1 ? this.state.token[this.state.token.length-2].name : this.props.src.name }</div> : "" }
 	          </div>
-	          { this.props.left && this.state.token.length === 0 && !this.state.mask ? <div onClick={() => this.props.left()} className="cardbox-arrow cardbox-arrow-left"><img src="/images/arrowhead.png"/></div> : "" }
-	          { this.props.right && this.state.token.length === 0 && !this.state.mask ? <div onClick={() => this.props.right()} className="cardbox-arrow cardbox-arrow-right"><img src="/images/arrowhead.png"/></div> : "" }
+	          { this.props.left && this.state.token.length === 0 && !this.state.mask ? <div onClick={() => this.props.left()} className="cardbox-arrow cardbox-arrow-left"><img alt="" src="/images/arrowhead.png"/></div> : "" }
+	          { this.props.right && this.state.token.length === 0 && !this.state.mask ? <div onClick={() => this.props.right()} className="cardbox-arrow cardbox-arrow-right"><img alt="" src="/images/arrowhead.png"/></div> : "" }
 	        </Lightbox>
 		);
 	}

@@ -138,6 +138,29 @@
 	justify-content: center;
 }
 
+.cardbox-focus .cardbox-sound {
+
+	justify-content: center;
+	height: 1.5rem;
+	width: 1.5rem;
+	margin: auto;
+	opacity: 0.3;
+	cursor: pointer;
+}
+
+.cardbox-focus .cardbox-sound.active-sound {
+
+	opacity: 1;
+	filter: drop-shadow(#00000060 0.15rem 0.15rem);
+}
+
+.cardbox-focus .cardbox-sound img {
+
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-top: 0.25rem;
+}
+
 .tooltip.show.bs-tooltip-auto {
 
 	z-index: 1200;
@@ -359,5 +382,18 @@
 		left: unset;
 		right: -2rem;
 		justify-content: left;
+	}
+
+	.cardbox-focus .cardbox-sound {
+
+		height: 2rem;
+		width: 2rem;
+	}
+
+	.cardbox-focus .cardbox-sound img {
+
+		width: 2rem;
+		height: 2rem;
+		margin-top: 0.5rem;
 	}
 }

@@ -31,12 +31,14 @@ export default class Portals extends Component {
     exploration: JSON.parse(localStorage.getItem('user')).exploration
   }
 
+  portalMusic = false;
+
   componentDidMount () {
 
     SocketManager.master.onCollectionUpdate = (collection, reward) => {
       if (this.state.heroes) {
         this.setState({hero: null, action: null, collection});
-        stopMusic();
+        this.stopMusic();
       } else {
         if (reward && reward.length > 1) {
           this.setState({action: null, reward, rewarding: true});
@@ -53,7 +55,15 @@ export default class Portals extends Component {
     delete SocketManager.master.onCollectionUpdate;
     delete SocketManager.master.onExplorePortal;
     clearInterval(this.interval);
-    stopMusic();
+    this.stopMusic();
+  }
+
+  stopMusic () {
+
+    if (this.portalMusic) {
+      this.portalMusic = false;
+      stopMusic();
+    }
   }
 
   render () {
@@ -137,7 +147,7 @@ export default class Portals extends Component {
           <div className="portals-page-search">
             <div className="portals-page-search-main">
               <div className="portals-page-search-tab">
-                <div className="portals-page-search-main-label" onClick={() => { this.setState({heroes: false, hero: null}); stopMusic(); } }>{ read("menu/portals") }</div>
+                <div className="portals-page-search-main-label" onClick={() => { this.setState({heroes: false, hero: null}); this.stopMusic(); } }>{ read("menu/portals") }</div>
               </div>
               <div className="portals-page-search-tab">
                 <div className="portals-page-search-main-label" onClick={() => this.setState({heroes: true, portal: null})}>{ read('menu/heroes') }</div>
@@ -164,6 +174,7 @@ export default class Portals extends Component {
                     else {
                       this.setState({hero, level: 1});
                       play(hero.theme, "music");
+                      this.portalMusic = true;
                     }
                   }
                 }><Hero src={hero}/></div>)

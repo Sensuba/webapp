@@ -99,11 +99,9 @@ export default class Hero {
 		switch (state) {
 		case "armor": {
 			return this.eff.armor && this.eff.armor > 0;
-			break;
 		}
 		case "barrier": {
 			return this.eff.barrier && this.eff.barrier > 0;
-			break;
 		}
 		default: break;
 		}

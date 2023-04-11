@@ -113,7 +113,7 @@ import Extremum from './Extremum.js';
 import InnerData from './InnerData.js';
 import Analyse from './Analyse.js';
 
-import FactorOverload from './FactorOverload.js';
+//import FactorOverload from './FactorOverload.js';
 
 import Hand from './Hand.js';
 import Model from './Model.js';

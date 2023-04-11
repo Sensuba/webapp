@@ -361,11 +361,9 @@ export default class Card {
 		switch (state) {
 		case "armor": {
 			return this.eff.armor && this.eff.armor > 0;
-			break;
 		}
 		case "barrier": {
 			return this.eff.barrier && this.eff.barrier > 0;
-			break;
 		}
 		default: break;
 		}
@@ -403,7 +401,7 @@ export default class Card {
 			return false;
 		if (this.targetType === "card" && target.data.hasState("exalted"))
 			return false;
-		if (this.targetType === "card" && target.data.hasState("hidden"))
+		if (this.targetType === "card" && this.player !== target.data.player && target.data.hasState("hidden"))
 			return false;
 		if (target.data === this)
 			return false;
@@ -445,6 +443,7 @@ export default class Card {
 			return;
 
 		this.game.notify("setstats.before", this, mana, atk, hp);
+		
 		if (mana || mana === 0)
 			this.mana = mana;
 		if (atk || atk === 0)
@@ -455,10 +454,10 @@ export default class Card {
 				this.dmg = 0;
 		}
 
+		this.game.notify("setstats", this, mana, atk, hp);
+
 		if (this.ghost)
 			this.destroy();
-
-		this.game.notify("setstats", this, mana, atk, hp);
 	}
 
 	addStats (atk, hp) {
@@ -472,15 +471,16 @@ export default class Card {
 			hp = -this.hp;
 
 		this.game.notify("addstats.before", this, atk, hp);
+
 		if (atk)
 			this.atk += atk;
 		if (hp)
 			this.hp += hp;
 
+		this.game.notify("addstats", this, atk, hp);
+
 		if (this.ghost)
 			this.destroy();
-
-		this.game.notify("addstats", this, atk, hp);
 	}
 
 	changeCost (value) {
@@ -701,7 +701,7 @@ export default class Card {
 			categories: this.categories.slice(),
 			hp: this.hp,
 			bonushp: this.bonushp,
-			booster: this.booster,
+			booster: Object.assign({}, this.booster || {}),
 			dmg: this.dmg,
 			armor: this.armor,
 			barrier: this.barrier,

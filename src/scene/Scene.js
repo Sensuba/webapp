@@ -297,7 +297,7 @@ export default class Scene extends Component {
 
     if (col === this.grabbing.location.x) {
       if (opposite) {
-        if (this.state.command !== "attack" && this.grabbing.canAttack) {
+        if (this.state.command !== "attack" && this.grabbing.player === this.player && this.grabbing.canAttack) {
           this.setState({command: "attack"});
           this.commandElement("#column-" + col + " .game-attack-action");
         }

@@ -4,15 +4,18 @@ let audioLibrary = {
 }
 
 let volume = { music: localStorage.getItem('volume.music'), sfx: localStorage.getItem('volume.sfx') }
-let currentMusic = null;
+let currentMusic = null, currentMusicName = null;
 
-let adjustedVolume = type => Math.pow(volume[type], 1.5);
+const multiplier = { music: 0.4, sfx: 1 };
+
+let adjustedVolume = type => Math.pow(volume[type], 1.5) * multiplier[type];
 
 let stopMusic = () => {
 
 	if (currentMusic) {
 		let audio = currentMusic;
 		currentMusic = null;
+		currentMusicName = null;
 		let multiplier = 1;
 		let fadeout = setInterval(
 		  function() {
@@ -54,6 +57,7 @@ let play = (name, type, category) => {
 		audio.loop = true;
 		audio.volume = 0;
 		currentMusic = audio;
+		currentMusicName = name;
 		let multiplier = 0;
 		let fadeout = setInterval(
 		  function() {
@@ -67,6 +71,7 @@ let play = (name, type, category) => {
 		      clearInterval(fadeout);
 		    }
 		  }, 80);
+		break;
 	}
 	default: break;
 	}
@@ -83,6 +88,8 @@ let setVolume = (vol, type) => {
 	Object.keys(audioLibrary[type]).forEach(audio => audioLibrary[type][audio].volume = adjustedVolume(type));
 }
 
+let getMusic = () => currentMusicName;
+
 if (!volume.music)
 	setVolume(0.3, 'music');
 else volume.music = parseFloat(volume.music, 10);
@@ -90,4 +97,4 @@ if (!volume.sfx)
 	setVolume(0.5, 'sfx');
 else volume.sfx = parseFloat(volume.sfx, 10);
 
-export { play, stopMusic, stopCategory, getVolume, setVolume };
+export { play, stopMusic, stopCategory, getMusic, getVolume, setVolume };
