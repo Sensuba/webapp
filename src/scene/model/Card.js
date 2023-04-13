@@ -674,6 +674,8 @@ export default class Card {
 		// Copy base data
 		this.effective = this.serialize();
 		this.effective.model = this.model;
+		this.effective.location = this.location;
+		this.effective.player = this.player;
 
 		// Apply auras
 		this.game.auras.forEach(aura => {

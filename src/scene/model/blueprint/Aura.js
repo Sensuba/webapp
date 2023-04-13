@@ -14,6 +14,6 @@ export default class Aura extends Bloc {
 
 	setup (owner, image) {
 
-		owner.passives.push(new AuraEffect(owner, (s, x) => this.in[0]({src: s, data: x})(x), s => this.in[1]({src: s}), s => ((this.in[2]({src: s})) || (x => true))));
+		owner.passives.push(new AuraEffect(owner, (s, x) => this.in[0]({src: s, data: {"0": x}})(x), s => this.in[1]({src: s}), s => ((this.in[2]({src: s})) || (x => true))));
 	}
 }
