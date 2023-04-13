@@ -109,6 +109,7 @@ export default class Player {
 			this.game.notify("automatic.before", this, card);
 			card.autocast();
 			this.game.notify("automatic", this, card);
+			this.draw();
 		}
 		else if (this.hand.isFull) {
 			this.game.notify("burn.before", this, card);

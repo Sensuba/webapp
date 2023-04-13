@@ -19,7 +19,7 @@ export default class Stack extends Location {
 			this.resolve(player, card, target);
 		else {
 			card.goto(this);
-			this.waitingList[this.resolving-1].push({card, player});
+			this.waitingList[this.resolving-1].push({card, player, target});
 		}
 	}
 
@@ -35,7 +35,7 @@ export default class Stack extends Location {
 				card.events.forEach(e => e(targetdata));
 		this.game.notify("cast", this, player, targetdata);
 		card.goto(player.graveyard);
-		this.waitingList[this.resolving-1].forEach(r => this.resolve(r.player, r.card));
+		this.waitingList[this.resolving-1].forEach(r => this.resolve(r.player, r.card, r.target));
 		this.waitingList.pop();
 		delete this.resolving;
 	}
@@ -54,13 +54,13 @@ export default class Stack extends Location {
 
 		return {
 			cards: this.cards.map(c => c.id.no),
-			waitingList: this.waitingList.map(priority => priority.map(r => ({card: r.card.id.no, player: r.player.id.no})))
+			waitingList: this.waitingList.map(priority => priority.map(r => ({card: r.card.id.no, player: r.player.id.no, target: r.target ? {type: r.target.type, data: r.target.type === "card" ? r.target.data.id : r.target.data} : undefined})))
 		}
 	}
 
 	setup (game, data) {
 		
 		super.setup(game, data);
-		this.waitingList = data.waitingList.map(priority => priority.map(r => ({card: game.find({type: "card", no: r.card}), player: game.find({type: "player", no: r.player})})));
+		this.waitingList = data.waitingList.map(priority => priority.map(r => ({card: game.find({type: "card", no: r.card}), player: game.find({type: "player", no: r.player}), target: r.target ? {type: r.target.type, data: r.target.type === "card" ? game.find({type: "card", no: r.target.data}) : r.target.data} : undefined})));
 	}
 }

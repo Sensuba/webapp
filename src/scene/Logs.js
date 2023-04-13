@@ -30,9 +30,15 @@ export default class Logs extends Component {
     case "destroy":
     case "summon":
     case "silence":
-    case "burn":
     {
       let card = this.props.model.find(n.data[0]);
+      log.text = card.player === this.props.player ? read('logs/you' + n.type + (card.isHero ? 'hero' : '')) : read('logs/enemy' + n.type + (card.isHero ? 'hero' : ''));
+      log.small = true;
+      break;
+    }
+    case "burn":
+    {
+      let card = this.props.model.find(n.data[1]);
       log.text = card.player === this.props.player ? read('logs/you' + n.type + (card.isHero ? 'hero' : '')) : read('logs/enemy' + n.type + (card.isHero ? 'hero' : ''));
       log.small = true;
       break;

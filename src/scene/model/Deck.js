@@ -31,6 +31,15 @@ export default class Deck extends Location {
 	    }
 	}
 
+	addCard (card) {
+
+		if (this.hasCard(card))
+			return;
+		this.cards.splice(Math.floor(Math.random() * (this.count+1)), 0, card);
+		if (card.location !== this)
+			card.goto(this);
+	}
+
 	curse () {
 
 		this.game.notify("curse.before", this, this.curseLevel);

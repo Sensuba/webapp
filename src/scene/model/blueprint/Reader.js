@@ -37,6 +37,7 @@ import Freeze from './Freeze.js';
 import Silence from './Silence.js';
 import BreakShield from './BreakShield.js';
 import Cast from './Cast.js';
+import Autocast from './Autocast.js';
 import Switch from './Switch.js';
 import AddMana from './AddMana.js';
 import RefillMana from './RefillMana.js';
@@ -198,6 +199,7 @@ export default class Reader {
 			case "silence": bloc = new Silence(card, ctx); break;
 			case "breakshield": bloc = new BreakShield(card, ctx); break;
 			case "cast": bloc = new Cast(card, ctx); break;
+			case "autocast": bloc = new Autocast(card, ctx); break;
 			case "switch": bloc = new Switch(card, ctx); break;
 			case "addmana": bloc = new AddMana(card, ctx); break;
 			case "refillmana": bloc = new RefillMana(card, ctx); break;

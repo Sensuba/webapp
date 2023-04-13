@@ -63,6 +63,11 @@ let reducer = (state = 0, n) => {
     card.activate();
     break;
   }
+  case "predestroy": {
+    let card = state.find(n.data[0]);
+    card.sentenced = true;
+    break;
+  }
   case "damage": {
     let card = state.find(n.data[0]);
     card.dmg += n.data[1];

@@ -171,13 +171,14 @@ export default class Card {
 	destroy () {
 
 		if (this.game.broadcaster.locked) {
+			this.game.notify("predestroy", this);
 			this.sentenced = true;
 			return;
 		}
 
-		this.game.notify("destroy.before", this);
-
 		let undying = this.hasState("undying");
+
+		this.game.notify("destroy.before", this);
 
 		let tile = this.location;
 		this.goto(this.player.graveyard);
@@ -412,19 +413,35 @@ export default class Card {
 	autocast (player) {
 
 		if (!this.isSpell)
-			return;
+			return false;
 		player = player || this.player;
 		if (!this.hasTarget) {
 			this.game.stack.cast(player, this);
-		} else if (player.hasValidTargets(this)) {
-			let targets;
-			if (this.targetType === "column")
-				targets = this.game.field.columns.filter(col => this.canTarget(player, {type: "column", data: col}))
-			else if (this.targetType === "card")
-				targets = this.game.field.all.some(tile => tile.cards.some(c => this.canTarget(player, {type: "card", data: c}))) || this.canTarget(player, {type: "card", data: player.hero}) || this.canTarget(player, {type: "card", data: player.opponent.hero});
-			if (targets)
-				this.game.stack.cast(player, this, targets[Math.floor(Math.random() * targets.length)]);
+			return true;
 		}
+		if (player.hasValidTargets(this)) {
+			if (this.targetType === "column") {
+				let targets = this.game.field.columns.filter(col => this.canTarget(player, {type: "column", data: col}));
+				if (targets.length > 0) {
+					this.game.stack.cast(player, this, {type: "column", data: targets[Math.floor(Math.random() * targets.length)]});
+					return true;
+				}
+				return false;
+			}
+			else if (this.targetType === "card") {
+				let targets = this.game.field.units.filter(c => this.canTarget(player, {type: "card", data: c}))
+				if (this.canTarget(player, {type: "card", data: player.hero}))
+					targets.push(player.hero);
+				if (this.canTarget(player, {type: "card", data: player.opponent.hero}))
+					targets.push(player.opponent.hero);
+				if (targets.length > 0) {
+					this.game.stack.cast(player, this, {type: "card", data: targets[Math.floor(Math.random() * targets.length)]});
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
 	}
 
 	cast (player, target) {
@@ -512,6 +529,7 @@ export default class Card {
 		this.states = {};
 		this.states.silence = true;
 		this.passives.forEach(passive => passive.deactivate());
+		delete this.innereffects;
 		this.passives = [];
 		this.blueprints = [];
 		this.atk = this.model.atk;
