@@ -6,7 +6,7 @@ export default class ConditionalMutation extends Bloc {
 	constructor (src, ctx) {
 
 		super("conditionmut", src, ctx);
-		this.f = (src, ins, props) => [x => this.in[1](Object.assign({}, props, {data: x})) ? this.in[0](props)(x) : x];
+		this.f = (src, ins, props) => [x => this.in[1](Object.assign({}, props, {data: {0: x}})) ? this.in[0](props)(x) : x];
 		this.types = [Types.mutation, Types.bool];
 	}
 

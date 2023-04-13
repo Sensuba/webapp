@@ -170,11 +170,11 @@ export default class Card {
 
 	destroy () {
 
-		if (this.game.broadcaster.locked) {
-			this.game.notify("predestroy", this);
-			this.sentenced = true;
+		this.game.notify("predestroy", this);
+		this.sentenced = true;
+
+		if (this.game.broadcaster.locked)
 			return;
-		}
 
 		let undying = this.hasState("undying");
 
