@@ -250,9 +250,9 @@
 		"listener": "{0} se déclenche",
 		"youlistener": "Votre {0} se déclenche",
 		"enemylistener": "{0} adverse se déclenche",
-		"burn": "{0} est défaussé",
-		"youburn": "Vous défaussez {0}",
-		"enemyburn": "Votre adversaire {0}"
+		"burn": "{1} est défaussé",
+		"youburn": "Vous défaussez {1}",
+		"enemyburn": "Votre adversaire défausse {1}"
 	},
 	"messages": {
 		"connecterror": "Connexion au serveur impossible. Merci de réessayer ultérieurement.",
