@@ -69,7 +69,7 @@
 
   .game-hand-card .game-card-wrapper {
 
-  	top: 10vw;
+  	/*top: 10vw;*/
   	font-size: 2vw;
   }
 
@@ -84,7 +84,7 @@
 
   		width: 3%;
 	}
-
+/*
 	.self-area .game-hand-card:hover .game-card-wrapper {
 
 		top: 3vw;
@@ -98,7 +98,7 @@
 	.opposite-area .game-hand-card:hover .game-card-wrapper {
 
 		top: 3vw;
-	}
+	}*/
 }
 
 

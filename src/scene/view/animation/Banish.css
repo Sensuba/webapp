@@ -1,0 +1,24 @@
+.sensuba-card-banish {
+
+	animation: card-destroy-margin 0.25s 1;
+  margin: 0vw 0;
+}
+
+.sensuba-card-banish .game-unit {
+
+  animation: card-banish 0.25s 1;
+  opacity: 0;
+  margin-bottom: -6em;
+}
+
+.game-field-tile + .game-field-tile .sensuba-card-destroy .game-unit {
+
+  animation: card-banish 0.25s 1;
+  margin-top: -6em;
+  margin-bottom: unset;
+}
+
+@keyframes card-banish {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

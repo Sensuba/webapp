@@ -1,12 +1,13 @@
 import Wait from './view/animation/Wait';
 import AddToHand from './view/animation/AddToHand';
-//import RemoveFromHand from './view/animation/RemoveFromHand';
+import RemoveFromHand from './view/animation/RemoveFromHand';
 import Summon from './view/animation/Summon';
 import Silence from './view/animation/Silence';
 import Attack from './view/animation/Attack';
 import Damage from './view/animation/Damage';
 import Heal from './view/animation/Heal';
 import Destroy from './view/animation/Destroy';
+import Banish from './view/animation/Banish';
 import Listener from './view/animation/Listener';
 import Target from './view/animation/Target';
 import ShieldBreak from './view/animation/ShieldBreak';
@@ -119,6 +120,14 @@ export default class Sequencer {
 	    case "destroy.before": {
 	    	return new Destroy(this.master, n.data[0].no);
 	    }
+	    case "banish.before": {
+		    let card = this.master.state.model.find(n.data[0]);
+		    if (card.onField)
+	    		return new Banish(this.master, n.data[0].no);
+	    	if (card.inHand)
+	    		return new RemoveFromHand(this.master, n.data[0].no);
+	    	break;
+	    }
 	    case "damage": {
 	    	return new Damage(this.master, n.data[0], n.data[1]);
 	    }
@@ -145,6 +154,14 @@ export default class Sequencer {
 		}
 		case "playtarget.before": {
 			return n.data[2] && (n.data[2].type === "card" || n.data[2].type === "hero") ? new Target(this.master, n.data[2]) : null;
+		}
+	    case "movecard.before": {
+	    	/*if (n.data[1] && n.data[1].type === "hand") {
+		    	let card = this.master.state.model.find(n.data[0]);
+		    	if (card)
+		    		return new RemoveFromHand(this.master, n.data[0].no);
+		    }*/
+		    break;
 		}
 	    case "movecard": {
 	    	if (n.data[2] && n.data[2].type === "hand") {
