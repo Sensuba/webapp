@@ -27,7 +27,7 @@ export default class Error extends Component {
     return (
       <div className={"main-page error-page" + (this.props.dark ? "" : " light")}>
         <Flowers/>
-        <Nav/>
+        { this.props.dark ? "" : <Nav/> }
         <div className="main">
           <StoryText className={ this.state.display ? "" : "fade-text" }>{ this.props.children }</StoryText>
         </div>

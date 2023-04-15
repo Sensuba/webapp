@@ -131,6 +131,9 @@ export default class Sequencer {
 	    case "damage": {
 	    	return new Damage(this.master, n.data[0], n.data[1]);
 	    }
+	    case "nodamage": {
+	    	return new Damage(this.master, n.data[0], 0);
+	    }
 	    case "heal": {
 	    	return new Heal(this.master, n.data[0], n.data[1]);
 	    }
