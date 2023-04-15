@@ -135,6 +135,14 @@ export default class Card {
 		}
 
 		this.game.notify("damage.before", this, dmg, src);
+		if (this.dmgModifier !== undefined) {
+			dmg = this.dmgModifier;
+			delete this.dmgModifier;
+		}
+		if (dmg <= 0) {
+			this.game.notify("nodamage", this, src);
+			return { damage: 0, kill: false, overkill: 0 };
+		}
 		this.dmg += dmg;
 		let kill = this.ghost;
 		let overkill = kill ? this.dmg - this.eff.hp : 0;

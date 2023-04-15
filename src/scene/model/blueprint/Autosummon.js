@@ -1,6 +1,5 @@
 import Bloc from './Bloc.js';
 import Types from './Types.js';
-import Card from '../Card.js';
 
 export default class Autoummon extends Bloc {
 

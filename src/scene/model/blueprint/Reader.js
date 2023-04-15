@@ -11,6 +11,7 @@ import HandListener from './HandListener.js';
 import Frenzy from './Frenzy.js';
 import Aura from './Aura.js';
 import PassiveMutation from './PassiveMutation.js';
+import HandMutation from './HandMutation.js';
 
 import State from './State.js';
 import Variation from './Variation.js';
@@ -57,6 +58,7 @@ import TriggerEffect from './TriggerEffect.js';
 import ExtraTrigger from './ExtraTrigger.js';
 import DelayedTrigger from './DelayedTrigger.js';
 import DelayedChangeCost from './DelayedChangeCost.js';
+import ChangeDamage from './ChangeDamage.js';
 
 import StoreInteger from './StoreInteger.js';
 import StoreCard from './StoreCard.js';
@@ -175,6 +177,7 @@ export default class Reader {
 			case "frenzy": bloc = new Frenzy(card, ctx); break;
 			case "aura": bloc = new Aura(card, ctx); break;
 			case "passivemut": bloc = new PassiveMutation(card, ctx); break;
+			case "handmut": bloc = new HandMutation(card, ctx); break;
 
 			case "state": bloc = new State(card, ctx); break;
 			case "variation": bloc = new Variation(card, ctx); break;
@@ -221,6 +224,7 @@ export default class Reader {
 			case "extratrigger": bloc = new ExtraTrigger(card, ctx); break;
 			case "delayedtrigger": bloc = new DelayedTrigger(card, ctx); break;
 			case "delayedchangecost": bloc = new DelayedChangeCost(card, ctx); break;
+			case "changedamage": bloc = new ChangeDamage(card, ctx); break;
 
 			case "writeintvar": bloc = new StoreInteger(card, ctx); break;
 			case "writecardvar": bloc = new StoreCard(card, ctx); break;
