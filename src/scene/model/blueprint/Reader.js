@@ -23,6 +23,7 @@ import Draw from './Draw.js';
 import Damage from './Damage.js';
 import Heal from './Heal.js';
 import Summon from './Summon.js';
+import Autosummon from './Autosummon.js';
 import Destroy from './Destroy.js';
 import Copy from './Copy.js';
 import Transform from './Transform.js';
@@ -133,6 +134,7 @@ import ForEachCard from './ForEachCard.js';
 import ForEachTile from './ForEachTile.js';
 import ForEachEffect from './ForEachEffect.js';
 import ForEachEvent from './ForEachEvent.js';
+import FirstLastCards from './FirstLastCards.js';
 
 import Plus from './Plus.js';
 import Minus from './Minus.js';
@@ -185,6 +187,7 @@ export default class Reader {
 			case "damage": bloc = new Damage(card, ctx); break;
 			case "heal": bloc = new Heal(card, ctx); break;
 			case "summon": bloc = new Summon(card, ctx); break;
+			case "autosummon": bloc = new Autosummon(card, ctx); break;
 			case "destroy": bloc = new Destroy(card, ctx); break;
 			case "copy": bloc = new Copy(card, ctx); break;
 			case "transform": bloc = new Transform(card, ctx); break;
@@ -293,6 +296,7 @@ export default class Reader {
 			case "fortile": bloc = new ForEachTile(card, ctx); break;
 			case "foreffect": bloc = new ForEachEffect(card, ctx); break;
 			case "forevent": bloc = new ForEachEvent(card, ctx); break;
+			case "flcards": bloc = new FirstLastCards(card, ctx); break;
 
 			case "opplus": bloc = new Plus(card, ctx); break;
 			case "opminus": bloc = new Minus(card, ctx); break;

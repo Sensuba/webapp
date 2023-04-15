@@ -13,7 +13,7 @@ import Card from './Card.js';
 import Hero from './Hero.js';
 import Throne from './Throne.js';
 import Broadcaster from '../utility/Broadcaster.js';
-//import System from '../utility/System.js';
+import System from '../utility/System.js';
 
 const P1_STARTING_HAND_SIZE = 4;
 const P2_STARTING_HAND_SIZE = 5;
@@ -117,11 +117,18 @@ export default class Game {
 		this.field.all.forEach(t => t.cards.forEach(c => c.update()));
 		this.players.forEach(p => p.court.cards.forEach(c => c.update()));
 
-		/*if (System.isServer)
+		if (System.isServer && !this.broadcaster.locked) {
+			let toDestroy = [];
 			this.field.all.forEach(t => t.cards.forEach(c => {
-				if (c.dmg >= c.eff.hp)
-					c.destroy();
-			}));*/
+				if (c.ghost && !c.sentenced)
+					toDestroy.push(c);
+			}));
+			if (toDestroy.length > 0) {
+				this.broadcaster.lock();
+				toDestroy.forEach(c => c.destroy());
+				this.broadcaster.unlock();
+			}
+		}
 	}
 
 	index (card) {
