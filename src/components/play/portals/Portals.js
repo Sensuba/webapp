@@ -164,84 +164,88 @@ export default class Portals extends Component {
                  : "" }</div>
             </div>
           </div>
-          <div className={"portals-page-main " + (this.state.heroes ? "hero-mode" : "portal-mode") }>
-            <div className="portal-list">
-              {
-                this.state.heroes ?
-                  heroes.map((hero, i) => <div key={i} className={"listed-portal listed-hero" + (this.state.hero && this.state.hero.key === hero.key ? " selected-hero" : "")} onClick={() => {
-                    if (this.state.hero && this.state.hero.key === hero.key) {
+          <div className="portals-page-main-wrapper">
+            { this.state.heroes && this.state.hero && this.state.hero.style ? <div key={this.state.hero.key + "-style"} className="portals-page-main-style" style={ this.state.hero.style }/> : "" }
+            { this.state.heroes && this.state.previousHero && this.state.previousHero.style ? <div key={this.state.previousHero.key + "-style-out"} className="portals-page-main-style-fadeout" style={ this.state.previousHero.style }/> : "" }
+            <div className={"portals-page-main " + (this.state.heroes ? "hero-mode" : "portal-mode") }>
+              <div className="portal-list">
+                {
+                  this.state.heroes ?
+                    heroes.map((hero, i) => <div key={i} className={"listed-portal listed-hero" + (this.state.hero && this.state.hero.key === hero.key ? " selected-hero" : "")} onClick={() => {
+                      if (this.state.hero && this.state.hero.key === hero.key) {
+                      }
+                      else {
+                        this.setState({hero, previousHero: this.state.hero, level: 1});
+                        play(hero.theme, "music");
+                        this.portalMusic = true;
+                      }
                     }
-                    else {
-                      this.setState({hero, level: 1});
-                      play(hero.theme, "music");
-                      this.portalMusic = true;
+                  }><Hero src={hero}/></div>)
+                  :
+                  portals.map((portal, i) => <div key={i} className={"listed-portal" + (this.state.portal && this.state.portal.key === portal.key ? " selected-portal" : "")} onClick={() => {
+                      if (this.state.portal && this.state.portal.key === portal.key) {
+                      }
+                      else {
+                        this.setState({portal});
+                      }
                     }
-                  }
-                }><Hero src={hero}/></div>)
-                :
-                portals.map((portal, i) => <div key={i} className={"listed-portal" + (this.state.portal && this.state.portal.key === portal.key ? " selected-portal" : "")} onClick={() => {
-                    if (this.state.portal && this.state.portal.key === portal.key) {
-                    }
-                    else {
-                      this.setState({portal});
-                    }
-                  }
-                }><Portal src={portal}/></div>)
-              }
-            </div>
-              {
-                this.state.heroes ? (
-                  this.state.hero ?
-                  <div className="portal-focus">
-                    <div key={this.state.hero.key} className="focused-portal" onClick={() => this.setState({level: ((this.state.level || 1)%3+1)})}>
-                      <Hero level={this.state.level} src={this.state.hero}/>
+                  }><Portal src={portal}/></div>)
+                }
+              </div>
+                {
+                  this.state.heroes ? (
+                    this.state.hero ?
+                    <div className="portal-focus">
+                      <div key={this.state.hero.key} className="focused-portal" onClick={() => this.setState({level: ((this.state.level || 1)%3+1)})}>
+                        <Hero level={this.state.level} src={this.state.hero}/>
+                      </div>
+                    <div className="portal-cards-text-short"><div className="hero-lv-text">{ read('cards/lv2') }</div></div><div className="portal-cards-text-short"><div className="hero-lv-text">{ read('cards/lvmax') }</div></div>
+                    <div className="portal-cards">
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[0]})}><Ability src={this.state.hero.abilities[0]}/></div>
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[1]})}><Ability src={this.state.hero.abilities[1]}/></div>
+                      </div>
+                      <div className="portal-cards">
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[2]})}><Ability src={this.state.hero.abilities[2]}/></div>
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[4]})}><Ability src={this.state.hero.abilities[4]}/></div>
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[3]})}><Ability src={this.state.hero.abilities[3]}/></div>
+                      </div>
+                      <div className="portal-name">{this.state.hero.name}</div>
+                      <div className="portal-description">{this.state.hero.flavor}</div>
+                      <div className="portal-focus-buttons">
+                        <div className={"portal-focus-button" + (this.state.hero.runes > user.runes ? " locked" : "")} onClick={() => { if (this.state.hero.runes <= user.runes) { SocketManager.master.portal('crafthero', this.state.hero.key, false); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="runes-icon"/>{ this.state.hero.runes }</span></div>
+                        <div className={"portal-focus-button" + (this.state.hero.runes * 2 > user.shards ? " locked" : "")} onClick={() => { if (this.state.hero.runes * 2 <= user.shards) { SocketManager.master.portal('crafthero', this.state.hero.key, true); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ (this.state.hero.runes * 2) }</span></div>
+                      </div>
                     </div>
-                  <div className="portal-cards-text-short"><div className="hero-lv-text">{ read('cards/lv2') }</div></div><div className="portal-cards-text-short"><div className="hero-lv-text">{ read('cards/lvmax') }</div></div>
-                  <div className="portal-cards">
-                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[0]})}><Ability src={this.state.hero.abilities[0]}/></div>
-                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[1]})}><Ability src={this.state.hero.abilities[1]}/></div>
+                    : <div className="portal-focus"><StoryText>{ heroes.length <= 0 ? read('messages/everyheroalready') : read('messages/selecthero') }</StoryText></div>
+                    ) : (
+                  this.state.portal ?
+                  <div className="portal-focus">
+                    <div className="focused-portal">
+                      <Portal src={this.state.portal}/>
+                    </div>
+                    <div className="portal-cards-text-short">{ read('menu/includescardsshort') }</div><div className="portal-cards-text-short">{ read('menu/includescardsshort') }</div>
+                    <div className="portal-cards-text-long">{ read('menu/includescardslong') }</div>
+                    <div className="portal-cards">
+                    {
+                      cards.slice(0, 5).map((card,i) => <div onClick={() => this.setState({focus: card})} key={card.key} className={"portal-card-wrapper" + (this.state.collection.cards.includes(card.key) ? " card-owned" : "")}><Card src={card}/></div>)
+                    }
                     </div>
                     <div className="portal-cards">
-                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[2]})}><Ability src={this.state.hero.abilities[2]}/></div>
-                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[4]})}><Ability src={this.state.hero.abilities[4]}/></div>
-                        <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[3]})}><Ability src={this.state.hero.abilities[3]}/></div>
+                    {
+                      cards.length > 5 ? cards.slice(Math.max(5, 1)).map((card,i) => <div onClick={() => this.setState({focus: card})} key={card.key} className={"portal-card-wrapper" + (this.state.collection.cards.includes(card.key) ? " card-owned" : "")}><Card src={card}/></div>) : ""
+                    }
                     </div>
-                    <div className="portal-name">{this.state.hero.name}</div>
-                    <div className="portal-description">{this.state.hero.flavor}</div>
+                    <div className="portal-name">{this.state.portal.name}</div>
+                    <div className="portal-description">{this.state.portal.description}</div>
                     <div className="portal-focus-buttons">
-                      <div className={"portal-focus-button" + (this.state.hero.runes > user.runes ? " locked" : "")} onClick={() => { if (this.state.hero.runes <= user.runes) { SocketManager.master.portal('crafthero', this.state.hero.key, false); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="runes-icon"/>{ this.state.hero.runes }</span></div>
-                      <div className={"portal-focus-button" + (this.state.hero.runes * 2 > user.shards ? " locked" : "")} onClick={() => { if (this.state.hero.runes * 2 <= user.shards) { SocketManager.master.portal('crafthero', this.state.hero.key, true); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ (this.state.hero.runes * 2) }</span></div>
+                      <div className={"portal-focus-button" + (this.state.portal.runes > user.runes ? " locked" : "")} onClick={() => { if (this.state.portal.runes <= user.runes) { SocketManager.master.portal('conjure', this.state.portal.key); this.setState({action: "waiting"}); } } }>{ read('menu/conjureportal') }<span className="cost"><div className="runes-icon"/>{ "" + this.state.portal.runes}</span></div>
+                      <div className={"portal-focus-button" + (this.state.exploration && this.state.exploration.key === this.state.portal.key ? " locked" : "")} onClick={() => { if (this.state.exploration && this.state.exploration.key !== this.state.portal.key) this.setState({action: "explore"}); else if (!this.state.exploration || this.state.exploration.key !== this.state.portal.key) SocketManager.master.portal('explore', this.state.portal.key) } }>{ read('menu/exploreportal') }<span className="cost"><div className="time-icon"/>{ "" + (this.state.portal.min < 60 ? this.state.portal.min + read("menu/minute") : (this.state.portal.min/60) + read("menu/hour"))}</span></div>
                     </div>
                   </div>
-                  : <div className="portal-focus"><StoryText>{ heroes.length <= 0 ? read('messages/everyheroalready') : read('messages/selecthero') }</StoryText></div>
-                  ) : (
-                this.state.portal ?
-                <div className="portal-focus">
-                  <div className="focused-portal">
-                    <Portal src={this.state.portal}/>
-                  </div>
-                  <div className="portal-cards-text-short">{ read('menu/includescardsshort') }</div><div className="portal-cards-text-short">{ read('menu/includescardsshort') }</div>
-                  <div className="portal-cards-text-long">{ read('menu/includescardslong') }</div>
-                  <div className="portal-cards">
-                  {
-                    cards.slice(0, 5).map((card,i) => <div onClick={() => this.setState({focus: card})} key={card.key} className={"portal-card-wrapper" + (this.state.collection.cards.includes(card.key) ? " card-owned" : "")}><Card src={card}/></div>)
-                  }
-                  </div>
-                  <div className="portal-cards">
-                  {
-                    cards.length > 5 ? cards.slice(Math.max(5, 1)).map((card,i) => <div onClick={() => this.setState({focus: card})} key={card.key} className={"portal-card-wrapper" + (this.state.collection.cards.includes(card.key) ? " card-owned" : "")}><Card src={card}/></div>) : ""
-                  }
-                  </div>
-                  <div className="portal-name">{this.state.portal.name}</div>
-                  <div className="portal-description">{this.state.portal.description}</div>
-                  <div className="portal-focus-buttons">
-                    <div className={"portal-focus-button" + (this.state.portal.runes > user.runes ? " locked" : "")} onClick={() => { if (this.state.portal.runes <= user.runes) { SocketManager.master.portal('conjure', this.state.portal.key); this.setState({action: "waiting"}); } } }>{ read('menu/conjureportal') }<span className="cost"><div className="runes-icon"/>{ "" + this.state.portal.runes}</span></div>
-                    <div className={"portal-focus-button" + (this.state.exploration && this.state.exploration.key === this.state.portal.key ? " locked" : "")} onClick={() => { if (this.state.exploration && this.state.exploration.key !== this.state.portal.key) this.setState({action: "explore"}); else if (!this.state.exploration || this.state.exploration.key !== this.state.portal.key) SocketManager.master.portal('explore', this.state.portal.key) } }>{ read('menu/exploreportal') }<span className="cost"><div className="time-icon"/>{ "" + (this.state.portal.min < 60 ? this.state.portal.min + read("menu/minute") : (this.state.portal.min/60) + read("menu/hour"))}</span></div>
-                  </div>
-                </div>
-                : <div className="portal-focus"><StoryText>{ read('messages/selectportal') }</StoryText></div>
-                )
-              }
+                  : <div className="portal-focus"><StoryText>{ read('messages/selectportal') }</StoryText></div>
+                  )
+                }
+              </div>
             </div>
           </div>
         <Back to="/play"/>

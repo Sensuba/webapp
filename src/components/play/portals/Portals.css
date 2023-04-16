@@ -22,9 +22,43 @@
 	flex-direction: column;
 }
 
-.portals-page-main {
+.portals-page-main-wrapper {
 
 	height: calc(100% - 6.9rem);
+	width: 100%;
+	flex-direction: column;
+	position: relative;
+}
+
+.portals-page-main-style {
+
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	animation: style-fadein 0.3s ease-in-out;
+}
+
+.portals-page-main-style-fadeout {
+
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	animation: style-fadein 0.3s ease-in-out reverse;
+}
+
+@keyframes style-fadein {
+	from { opacity: 0 }
+	to { opacity: 1 }
+}
+
+.portals-page-main {
+
+	height: 100%;
 	width: 100%;
 	flex-direction: column;
 }
@@ -164,6 +198,12 @@
 	align-items: center;
 	padding: 0 0.5em;
 	transition: filter 0.2s;
+	cursor: pointer;
+}
+
+.portal-list .listed-portal.listed-hero.selected-hero {
+
+	cursor: default;
 }
 
 .portal-list .listed-portal.listed-hero:hover, .portal-list .listed-portal.listed-hero.selected-hero {

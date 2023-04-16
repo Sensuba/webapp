@@ -435,6 +435,7 @@ export default class Player {
 			throne: this.throne.id.no,
 			mana: this.mana,
 			receptacles: this.receptacles,
+			gems: this.gems,
 			targeting: this.targeting ? this.targeting.id.no : undefined
 		}
 	}
@@ -459,6 +460,7 @@ export default class Player {
 		this.throne.player = this;
 		this.mana = data.mana;
 		this.receptacles = data.receptacles;
+		this.gems = data.gems;
 		if (data.targeting)
 			this.targeting = game.find({type: "card", no: data.targeting});
 	}
