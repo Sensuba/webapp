@@ -52,6 +52,7 @@ export default class Logs extends Component {
       log.text = n.data[0].no === parseInt(this.props.player.id.no, 10) ? read('logs/you' + n.type.slice(0, -7)) : read('logs/enemy' + n.type.slice(0, -7));
       break;
     }
+    case "attack":
     case "leveluptrigger":
     case "skilltrigger":
     case "attacktrigger":
