@@ -123,6 +123,11 @@
 	flex-direction: column;
 }
 
+.hero-box .cardbox-focus .cardbox-side {
+
+	color: #edeae4a0;
+}
+
 .cardbox-focus .cardbox-left {
 
 	left: 0rem;
@@ -148,10 +153,21 @@
 	cursor: pointer;
 }
 
+.hero-box .cardbox-focus .cardbox-sound {
+
+	filter: brightness(1.2) grayscale(1);
+}
+
 .cardbox-focus .cardbox-sound.active-sound {
 
 	opacity: 1;
 	filter: drop-shadow(#00000060 0.15rem 0.15rem);
+}
+
+.hero-box .cardbox-focus .cardbox-sound.active-sound {
+
+	opacity: 1;
+	filter: drop-shadow(#00000060 0.15rem 0.15rem) brightness(1.2) grayscale(1);
 }
 
 .cardbox-focus .cardbox-sound img {
@@ -246,6 +262,11 @@
 	padding: 0;
 	transition: padding 0.2s;
 	filter: drop-shadow(0 0 0.8vh black);
+}
+
+.hero-box .cardbox-arrow {
+
+	filter: drop-shadow(0 0 0.8vh black) grayscale(1) brightness(1.2);
 }
 
 .cardbox-arrow.cardbox-arrow-right {

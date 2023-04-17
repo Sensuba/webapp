@@ -95,7 +95,7 @@ export default class CardBox extends Component {
 			style = {background: "linear-gradient(" + source.style.hud.dark + ", " + source.style.hud.light + ")"}
 
 		return(
-			<Lightbox style={ style } className={"cardbox-focus-box" + (this.state.mask ? " opaque" : "")} open={this.props.open} onClose={this.props.onClose}>
+			<Lightbox style={ style } className={"cardbox-focus-box" + (this.state.mask ? " opaque" : "") + (source.style ? " hero-box" : "")} open={this.props.open} onClose={this.props.onClose}>
 	          <div className="cardbox-focus">
 	            <div className={"cardbox-focus-card" + (ability ? " cardbox-focus-ability" : "") }>{ this.current.colors ? <div onClick={() => this.setState({level: ((this.state.level || 1)%3+1)})}><Hero level={this.state.level} src={this.current}/></div> : (ability ? <Ability colors={source.colors} src={this.current}/> : <Card src={this.current}/>) }</div>
 	            <h1 className={ this.current.name.length >= 25 ? "small-name" : ""}>{this.current.name}</h1>
