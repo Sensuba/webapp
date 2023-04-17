@@ -56,7 +56,7 @@
 	left: 0;
 	height: 100%;
 	width: 100%;
-	min-width: 100em;
+	min-width: 50em;
 	justify-content: space-evenly;
 }
 
@@ -688,6 +688,11 @@
 	.portal-focus .focused-portal {
 
 		font-size: calc(8vh - 1.2rem);
+	}
+
+	.style-objects {
+
+		min-width: 100em;
 	}
 
 	.hero-mode .portal-focus .focused-portal {

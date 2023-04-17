@@ -43,7 +43,6 @@ export default class Logs extends Component {
       log.small = true;
       break;
     }
-    case "attack.before":
     case "leveluptrigger.before":
     case "skilltrigger.before":
     case "attacktrigger.before":
