@@ -4,8 +4,8 @@
 	flex-direction: column;
 	height: 100vh;
 	width: 100vw;
-	position: relative;
-	background: linear-gradient(-10deg, #ebe1ae10, #f0ecda20, #00000010), radial-gradient(circle at 10% 10%, #dff0da10, transparent);
+	position: relative;/*
+	background: linear-gradient(-10deg, #ebe1ae10, #f0ecda20, #00000010), radial-gradient(circle at 10% 10%, #dff0da10, transparent);*/
 	transition: filter 2s;
 }
 
@@ -409,6 +409,15 @@
 .scene-wrapper.endgame-scene {
 
 	background: #00000080;
+}
+
+.sensuba-scene-background {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
 }
 
 .scene .game-attack-action {

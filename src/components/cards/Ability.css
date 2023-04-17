@@ -98,3 +98,25 @@
 	border-radius: 1em;
 	background: linear-gradient(210deg, goldenrod, darkred)
 }
+
+.sensuba-ability.white-ability.red-ability .card-frame { background: linear-gradient(210deg, #3e2f29, #8d7a6f) }
+.sensuba-ability.white-ability.blue-ability .card-frame { background: linear-gradient(210deg, #30393b, #97957c) }
+.sensuba-ability.white-ability.green-ability .card-frame { background: linear-gradient(210deg, #333e29, #7b8d69) }
+.sensuba-ability.white-ability.black-ability .card-frame { background: linear-gradient(210deg, #35293e, #9ea280) }
+.sensuba-ability.red-ability.blue-ability .card-frame { background: linear-gradient(210deg, #331a1a, #56536d) }
+.sensuba-ability.red-ability.green-ability .card-frame { background: linear-gradient(210deg, #301a1a, #6a755b) }
+.sensuba-ability.red-ability.black-ability .card-frame { background: linear-gradient(210deg, #39293e, #95638d) }
+.sensuba-ability.blue-ability.green-ability .card-frame { background: linear-gradient(210deg, #293e32, #538e7e) }
+.sensuba-ability.blue-ability.black-ability .card-frame { background: linear-gradient(210deg, #2c293e, #53588e) }
+.sensuba-ability.green-ability.black-ability .card-frame { background: linear-gradient(210deg, #26172e, #485d4a) }
+
+.sensuba-ability.white-ability.red-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(337.5deg); }
+.sensuba-ability.white-ability.blue-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(180deg); }
+.sensuba-ability.white-ability.green-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(40deg); }
+.sensuba-ability.white-ability.black-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(260deg); }
+.sensuba-ability.red-ability.blue-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(295deg); }
+.sensuba-ability.red-ability.green-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(345deg); }
+.sensuba-ability.red-ability.black-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(272.5deg); }
+.sensuba-ability.blue-ability.green-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(115deg); }
+.sensuba-ability.blue-ability.black-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(190deg); }
+.sensuba-ability.green-ability.black-ability .card-manaball { filter: drop-shadow(0.1rem 0.1rem #000000A0) grayscale(0.5) hue-rotate(210deg); }

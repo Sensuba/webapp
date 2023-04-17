@@ -72,7 +72,7 @@ export default class Portals extends Component {
     // Temporary
     portals = portals.filter(p => p.key !== 16);
     let heroes = Object.values(Library.heroes);
-    heroes = heroes.filter(hero => hero.runes && !this.state.collection.heroes.includes(hero.key));
+    //heroes = heroes.filter(hero => hero.runes && !this.state.collection.heroes.includes(hero.key));
     let user = JSON.parse(localStorage.getItem('user'));
 
     let cards = [];
@@ -133,7 +133,7 @@ export default class Portals extends Component {
         {
           this.state.focus ?
           <div>
-            <CardBox left={left ? () => this.setState({focus:left}) : undefined} right={right ? () => this.setState({focus:right}) : undefined} src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
+            <CardBox left={left ? () => this.setState({focus:left}) : undefined} right={right ? () => this.setState({focus:right}) : undefined} origin={this.state.hero} src={this.state.focus} open={true} onClose={() => this.setState({focus:null})}/>
             {
               !this.state.focus.key || (this.state.collection.cards.includes(this.state.focus.key) || this.state.rewarding) ? "" :
               <div className="portals-page-craftcard" onClick={() => { if (user.shards >= (this.state.portal.runes * (this.state.focus.rarity === "common" ? 2 : (this.state.focus.rarity === "uncommon" ? 4 : 8)))) { SocketManager.master.portal('craft', this.state.portal.key, this.state.focus.key); this.setState({action: "waiting"}); } } }>{ read('menu/craft') }<span className="cost"><div className="shards-icon"/>{ "" + (this.state.portal.runes * (this.state.focus.rarity === "common" ? 2 : (this.state.focus.rarity === "uncommon" ? 4 : 8)))}</span></div>
@@ -165,8 +165,14 @@ export default class Portals extends Component {
             </div>
           </div>
           <div className="portals-page-main-wrapper">
-            { this.state.heroes && this.state.hero && this.state.hero.style ? <div key={this.state.hero.key + "-style"} className="portals-page-main-style" style={ this.state.hero.style }/> : "" }
-            { this.state.heroes && this.state.previousHero && this.state.previousHero.style ? <div key={this.state.previousHero.key + "-style-out"} className="portals-page-main-style-fadeout" style={ this.state.previousHero.style }/> : "" }
+            { this.state.heroes && this.state.hero && this.state.hero.style ? <div key={this.state.hero.key + "-style"} className="portals-page-main-style">
+              <div style={{background: "linear-gradient(" + this.state.hero.style.background.top + ", " + this.state.hero.style.background.bottom + ")"}} className="style-background"/>
+              <div className="style-objects">{ Array.from(Array(20).keys()).map(i => <div style={ this.state.hero.style.element.main } key={i} className="style-object"><div style={ this.state.hero.style.element.before }/><div style={ this.state.hero.style.element.after }/></div>) }</div>
+            </div> : "" }
+            { this.state.heroes && this.state.previousHero && this.state.previousHero.style ? <div key={this.state.previousHero.key + "-style"} className="portals-page-main-style-fadeout">
+              <div style={{background: "linear-gradient(" + this.state.previousHero.style.background.top + ", " + this.state.previousHero.style.background.bottom + ")"}} className="style-background"/>
+              <div className="style-objects">{ Array.from(Array(20).keys()).map(i => <div style={ this.state.previousHero.style.element.main } key={i} className="style-object"><div style={ this.state.previousHero.style.element.before }/><div style={ this.state.previousHero.style.element.after }/></div>) }</div>
+            </div> : "" }
             <div className={"portals-page-main " + (this.state.heroes ? "hero-mode" : "portal-mode") }>
               <div className="portal-list">
                 {
@@ -201,13 +207,13 @@ export default class Portals extends Component {
                       </div>
                     <div className="portal-cards-text-short"><div className="hero-lv-text">{ read('cards/lv2') }</div></div><div className="portal-cards-text-short"><div className="hero-lv-text">{ read('cards/lvmax') }</div></div>
                     <div className="portal-cards">
-                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[0]})}><Ability src={this.state.hero.abilities[0]}/></div>
-                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[1]})}><Ability src={this.state.hero.abilities[1]}/></div>
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[0]})}><Ability colors={this.state.hero.colors} src={this.state.hero.abilities[0]}/></div>
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[1]})}><Ability colors={this.state.hero.colors} src={this.state.hero.abilities[1]}/></div>
                       </div>
                       <div className="portal-cards">
-                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[2]})}><Ability src={this.state.hero.abilities[2]}/></div>
-                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[4]})}><Ability src={this.state.hero.abilities[4]}/></div>
-                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[3]})}><Ability src={this.state.hero.abilities[3]}/></div>
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[2]})}><Ability colors={this.state.hero.colors} src={this.state.hero.abilities[2]}/></div>
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[4]})}><Ability colors={this.state.hero.colors} src={this.state.hero.abilities[4]}/></div>
+                          <div className="cardbox-ability" onClick={() => this.setState({focus: this.state.hero.abilities[3]})}><Ability colors={this.state.hero.colors} src={this.state.hero.abilities[3]}/></div>
                       </div>
                       <div className="portal-name">{this.state.hero.name}</div>
                       <div className="portal-description">{this.state.hero.flavor}</div>

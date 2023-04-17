@@ -40,6 +40,61 @@
 	animation: style-fadein 0.3s ease-in-out;
 }
 
+.style-background {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.style-objects {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	min-width: 100em;
+	justify-content: space-evenly;
+}
+
+.style-object {
+
+	position: relative;
+	top: 0;
+	left: 0;
+	animation: style-object-shine 15s ease-in-out alternate infinite;
+}
+
+.style-object:nth-child(1) { top: 15%; animation-delay: -1s; }
+.style-object:nth-child(2) { top: 85%; animation-delay: -15s; }
+.style-object:nth-child(3) { top: 55%; animation-delay: -10s; }
+.style-object:nth-child(4) { top: 25%; animation-delay: -7s; }
+.style-object:nth-child(5) { top: 95%; animation-delay: -17s; }
+.style-object:nth-child(6) { top: 65%; animation-delay: -1s; }
+.style-object:nth-child(7) { top: 25%; animation-delay: -19s; }
+.style-object:nth-child(8) { top: 75%; animation-delay: -12s; }
+.style-object:nth-child(9) { top: 5%; animation-delay: -6s; }
+.style-object:nth-child(10) { top: 35%; animation-delay: -14s; }
+.style-object:nth-child(11) { top: 15%; animation-delay: -18s; }
+.style-object:nth-child(12) { top: 85%; animation-delay: -4s; }
+.style-object:nth-child(13) { top: 55%; animation-delay: -9s; }
+.style-object:nth-child(14) { top: 25%; animation-delay: -16s; }
+.style-object:nth-child(15) { top: 95%; animation-delay: -11s; }
+.style-object:nth-child(16) { top: 65%; animation-delay: -0s; }
+.style-object:nth-child(17) { top: 25%; animation-delay: -8s; }
+.style-object:nth-child(18) { top: 75%; animation-delay: -5s; }
+.style-object:nth-child(19) { top: 5%; animation-delay: -20s; }
+.style-object:nth-child(20) { top: 35%; animation-delay: -13s; }
+
+@keyframes style-object-shine {
+	0% { opacity: 0 }
+	35% { opacity: 0 }
+	100% { opacity: 1 }
+}
+
 .portals-page-main-style-fadeout {
 
 	height: 100%;

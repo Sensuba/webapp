@@ -429,6 +429,9 @@ export default class Scene extends Component {
           { this.state.runes ? <div className="endgame-runes">{ "+" + this.state.runes }<div className="runes-icon"/></div> : "" }
         </div>
       </div> : "" }
+      <div className="sensuba-scene-background" style={{background: "linear-gradient(" + (this.player.hero.model.style ? this.player.hero.model.style.background.top : "transparent") + ", " + (this.player.hero.model.style ? this.player.hero.model.style.background.bottom : "transparent") + ")" }}>
+        { this.player.hero.model.style ? <div className="style-objects">{ Array.from(Array(20).keys()).map(i => <div style={ this.player.hero.model.style.element.main } key={i} className="style-object"><div style={ this.player.hero.model.style.element.before }/><div style={ this.player.hero.model.style.element.after }/></div>) }</div> : "" }
+      </div>
 			<div id="sensuba-scene" className={"scene " + this.controller.name} onClick={() => this.deselect()} onTouchEnd={(e) => this.dragEnd(e)} onDragEnd={(e) => this.dragEnd(e)} onTouchCancel={(e) => this.dragEnd(e, true)} onTouchMove={e => this.drag(e)} onDrag={e => this.drag(e)} onContextMenu={e => {this.deselect(); e.preventDefault();}}>
       
       { this.state.focus ? <CardBox src={this.state.focus} level={this.state.focusdata} open={true} onClose={() => this.setState({focus:null})}/> : "" }
@@ -436,7 +439,7 @@ export default class Scene extends Component {
       <Field player={this.player} src={this.state.model.field} targeting={this.state.dragged || this.targeting} targetable={targetable} target={this.state.target} onSelect={this.onSelect.bind(this)} onGrab={e => this.grabbing = e}/>
         <div className="game-area self-area">
           <Hand src={this.player.hand} onGrab={e => this.grabbing = e} isDragged={c => c === this.state.dragged} onSelect={this.onSelect.bind(this)}/>
-          <Court focus={model => this.focus(model)} src={this.state.casting && !this.state.casting.opposite ? this.state.casting.element : this.player.court.cards[0]}/>
+          <Court focus={model => this.focus(model)} model={this.state.model} src={this.state.casting && !this.state.casting.opposite ? this.state.casting.element : this.player.court.cards[0]}/>
           <Hero targeting={this.state.dragged || this.targeting} targetable={targetable} src={this.player.hero} onSelect={this.onSelect.bind(this)}/>
           <Abilities levelup={() => this.controller.act("levelup")} hero={this.player.hero} onGrab={e => this.grabbing = e} onSelect={this.onSelect.bind(this)}/>
           <div className="game-area-data">
@@ -452,7 +455,7 @@ export default class Scene extends Component {
         </div>
         <div className="game-area opposite-area">
           <Hand src={this.player.opponent.hand} onGrab={e => {}} isDragged={c => false} hidden onSelect={this.onSelect.bind(this)}/>
-          <Court focus={model => this.focus(model)} src={this.state.casting && this.state.casting.opposite ? this.state.casting.element : this.player.opponent.court.cards[0]}/>
+          <Court focus={model => this.focus(model)} model={this.state.model} src={this.state.casting && this.state.casting.opposite ? this.state.casting.element : this.player.opponent.court.cards[0]}/>
           <Hero targeting={this.state.dragged || this.targeting} targetable={targetable} src={this.player.opponent.hero} onSelect={this.onSelect.bind(this)}/>
           <Abilities hero={this.player.opponent.hero} onGrab={e => {}} onSelect={this.onSelect.bind(this)}/>
           <div className="game-area-data">
@@ -473,7 +476,7 @@ export default class Scene extends Component {
         </div>
         <div className={"turn-indicator playing" + (this.player.playing ? "" : " fade")}>{ read('scene/yourturn') }</div>
         <div className={"turn-indicator" + (this.player.opponent.playing ? "" : " fade")}>{ read('scene/opponentsturn') }</div>
-      <div ref={this.dragged} className="dragged-card">{this.state.dragged ? (this.state.dragged.type === "skill"  ? <Ability src={this.state.dragged.element}/> : <Card src={this.state.dragged.eff}/>) : ""}</div>
+      <div ref={this.dragged} className="dragged-card">{this.state.dragged ? (this.state.dragged.type === "skill"  ? <Ability colors={this.player.hero.colors} src={this.state.dragged.element}/> : <Card src={this.state.dragged.eff}/>) : ""}</div>
 	        </div></div>
 		);
 	}

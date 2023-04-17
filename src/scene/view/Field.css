@@ -5,7 +5,7 @@
 	height: 80vw;
 	top: calc(25vh - 10vw);
 	left: 0;
-	background: linear-gradient(to bottom, transparent, #d1caae40, transparent);
+	background: linear-gradient(to bottom, transparent, #c4c4c420, transparent);
 	transition: background 0.2s, box-shadow 0.2s;
 }
 

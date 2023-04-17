@@ -87,10 +87,17 @@ export default class CardBox extends Component {
 		let ability = this.current.type === "lv2" || this.current.type === "lvmax" || this.current.type === "aura";
 		let colors = this.current.colors || (this.current.color ? [this.current.color] : []);
 
+		let style = undefined;
+
+		let source = this.props.origin || this.props.src;
+
+		if (source.style)
+			style = {background: "linear-gradient(" + source.style.hud.dark + ", " + source.style.hud.light + ")"}
+
 		return(
-			<Lightbox className={"cardbox-focus-box" + (this.state.mask ? " opaque" : "")} open={this.props.open} onClose={this.props.onClose}>
+			<Lightbox style={ style } className={"cardbox-focus-box" + (this.state.mask ? " opaque" : "")} open={this.props.open} onClose={this.props.onClose}>
 	          <div className="cardbox-focus">
-	            <div className={"cardbox-focus-card" + (ability ? " cardbox-focus-ability" : "") }>{ this.current.colors ? <div onClick={() => this.setState({level: ((this.state.level || 1)%3+1)})}><Hero level={this.state.level} src={this.current}/></div> : (ability ? <Ability src={this.current}/> : <Card src={this.current}/>) }</div>
+	            <div className={"cardbox-focus-card" + (ability ? " cardbox-focus-ability" : "") }>{ this.current.colors ? <div onClick={() => this.setState({level: ((this.state.level || 1)%3+1)})}><Hero level={this.state.level} src={this.current}/></div> : (ability ? <Ability colors={source.colors} src={this.current}/> : <Card src={this.current}/>) }</div>
 	            <h1 className={ this.current.name.length >= 25 ? "small-name" : ""}>{this.current.name}</h1>
 	            {
 	            	ability ? <div className="card-typing">{ this.current.type === "aura" ? read('cards/aura') : read('cards/skill') }</div> :
@@ -101,15 +108,15 @@ export default class CardBox extends Component {
 	            	this.current.colors ?
 	            	<div className="cardbox-abilities">
 	            		<div className="cardbox-lv">
-	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[0]]})}><Ability src={this.props.src.abilities[0]}/></div>
-	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[1]]})}><Ability src={this.props.src.abilities[1]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[0]]})}><Ability colors={this.props.src.colors} src={this.props.src.abilities[0]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[1]]})}><Ability colors={this.props.src.colors} src={this.props.src.abilities[1]}/></div>
 	            		<div className="hero-lv-text">{ read('cards/lv2') }</div>
 	            		</div>
 	            		<div className="cardbox-lv-separator"/>
 	            		<div className="cardbox-lv">
-	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[2]]})}><Ability src={this.props.src.abilities[2]}/></div>
-	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[4]]})}><Ability src={this.props.src.abilities[4]}/></div>
-	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[3]]})}><Ability src={this.props.src.abilities[3]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[2]]})}><Ability colors={this.props.src.colors} src={this.props.src.abilities[2]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[4]]})}><Ability colors={this.props.src.colors} src={this.props.src.abilities[4]}/></div>
+	            			<div className="cardbox-ability" onClick={() => this.setState({tooltip: null, token: [this.props.src.abilities[3]]})}><Ability colors={this.props.src.colors} src={this.props.src.abilities[3]}/></div>
 	            		<div className="hero-lv-text">{ read('cards/lvmax') }</div>
 	            		</div>
 	            	</div>
