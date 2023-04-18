@@ -44,6 +44,7 @@
 		"name": "Nom",
 		"type": "Type",
 		"mana": "Mana",
+		"color": "Couleur",
 		"category": "Catégorie",
 		"orderby": "Trier par",
 		"delete": "Supprimer",

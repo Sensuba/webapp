@@ -26,6 +26,7 @@ export default class Game {
 	auras = [];
 	broadcaster = new Broadcaster(this);
 	indexer = 1;
+	boardindexer = 1;
 
 	init (players) {
 
@@ -134,6 +135,11 @@ export default class Game {
 	index (card) {
 
 		card.index = this.indexer++;
+	}
+
+	boardIndex (card) {
+
+		card.boardIndex = this.boardindexer++;
 	}
 
 	addAura (aura) {

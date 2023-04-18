@@ -8,12 +8,17 @@ export default class Aura extends Bloc {
 
 		super("aura", src, ctx, true);
 		this.f = (src, ins) => [this];
-		this.types = [Types.mutation, Types.locations, Types.cardfilter];
+		this.types = [Types.mutation, Types.locations, Types.cardfilter, Types.int];
 		this.out = [this];
 	}
 
 	setup (owner, image) {
 
-		owner.passives.push(new AuraEffect(owner, (s, x) => this.in[0]({src: s, data: {0: x}})(x), s => this.in[1]({src: s}), s => ((this.in[2]({src: s})) || (x => true))));
+		owner.passives.push(new AuraEffect(owner, (s, x) => {
+			let code = this.in[3] ? (this.in[3]({src: this.src}) || 0) : 0;
+			let data = {};
+			data[code] = x;
+			return this.in[0]({src: s, data})(x);
+		}, s => this.in[1]({src: s}), s => ((this.in[2]({src: s})) || (x => true))));
 	}
 }

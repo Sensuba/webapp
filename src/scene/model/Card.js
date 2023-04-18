@@ -89,6 +89,19 @@ export default class Card {
 		if (this.location === location || this.banished)
 			return this;
 
+		if (location.id.type === "hand" && location.isFull) {
+
+			if (this.onField) {
+				this.destroy();
+				let newcopy = new Card(this.game, this.model);
+				newcopy.goto(this.player.nether);
+				return newcopy;
+			} else {
+				this.banish();
+				return this;
+			}
+		}
+
 		if (this.location && this.location.layer && location.layer && this.location.layer > location.layer) {
 
 			this.banish();
@@ -109,6 +122,7 @@ export default class Card {
 		}
 		this.game.notify("summon.before", this, tile);
 		let card = this.sendTo(tile);
+		this.game.boardIndex(this);
 		delete card.actioned;
 		card.summoningSickness = true;
 		card.dmg = card.dmg || 0;
@@ -681,6 +695,7 @@ export default class Card {
 
 		// Copy base data
 		this.effective = this.serialize();
+		this.effective.id = Object.assign({}, this.id);
 		this.effective.model = this.model;
 		this.effective.location = this.location;
 		this.effective.player = this.player;

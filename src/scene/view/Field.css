@@ -62,7 +62,7 @@
 	position: absolute;
 	top: 0;
 	left: -1px;
-	background: linear-gradient(to bottom, transparent, #d1caae, transparent);
+	background: linear-gradient(to bottom, transparent, #edeae4, transparent);
 }
 
 .game-field-column:nth-child(1)::before {

@@ -16,6 +16,8 @@ import Loader from '../../utility/Loader';
 import sorter from '../../cards/CollectionSorter';
 import { read } from '../../../TextManager';
 
+const PAGE_SIZE = 20;
+
 export default class Cards extends Component {
 
   state = {
@@ -25,6 +27,7 @@ export default class Cards extends Component {
     filter: {
       search: "",
       type: "",
+      color: "",
       collectable: true,
       orderBy: "type"
     },
@@ -36,6 +39,14 @@ export default class Cards extends Component {
       blue: false,
       green: false,
       black: false
+    },
+    page: {
+      heroes: 0,
+      white: 0,
+      red: 0,
+      blue: 0,
+      green: 0,
+      black: 0
     },
     search: null,
     action: null,
@@ -55,7 +66,7 @@ export default class Cards extends Component {
       } else
         this.forceUpdate()
     }
-    SocketManager.master.onCollectionUpdate = collection => this.setState({collection});
+    SocketManager.master.onCollectionUpdate = collection => this.setState({collection, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}});
   }
 
   componentWillUnmount () {
@@ -74,14 +85,31 @@ export default class Cards extends Component {
     cards = cards.filter(card => card.basic || this.state.collection.cards.includes(card.key));
     cards = sorter.filter(cards, this.state.filter);
 
-    let heroes = Object.values(Library.heroes);
-    heroes = heroes.filter(hero => hero.basic || this.state.collection.heroes.includes(hero.key))
-    heroes = sorter.filter(heroes, Object.assign({}, this.state.filter, {orderBy: "color"}));
+    let allHeroes = Object.values(Library.heroes);
+    let fullHeroes = allHeroes.filter(hero => hero.basic || this.state.collection.heroes.includes(hero.key))
+    fullHeroes = sorter.filter(fullHeroes, Object.assign({}, this.state.filter, {orderBy: "color"}));
+
+    if (this.state.deck && this.state.deck.body.hero) {
+      let heroColors = allHeroes.find(hero => hero.key === this.state.deck.body.hero).colors
+      cards = cards.filter(card => heroColors.some(c => c === card.color));
+    }
+
+    let heroes = fullHeroes.slice(PAGE_SIZE * this.state.page.heroes, PAGE_SIZE * this.state.page.heroes + 20);
 
     let decks = JSON.parse(localStorage.getItem('decks')) || [];
 
-    let colors = {white: [], red: [], blue: [], green: [], black: []};
-    Object.keys(colors).forEach(color => colors[color] = cards.filter(c => c.color === color));
+    let fullColors = {white: [], red: [], blue: [], green: [], black: []};
+    Object.keys(fullColors).forEach(color => fullColors[color] = cards.filter(c => c.color === color));
+
+    let colors = {};
+    Object.keys(fullColors).forEach(color => {
+      colors[color] = fullColors[color].slice(PAGE_SIZE * this.state.page[color], PAGE_SIZE * this.state.page[color] + 20);
+    });
+
+    let pages = { heroes: Math.ceil(fullHeroes.length / PAGE_SIZE) };
+    Object.keys(fullColors).forEach(color => {
+      pages[color] = Math.ceil(fullColors[color].length / PAGE_SIZE);
+    });
 
     let left = null, right = null;
     if (this.state.focus) {
@@ -157,7 +185,7 @@ export default class Cards extends Component {
                 <div className="styleform">
                     <Label for="cards-page-search-search">
                   <div className="label-input">{ read('menu/search') }</div>
-                  <Input onBlur={e => {this.state.filter.search = e.target.value; this.setState({filter: this.state.filter});}} id="cards-page-search-search" type="text" name="search" autoComplete="off"/>
+                  <Input onBlur={e => { this.setState({filter: Object.assign({}, this.state.filter, {search: e.target.value}), page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}});}} id="cards-page-search-search" type="text" name="search" autoComplete="off"/>
                   </Label>
                 </div>
               </Lightbox>
@@ -167,9 +195,9 @@ export default class Cards extends Component {
               </Label>
               <Lightbox className="small" open={this.state.search === "type"} onClose={() => this.setState({search: null})}>
                 <div className="selectbox">
-                  <Button onClick={() => { this.state.filter.type = ""; this.setState({filter: this.state.filter, search: null}); }}>_</Button>
-                  <Button onClick={() => { this.state.filter.type = "unit"; this.setState({filter: this.state.filter, search: null}); }}>{ this.capitalize(read("cards/unit")) }</Button>
-                  <Button onClick={() => { this.state.filter.type = "spell"; this.setState({filter: this.state.filter, search: null}); }}>{ this.capitalize(read("cards/spell")) }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {type: ""}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>_</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {type: "unit"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ this.capitalize(read("cards/unit")) }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {type: "spell"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ this.capitalize(read("cards/spell")) }</Button>
                 </div>
               </Lightbox>
               <div className="cards-page-search-tab" onClick={() => this.setState({search: "type"})}>
@@ -180,19 +208,33 @@ export default class Cards extends Component {
                 <div className="styleform">
                     <Label for="cards-page-search-category">
                   <div className="label-input">{ read('menu/category') }</div>
-                  <Input onBlur={e => {this.state.filter.category = e.target.value; this.setState({filter: this.state.filter});}} id="cards-page-search-category" type="text" name="search" autoComplete="off"/>
+                  <Input onBlur={e => { this.setState({filter: Object.assign({}, this.state.filter, {category: e.target.value}), page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}});}} id="cards-page-search-category" type="text" name="search" autoComplete="off"/>
                   </Label>
                 </div>
               </Lightbox>
-              <Label for="cards-page-search-category" className="cards-page-search-tab" onClick={() => this.setState({search: "category"})}>
+              <Label id="cards-page-category-label" for="cards-page-search-category" className="cards-page-search-tab" onClick={() => this.setState({search: "category"})}>
                 <div className="cards-page-search-label">{ read('menu/category') }</div>
                 <div className="cards-page-search-value">{ this.state.filter.category }</div>
               </Label>
+              <Lightbox className="small" open={this.state.search === "color"} onClose={() => this.setState({search: null})}>
+                <div className="selectbox">
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {color: ""}), search: null}); }}>_</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {color: "white"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ read("cards/white") }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {color: "red"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ read("cards/red") }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {color: "blue"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ read("cards/blue") }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {color: "green"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ read("cards/green") }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {color: "black"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ read("cards/black") }</Button>
+                </div>
+              </Lightbox>
+              <Label for="cards-page-search-color" className="cards-page-search-tab" onClick={() => this.setState({search: "color"})}>
+                <div className="cards-page-search-label">{ read('menu/color') }</div>
+                <div className="cards-page-search-value">{ this.state.filter.color }</div>
+              </Label>
               <Lightbox className="small" open={this.state.search === "orderBy"} onClose={() => this.setState({search: null})}>
                 <div className="selectbox">
-                  <Button onClick={() => { this.state.filter.orderBy = "type"; this.setState({filter: this.state.filter, search: null}); }}>{ read("menu/type") }</Button>
-                  <Button onClick={() => { this.state.filter.orderBy = "name"; this.setState({filter: this.state.filter, search: null}); }}>{ read("menu/name") }</Button>
-                  <Button onClick={() => { this.state.filter.orderBy = "mana"; this.setState({filter: this.state.filter, search: null}); }}>{ read("menu/mana") }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {orderBy: "type"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ read("menu/type") }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {orderBy: "name"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ read("menu/name") }</Button>
+                  <Button onClick={() => { this.setState({filter: Object.assign({}, this.state.filter, {orderBy: "mana"}), search: null, page: {heroes: 0, white: 0, red: 0, blue: 0, green: 0, black: 0}}); }}>{ read("menu/mana") }</Button>
                 </div>
               </Lightbox>
               <div className="cards-page-search-tab" onClick={() => this.setState({search: "orderBy"})}>
@@ -200,13 +242,13 @@ export default class Cards extends Component {
                 <div className="cards-page-search-value">{ this.state.filter.orderBy }</div>
               </div>
             </div>
-            <div className="cards-page-search-open-deckbuilder" onClick={() => {this.state.hiding.decks = !this.state.hiding.decks; if (this.state.hiding.decks) this.state.deck = null; this.setState({hiding: this.state.hiding});}}>
+            <div className="cards-page-search-open-deckbuilder" onClick={() => { this.setState({hiding: Object.assign({}, this.state.hiding, {decks: !this.state.hiding.decks}), deck: (this.state.hiding.decks ? this.state.deck : null)});}}>
               <div className="cards-page-search-main-label">{ read('menu/deckbuilder') }</div>
             </div>
           </div>
           <div className={"cards-page-list" + (this.state.hiding.decks ? "" : " restrained-list")}>
             <div className={"cards-page-deck-section" + (this.state.hiding.decks ? " hidden-decks" : "")}>
-              <div className="cards-border" onClick={() => {this.state.hiding.decks = !this.state.hiding.decks; if (this.state.hiding.decks) this.state.deck = null; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('menu/deckbuilder') }</div><div className="cards-border-right">{this.state.hiding.decks ? "+" : "-"}</div></div>
+              <div className="cards-border" onClick={() => { this.setState({hiding: Object.assign({}, this.state.hiding, {decks: !this.state.hiding.decks}), deck: (this.state.hiding.decks ? this.state.deck : null)});}}><div className="cards-border-left">{ read('menu/deckbuilder') }</div><div className="cards-border-right">{this.state.hiding.decks ? "+" : "-"}</div></div>
               <div className="deck-list-carousel">
               <div className="card-list deck-list">
                 <div className="listed-deck"><div onClick={() => this.setState({newdeck: true})} className="new-deck"/></div>
@@ -273,7 +315,24 @@ export default class Cards extends Component {
             {
               this.state.deck ? "" :
               <div className="heroes-section">
-                <div id="heroes-border" className="cards-border hideable-border" onClick={() => {this.state.hiding.heroes = !this.state.hiding.heroes; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('menu/heroes') }<span className="cards-border-cardcount">{ "(" + heroes.length + ")" }</span></div><div className="cards-border-right">{this.state.hiding.heroes ? "+" : "-"}</div></div>
+                <div id="heroes-border" className="cards-border">
+                  <div className="cards-border-left">
+                    <div className={"cards-border-change-page pc" + (this.state.page.heroes <= 0 ? " locked" : "")} onClick={() => { if (this.state.page.heroes <= 0) return; let newpage = {}; newpage.heroes = this.state.page.heroes - 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&lt;</div>
+                      { read('menu/heroes') }
+                    <span className="cards-border-cardcount">
+                      { "(" + heroes.length + ")" }
+                    </span>
+                      <span className="cards-border-page pc">
+                        { (this.state.page.heroes+1) + " / " + pages.heroes }
+                      </span>
+                  </div>
+                  <div className={"cards-border-change-page pc" + (this.state.page.heroes >= pages.heroes - 1 ? " locked" : "")} onClick={() => { if (this.state.page.heroes >= pages.heroes - 1) return; let newpage = {}; newpage.heroes = this.state.page.heroes + 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&gt;</div>
+                    <div className="cards-border-right mobile">
+                    <div className={"cards-border-change-page" + (this.state.page.heroes <= 0 ? " locked" : "")} onClick={() => { if (this.state.page.heroes <= 0) return; let newpage = {}; newpage.heroes = this.state.page.heroes - 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&lt;</div>
+                      { (this.state.page.heroes+1) + " / " + pages.heroes }
+                      <div className={"cards-border-change-page" + (this.state.page.heroes >= pages.heroes - 1 ? " locked" : "")} onClick={() => { if (this.state.page.heroes >= pages.heroes - 1) return; let newpage = {}; newpage.heroes = this.state.page.heroes + 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&gt;</div>
+                    </div>
+                </div>
                 <div className={"card-list " + (this.state.hiding.heroes ? "invisible" : "")}>
                 {
                   heroes.map((hero, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:hero})}><Hero src={hero}/></div>)
@@ -284,7 +343,24 @@ export default class Cards extends Component {
               <div className="cards-border"><div className="cards-border-left">{ read('menu/cards') }<span className="cards-border-cardcount">{ "(" + cards.length + ")" }</span></div><div className="cards-border-right"></div></div>
               {
                 Object.keys(colors).map(color => colors[color].length > 0 && (!this.state.deck || Library.getHero(this.state.deck.body.hero).colors.includes(color)) ? <div key={color} className="color-list">
-                  <div className="color-border hideable-border" onClick={() => {this.state.hiding[color] = !this.state.hiding[color]; this.setState({hiding: this.state.hiding});}}><div className="cards-border-left">{ read('cards/' + color) }<span className="cards-border-cardcount">{ "(" + colors[color].length + ")" }</span></div><div className="cards-border-right">{this.state.hiding[color] ? "+" : "-"}</div></div>
+                  <div className="color-border">
+                    <div className="cards-border-left">
+                      <div className={"cards-border-change-page pc" + (this.state.page[color] <= 0 ? " locked" : "")} onClick={() => { if (this.state.page[color] <= 0) return; let newpage = {}; newpage[color] = this.state.page[color] - 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&lt;</div>
+                      { read('cards/' + color) }
+                      <span className="cards-border-cardcount">
+                        { "(" + fullColors[color].length + ")" }
+                      </span>
+                      <span className="cards-border-page pc">
+                        { (this.state.page[color]+1) + " / " + pages[color] }
+                      </span>
+                    </div>
+                    <div className={"cards-border-change-page pc" + (this.state.page[color] >= pages[color] - 1 ? " locked" : "")} onClick={() => { if (this.state.page[color] >= pages[color] - 1) return; let newpage = {}; newpage[color] = this.state.page[color] + 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&gt;</div>
+                    <div className="cards-border-right mobile">
+                      <div className={"cards-border-change-page" + (this.state.page[color] <= 0 ? " locked" : "")} onClick={() => { if (this.state.page[color] <= 0) return; let newpage = {}; newpage[color] = this.state.page[color] - 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&lt;</div>
+                      { (this.state.page[color]+1) + " / " + pages[color] }
+                      <div className={"cards-border-change-page" + (this.state.page[color] >= pages[color] - 1 ? " locked" : "")} onClick={() => { if (this.state.page[color] >= pages[color] - 1) return; let newpage = {}; newpage[color] = this.state.page[color] + 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&gt;</div>
+                    </div>
+                  </div>
                   <div className={"card-list " + (this.state.hiding[color] ? "invisible" : "")}>
                   {
                     colors[color].map((card, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:card})}><Card src={card}/></div>)

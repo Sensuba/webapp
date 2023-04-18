@@ -8,7 +8,13 @@
   	font-size: 2.5vw;
   	z-index: 10;
   	cursor: pointer;
-}
+		animation: game-hero-shine alternate infinite 4s;
+	}
+
+	@keyframes game-hero-shine {
+		from { filter: drop-shadow(0 0 0.4rem #00FFFF40) }
+		to { filter: drop-shadow(0 0 0.2rem #00FFFF80) }
+	}
 
 .opposite-area .game-hero {
 
@@ -88,7 +94,13 @@
 	    width: 8em;
 	    height: 6em;
 	  	font-size: 2.5vh;
-		filter: drop-shadow(0.3rem 0.3rem);
+		filter: drop-shadow(0.3rem 0.3rem) drop-shadow(0 0 0.3rem #00FFFF80);
+		animation: game-hero-shine alternate infinite 4s;
+	}
+
+	@keyframes game-hero-shine {
+		from { filter: drop-shadow(0.3rem 0.3rem) drop-shadow(0 0 0.6rem #00FFFF40) }
+		to { filter: drop-shadow(0.3rem 0.3rem) drop-shadow(0 0 0.3rem #00FFFF80) }
 	}
 
 	.game-hero .sensuba-hero {

@@ -149,6 +149,8 @@ export default (() => {
 			cards = cards.filter(searchFilter(f.search));
 		if (f.name && f.name !== "")
 			cards = cards.filter(card => normalize(card.name).includes(normalize(f.name)));
+		if (f.color && f.color !== "")
+			cards = cards.filter(card => card.color && card.color === f.color);
 		if (f.category && f.category !== "")
 			cards = cards.filter(card => card.categories && card.categories.some(cat => normalize(read("cards/categories/" + cat)).includes(normalize(f.category))));
 		if (f.effect && f.effect !== "")

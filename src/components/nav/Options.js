@@ -28,7 +28,7 @@ export default class Options extends Component {
     let sfx = getVolume('sfx') * 10;
 
     return (
-      <div className="nav-item nav-options">
+      <div className={"nav-item nav-options" + (this.props.concede ? " game-options" : "")}>
         <Lightbox className="small" open={this.state.status === "options"} onClose={() => this.setState({status: null})}>
           <div className="options-box">
             <h1>{ read('menu/options') }</h1>

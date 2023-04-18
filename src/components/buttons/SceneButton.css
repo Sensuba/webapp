@@ -17,9 +17,12 @@
 	width: 7em;
 	justify-content: center;
 	border-radius: 0.2em;
-	border: 0.1em solid #827c64;
-	color: #827c64;
-	background: linear-gradient(to bottom, #4F493C, #59554A);
+	border: 0.1em solid #4f4f4d;
+	/*border: 0.1em solid #827c64;*/
+	color: #9c9a97;
+	/*color: #827c64;*/
+	background: linear-gradient(to bottom, #4f4f4d, #717171);
+	/*background: linear-gradient(to bottom, #4F493C, #59554A);*/
 	box-shadow: none;
 	position: relative;
 	transition: all 0.2s;
@@ -29,16 +32,20 @@
 
 .scene.playing .scene-button {
 
-	border: 0.1em solid #d1caae;
-	color: #d1caae;
+	border: 0.1em solid #edeae4;
+	/*border: 0.1em solid #d1caae;*/
+	color: #edeae4;
+	/*color: #d1caae;*/
 	cursor: pointer;
-	background: linear-gradient(to bottom, #4F493C, #59554A);
+	background: linear-gradient(to bottom, #4c4a47, #575755);
+	/*background: linear-gradient(to bottom, #4F493C, #59554A);*/
 }
 
 .scene.playing .scene-button:hover {
 	
 	border-color: transparent;
-	color: #d9d3ba;
+	color: whitesmoke;
+	/*color: #d9d3ba;*/
 }
 
 .scene-button::after {
@@ -49,7 +56,8 @@
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background: linear-gradient(to bottom, #66583a, #d1caae);
+	background: linear-gradient(to bottom, #313131, #7f7f7f);
+	/*background: linear-gradient(to bottom, #66583a, #d1caae);*/
 	opacity: 0;
 	border-radius: 0.15em;
 	transition: all 0.2s;

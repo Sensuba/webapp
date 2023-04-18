@@ -44,6 +44,7 @@
 		"name": "Name",
 		"type": "Type",
 		"mana": "Mana",
+		"color": "Color",
 		"category": "Category",
 		"orderby": "Order by",
 		"delete": "Delete",

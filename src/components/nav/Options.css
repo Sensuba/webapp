@@ -25,6 +25,11 @@
 	transform: rotateZ(0deg);
 }
 
+.game-options .options-icon {
+
+	filter: brightness(1.2) grayscale(1) drop-shadow(0.2rem 0.2rem #000000A0);
+}
+
 .main-page.light .options-icon {
 
 	filter: brightness(0.2);

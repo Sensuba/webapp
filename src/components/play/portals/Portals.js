@@ -167,11 +167,17 @@ export default class Portals extends Component {
           <div className="portals-page-main-wrapper">
             { this.state.heroes && this.state.hero && this.state.hero.style ? <div key={this.state.hero.key + "-style"} className="portals-page-main-style">
               <div style={{background: "linear-gradient(" + this.state.hero.style.background.top + ", " + this.state.hero.style.background.bottom + ")"}} className="style-background"/>
-              <div className="style-objects">{ Array.from(Array(20).keys()).map(i => <div style={ this.state.hero.style.element.main } key={i} className="style-object"><div style={ this.state.hero.style.element.before }/><div style={ this.state.hero.style.element.after }/></div>) }</div>
+              <div className={"style-objects " + this.state.hero.style.element}>
+                { Array.from(Array(this.state.hero.style.count).keys()).map(i => <div key={i+"a"} className="style-object"/>) }
+                { Array.from(Array(this.state.hero.style.count).keys()).map(i => <div key={i+"b"} className="style-object pc"/>) }
+              </div>
             </div> : "" }
             { this.state.heroes && this.state.previousHero && this.state.previousHero.style ? <div key={this.state.previousHero.key + "-style"} className="portals-page-main-style-fadeout">
               <div style={{background: "linear-gradient(" + this.state.previousHero.style.background.top + ", " + this.state.previousHero.style.background.bottom + ")"}} className="style-background"/>
-              <div className="style-objects">{ Array.from(Array(20).keys()).map(i => <div style={ this.state.previousHero.style.element.main } key={i} className="style-object"><div style={ this.state.previousHero.style.element.before }/><div style={ this.state.previousHero.style.element.after }/></div>) }</div>
+              <div className={"style-objects " + this.state.previousHero.style.element}>
+                { Array.from(Array(this.state.previousHero.style.count).keys()).map(i => <div key={i+"a"} className="style-object"/>) }
+                { Array.from(Array(this.state.previousHero.style.count).keys()).map(i => <div key={i+"b"} className="style-object pc"/>) }
+              </div>
             </div> : "" }
             <div className={"portals-page-main " + (this.state.heroes ? "hero-mode" : "portal-mode") }>
               <div className="portal-list">

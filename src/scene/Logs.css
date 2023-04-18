@@ -21,7 +21,7 @@
 	background: url('./logs.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
-	filter: brightness(1.0) drop-shadow(0.2rem 0.2rem #000000A0);
+	filter: brightness(1.2) grayscale(1) drop-shadow(0.2rem 0.2rem #000000A0);
 	transition: filter 0.2s, transform 0.4s;
 	transform: rotateZ(0deg);
 }

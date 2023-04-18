@@ -236,6 +236,11 @@
 	white-space: nowrap;
 }
 
+#cards-page-category-label {
+
+	display: none;
+}
+
 .card-list .listed-cards .sensuba-card {
 
 	display: inline-block;
@@ -586,6 +591,18 @@
    transform: translateZ(0);
 }
 
+.cards-border-change-page {
+
+	padding: 0 0.5em;
+	cursor: pointer;
+}
+
+.cards-border-change-page.locked {
+
+	opacity: 0.3;
+	cursor: default;
+}
+
 @media (min-width: 601px) {
 
 	.cards-page .card-list {
@@ -800,5 +817,14 @@
 		line-height: 2.5rem;
 		margin-left: 1rem;
 		margin-right: 1rem;
+	}
+
+	#cards-page-category-label {
+
+		display: inherit;
+	}
+
+	.cards-border-page {
+		margin-left: 0.5em;
 	}
 }

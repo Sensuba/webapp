@@ -11,7 +11,12 @@ export default class ForEachCard extends Bloc {
 			if (lock)
 				src.game.broadcaster.lock();
 			var area = ins[0], targets = ins[1];
+			var cards = [];
 			area.reduce((acc, loc) => acc.concat(loc.cards), []).filter(card => (targets === null || targets(src, card))).sort((a, b) => this.sort(a, b, src)).forEach (card => {
+				cards.push(card);
+			})
+			cards.sort((a, b) => a.location.layer * 1000000 + (a.onField && a.boardIndex ? a.boardIndex : 0) - b.location.layer * 1000000 - (b.onField && b.boardIndex ? b.boardIndex : 0))
+			cards.forEach(card => {
 				this.out = [card];
 				if (this["for each"])
 					this["for each"].execute(props);
