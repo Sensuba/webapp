@@ -81,7 +81,7 @@ export default class Logs extends Component {
           if (el === "skill") {
             let player = this.props.model.find(log.n.data[0]);
             let skill = player.hero.model.abilities[(log.n.data[3]-2)*2+log.n.data[1]];
-            splits.push(<span onClick={() => this.props.focus(skill)} key={i} className="token" id={'effect-' + i}>{ skill.name }</span>);
+            splits.push(<span onClick={() => this.props.focus(skill, player.hero)} key={i} className="token" id={'effect-' + i}>{ skill.name }</span>);
           } else if (isNaN(log.n.data[el])) {
             let data = this.props.model.find(log.n.data[el]);
             switch (log.n.data[el].type) {
