@@ -1029,3 +1029,59 @@
 	0% { transform: translateY(0); } 
     100% { transform: translateY(-5em); }
 }
+
+
+
+
+
+.style-objects.energy .style-object {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: #FFFFFF80;
+	opacity: 0.05;
+	filter: drop-shadow(0 0 0.5rem #80FFFF40);
+	animation: style-object-float 40s linear infinite;
+}
+
+.style-objects.energy .style-object:nth-child(15n + 1) { width: 100px; height: 100px; animation-delay: -2s; animation-duration: 36s; }
+.style-objects.energy .style-object:nth-child(15n + 2) { width: 120px; height: 120px; animation-delay: -30s; animation-duration: 32s; left: 6.6%; }
+.style-objects.energy .style-object:nth-child(15n + 3) { width: 90px; height: 90px; animation-delay: -20s; animation-duration: 40s; left: 13.3%; }
+.style-objects.energy .style-object:nth-child(15n + 4) { width: 110px; height: 110px; animation-delay: -14s; animation-duration: 33s; left: 20%; }
+.style-objects.energy .style-object:nth-child(15n + 5) { width: 80px; height: 80px; animation-delay: -34s; animation-duration: 28s; left: 26.6%; }
+.style-objects.energy .style-object:nth-child(15n + 6) { width: 100px; height: 100px; animation-delay: -2s; animation-duration: 37s; left: 33.3%; }
+.style-objects.energy .style-object:nth-child(15n + 7) { width: 70px; height: 70px; animation-delay: -38s; animation-duration: 31s; left: 40%; }
+.style-objects.energy .style-object:nth-child(15n + 8) { width: 90px; height: 90px; animation-delay: -24s; animation-duration: 35s; left: 46.6%; }
+.style-objects.energy .style-object:nth-child(15n + 9) { width: 120px; height: 120px; animation-delay: -12s; animation-duration: 32s; left: 53.3%; }
+.style-objects.energy .style-object:nth-child(15n + 10) { width: 110px; height: 110px; animation-delay: -28s; animation-duration: 39s; left: 60%; }
+.style-objects.energy .style-object:nth-child(15n + 11) { width: 80px; height: 80px; animation-delay: -36s; animation-duration: 30s; left: 66.6%; }
+.style-objects.energy .style-object:nth-child(15n + 12) { width: 130px; height: 130px; animation-delay: -8s; animation-duration: 34s; left: 73.3%; }
+.style-objects.energy .style-object:nth-child(15n + 13) { width: 90px; height: 90px; animation-delay: -18s; animation-duration: 29s; left: 80%; }
+.style-objects.energy .style-object:nth-child(15n + 14) { width: 120px; height: 120px; animation-delay: -32s; animation-duration: 39s; left: 86.6%; }
+.style-objects.energy .style-object:nth-child(15n + 15) { width: 100px; height: 100px; animation-delay: -22s; animation-duration: 33s; left: 93.3%; }
+.style-objects.energy .style-object:nth-child(16) { left: 50%; }
+.style-objects.energy .style-object:nth-child(17) { left: 56.6%; }
+.style-objects.energy .style-object:nth-child(18) { left: 63.3%; }
+.style-objects.energy .style-object:nth-child(19) { left: 70%; }
+.style-objects.energy .style-object:nth-child(20) { left: 76.6%; }
+.style-objects.energy .style-object:nth-child(21) { left: 83.3%; }
+.style-objects.energy .style-object:nth-child(22) { left: 90%; }
+.style-objects.energy .style-object:nth-child(23) { left: 96.6%; }
+.style-objects.energy .style-object:nth-child(24) { left: 3.3%; }
+.style-objects.energy .style-object:nth-child(25) { left: 10%; }
+.style-objects.energy .style-object:nth-child(26) { left: 16.6%; }
+.style-objects.energy .style-object:nth-child(27) { left: 23.3%; }
+.style-objects.energy .style-object:nth-child(28) { left: 30%; }
+.style-objects.energy .style-object:nth-child(29) { left: 36.6%; }
+.style-objects.energy .style-object:nth-child(30) { left: 43.3%; }
+
+@keyframes style-object-float {
+	0% { transform: scale(0); top: 100%; }
+    2% { transform: scale(1); top: 100%; } 
+    100% { transform: scale(0.3); top: -100px; }
+}
