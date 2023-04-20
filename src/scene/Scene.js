@@ -442,7 +442,7 @@ export default class Scene extends Component {
       <Field player={this.player} src={this.state.model.field} targeting={this.state.dragged || this.targeting} targetable={targetable} target={this.state.target} onSelect={this.onSelect.bind(this)} onGrab={e => this.grabbing = e}/>
         <div className="game-area self-area">
           <Hand src={this.player.hand} onGrab={e => this.grabbing = e} isDragged={c => c === this.state.dragged} onSelect={this.onSelect.bind(this)}/>
-          <Court focus={model => this.focus(model)} model={this.state.model} src={this.state.casting && !this.state.casting.opposite ? this.state.casting.element : this.player.court.cards[0]}/>
+          <Court focus={(model, data) => this.focus(model, data)} model={this.state.model} src={this.state.casting && !this.state.casting.opposite ? this.state.casting.element : this.player.court.cards[0]}/>
           <Hero targeting={this.state.dragged || this.targeting} targetable={targetable} src={this.player.hero} onSelect={this.onSelect.bind(this)}/>
           <Abilities levelup={() => this.controller.act("levelup")} hero={this.player.hero} onGrab={e => this.grabbing = e} onSelect={this.onSelect.bind(this)}/>
           <div className="game-area-data">
@@ -458,7 +458,7 @@ export default class Scene extends Component {
         </div>
         <div className="game-area opposite-area">
           <Hand src={this.player.opponent.hand} onGrab={e => {}} isDragged={c => false} hidden onSelect={this.onSelect.bind(this)}/>
-          <Court focus={model => this.focus(model)} model={this.state.model} src={this.state.casting && this.state.casting.opposite ? this.state.casting.element : this.player.opponent.court.cards[0]}/>
+          <Court focus={(model, data) => this.focus(model, data)} model={this.state.model} src={this.state.casting && this.state.casting.opposite ? this.state.casting.element : this.player.opponent.court.cards[0]}/>
           <Hero targeting={this.state.dragged || this.targeting} targetable={targetable} src={this.player.opponent.hero} onSelect={this.onSelect.bind(this)}/>
           <Abilities hero={this.player.opponent.hero} onGrab={e => {}} onSelect={this.onSelect.bind(this)}/>
           <div className="game-area-data">
