@@ -10,7 +10,7 @@ import Library from '../../scene/utility/Library';
 import { read } from '../../TextManager';
 import { getMusic, play, stopMusic } from '../../SoundManager';
 
-const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility", "exalted", "initiative", "trap"];
+const keywordIcons = ["shield", "reach", "drain", "ephemeral", "burst", "warden", "undying", "freeze", "agility", "exalted", "initiative", "trap", "hidden"];
 
 export default class CardBox extends Component {
 

@@ -39,7 +39,7 @@ export default class Unit extends Component {
   updateHealth () {
 
     let states = [];
-    ["shield", "ephemeral", "undying", "exalted"].forEach(s => {
+    ["shield", "ephemeral", "undying", "exalted", "hidden"].forEach(s => {
       if (!this.props.src.hasState(s))
         return;
       states.push(s);

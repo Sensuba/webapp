@@ -21,7 +21,7 @@ export default class Card extends Component {
     let model = this.props.src.key ? this.props.src : this.props.src.model;
   	if (!model.states)
   		return "heart";
-    let states = ["ephemeral", "shield", "undying", "exalted"];
+    let states = ["ephemeral", "shield", "undying", "exalted", "hidden"];
     for (let state in states)
       if (model.states.includes(states[state]))
         return states[state];

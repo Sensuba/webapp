@@ -195,7 +195,7 @@
 			"drain": "Les dégâts infligés par cette carte rendent autant de PV à votre héros",
 			"silence": "Annule les effets et enchantements liés à une unité",
 			"overheal": "S'active si cette unité devrait récupérer X PV au delà de son maximum",
-			"hidden": "Ne peut pas être attaqué ou ciblé jusqu'au début de votre prochain tour",
+			"hidden": "Ne peut pas être attaqué ou ciblé par votre adversaire jusqu'au début de votre prochain tour",
 			"volatile": "Est défaussé à la fin de votre tour",
 			"halfup": "Arrondi au supérieur",
 			"halfdown": "Arrondi à l'inférieur"
