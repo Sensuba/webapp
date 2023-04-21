@@ -5,7 +5,36 @@
 
 @keyframes remove-from-hand {
   from { top: 0em }
-  to { top: 6em }
+  to { top: 6.5em }
+}
+  
+  .opposite-area .game-hand {
+
+  overflow: visible;
+  }
+  
+  .opposite-area .remove-from-hand-anim {
+
+    animation: remove-from-hand-opposite 0.3s ease-in forwards;
+    opacity: 0;
+  }
+
+@media only screen and (min-width: 601px) {
+
+  .remove-from-hand-anim {
+
+    top: 6.5em;
+  }
+  
+  .opposite-area .remove-from-hand-anim {
+
+    top: unset;
+  }
+
+  @keyframes remove-from-hand-opposite {
+  from { transform: translateX(0vh) rotateZ(180deg); opacity: 1 }
+  to { transform: translateX(10vh) rotateZ(180deg); opacity: 0 }
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -18,16 +47,6 @@
   @keyframes remove-from-hand {
   from { transform: translateX(0vw); opacity: 1 }
   to { transform: translateX(10vw); opacity: 0 }
-  }
-  
-  .opposite-area .game-hand {
-
-  overflow: visible;
-  }
-  
-  .opposite-area .remove-from-hand-anim {
-
-    animation: remove-from-hand-opposite 0.3s ease-in forwards;
   }
 
   @keyframes remove-from-hand-opposite {

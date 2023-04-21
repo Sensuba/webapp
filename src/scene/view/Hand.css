@@ -87,7 +87,7 @@
 	}
 
 	@keyframes game-hand-card-appear {
-		from { top: 6em }
+		from { top: 6.5em }
 		to { top: 0em }
 	}
 
@@ -99,19 +99,24 @@
 
 	.scene .opposite-area .game-hand {
 
-		width: calc(40vw - 37vh);
+		width: calc(42vw - 25vh);
 		position: fixed;
 	    top: 0;
 		height: 15vh;
-	    left: calc(6vw + 10vh);
+	    left: calc(4vw + 8vh);
 	    transform: rotateZ(180deg);
 	}
 
 	.opposite-area .game-hand-card {
 
-		position: unset;
 		width: 10%;
+		animation: game-hand-card-appear-opposite 0.3s ease-out;
 	}
+
+	  @keyframes game-hand-card-appear-opposite {
+		from { transform: translateX(10vh); opacity: 0 }
+		to { transform: translateX(0vh); opacity: 1 }
+	  }
 
 	.opposite-area .game-hand-card .game-card-wrapper {
 

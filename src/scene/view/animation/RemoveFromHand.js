@@ -15,7 +15,7 @@ export default class RemoveFromHand extends Animation {
 		var el = document.querySelector("#sensuba-card-" + this.card);
 		if (el) {
 			el.classList.add("remove-from-hand-anim");
-			setTimeout(() => el.classList.remove("remove-from-hand-anim"), 300);
+			//setTimeout(() => el.classList.remove("remove-from-hand-anim"), 300);
 		}
 	}
 }
