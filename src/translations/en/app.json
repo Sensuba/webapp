@@ -24,6 +24,7 @@
 		"language": "Language",
 		"changelanguage": "Change",
 		"languagewarning": "Changing the language will reload the app",
+		"profile": "Profile",
 		"story": "Story",
 		"multiplayer": "Multiplayer",
 		"cards": "Cards",

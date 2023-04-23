@@ -1,0 +1,30 @@
+.nav-options.nav-profile {
+
+	right: 3.5rem;
+}
+
+.options-icon.profile-icon {
+
+	background: url('./profile.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	transition: filter 0.2s, transform 0.2s;
+}
+
+.nav-options.nav-profile:hover .options-icon.profile-icon {
+
+	transform: scale(1.1);
+}
+
+.light.error-page .nav-profile {
+
+	display: none;
+}
+
+@media (min-width: 601px) {
+
+	.nav-options.nav-profile {
+
+		right: 4rem;
+	}
+}

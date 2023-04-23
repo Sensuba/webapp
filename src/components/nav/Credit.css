@@ -7,7 +7,7 @@
 	height: 2.5rem;
 	cursor: pointer;
 	top: 0.75rem;
-	right: 4rem;
+	right: 6rem;
 	position: absolute;
 	border-radius: 1.25rem;
 	background: #00000080;
@@ -76,6 +76,6 @@
 
 	.nav-credit {
 
-		right: calc(4vw + 3rem);
+		right: calc(4vw + 4rem);
 	}
 }

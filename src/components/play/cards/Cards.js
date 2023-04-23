@@ -111,26 +111,53 @@ export default class Cards extends Component {
       pages[color] = Math.ceil(fullColors[color].length / PAGE_SIZE);
     });
 
+    let decklist = {};
+    let uniques = [];
+    let sortedDeck = [];
+    if (this.state.deck) {
+      this.state.deck.body.cards.forEach(no => {
+        if (!decklist[no]) {
+          decklist[no] = 1;
+          uniques.push(Library.getCard(no));
+        }
+        else
+          decklist[no]++;
+      });
+      sortedDeck = sorter.sort(uniques, "type");
+    }
+
     let left = null, right = null;
     if (this.state.focus) {
       if (!this.state.focus.type) {
-        let index = heroes.findIndex(hero => hero.key === this.state.focus.key);
-        if (index >= 0) {
-          if (index > 0)
-            left = heroes[index-1];
-          if (index < heroes.length-1)
-            right = heroes[index+1];
-        }
-      } else {
-        ["white", "red", "blue", "green", "black"].forEach(color => {
-          let index = colors[color].findIndex(card => card.key === this.state.focus.key);
+        if (this.state.focusmode === 'collection') {
+          let index = heroes.findIndex(hero => hero.key === this.state.focus.key);
           if (index >= 0) {
             if (index > 0)
-              left = colors[color][index-1];
-            if (index < colors[color].length-1)
-              right = colors[color][index+1];
+              left = heroes[index-1];
+            if (index < heroes.length-1)
+              right = heroes[index+1];
           }
-        })
+        }
+      } else {
+        if (this.state.focusmode === 'collection') {
+          ["white", "red", "blue", "green", "black"].forEach(color => {
+            let index = colors[color].findIndex(card => card.key === this.state.focus.key);
+            if (index >= 0) {
+              if (index > 0)
+                left = colors[color][index-1];
+              if (index < colors[color].length-1)
+                right = colors[color][index+1];
+            }
+          })
+        } else {
+            let index = sortedDeck.findIndex(card => card.key === this.state.focus.key);
+            if (index >= 0) {
+              if (index > 0)
+                left = sortedDeck[index-1];
+              if (index < sortedDeck.length-1)
+                right = sortedDeck[index+1];
+            }
+        }
       }
     }
 
@@ -272,7 +299,7 @@ export default class Cards extends Component {
                 <div className="deckbuilder">
                   <div className="deckbuilder-nav">
                     <div className="deckbuilder-nav-row">
-                      <div className="deckbuilder-hero" onClick={() => this.setState({focus:Library.getHero(this.state.deck.body.hero)})}><Hero src={Library.getHero(this.state.deck.body.hero)} level={3}/></div>
+                      <div className="deckbuilder-hero" onClick={() => this.setState({focus:Library.getHero(this.state.deck.body.hero), focusmode: 'deck'})}><Hero src={Library.getHero(this.state.deck.body.hero)} level={3}/></div>
                       <div className="deckbuilder-name"><Input id="deckname-input" type="text" defaultValue={this.state.deck.deckname} onBlur={e => {
                         if (this.state.deck.deckname !== e.target.value) {
                           if (e.target.value.length > 0)
@@ -292,19 +319,7 @@ export default class Cards extends Component {
                   </div>
                   <div className="card-list">
                   {
-                    (() => {
-                      let decklist = {};
-                      let uniques = [];
-                      this.state.deck.body.cards.forEach(no => {
-                        if (!decklist[no]) {
-                          decklist[no] = 1;
-                          uniques.push(Library.getCard(no));
-                        }
-                        else
-                          decklist[no]++;
-                      });
-                      return sorter.sort(uniques, "type").map((card, i) => <div key={i} className="listed-cards" onClick={() => this.setState({focus: card})}>{ [...Array(decklist[card.key]).keys()].map(i => <Card key={i} src={card}/>) }</div>)
-                    })()
+                    sortedDeck.map((card, i) => <div key={i} className="listed-cards" onClick={() => this.setState({focus: card, focusmode: 'deck'})}>{ [...Array(decklist[card.key]).keys()].map(i => <Card key={i} src={card}/>) }</div>)
                   }
                   </div>
                 </div>
@@ -317,17 +332,17 @@ export default class Cards extends Component {
               <div className="heroes-section">
                 <div id="heroes-border" className="cards-border">
                   <div className="cards-border-left">
-                    <div className={"cards-border-change-page pc" + (this.state.page.heroes <= 0 ? " locked" : "")} onClick={() => { if (this.state.page.heroes <= 0) return; let newpage = {}; newpage.heroes = this.state.page.heroes - 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&lt;</div>
+                    <div className={"cards-border-change-page pc" + (this.state.page.heroes <= 0 ? " locked" : "") + (pages.heroes <= 0 ? " invisible" : "")} onClick={() => { if (this.state.page.heroes <= 0) return; let newpage = {}; newpage.heroes = this.state.page.heroes - 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&lt;</div>
                       { read('menu/heroes') }
                     <span className="cards-border-cardcount">
                       { "(" + heroes.length + ")" }
                     </span>
-                      <span className="cards-border-page pc">
+                      <span className={"cards-border-page pc" + (pages.heroes <= 0 ? " invisible" : "")}>
                         { (this.state.page.heroes+1) + " / " + pages.heroes }
                       </span>
                   </div>
-                  <div className={"cards-border-change-page pc" + (this.state.page.heroes >= pages.heroes - 1 ? " locked" : "")} onClick={() => { if (this.state.page.heroes >= pages.heroes - 1) return; let newpage = {}; newpage.heroes = this.state.page.heroes + 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&gt;</div>
-                    <div className="cards-border-right mobile">
+                  <div className={"cards-border-change-page pc" + (this.state.page.heroes >= pages.heroes - 1 ? " locked" : "") + (pages.heroes <= 0 ? " invisible" : "")} onClick={() => { if (this.state.page.heroes >= pages.heroes - 1) return; let newpage = {}; newpage.heroes = this.state.page.heroes + 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&gt;</div>
+                    <div className={"cards-border-right mobile" + (pages.heroes <= 0 ? " invisible" : "")}>
                     <div className={"cards-border-change-page" + (this.state.page.heroes <= 0 ? " locked" : "")} onClick={() => { if (this.state.page.heroes <= 0) return; let newpage = {}; newpage.heroes = this.state.page.heroes - 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&lt;</div>
                       { (this.state.page.heroes+1) + " / " + pages.heroes }
                       <div className={"cards-border-change-page" + (this.state.page.heroes >= pages.heroes - 1 ? " locked" : "")} onClick={() => { if (this.state.page.heroes >= pages.heroes - 1) return; let newpage = {}; newpage.heroes = this.state.page.heroes + 1; this.setState({page: Object.assign({}, this.state.page, newpage)});}}>&gt;</div>
@@ -335,7 +350,7 @@ export default class Cards extends Component {
                 </div>
                 <div className={"card-list " + (this.state.hiding.heroes ? "invisible" : "")}>
                 {
-                  heroes.map((hero, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:hero})}><Hero src={hero}/></div>)
+                  heroes.map((hero, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:hero, focusmode: 'collection'})}><Hero src={hero}/></div>)
                 }
                 </div>
               </div>
@@ -363,7 +378,7 @@ export default class Cards extends Component {
                   </div>
                   <div className={"card-list " + (this.state.hiding[color] ? "invisible" : "")}>
                   {
-                    colors[color].map((card, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:card})}><Card src={card}/></div>)
+                    colors[color].map((card, i) => <div key={i} className="listed-card" onClick={() => this.setState({focus:card, focusmode: 'collection'})}><Card src={card}/></div>)
                   }
                   </div>
                 </div> : "")

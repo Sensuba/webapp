@@ -137,7 +137,7 @@ export default class Card {
 
 	damage (dmg, src, frenzy) {
 
-		if (src.isSpell && this.eff.barrier)
+		if (src && src.isSpell && this.eff.barrier)
 			dmg -= this.eff.barrier;
 
 		if (dmg <= 0)
@@ -421,6 +421,8 @@ export default class Card {
 		if (!target)
 			return false;
 		if (this.targetType !== target.type)
+			return false;
+		if (this.targetType === "card" && !target.data.onField && !target.data.isHero)
 			return false;
 		if (this.targetType === "card" && target.data.hasState("exalted"))
 			return false;

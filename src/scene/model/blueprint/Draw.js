@@ -10,7 +10,7 @@ export default class Draw extends Bloc {
 			for (let i = 0; i < ins[0]; i++) {
 				let card = ins[2] ? ins[1].draw(1, e => ins[2](src, e)) : ins[1].draw();
 				this.out = [card, i];
-				if (this["for each"])
+				if (card && this["for each"])
 					this["for each"].execute(props);
 			}
 			this.out = null;

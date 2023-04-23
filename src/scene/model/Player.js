@@ -256,8 +256,10 @@ export default class Player {
 			return false;
 		let targetdata = target ? target.data : undefined;
 		this.game.notify("playtarget.before", this, this.targeting, targetdata);
-		for (let i = 0; i <= (this.targeting.extratriggers || 0); i++)
-			this.targeting.events.forEach(e => e(target.data));
+		for (let i = 0; i <= (this.targeting.extratriggers || 0); i++) {
+			if (!target || this.targeting.canTarget(this, target))
+				this.targeting.events.forEach(e => e(target.data));
+		}
 		this.game.notify("playtarget", this, this.targeting, targetdata);
 		this.game.phase = "main";
 		delete this.targeting;

@@ -93,6 +93,7 @@ import CheckCard from './CheckCard.js';
 import CheckTile from './CheckTile.js';
 import CheckColumn from './CheckColumn.js';
 import CheckLocation from './CheckLocation.js';
+import ConditionalColumn from './ConditionalColumn.js';
 import ColumnSide from './ColumnSide.js';
 import ColumnTiles from './ColumnTiles.js';
 import AdjacentTiles from './AdjacentTiles.js';
@@ -259,6 +260,7 @@ export default class Reader {
 			case "checktile": bloc = new CheckTile(card, ctx); break;
 			case "checkcolumn": bloc = new CheckColumn(card, ctx); break;
 			case "checkloc": bloc = new CheckLocation(card, ctx); break;
+			case "conditioncolumn": bloc = new ConditionalColumn(card, ctx); break;
 			case "columnside": bloc = new ColumnSide(card, ctx); break;
 			case "columntiles": bloc = new ColumnTiles(card, ctx); break;
 			case "adjacenttiles": bloc = new AdjacentTiles(card, ctx); break;
@@ -339,6 +341,8 @@ export default class Reader {
 			case "breakshield-data": bloc = new Data(el.type, card, ctx, data => [data[0]]); break;
 			case "levelup-trigger": bloc = new Trigger(el.type, card, ctx, "levelup"); break;
 			case "levelup-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
+			case "skill-trigger": bloc = new Trigger(el.type, card, ctx, "skilltrigger"); break;
+			case "skill-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
 
 			default: bloc = new Bloc(el.type, card, ctx); break;
 			}

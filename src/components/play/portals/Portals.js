@@ -69,7 +69,7 @@ export default class Portals extends Component {
   render () {
 
     let portals = Object.values(Library.portals);
-    let heroes = Object.values(Library.heroes);
+    let heroes = Object.values(Library.heroes) || [];
     heroes = heroes.filter(hero => hero.runes && !this.state.collection.heroes.includes(hero.key));
     let user = JSON.parse(localStorage.getItem('user'));
 

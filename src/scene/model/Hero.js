@@ -65,7 +65,7 @@ export default class Hero {
 
 	damage (dmg, src) {
 
-		if (src.isSpell && this.eff.barrier)
+		if (src && src.isSpell && this.eff.barrier)
 			dmg -= this.eff.barrier;
 
 		if (dmg <= 0)
