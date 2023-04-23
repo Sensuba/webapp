@@ -212,6 +212,9 @@
 		"playcard": "Played: {1}",
 		"youplaycard": "You play {1}",
 		"enemyplaycard": "The opponent plays {1}",
+		"draw": "Draw",
+		"youdraw": "You draw a card",
+		"enemydraw": "The opponent draws a card",
 		"leveluptrigger": "Level up",
 		"youleveluptrigger": "Your hero is now level {1}",
 		"enemyleveluptrigger": "The enemy hero is now level {1}",
@@ -237,6 +240,9 @@
 		"destroy": "{0} is destroyed",
 		"youdestroy": "Your {0} is destroyed",
 		"enemydestroy": "Enemy {0} is destroyed",
+		"banish": "{0} is banished",
+		"youbanish": "Your {0} is banished",
+		"enemybanish": "Enemy {0} is banished",
 		"summon": "{0} is summoned",
 		"yousummon": "Your {0} is summoned",
 		"enemysummon": "Enemy {0} is summoned",
@@ -254,7 +260,10 @@
 		"enemylistener": "Enemy {0} triggers",
 		"burn": "{1} gets discarded",
 		"youburn": "You discard {1}",
-		"enemyburn": "Your opponent discards {1}"
+		"enemyburn": "Your opponent discards {1}",
+		"automatic": "{1} triggers automatically",
+		"youautomatic": "Your {1} triggers automatically",
+		"enemyautomatic": "Enemy {1} triggers automatically"
 	},
 	"messages": {
 		"connecterror": "Unable to connect to the server. Please try again later.",

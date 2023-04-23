@@ -212,6 +212,9 @@
 		"playcard": "Joué: {1}",
 		"youplaycard": "Vous jouez {1}",
 		"enemyplaycard": "L'adversaire joue {1}",
+		"draw": "Pioche",
+		"youdraw": "Vous piochez une carte",
+		"enemydraw": "L'adversaire pioche une carte",
 		"leveluptrigger": "Niveau supérieur",
 		"youleveluptrigger": "Votre héros passe au niveau {1}",
 		"enemyleveluptrigger": "Le héros adverse passe au niveau {1}",
@@ -237,6 +240,9 @@
 		"destroy": "{0} est détruit",
 		"youdestroy": "Votre {0} est détruit",
 		"enemydestroy": "{0} adverse est détruit",
+		"banish": "{0} est banni",
+		"youbanish": "Votre {0} est banni",
+		"enemybanish": "{0} adverse est banni",
 		"summon": "{0} est invoqué",
 		"yousummon": "Votre {0} est invoqué",
 		"enemysummon": "{0} adverse est invoqué",
@@ -254,7 +260,10 @@
 		"enemylistener": "{0} adverse se déclenche",
 		"burn": "{1} est défaussé",
 		"youburn": "Vous défaussez {1}",
-		"enemyburn": "Votre adversaire défausse {1}"
+		"enemyburn": "Votre adversaire défausse {1}",
+		"automatic": "{1} se déclenche automatiquement",
+		"youautomatic": "Votre {1} se déclenche automatiquement",
+		"enemyautomatic": "{1} adverse se déclenche automatiquement"
 	},
 	"messages": {
 		"connecterror": "Connexion au serveur impossible. Merci de réessayer ultérieurement.",

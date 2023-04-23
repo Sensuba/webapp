@@ -20,8 +20,14 @@ export default class Logs extends Component {
       log.text = n.data[0].no === parseInt(this.props.player.id.no, 10) ? read('logs/you' + n.type) : read('logs/enemy' + n.type);
       break;
     }
-    case "endturn": {
+    case "endturn":{
       log.text = n.data[0].no === parseInt(this.props.player.id.no, 10) ? read('logs/you' + n.type) : read('logs/enemy' + n.type);
+      break;
+    }
+    case "draw":
+    {
+      log.text = n.data[0].no === parseInt(this.props.player.id.no, 10) ? read('logs/you' + n.type) : read('logs/enemy' + n.type);
+      log.small = true;
       break;
     }
     case "damage":
@@ -30,7 +36,17 @@ export default class Logs extends Component {
     case "destroy":
     case "summon":
     case "silence":
+    case "automatic":
     {
+      let card = this.props.model.find(n.data[0]);
+      log.text = card.player === this.props.player ? read('logs/you' + n.type + (card.isHero ? 'hero' : '')) : read('logs/enemy' + n.type + (card.isHero ? 'hero' : ''));
+      log.small = true;
+      break;
+    }
+    case "banish":
+    {
+      if (!n.data[1])
+        break;
       let card = this.props.model.find(n.data[0]);
       log.text = card.player === this.props.player ? read('logs/you' + n.type + (card.isHero ? 'hero' : '')) : read('logs/enemy' + n.type + (card.isHero ? 'hero' : ''));
       log.small = true;
