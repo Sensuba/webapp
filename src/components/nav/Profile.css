@@ -1,6 +1,7 @@
 .nav-options.nav-profile {
 
 	right: 3.5rem;
+	display: none;
 }
 
 .options-icon.profile-icon {
