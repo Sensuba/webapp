@@ -6,6 +6,7 @@ import Discard from './Discard.js';
 import Nether from './Nether.js';
 import Capsule from './Capsule.js';
 import Throne from './Throne.js';
+import Choosebox from './Choosebox.js';
 import Hero from './Hero.js';
 
 const MAX_GEMS = 3;
@@ -33,6 +34,7 @@ export default class Player {
 		this.nether = new Nether(this);
 		this.capsule = new Capsule(this);
 		this.throne = new Throne(this);
+		this.choosebox = new Choosebox(this);
 		new Hero(this, decklist.hero);
 		this.deck.init(decklist.cards);
 	}
@@ -435,6 +437,7 @@ export default class Player {
 			nether: this.nether.id.no,
 			capsule: this.capsule.id.no,
 			throne: this.throne.id.no,
+			choosebox: this.choosebox.id.no,
 			mana: this.mana,
 			receptacles: this.receptacles,
 			gems: this.gems,
@@ -453,6 +456,7 @@ export default class Player {
 		this.nether = game.find({type: "nether", no: data.nether});
 		this.capsule = game.find({type: "capsule", no: data.capsule});
 		this.throne = game.find({type: "throne", no: data.throne});
+		this.choosebox = game.find({type: "choosebox", no: data.choosebox});
 		this.hand.player = this;
 		this.deck.player = this;
 		this.court.player = this;
@@ -460,6 +464,7 @@ export default class Player {
 		this.discard.player = this;
 		this.nether.player = this;
 		this.throne.player = this;
+		this.choosebox.player = this;
 		this.mana = data.mana;
 		this.receptacles = data.receptacles;
 		this.gems = data.gems;

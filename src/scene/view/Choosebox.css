@@ -1,0 +1,99 @@
+.game-choosebox-wrapper {
+
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  align-items: center;
+}
+
+.game-choosebox {
+
+  width: 100%;
+  height: 25vw;
+  left: 0;
+  position: fixed;
+  background: linear-gradient(to right, rgba(150, 150, 150, 0), rgba(150, 150, 150, 0.5), rgba(150, 150, 150, 0.5), rgba(150, 150, 150, 0));
+  justify-content: center;
+  align-items: center;
+}
+
+.game-choosebox .choosebox-item {
+
+	margin: 1.5em;
+	font-size: 2vw;
+	flex-direction: column;
+	align-items: center;
+}
+
+.game-choosebox .choosebox-item-card {
+
+	cursor: pointer;
+}
+
+.game-choosebox .choosebox-item-select {
+
+	cursor: pointer;
+	position: relative;
+	/*background: linear-gradient(to bottom, #313131, #7f7f7f);*/
+	background: linear-gradient(to bottom, #4c4a47, #575755);
+	border: 0.1em solid #edeae4;
+  border-radius: 0.5rem;
+  color: #edeae4;
+  cursor: pointer;
+  font-size: calc(0.6rem + 1vw);
+  max-width: 100%;
+  margin-top: 1.8rem;
+  margin-left: 0.5vw;
+  width: calc(4rem + 6.66vw);
+  height: calc(1rem + 1.66vw);
+  justify-content: center;
+  line-height: calc(1rem + 1.66vw);
+  overflow: hidden;
+	transition: all 0.2s;
+}
+
+
+.game-choosebox .choosebox-item-select:hover {
+	
+	border-color: transparent;
+	color: whitesmoke;
+}
+
+.game-choosebox .choosebox-item-select::after {
+
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(to bottom, #313131, #7f7f7f);
+	/*background: linear-gradient(to bottom, #66583a, #d1caae);*/
+	opacity: 0;
+	border-radius: 0.15em;
+	transition: all 0.2s;
+}
+
+.game-choosebox .choosebox-item-select:hover::after {
+	
+	opacity: 1;
+}
+
+.game-choosebox .choosebox-item-select:active::after {
+	
+	box-shadow: inset 0.24em 0.24em 0.2em -0.2em #000000;
+}
+
+.game-choosebox .choosebox-item-select-text {
+	
+	z-index: 1;
+	transition: all 0.2s;
+}
+
+.game-choosebox .choosebox-item-select:active:hover .choosebox-item-select-text{
+	
+	transform: translateX(0.07em) translateY(0.07em);
+	color: whitesmoke;
+}

@@ -1,5 +1,6 @@
 import Game from '../model/Game';
 import Card from '../model/Card';
+import Library from '../utility/Library';
 
 let reducer = (state = 0, n) => {
 
@@ -210,6 +211,28 @@ let reducer = (state = 0, n) => {
     hero.level++;
     if (hero.level === 3)
       hero.passives.forEach(passive => passive.activate());
+    break;
+  }
+  case "addchoosebox": {console.log(n.data);
+    let choosebox = state.find(n.data[0]);
+    choosebox.items.push({element: n.data[2] === "card" ? state.find(n.data[1]) : Library.getCard(n.data[1]), type: n.data[2]});
+    break;
+  }
+  case "clearchoosebox": {
+    let choosebox = state.find(n.data[0]);
+    choosebox.items = [];
+    break;
+  }
+  case "openchoosebox": {
+    let choosebox = state.find(n.data[0]);
+    choosebox.isOpen = true;
+    state.phase = "choose";
+    break;
+  }
+  case "closechoosebox": {
+    let choosebox = state.find(n.data[0]);
+    choosebox.isOpen = false;
+    state.phase = "main";
     break;
   }
   default: break;

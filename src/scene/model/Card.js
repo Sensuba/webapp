@@ -364,14 +364,14 @@ export default class Card {
 		this.game.notify("discard", this, this.player);
 	}
 
-	banish () {
+	banish (active=false) {
 
 		if (!this.location || this.location.id.type === "nether")
 			return;
-		this.game.notify("banish.before", this);
+		this.game.notify("banish.before", this, active);
 		this.goto(this.player.nether);
 		this.blueprints = [];
-		this.game.notify("banish", this);
+		this.game.notify("banish", this, active);
 	}
 
 	hasCategory (category) {
@@ -440,14 +440,18 @@ export default class Card {
 			return false;
 		player = player || this.player;
 		if (!this.hasTarget) {
+			this.autocasting = true;
 			this.game.stack.cast(player, this);
+			delete this.autocasting;
 			return true;
 		}
 		if (player.hasValidTargets(this)) {
 			if (this.targetType === "column") {
 				let targets = this.game.field.columns.filter(col => this.canTarget(player, {type: "column", data: col}));
 				if (targets.length > 0) {
+					this.autocasting = true;
 					this.game.stack.cast(player, this, {type: "column", data: targets[Math.floor(Math.random() * targets.length)]});
+					delete this.autocasting;
 					return true;
 				}
 				return false;
@@ -459,7 +463,9 @@ export default class Card {
 				if (this.canTarget(player, {type: "card", data: player.opponent.hero}))
 					targets.push(player.opponent.hero);
 				if (targets.length > 0) {
+					this.autocasting = true;
 					this.game.stack.cast(player, this, {type: "card", data: targets[Math.floor(Math.random() * targets.length)]});
+					delete this.autocasting;
 					return true;
 				}
 				return false;

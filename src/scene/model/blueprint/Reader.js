@@ -12,6 +12,7 @@ import Frenzy from './Frenzy.js';
 import Aura from './Aura.js';
 import PassiveMutation from './PassiveMutation.js';
 import HandMutation from './HandMutation.js';
+import Choosebox from './Choosebox.js';
 
 import State from './State.js';
 import Variation from './Variation.js';
@@ -26,6 +27,7 @@ import Heal from './Heal.js';
 import Summon from './Summon.js';
 import Autosummon from './Autosummon.js';
 import Destroy from './Destroy.js';
+import Banish from './Banish.js';
 import Copy from './Copy.js';
 import Transform from './Transform.js';
 import AddStats from './AddStats.js';
@@ -59,6 +61,10 @@ import ExtraTrigger from './ExtraTrigger.js';
 import DelayedTrigger from './DelayedTrigger.js';
 import DelayedChangeCost from './DelayedChangeCost.js';
 import ChangeDamage from './ChangeDamage.js';
+import AddCardToChoosebox from './AddCardToChoosebox.js';
+import AddModelToChoosebox from './AddModelToChoosebox.js';
+import OpenChoosebox from './OpenChoosebox.js';
+import ClearChoosebox from './ClearChoosebox.js';
 
 import StoreInteger from './StoreInteger.js';
 import StoreCard from './StoreCard.js';
@@ -77,6 +83,7 @@ import CountTiles from './CountTiles.js';
 import EditTiles from './EditTiles.js';
 import FilterCard from './FilterCard.js';
 import FilterStats from './FilterStats.js';
+import FilterChoosebox from './FilterChoosebox.js';
 import FilterDamaged from './FilterDamaged.js';
 import FilterDestroyed from './FilterDestroyed.js';
 import FilterCover from './FilterCover.js';
@@ -179,6 +186,7 @@ export default class Reader {
 			case "aura": bloc = new Aura(card, ctx); break;
 			case "passivemut": bloc = new PassiveMutation(card, ctx); break;
 			case "handmut": bloc = new HandMutation(card, ctx); break;
+			case "choosebox": bloc = new Choosebox(card, ctx); break;
 
 			case "state": bloc = new State(card, ctx); break;
 			case "variation": bloc = new Variation(card, ctx); break;
@@ -193,6 +201,7 @@ export default class Reader {
 			case "summon": bloc = new Summon(card, ctx); break;
 			case "autosummon": bloc = new Autosummon(card, ctx); break;
 			case "destroy": bloc = new Destroy(card, ctx); break;
+			case "banish": bloc = new Banish(card, ctx); break;
 			case "copy": bloc = new Copy(card, ctx); break;
 			case "transform": bloc = new Transform(card, ctx); break;
 			case "addstats": bloc = new AddStats(card, ctx); break;
@@ -226,6 +235,10 @@ export default class Reader {
 			case "delayedtrigger": bloc = new DelayedTrigger(card, ctx); break;
 			case "delayedchangecost": bloc = new DelayedChangeCost(card, ctx); break;
 			case "changedamage": bloc = new ChangeDamage(card, ctx); break;
+			case "addcardchoosebox": bloc = new AddCardToChoosebox(card, ctx); break;
+			case "addmodelchoosebox": bloc = new AddModelToChoosebox(card, ctx); break;
+			case "openchoosebox": bloc = new OpenChoosebox(card, ctx); break;
+			case "clearchoosebox": bloc = new ClearChoosebox(card, ctx); break;
 
 			case "writeintvar": bloc = new StoreInteger(card, ctx); break;
 			case "writecardvar": bloc = new StoreCard(card, ctx); break;
@@ -244,6 +257,7 @@ export default class Reader {
 			case "edittiles": bloc = new EditTiles(card, ctx); break;
 			case "filtercard": bloc = new FilterCard(card, ctx); break;
 			case "filterstats": bloc = new FilterStats(card, ctx); break;
+			case "filterchoosebox": bloc = new FilterChoosebox(card, ctx); break;
 			case "filterdamaged": bloc = new FilterDamaged(card, ctx); break;
 			case "filterdestroyed": bloc = new FilterDestroyed(card, ctx); break;
 			case "filtercover": bloc = new FilterCover(card, ctx); break;

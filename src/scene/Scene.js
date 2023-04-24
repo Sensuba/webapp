@@ -5,6 +5,7 @@ import Court from './view/Court';
 import Field from './view/Field';
 import Hero from './view/Hero';
 import Abilities from './view/Abilities';
+import Choosebox from './view/Choosebox';
 
 import { createStore } from 'redux';
 import reducers from './reducers';
@@ -22,6 +23,7 @@ import Back from '../components/Back';
 
 import PlayingState from './controller/state/PlayingState';
 import TargetingState from './controller/state/TargetingState';
+import ChoosingState from './controller/state/ChoosingState';
 import WaitingState from './controller/state/WaitingState';
 //import MovingState from './controller/state/MovingState';
 
@@ -88,6 +90,7 @@ export default class Scene extends Component {
   get playing () { return this.controller.name === "playing" }
   get targeting () { return this.controller.name === "targeting" }
   get waiting () { return this.controller.name === "waiting" }
+  get choosing () { return this.controller.name === "choosing" }
 
   update (type, data) {
 
@@ -103,7 +106,12 @@ export default class Scene extends Component {
     }
     case "gamestate": {
       if (data.game.turnPlayer !== undefined && data.game.turnPlayer.toString() === this.noPlayer.toString()){
-        this.controller = new PlayingState(this, this.state.model);
+        switch (data.game.phase) {
+        case "main": this.controller = new PlayingState(this, this.state.model); break;
+        case "target": this.controller = new TargetingState(this, this.state.model); break;
+        case "choose": this.controller = new ChoosingState(this, this.state.model); break;
+        default: this.controller = new WaitingState(this); break;
+        }
       }
       else
         this.controller = new WaitingState(this);
@@ -123,6 +131,7 @@ export default class Scene extends Component {
       this.stop();
       break;
     }
+    case "closechoosebox":
     case "mainphase": {
       if (data[0].no.toString() === this.noPlayer.toString())
           this.controller = new PlayingState(this, this.state.model);
@@ -131,6 +140,11 @@ export default class Scene extends Component {
     case "targetphase": {
       if (data[0].no.toString() === this.noPlayer.toString())
           this.controller = new TargetingState(this, this.state.model);
+      break;
+    }
+    case "openchoosebox": {
+      if (data[0].no.toString() === this.noPlayer.toString())
+          this.controller = new ChoosingState(this, this.state.model);
       break;
     }
     case "playtarget.before": {
@@ -439,6 +453,7 @@ export default class Scene extends Component {
       
       { this.state.focus ? <CardBox origin={this.state.focusdata ? this.state.focusdata.model : ""} src={this.state.focus} level={this.state.focusdata} open={true} onClose={() => this.setState({focus:null})}/> : "" }
 			<Logs focus={(model, data) => this.focus(model, data)} player={this.player} src={this.sequencer.logs} model={this.state.model}/>
+      { this.choosing ? <Choosebox choose={no => this.controller.act("choose", no)} focus={(model, data) => this.focus(model, data)} src={this.player.choosebox}/> : "" }
       <Field player={this.player} src={this.state.model.field} targeting={this.state.dragged || this.targeting} targetable={targetable} target={this.state.target} onSelect={this.onSelect.bind(this)} onGrab={e => this.grabbing = e}/>
         <div className="game-area self-area">
           <Hand src={this.player.hand} onGrab={e => this.grabbing = e} isDragged={c => c === this.state.dragged} onSelect={this.onSelect.bind(this)}/>
@@ -479,7 +494,7 @@ export default class Scene extends Component {
         </div>
         <div className={"turn-indicator playing" + (this.player.playing ? "" : " fade")}>{ read('scene/yourturn') }</div>
         <div className={"turn-indicator" + (this.player.opponent.playing ? "" : " fade")}>{ read('scene/opponentsturn') }</div>
-      <div ref={this.dragged} className="dragged-card">{this.state.dragged ? (this.state.dragged.type === "skill"  ? <Ability colors={this.player.hero.colors} src={this.state.dragged.element}/> : <Card src={this.state.dragged.eff}/>) : ""}</div>
+      <div ref={this.dragged} className="dragged-card">{this.state.dragged ? (this.state.dragged.type === "skill"  ? <Ability origin={this.player.hero.model} colors={this.player.hero.model.colors} src={this.state.dragged.element}/> : <Card src={this.state.dragged.eff}/>) : ""}</div>
 	        </div></div>
 		);
 	}

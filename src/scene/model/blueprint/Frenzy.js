@@ -1,6 +1,4 @@
 import Bloc from './Bloc.js';
-import Types from './Types.js';
-import Listener from '../Listener.js';
 
 export default class Frenzy extends Bloc {
 

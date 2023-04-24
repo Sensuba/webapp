@@ -1,8 +1,7 @@
 
-import PlayingState from './PlayingState';
 import SocketManager from '../../../SocketManager';
 
-export default class TargettingState {
+export default class TargetingState {
 
 	constructor (scene, game, card) {
 

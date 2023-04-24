@@ -78,7 +78,8 @@
 		"logs": "Logs",
 		"victory": "Victory",
 		"defeat": "Defeat",
-		"error": "Error"
+		"error": "Error",
+		"selectchoosebox": "Select"
 	},
 	"cards": {
 		"white": "White",

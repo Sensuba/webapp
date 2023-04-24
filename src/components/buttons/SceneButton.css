@@ -105,7 +105,7 @@
 	transition: all 0.2s;
 }
 
-.scene.playing .scene-button:active .scene-button-text {
+.scene.playing .scene-button:active:hover .scene-button-text {
 	
 	transform: translateX(0.14em) translateY(0.14em);
 }

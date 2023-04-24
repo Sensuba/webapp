@@ -78,7 +78,8 @@
 		"logs": "Historique",
 		"victory": "Victoire",
 		"defeat": "Défaite",
-		"error": "Erreur"
+		"error": "Erreur",
+		"selectchoosebox": "Choisir"
 	},
 	"cards": {
 		"white": "Blanc",

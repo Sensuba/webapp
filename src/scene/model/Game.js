@@ -9,6 +9,7 @@ import Graveyard from './Graveyard.js';
 import Discard from './Discard.js';
 import Nether from './Nether.js';
 import Capsule from './Capsule.js';
+import Choosebox from './Choosebox.js';
 import Card from './Card.js';
 import Hero from './Hero.js';
 import Throne from './Throne.js';
@@ -195,6 +196,7 @@ export default class Game {
 			case "discard": maker = () => new Discard(); break;
 			case "nether": maker = () => new Nether(); break;
 			case "capsule": maker = () => new Capsule(); break;
+			case "choosebox": maker = () => new Choosebox(); break;
 			case "card": maker = () => new Card(); break;
 			case "throne": maker = () => new Throne(); break;
 			case "hero": maker = () => new Hero(); break;

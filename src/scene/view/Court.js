@@ -19,7 +19,7 @@ export default class Court extends Component {
         >
           <div className={"game-card-wrapper"}>
           {
-            card.id ? <Card src={card.eff}/> : (this.props.model.turnPlayer ? <Ability origin={this.props.model.turnPlayer.hero} colors={this.props.model.turnPlayer.hero.model.colors} src={card}/> : "")
+            card.id ? <Card src={card.eff}/> : (this.props.model.turnPlayer ? <Ability origin={this.props.model.turnPlayer.hero.model} colors={this.props.model.turnPlayer.hero.model.colors} src={card}/> : "")
           }
           </div>
         </div> : ""
