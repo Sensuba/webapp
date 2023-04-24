@@ -13,10 +13,23 @@
   width: 100%;
   height: 25vw;
   left: 0;
-  position: fixed;
   background: linear-gradient(to right, rgba(150, 150, 150, 0), rgba(150, 150, 150, 0.5), rgba(150, 150, 150, 0.5), rgba(150, 150, 150, 0));
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.choosebox-inner {
+
+  height: 100%;
+  max-width: 80%;
+  top: 0;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  position: absolute;
+  align-items: center;
+  overflow: auto;
+  box-sizing: border-box;
 }
 
 .game-choosebox .choosebox-item {

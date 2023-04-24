@@ -213,7 +213,7 @@ let reducer = (state = 0, n) => {
       hero.passives.forEach(passive => passive.activate());
     break;
   }
-  case "addchoosebox": {console.log(n.data);
+  case "addchoosebox": {
     let choosebox = state.find(n.data[0]);
     choosebox.items.push({element: n.data[2] === "card" ? state.find(n.data[1]) : Library.getCard(n.data[1]), type: n.data[2]});
     break;

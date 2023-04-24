@@ -24,7 +24,7 @@ export default class Choosebox {
 		}
 		else {
 			this.items.push({element, type});
-			this.game.notify("addchoosebox", this, element, type);
+			this.game.notify("addchoosebox", this, type === "card" ? element : element.key, type);
 		}
 	}
 

@@ -82,6 +82,7 @@ import CountCards from './CountCards.js';
 import CountTiles from './CountTiles.js';
 import EditTiles from './EditTiles.js';
 import FilterCard from './FilterCard.js';
+import FilterModel from './FilterModel.js';
 import FilterStats from './FilterStats.js';
 import FilterChoosebox from './FilterChoosebox.js';
 import FilterDamaged from './FilterDamaged.js';
@@ -104,6 +105,7 @@ import ConditionalColumn from './ConditionalColumn.js';
 import ColumnSide from './ColumnSide.js';
 import ColumnTiles from './ColumnTiles.js';
 import AdjacentTiles from './AdjacentTiles.js';
+import LocationToLocations from './LocationToLocations.js';
 import ConditionalMutation from './ConditionalMutation.js';
 import SkillFreshness from './SkillFreshness.js';
 
@@ -256,6 +258,7 @@ export default class Reader {
 			case "counttiles": bloc = new CountTiles(card, ctx); break;
 			case "edittiles": bloc = new EditTiles(card, ctx); break;
 			case "filtercard": bloc = new FilterCard(card, ctx); break;
+			case "filtermodel": bloc = new FilterModel(card, ctx); break;
 			case "filterstats": bloc = new FilterStats(card, ctx); break;
 			case "filterchoosebox": bloc = new FilterChoosebox(card, ctx); break;
 			case "filterdamaged": bloc = new FilterDamaged(card, ctx); break;
@@ -278,6 +281,7 @@ export default class Reader {
 			case "columnside": bloc = new ColumnSide(card, ctx); break;
 			case "columntiles": bloc = new ColumnTiles(card, ctx); break;
 			case "adjacenttiles": bloc = new AdjacentTiles(card, ctx); break;
+			case "loctolocs": bloc = new LocationToLocations(card, ctx); break;
 			case "conditionmut": bloc = new ConditionalMutation(card, ctx); break;
 			case "skillfresh": bloc = new SkillFreshness(card, ctx); break;
 
