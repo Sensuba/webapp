@@ -953,8 +953,8 @@
 	border-radius: 50%;
 	background: white;
 	opacity: 0.15;
-    box-shadow: 0 0 15px 10px hsla(0,0%,50%,.5);
-	filter: drop-shadow(0 0 0.5rem #80FFFF80);
+    /*box-shadow: 0 0 15px 10px hsla(0,0%,50%,.5);*/
+	/*filter: drop-shadow(0 0 0.5rem #80FFFF80);*/
 	animation: style-object-fall 40s linear infinite;
 }
 
@@ -1000,7 +1000,7 @@
 	border-radius: 50%;
 	background: #FFFFFF80;
     box-shadow: 0 0 15px 3px hsla(0,0%,50%,.5);
-	filter: drop-shadow(0 0 0.5rem #80FFFF40);
+	/*filter: drop-shadow(0 0 0.5rem #80FFFF40);*/
 	animation: style-object-shine 10s ease-in-out alternate infinite, style-object-rise 20s linear infinite;
 }
 
@@ -1045,7 +1045,7 @@
 	border-radius: 50%;
 	background: #FFFFFF80;
 	opacity: 0.05;
-	filter: drop-shadow(0 0 0.5rem #80FFFF40);
+	/*filter: drop-shadow(0 0 0.5rem #80FFFF40);*/
 	animation: style-object-float 40s linear infinite;
 }
 
