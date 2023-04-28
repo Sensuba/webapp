@@ -195,33 +195,38 @@ export default class SocketManager {
 		switch (command) {
 		case "newdeck": {
 			let decks = JSON.parse(localStorage.getItem('decks'));
-			let targetdeck = {
-				key: params[2],
-				author: params[3],
-				deckname: params[0],
-				body: {
-					hero: params[1],
-					cards: []
-				}
-			}
-			decks.push(targetdeck);
+			let targetdeck;
 			if (!lastKey || lastKey !== key) {
+				targetdeck = {
+					key: params[2],
+					author: params[3],
+					deckname: params[0],
+					body: {
+						hero: params[1],
+						cards: []
+					}
+				}
+				decks.push(targetdeck);
 				localStorage.setItem('decks', JSON.stringify(decks));
 				localStorage.setItem('lastKey', key);
 			}
-				this.onDeckbuildUpdate(targetdeck)
+			else if (decks.some(d => d.key === params[2])) {
+				targetdeck = decks.filter(d => d.key === params[2])[0]
+			} else break;
+			this.onDeckbuildUpdate(targetdeck)
 			break;
 		}
 		case "delete": {
 			let decks = JSON.parse(localStorage.getItem('decks'));
-			decks = decks.filter(deck => deck.key !== params[0]);
+			if (!lastKey || lastKey !== key)
+				decks = decks.filter(deck => deck.key !== params[0]);
 			if (!lastKey || lastKey !== key) {
 				localStorage.setItem('decks', JSON.stringify(decks));
 				localStorage.setItem('lastKey', key);
 			}
 			let validDecks = decks.filter(deck => deck.body.cards.length === 30);
 			let activeDeck = localStorage.getItem('activedeck');
-			if (main && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
+			if ((!lastKey || lastKey !== key) && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
 				localStorage.removeItem('activedeck');
 			this.onDeckbuildUpdate(null)
 			break;
@@ -232,7 +237,8 @@ export default class SocketManager {
 			decks.forEach(deck => {
 				if (deck.key === params[0]) {
 					targetdeck = deck;
-					deck.deckname = params[1];
+					if (!lastKey || lastKey !== key)
+						deck.deckname = params[1];
 				}
 			})
 			if (!lastKey || lastKey !== key) {
@@ -241,7 +247,7 @@ export default class SocketManager {
 			}
 			let validDecks = decks.filter(deck => deck.body.cards.length === 30);
 			let activeDeck = localStorage.getItem('activedeck');
-			if (main && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
+			if ((!lastKey || lastKey !== key) && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
 				localStorage.removeItem('activedeck');
 			this.onDeckbuildUpdate(targetdeck)
 			break;
@@ -252,7 +258,8 @@ export default class SocketManager {
 			decks.forEach(deck => {
 				if (deck.key === params[0]) {
 					targetdeck = deck;
-					deck.body.cards.push(params[1]);
+					if (!lastKey || lastKey !== key)
+						deck.body.cards.push(params[1]);
 				}
 			})
 			if (!lastKey || lastKey !== key) {
@@ -261,7 +268,7 @@ export default class SocketManager {
 			}
 			let validDecks = decks.filter(deck => deck.body.cards.length === 30);
 			let activeDeck = localStorage.getItem('activedeck');
-			if (main && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
+			if ((!lastKey || lastKey !== key) && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
 				localStorage.removeItem('activedeck');
 			this.onDeckbuildUpdate(targetdeck)
 			break;
@@ -272,9 +279,11 @@ export default class SocketManager {
 			decks.forEach(deck => {
 				if (deck.key === params[0]) {
 					targetdeck = deck;
-					let idx = deck.body.cards.findIndex(key => key === params[1]);
-					if (idx >= 0)
-						deck.body.cards.splice(idx, 1);
+					if (!lastKey || lastKey !== key) {
+						let idx = deck.body.cards.findIndex(key => key === params[1]);
+						if (idx >= 0)
+							deck.body.cards.splice(idx, 1);
+					}
 				}
 			})
 			if (!lastKey || lastKey !== key) {
@@ -283,7 +292,7 @@ export default class SocketManager {
 			}
 			let validDecks = decks.filter(deck => deck.body.cards.length === 30);
 			let activeDeck = localStorage.getItem('activedeck');
-			if (main && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
+			if ((!lastKey || lastKey !== key) && activeDeck && !validDecks.map(deck => deck.key).includes(activeDeck))
 				localStorage.removeItem('activedeck');
 			this.onDeckbuildUpdate(targetdeck)
 			break;
@@ -299,25 +308,21 @@ export default class SocketManager {
 		case "openportal": {
 			let newcards = data.filter(d => d.type === "card").map(d => d.key);
 			let newheroes = data.filter(d => d.type === "hero").map(d => d.key);
-			let collection;
+			let collection = JSON.parse(localStorage.getItem('collection'));
 			if (newcards.length > 0 || newheroes.length > 0) {
-				collection = JSON.parse(localStorage.getItem('collection'));
 				newcards.forEach(card => collection.cards.push(card));
 				newheroes.forEach(hero => collection.heroes.push(hero));
 				if (!lastKey || lastKey !== key) {
 					localStorage.setItem('collection', JSON.stringify(collection));
 				}
 			}
-			if (main)
-				this.onCollectionUpdate(collection, data);
-			else if (newcards.length > 0 || newheroes.length > 0)
-				setTimeout(() => this.onCollectionUpdate(collection), 100);
+			this.onCollectionUpdate(collection, data);
 
 			let shards = data.filter(d => d.type === "shards").reduce((acc, d) => acc + d.value, 0);
 			if (shards) {
 				let user = JSON.parse(localStorage.getItem('user'));
-				user.shards += shards;
 				if (!lastKey || lastKey !== key) {
+					user.shards += shards;
 					localStorage.setItem('user', JSON.stringify(user));
 					localStorage.setItem('lastKey', key);
 				}

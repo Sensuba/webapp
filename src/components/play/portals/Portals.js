@@ -36,14 +36,14 @@ export default class Portals extends Component {
   componentDidMount () {
 
     SocketManager.master.onCollectionUpdate = (collection, reward) => {
-      if (this.state.heroes) {
+
+      if (reward && reward.length > 1)
+        this.setState({action: null, reward, rewarding: true});
+      else if (this.state.heroes) {
         this.setState({hero: null, action: null, collection});
         this.stopMusic();
       } else {
-        if (reward && reward.length > 1) {
-          this.setState({action: null, reward, rewarding: true});
-        } else
-          this.setState({action: null, collection});
+        this.setState({action: null, collection});
       }
     }
     SocketManager.master.onExplorePortal = (exploration) => this.setState({exploration});
