@@ -443,7 +443,7 @@ export default class Scene extends Component {
           { this.state.runes ? <div className="endgame-runes">{ "+" + this.state.runes }<div className="runes-icon"/></div> : "" }
         </div>
       </div> : "" }
-      <div className="sensuba-scene-background" style={{background: "linear-gradient(" + (this.player.hero.model.style ? this.player.hero.model.style.background.top : "transparent") + ", " + (this.player.hero.model.style ? this.player.hero.model.style.background.bottom : "transparent") + ")" }}>
+      <div className="sensuba-scene-background" style={{background: this.player.hero.model.style ? this.player.hero.model.style.background : "transparent" }}>
         <div className={"style-objects " + this.player.hero.model.style.element}>
                 { Array.from(Array(this.player.hero.model.style.count).keys()).map(i => <div key={i+"a"} className="style-object"/>) }
                 { Array.from(Array(this.player.hero.model.style.count).keys()).map(i => <div key={i+"b"} className="style-object pc"/>) }

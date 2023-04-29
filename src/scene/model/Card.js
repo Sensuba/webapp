@@ -178,7 +178,19 @@ export default class Card {
 
 		if (heal <= 0)
 			return;
+		if (src && src.hasState("corruption")) {
+			this.damage(heal, src);
+			return;
+		}
 		this.game.notify("heal.before", this, heal, src, 0);
+		if (this.dmgModifier !== undefined) {
+			heal = this.dmgModifier;
+			delete this.dmgModifier;
+		}
+		if (heal <= 0) {
+			this.game.notify("noheal", this, src);
+			return;
+		}
 		let actualheal = Math.min(this.dmg, heal);
 		let overheal = heal - actualheal;
 		this.dmg -= actualheal;

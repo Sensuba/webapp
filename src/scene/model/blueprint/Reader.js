@@ -345,6 +345,8 @@ export default class Reader {
 
 			case "play-trigger": bloc = new Trigger(el.type, card, ctx, "playcard"); break;
 			case "play-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1], data[2], data[2]]); break;
+			case "draw-trigger": bloc = new Trigger(el.type, card, ctx, "draw"); break;
+			case "draw-data": bloc = new Data(el.type, card, ctx, data => [data[1], data[0]]); break;
 			case "summon-trigger": bloc = new Trigger(el.type, card, ctx, "summon"); break;
 			case "summon-data": bloc = new Data(el.type, card, ctx, data => [data[0], data[1]]); break;
 			case "damage-trigger": bloc = new Trigger(el.type, card, ctx, "damage"); break;

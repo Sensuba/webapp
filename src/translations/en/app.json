@@ -197,7 +197,7 @@
 			"warden": "Cannot attack or move",
 			"drain": "Damage dealt by this card heals your hero by the same amount",
 			"silence": "Removes all effects and enchantments from a unit",
-			"overheal": "Activates if this unit would recover X HP above its maximum",
+			"overheal": "Activates if this unit would recover HP above its maximum",
 			"hidden": "Cannot be attacked or targeted by your opponent until the beginning of your next turn",
 			"volatile": "Gets discarded at the end of your turn",
 			"halfup": "Rounded up",

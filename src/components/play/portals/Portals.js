@@ -164,14 +164,14 @@ export default class Portals extends Component {
           </div>
           <div className="portals-page-main-wrapper">
             { this.state.heroes && this.state.hero && this.state.hero.style ? <div key={this.state.hero.key + "-style"} className="portals-page-main-style">
-              <div style={{background: "linear-gradient(" + this.state.hero.style.background.top + ", " + this.state.hero.style.background.bottom + ")"}} className="style-background"/>
+              <div style={{background: this.state.hero.style.background }} className="style-background"/>
               <div className={"style-objects " + this.state.hero.style.element}>
                 { Array.from(Array(this.state.hero.style.count).keys()).map(i => <div key={i+"a"} className="style-object"/>) }
                 { Array.from(Array(this.state.hero.style.count).keys()).map(i => <div key={i+"b"} className="style-object pc"/>) }
               </div>
             </div> : "" }
             { this.state.heroes && this.state.previousHero && this.state.previousHero.style ? <div key={this.state.previousHero.key + "-style"} className="portals-page-main-style-fadeout">
-              <div style={{background: "linear-gradient(" + this.state.previousHero.style.background.top + ", " + this.state.previousHero.style.background.bottom + ")"}} className="style-background"/>
+              <div style={{background: this.state.previousHero.style.background }} className="style-background"/>
               <div className={"style-objects " + this.state.previousHero.style.element}>
                 { Array.from(Array(this.state.previousHero.style.count).keys()).map(i => <div key={i+"a"} className="style-object"/>) }
                 { Array.from(Array(this.state.previousHero.style.count).keys()).map(i => <div key={i+"b"} className="style-object pc"/>) }

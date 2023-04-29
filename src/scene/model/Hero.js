@@ -142,8 +142,14 @@ export default class Hero {
 		if (heal <= 0)
 			return;
 		this.game.notify("heal.before", this, heal, src);
-		if (!this.dmg)
+		if (this.dmgModifier !== undefined) {
+			heal = this.dmgModifier;
+			delete this.dmgModifier;
+		}
+		if (heal <= 0) {
+			this.game.notify("noheal", this, src);
 			return;
+		}
 		heal = Math.min(this.dmg, heal);
 		this.dmg -= heal;
 		this.game.notify("heal", this, heal, src);
@@ -159,6 +165,29 @@ export default class Hero {
 		if (this.level === 3)
 			this.passives.forEach(passive => passive.activate());
 		this.game.notify("levelup", this, level);
+	}
+
+	addStats (atk, hp) {
+
+		if ((!atk || (atk < 0 && this.atk <= 0)) && (!hp || (hp < 0 && this.hp <= 0)))
+			return;
+
+		//if (this.atk + atk < 0)
+		//	atk = -this.atk;
+		if (this.hp + hp < 0)
+			hp = -this.hp;
+
+		this.game.notify("addstats.before", this, atk, hp);
+
+		//if (atk)
+		//	this.atk += atk;
+		if (hp)
+			this.hp += hp;
+
+		this.game.notify("addstats", this, atk, hp);
+
+		if (this.ghost)
+			this.destroy();
 	}
 
 	useSkill (no, target) {
