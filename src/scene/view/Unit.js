@@ -50,10 +50,20 @@ export default class Unit extends Component {
     this.health = states;
   }
 
+  updateMarks () {
+
+    let marks = [];
+    if (this.props.src.variables)
+      Object.keys(this.props.src.variables).filter(v => v.startsWith("mark-")).forEach(v => marks.push(v.substring(5)));
+    
+    this.marks = marks;
+  }
+
   render () {
 
     this.updateAttack();
     this.updateHealth();
+    this.updateMarks();
 
     return (
       <div className={"game-unit game-card-targetable" + (this.props.src.player.playing && this.props.src.actioned ? " game-unit-actioned" : "") + (this.props.src.player.playing && (this.props.src.summoningSickness || (this.props.src.actioned && !this.props.src.hasState("agility"))) ? " game-unit-sickness" : "") + Object.keys(this.props.src.eff.states).filter(k => this.props.src.hasState(k)).reduce((acc, e) => acc + " state-" + e, "")} card-type={this.props.src.id.type} card-no={this.props.src.id.no}>
@@ -69,6 +79,7 @@ export default class Unit extends Component {
         { this.props.src.hasState("lastwill") ? <div className="game-lastwill"><img className="card-lastwill-icon" src="/images/icons/lastwill.png" alt="last will"/></div> : "" }
         { this.props.src.eff.atk ? <div className="card-stat card-atk"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.attack[this.state.tick % this.attack.length] + ".png"}/><div className={"card-stat-value" + (this.props.src.eff.atk < this.props.src.model.atk ? " card-stat-value-debuff" : (this.props.src.eff.atk > this.props.src.model.atk ? " card-stat-value-buff" : ""))}>{this.props.src.eff.atk || 0}</div></div> : "" }
         { this.props.src.eff.hp ? <div className="card-stat card-hp"><img className="card-stat-icon" alt="" src={"/images/icons/" + this.health[this.state.tick % this.health.length] + ".png"}/><div className={"card-stat-value" + (this.props.src.dmg ? " card-stat-value-debuff" : (this.props.src.eff.hp > this.props.src.model.hp ? " card-stat-value-buff" : ""))}>{this.props.src.currentHp || 0}</div></div> : "" }
+        { this.marks.length > 0 ? <div className="card-stat card-mark"><img className="card-stat-icon" alt="" src={"/images/icons/marks/" + this.marks[this.state.tick % this.marks.length] + ".png"}/></div> : "" }
         <div className="game-animmask"/><div className="game-digitanim"/>
       </div>
     );

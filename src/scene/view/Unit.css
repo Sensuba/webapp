@@ -84,6 +84,7 @@
 	width: 3.5em;
 	height: 3.5em;
 	object-fit: contain;
+  pointer-events: none;
 }
 
 .game-unit .card-stat-icon {
@@ -100,6 +101,12 @@
 
 	left: -0.6em;
 	right: unset;
+}
+
+.game-unit .card-mark {
+
+  top: -0.6em;
+  bottom: unset;
 }
 
 .game-unit .card-stat-value {
