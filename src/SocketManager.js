@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const serverURL = process.env.REACT_APP_SERVER_URL || 'http://localhost:8080/';
+const serverURL = /*process.env.REACT_APP_SERVER_URL || '86.227.129.126:8080/';*/ 'https://169ac19516ab5c98d9386fe3a6a5691d.serveo.net';
 let master;
 
 export default class SocketManager {
@@ -15,6 +15,7 @@ export default class SocketManager {
 
 		this.setStatus('connecting');
 		console.log('connecting to server...');
+		console.log(serverURL)
 		this.socket = io.connect(serverURL);
 		this.attemps = 0;
 		this.socket.on('connected', this.onConnect.bind(this));
