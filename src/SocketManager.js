@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const serverURL = /*process.env.REACT_APP_SERVER_URL || '86.227.129.126:8080/';*/ 'https://169ac19516ab5c98d9386fe3a6a5691d.serveo.net';
+const serverURL = process.env.REACT_APP_SERVER_URL;
 let master;
 
 export default class SocketManager {
