@@ -23,7 +23,7 @@ import Library from '../services/Library';
 import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 
-const serverURL = 'https://f8cb40b0554e7341c53acc7a4a6df40a.serveo.net'/* || 'https://sensuba.herokuapp.com/'*/;
+const serverURL = 'https://df6c92cfac1a276b8b9ebad1a6807705.serveo.net'/* || 'https://sensuba.herokuapp.com/'*/;
 
 const nocards = 1150;
 
@@ -160,7 +160,7 @@ export default class App extends Component {
     if (this.socket.connected)
       return;
 
-    this.socket = io.connect(serverURL);
+    this.socket = io.connect(serverURL);this.socket.on("hi", () => console.log("hhh"))
     this.props.options.api.socket = this.socket;
 
     setTimeout(() => {

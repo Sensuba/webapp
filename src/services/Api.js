@@ -217,7 +217,7 @@ export default class Api {
   	})
   	.catch(this.error(error));*/
     this.socket.emit("login", {username, password});
-    this.socket.on("login", data => {
+    this.socket.on("login", data => {console.log(data)
       if (data.error)
         this.error(data.error);
       else {
