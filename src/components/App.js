@@ -23,7 +23,7 @@ import Library from '../services/Library';
 import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 
-const serverURL = process.env.SERVER_URL || 'http://localhost:8080'/* || 'https://sensuba.herokuapp.com/'*/;
+const serverURL = 'https://f8cb40b0554e7341c53acc7a4a6df40a.serveo.net'/* || 'https://sensuba.herokuapp.com/'*/;
 
 const nocards = 1150;
 
