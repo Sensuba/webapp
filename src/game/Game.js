@@ -40,6 +40,9 @@ export default class Game extends Component {
     if (myDeck)
       myDeck = JSON.parse(myDeck);
     var d = myDeck ? myDeck : this.getDefaultDeck();
+
+    d = { "hero": 12, "body": [101, 101, 714, 714, 715, 715, 717, 717] }
+
     var authorization = User.isConnected() ? (User.getData().authorization || 0) : 0;
 
     this.state = {

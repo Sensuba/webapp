@@ -49,7 +49,7 @@ export default class Artifact extends Component {
       	<div className="sensuba-card-placeholder">
 	    		<div className="sensuba-card-rune"/>
       	</div>
-		<img id={this.id + "-img"} crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt=""/>
+		<img id={this.id + "-img"} className="sensuba-card-bg" src={src.imgLink} alt=""/>
 	    <div className="sensuba-card-header">
 	    	<div className={"sensuba-card-mana" + (src.mana < src.originalMana ? " sensuba-card-param-bonus" : (src.mana > src.originalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>
 	        <div className={"sensuba-card-title" +

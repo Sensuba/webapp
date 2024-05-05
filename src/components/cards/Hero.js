@@ -50,7 +50,7 @@ export default class Hero extends Component {
       	<div className="sensuba-card-placeholder">
 	    		<div className="sensuba-card-hero-icon"/>
       	</div>
-		<img id={this.id + "-img"} crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt=""/>
+		<img id={this.id + "-img"} className="sensuba-card-bg" src={src.imgLink} alt=""/>
 	    <div className="sensuba-card-header">
 	        <div className={"sensuba-card-title" +
 	        	(src.nameCard.length >= 25 ?

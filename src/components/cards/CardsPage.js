@@ -352,20 +352,20 @@ export default class CardsPage extends Component {
         }
         <Nav api={this.props.api} history={this.props.history}/>
         <main>
-          {
+          {/*
             User.isConnected() ?
             <div className="card-collection-choicer">
               <div className="vintage-radio">
                 <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode()} defaultChecked={mode === undefined || mode === null} value={mode === undefined || mode === null}/>
                 <Label for="official-card-collection">Officiel</Label>
                 {/*<Input id="collection-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("collection")} defaultChecked={mode === "collection"} value={mode === "collection"}/>
-                <Label for="collection-card-collection">Collection</Label>*/}
+                <Label for="collection-card-collection">Collection</Label>*//*}
                 <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("custom")} defaultChecked={mode === "custom"} value={mode === "custom"}/>
                 <Label for="custom-card-collection">Personnalisé</Label>
               </div>
             </div>
             : <span/>
-          }
+          */}
           <div className="sensuba-card-search">
             <div className="third-section">
               <Input id="sensuba-search-text" defaultValue={this.filter.search} type="text" placeholder="Recherche" onChange={editText("search").bind(this)}/>

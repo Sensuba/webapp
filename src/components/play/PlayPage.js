@@ -135,7 +135,7 @@ export default class PlayPage extends Component {
     c.push(deck.hero);
     c.forEach (card => {
       formats.slice().forEach(f => {
-        var cc = this.formats[f].cardlist.find(l => l.idCardmodel && l.idCardmodel.toString() === card.toString());
+        var cc = this.formats[f].cardlist.find(l => l && l.idCardmodel && l.idCardmodel.toString() === card.toString());
         if (!cc || (cc.count === 1 && deck.cards[card] > 1))
           formats.splice(formats.indexOf(f), 1);
       })
@@ -228,7 +228,7 @@ export default class PlayPage extends Component {
                       (this.state.decklist || []).filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
                         var hero;
                         var idHero = c.hero.idCardmodel || c.hero;
-                        hero = this.state.cards.find(s => s.idCardmodel === idHero);
+                        hero = this.state.cards.find(s => s && s.idCardmodel === idHero);
                         if (hero)
                         return (
                           <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(hero.idColor) + " " + colorIdToClassName(hero.idColor2)} onClick={() => this.choice(c.idDeck)}>

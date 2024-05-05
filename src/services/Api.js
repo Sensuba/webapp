@@ -1,6 +1,8 @@
 import axios from 'axios';
 import User from './User';
 
+import cm from './output.json';
+
 export default class Api {
 
   constructor(configuration) {
@@ -12,8 +14,8 @@ export default class Api {
   }
 
   getCards (callback, error) {
-
-    let step = 0, data = [];
+    callback(cm.filter(c => !c.author))
+    /*let step = 0, data = [];
     if (User.isConnected())
       this.addAuthorizationHeader();
   	[1, 2].forEach(n => this.client.get("/vault/cardmodels?part=" + n)
@@ -23,12 +25,12 @@ export default class Api {
       if (step === 2)
         callback(data)
     })
-  	.catch(this.error(error)));
+  	.catch(this.error(error)));*/
   }
 
   saveCustomCards (params, callback, error) {
 
-    if (!User.isConnected()) {
+    /*if (!User.isConnected()) {
       this.error(error)("Not connected");
       return;
     }
@@ -38,12 +40,12 @@ export default class Api {
     .catch(err => {
       this.error(error)(err);
       User.disconnect();
-    });
+    });*/
   }
 
   deleteCustomCards (id, callback, error) {
 
-    if (!User.isConnected()) {
+    /*if (!User.isConnected()) {
       this.error(error)("Not connected");
       return;
     }
@@ -53,12 +55,12 @@ export default class Api {
     .catch(err => {
       this.error(error)(err);
       User.disconnect();
-    });
+    });*/
   }
 
   getCollection (callback, error) {
 
-    if (!User.isConnected()) {
+    /*if (!User.isConnected()) {
       this.error(error)("Not connected");
       return;
     }
@@ -68,12 +70,12 @@ export default class Api {
     .catch(err => {
       this.error(error)(err);
       User.disconnect();
-    });
+    });*/
   }
 
   getCustomCards (callback, error) {
 
-    if (!User.isConnected()) {
+    /*if (!User.isConnected()) {
       this.error(error)("Not connected");
       return;
     }
@@ -83,12 +85,12 @@ export default class Api {
     .catch(err => {
       this.error(error)(err);
       User.disconnect();
-    });
+    });*/
   }
 
   getMyDecks (callback, error) {
 
-    if (!User.isConnected()) {
+    /*if (!User.isConnected()) {
       this.error(error)("Not connected");
       return;
     }
@@ -98,21 +100,31 @@ export default class Api {
     .catch(err => {
       this.error(error)(err);
       User.disconnect();
-    });
+    });*/
+
+    this.socket.emit("getdecks", User.getData());
+    this.socket.on("decks", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        callback(data);
+      }
+      this.socket.removeAllListeners('decks');
+    })
   }
 
   getCommonDecks (callback, error) {
 
-    if (User.isConnected())
+    /*if (User.isConnected())
       this.addAuthorizationHeader();
     this.client.get("/vault/decks")
     .then(response => callback(response.data))
-    .catch(this.error(error));
+    .catch(this.error(error));*/
   }
 
   saveDeck (params, callback, error) {
 
-    if (!User.isConnected()) {
+    /*if (!User.isConnected()) {
       this.error(error)("Not connected");
       return;
     }
@@ -122,12 +134,22 @@ export default class Api {
     .catch(err => {
       this.error(error)(err);
       User.disconnect();
-    });
+    });*/
+
+    this.socket.emit("savedeck", User.getData(), params);
+    this.socket.on("onsave", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        callback(data);
+      }
+      this.socket.removeAllListeners('onsave');
+    })
   }
 
   deleteDeck (id, callback, error) {
 
-    if (!User.isConnected()) {
+    /*if (!User.isConnected()) {
       this.error(error)("Not connected");
       return;
     }
@@ -137,7 +159,17 @@ export default class Api {
     .catch(err => {
       this.error(error)(err);
       User.disconnect();
-    });
+    });*/
+
+    this.socket.emit("deletedeck", User.getData(), id);
+    this.socket.on("ondelete", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        callback(data);
+      }
+      this.socket.removeAllListeners('ondelete');
+    })
   }
 
   getReplay (id, callback, error) {
@@ -177,13 +209,24 @@ export default class Api {
 
   login (username, password, callback, error) {
 
-  	this.client.post("/auth", {username, password})
+  	/*this.client.post("/auth", {username, password})
   	.then(response => {
   		console.log("logged in !");
       User.connect(response.data);
       callback(response.data);
   	})
-  	.catch(this.error(error));
+  	.catch(this.error(error));*/
+    this.socket.emit("login", {username, password});
+    this.socket.on("login", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        User.connect(data);
+        console.log("logged in !");
+        callback(data);
+      }
+      this.socket.removeAllListeners('login');
+    })
   	console.log("logging in...");
   }
 

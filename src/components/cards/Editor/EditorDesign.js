@@ -350,7 +350,7 @@ export default class EditorPage extends Component {
                     <Input id="form-card-hp" type="number" min="100" max="9999" step="100" value={this.currentCard.hp} onChange={editAttribute("hp").bind(this)}/>
                   </div>
                   <div className="third-section">
-                  { User.isConnected() && User.getData().authorization >= 4 ?
+                  { true ?
                     <div>
                     <Label for="form-card-mecha">Mech</Label>
                     <div>
