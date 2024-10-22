@@ -217,7 +217,7 @@ export default class Api {
   	})
   	.catch(this.error(error));*/
     this.socket.emit("login", {username, password});
-    this.socket.on("login", data => {console.log(data)
+    this.socket.on("login", data => {
       if (data.error)
         this.error(data.error);
       else {
@@ -232,7 +232,7 @@ export default class Api {
 
   signup (username, password, callback, error) {
 
-  	this.client.post("/auth/new", {username, password})
+  	/*this.client.post("/auth/new", {username, password})
   	.then(response => {
   		if (response.data.errorMessage !== undefined) {
   			console.log("sign up failed.");
@@ -243,7 +243,18 @@ export default class Api {
   		User.connect(response.data);
   		callback(response.data);
   	})
-  	.catch(this.error(error));
+  	.catch(this.error(error));*/
+    this.socket.emit("signup", {username, password});
+    this.socket.on("signup", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        User.connect(data);
+        console.log("signed up !");
+        callback(data);
+      }
+      this.socket.removeAllListeners('login');
+    })
   	console.log("Signing up...");
   }
 
