@@ -218,9 +218,10 @@ export default class Api {
   	.catch(this.error(error));*/
     this.socket.emit("login", {username, password});
     this.socket.on("login", data => {
-      if (data.error)
+      if (data.error) {
+        console.log(data.error);
         this.error(data.error);
-      else {
+      } else {
         User.connect(data);
         console.log("logged in !");
         callback(data);
@@ -246,8 +247,10 @@ export default class Api {
   	.catch(this.error(error));*/
     this.socket.emit("signup", {username, password});
     this.socket.on("signup", data => {
-      if (data.error)
+      if (data.error) {
+        console.log(data.error);
         this.error(data.error);
+      }
       else {
         User.connect(data);
         console.log("signed up !");
