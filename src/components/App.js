@@ -23,7 +23,7 @@ import Library from '../services/Library';
 import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 
-const serverURL = 'http://sensuba-server.francecentral.cloudapp.azure.com:8080'/* || 'https://sensuba.herokuapp.com/'*/;
+const serverURL = 'https://sensuba-server.francecentral.cloudapp.azure.com:8080'/* || 'https://sensuba.herokuapp.com/'*/;
 
 const nocards = 1150;
 
