@@ -33,26 +33,8 @@ export default class HomePage extends Component {
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
                 <h3>Une grande variété de cartes</h3>
-                <p>Explorez la collection pour découvrir les 400 cartes disponibles. Concevez les meilleures stratégies !</p>
+                <p>Explorez la collection pour découvrir les 1300 cartes disponibles. Concevez les meilleures stratégies !</p>
                 <button className="select-button" onClick={() => this.props.history.push("/cards")}>Voir la collection</button>
-              </div>
-            </div>
-            <div className="home-panel panel-right">
-              <img className="home-panel-background" src="/img4.jpg" alt="bg"/>
-              <div className="home-panel-filter"/>
-              <div className="home-panel-text">
-                <h3>Rejoignez-nous sur Discord</h3>
-                <p>Rencontrez la communauté et affrontez d'autres passionnés. En partageant votre expérience et votre temps avec les autres, vous supportez le jeu et vous améliorez en même temps.</p>
-                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">Ouvrir Discord</a>
-              </div>
-            </div>
-            <div className="home-panel panel-left">
-              <img className="home-panel-background" src="/img5.jpg" alt="bg"/>
-              <div className="home-panel-filter"/>
-              <div className="home-panel-text">
-                <h3>Supportez-nous</h3>
-                <p>Sensuba est un jeu complètement gratuit, mais nous coûte du temps et de l'argent. Gérer les serveurs et les données coûte de plus en plus au fil du temps. Si vous voulez que le jeu perdure ou souhaitez nous aidez, nous en serions très reconnaissants !</p>
-                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://www.patreon.com/flynnsp">Ouvrir Patreon</a>
               </div>
             </div>
           </div>
