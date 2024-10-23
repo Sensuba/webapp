@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from '../Card';
-import User from '../../../services/User';
+//import User from '../../../services/User';
 import { Form, Input, FormGroup, Label } from 'reactstrap';
 
 const IMGBB_API_KEY = "b4f9e0c243faf713fe8af060a29a9d8f";

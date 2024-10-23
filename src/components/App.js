@@ -25,7 +25,7 @@ import sorter from '../utility/CollectionSorter';
 
 const serverURL = 'https://sensuba-server.francecentral.cloudapp.azure.com:8080'/* || 'https://sensuba.herokuapp.com/'*/;
 
-const nocards = 1150;
+const nocards = 1300;
 
 const version = 1
 
@@ -180,7 +180,7 @@ export default class App extends Component {
     }, 500);
   }
 
-  updateDecks () {
+  updateDecks2 () {
 
     var sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
 
