@@ -11,7 +11,7 @@ export default class EditorPage extends Component {
 
   get currentCard() {
 
-    var cc = this.props.card;console.log(cc)
+    var cc = this.props.card;
     this.props.token.forEach(el => cc = cc.tokens[el]);
     return cc;
   }
