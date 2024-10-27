@@ -103,12 +103,12 @@ export default class EditorPage extends Component {
       if (this.props.card && this.props.card.idCardmodel && pd) {
         pd = JSON.parse(pd);
         var idcard = this.props.card.idCardmodel;
-        if (pd.hero.idCardmodel.toString() === idcard.toString()) {
+        if (pd.hero.toString() === idcard.toString()) {
           pd.hero = shadow;
           pd.hero.supercode = supercode;
         }
         for (var i = 0; i < pd.body.length; i++) {
-          if (pd.body[i].idCardmodel && pd.body[i].idCardmodel.toString() === idcard.toString()) {
+          if (pd.body[i] && pd.body[i].toString() === idcard.toString()) {
             pd.body[i] = shadow;
             pd.body[i].supercode = supercode;
           }

@@ -23,7 +23,7 @@ import Library from '../services/Library';
 import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 
-const serverURL = 'https://sensuba-server.francecentral.cloudapp.azure.com:8080'/* || 'https://sensuba.herokuapp.com/'*/;
+const serverURL = 'http://localhost:8080' || 'https://sensuba-server.francecentral.cloudapp.azure.com:8080'/* || 'https://sensuba.herokuapp.com/'*/;
 
 const nocards = 1300;
 
@@ -238,7 +238,7 @@ export default class App extends Component {
 
   updateCommonDecks () {
 
-    this.props.options.api.getCommonDecks(decks => {
+    /*this.props.options.api.getCommonDecks(decks => {
       if (decks && decks.length > 0) {
         var d = decks.map(deck => this.readObject(deck));
         d.forEach(deck => deck.format = "common")
@@ -246,16 +246,21 @@ export default class App extends Component {
         this.setState({cdecks: d});
         Library.updateCommonDecks(d);
       } else this.updateCommonDecks();
-    });
+    });*/
+
+    this.setState({cdecks: [
+      {"name":"Starter - Holo","idDeck":100001,"format":"common","hero":3,"cards":{101:2,103:2,105:2,124:2,128:2,131:2,152:2,156:2,158:2,239:2,257:2,305:2,320:2,328:2,779:2},"background":"https://i.imgur.com/c6ID1Nu.png"},
+      {"name":"Starter - Shana","idDeck":100002,"format":"common","hero":2,"cards":{101:2,103:2,105:2,111:2,115:2,165:2,169:2,172:2,185:2,193:2,226:2,232:2,320:2,328:2,372:2},"background":"https://i.imgur.com/Z2IXKV6.jpeg"}
+    ]})
   }
 
   updateCustoms () {
 
-    /*this.props.options.api.getCustomCards(cards => {
+    this.props.options.api.getCustomCards(cards => {
       var c = cards.map(card => this.readObject(card));
       this.setState({customCards: c});
       Library.updateCustoms(c);
-    }, err => this.setState({customCards: []}));*/
+    }, err => this.setState({customCards: []}));
   }
 
   updateCollection () {

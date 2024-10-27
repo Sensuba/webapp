@@ -41,6 +41,16 @@ export default class Api {
       this.error(error)(err);
       User.disconnect();
     });*/
+
+    this.socket.emit("savecustom", User.getData(), params);
+    this.socket.on("onsavecustom", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        callback(data);
+      }
+      this.socket.removeAllListeners('onsavecustom');
+    })
   }
 
   deleteCustomCards (id, callback, error) {
@@ -56,6 +66,16 @@ export default class Api {
       this.error(error)(err);
       User.disconnect();
     });*/
+
+    this.socket.emit("deletecustom", User.getData(), id);
+    this.socket.on("ondeletecustom", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        callback(data);
+      }
+      this.socket.removeAllListeners('ondeletecustom');
+    })
   }
 
   getCollection (callback, error) {
@@ -86,6 +106,16 @@ export default class Api {
       this.error(error)(err);
       User.disconnect();
     });*/
+
+    this.socket.emit("getcustoms", User.getData());
+    this.socket.on("customs", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        callback(data);
+      }
+      this.socket.removeAllListeners('customs');
+    })
   }
 
   getMyDecks (callback, error) {
