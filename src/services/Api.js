@@ -220,12 +220,22 @@ export default class Api {
 
   editProfile (profile, callback, error) {
 
-    this.addAuthorizationHeader();
+    /*this.addAuthorizationHeader();
     this.client.post("/user/profile", profile)
     .then(response => callback(response))
     .catch(err => {
       this.error(error)(err);
-    });
+    });*/
+
+    this.socket.emit("profile", User.getData(), profile);
+    this.socket.on("onprofile", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        callback(data);
+      }
+      this.socket.removeAllListeners('onprofile');
+    })
   }
 
   shop (props, callback, error) {
