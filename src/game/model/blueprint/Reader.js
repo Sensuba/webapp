@@ -136,6 +136,7 @@ var CurrentPlayer = require('./CurrentPlayer');
 var Analyse = require('./Analyse');
 var StartingDeck = require('./StartingDeck');
 var InnerData = require('./InnerData');
+var Mutant = require('./Mutant');
 var Token = require('./Token');
 var Timestamp = require('./Timestamp');
 var LimitBreak = require('./LimitBreak');
@@ -319,6 +320,7 @@ class Reader {
 			case "analyse": bloc = new Analyse(card, ctx); break;
 			case "startdeck": bloc = new StartingDeck(card, ctx); break;
 			case "innerdata": bloc = new InnerData(card, ctx); break;
+			case "mutant": bloc = new Mutant(card, ctx); break;
 			case "token": bloc = new Token(card, ctx); break;
 			case "current": bloc = new CurrentPlayer(card, ctx); break;
 			case "timestamp": bloc = new Timestamp(card, ctx); break;
