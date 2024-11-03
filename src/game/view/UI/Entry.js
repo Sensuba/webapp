@@ -76,7 +76,7 @@ export default class Entry extends Component {
         onMouseMove={e => this.showTooltip(e, src, true)}
         onMouseLeave={e => this.hideTooltip()}
         >
-    		{ src ? <img crossOrigin="Anonymous" className="history-entry-bg" src={this.props.value.type === "play" && src.cardType === "secret" ? "/game/secret.png" : (src.imgLink || "/game/back.png")} alt="History card preview"/> : <span/> }
+    		{ src ? <img className="history-entry-bg" src={this.props.value.type === "play" && src.cardType === "secret" ? "/game/secret.png" : (src.imgLink || "/game/back.png")} alt="History card preview"/> : <span/> }
 		</div>
     )
   }
