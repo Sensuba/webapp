@@ -23,7 +23,7 @@ import Library from '../services/Library';
 import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 
-const serverURL = 'https://sensuba-server.francecentral.cloudapp.azure.com:8080'/* || 'https://sensuba.herokuapp.com/'*/;
+const serverURL = 'http://localhost:8080'|| 'https://sensuba-server.francecentral.cloudapp.azure.com:8080'/* || 'https://sensuba.herokuapp.com/'*/;
 
 const nocards = 1300;
 
@@ -290,7 +290,7 @@ export default class App extends Component {
 
     var formats = {
       standard: { name: "Standard", cardlist: /*core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)))*/this.state.cards },
-      highlander: { name: "Highlander", cardlist: this.state.cards.filter(card => card.idCardmodel !== 787) },
+      highlander: { name: "Highlander", cardlist: this.state.cards.filter(card => card.idCardmodel !== 787 && card.idCardmodel !== 1346) },
       display: { name: "Display", cardlist: this.state.cards },
       custom: { name: "Custom", cardlist: /*core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customCards)*/this.state.cards.concat(this.state.customCards) }
     }
@@ -316,8 +316,8 @@ export default class App extends Component {
           formats.splice(formats.indexOf(f), 1);
       })
     })
-    if (c.length > 30)
-      formats = formats.filter(f => f !== "standard");
+    //if (c.length > 30)
+    //  formats = formats.filter(f => f !== "standard");
 
     return formats[0] || "display";
   }

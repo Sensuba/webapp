@@ -228,7 +228,7 @@ export default class Api {
     });*/
 
     this.socket.emit("profile", User.getData(), profile);
-    this.socket.on("onprofile", data => {
+    this.socket.on("onprofile", data => {console.log(data)
       if (data.error)
         this.error(data.error);
       else {
